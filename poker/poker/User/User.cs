@@ -17,5 +17,7 @@ namespace poker.User
             this.username = username;
         }
 
+        public int Id { get => id;}
+        public string Username { get => username; set => username = value; }
     }
 }
