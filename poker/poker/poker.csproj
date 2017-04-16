@@ -42,14 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\LeaguesData.cs" />
+    <Compile Include="Data\ILeaguesData.cs" />
     <Compile Include="Data\LeaguesByList.cs" />
-    <Compile Include="Data\UsersByList.cs" />
-    <Compile Include="Data\UsersData.cs" />
-    <Compile Include="Leagues\League.cs" />
+    <Compile Include="Data\PlayersByList.cs" />
+    <Compile Include="Data\IPlayersData.cs" />
+    <Compile Include="Center\Chat.cs" />
+    <Compile Include="Center\GameCenter.cs" />
+    <Compile Include="Center\IGame.cs" />
+    <Compile Include="Center\League.cs" />
+    <Compile Include="Center\LeagueManager.cs" />
+    <Compile Include="Center\Room.cs" />
+    <Compile Include="Players\PlayerAction.cs" />
+    <Compile Include="PokerGame\GamePlayer.cs" />
+    <Compile Include="PokerGame\GamePreferences.cs" />
+    <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\User.cs" />
+    <Compile Include="Players\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

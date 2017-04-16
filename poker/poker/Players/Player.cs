@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using poker.Leagues;
+using poker.Center;
 
-namespace poker.Users
+namespace poker.Players
 {
-    class User
+    class Player
     {
         private int id;
         private string username;
         private League league;
 
-        public User(int id, String username)
+        public Player(int id, String username, League league)
         {
             this.id = id;
             this.username = username;
+            this.league = league;
+            league.AddPlayerToLeague(this);
         }
 
         public int Id { get => id;}

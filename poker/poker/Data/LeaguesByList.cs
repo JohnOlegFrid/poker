@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using poker.Leagues;
+using poker.Center;
 
 namespace poker.Data
 {
-    class LeaguesByList : LeaguesData
+    class LeaguesByList : ILeaguesData
     {
         private List<League> leagues;
 
@@ -13,17 +13,17 @@ namespace poker.Data
             leagues = new List<League>();
         }
 
-        public void addLeague(League league)
+        public void AddLeague(League league)
         {
             leagues.Add(league);
         }
 
-        public void deleteLeague(League league)
+        public void DeleteLeague(League league)
         {
             leagues.Remove(league);
         }
 
-        public List<League> getAllLeagues()
+        public List<League> GetAllLeagues()
         {
             return leagues;
         }

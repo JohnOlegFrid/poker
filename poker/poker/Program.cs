@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Data;
-using poker.Users;
-using poker.Leagues;
+using poker.Players;
+using poker.Center;
 
 namespace poker
 {
@@ -13,40 +13,34 @@ namespace poker
     {
         static void Main(string[] args)
         {
-            LeaguesData leaguesDate = new LeaguesByList();
-            UsersData usersData = new UsersByList();
-
-            initData(leaguesDate, usersData);
+            ILeaguesData leaguesDate = new LeaguesByList();
+            IPlayersData usersData = new PlayersByList();
+            InitData(leaguesDate, usersData);
+            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues());           
 
             Console.ReadKey();
         }
 
-        private static void initData(LeaguesData leaguesDate, UsersData usersData)
+        private static void InitData(ILeaguesData leaguesDate, IPlayersData usersData)
         {
             // create Lagues
             League league1 = new League(1, "Level One");
             League league2 = new League(2, "Level Two");
             League league3 = new League(1, "Level Three");
-            leaguesDate.addLeague(league1);
-            leaguesDate.addLeague(league2);
-            leaguesDate.addLeague(league3);
+            leaguesDate.AddLeague(league1);
+            leaguesDate.AddLeague(league2);
+            leaguesDate.AddLeague(league3);
 
             // create Users
-
-            User user1 = new User(1, "eliran");
-            User user2 = new User(2, "oleg");
-            User user3 = new User(3, "moshe");
-            User user4 = new User(3, "slava");
-            usersData.addUser(user1);
-            usersData.addUser(user2);
-            usersData.addUser(user3);
-            usersData.addUser(user4);
-
-            // add users to Leagues
-            league1.addUserToLeague(user1);
-            league1.addUserToLeague(user2);
-            league2.addUserToLeague(user3);
-            league3.addUserToLeague(user4);
+            Player user1 = new Player(1, "eliran", league1);
+            Player user2 = new Player(2, "oleg", league1);
+            Player user3 = new Player(3, "moshe", league2);
+            Player user4 = new Player(3, "slava", league3);
+            usersData.AddPlayer(user1);
+            usersData.AddPlayer(user2);
+            usersData.AddPlayer(user3);
+            usersData.AddPlayer(user4);
+            
         }
     }
 }
