@@ -11,6 +11,7 @@ namespace poker
         static void Main(string[] args)
         {
             Console.WriteLine("true");
+            Console.ReadKey();
         }
     }
 }
