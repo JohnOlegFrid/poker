@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
-    interface IGame
+    public interface IGame
     {
     }
 }

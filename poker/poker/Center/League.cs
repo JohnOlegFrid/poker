@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
-    class League
+    public class League
     {
         private int id;
         private String name;
