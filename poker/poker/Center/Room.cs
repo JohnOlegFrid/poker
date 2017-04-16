@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
-    class Room
+    public class Room
     {
         private Chat chat;
         private IGame game;

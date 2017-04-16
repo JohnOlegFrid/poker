@@ -7,7 +7,7 @@ using poker.Center;
 
 namespace poker.Players
 {
-    class Player
+    public class Player
     {
         private int id;
         private string username;
