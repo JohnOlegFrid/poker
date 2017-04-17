@@ -15,5 +15,17 @@ namespace poker.Center
         {
             this.leagues = leagues;
         }
+        public List<IGame> getAllInActiveGames()
+        {
+            List<IGame> games = new List<IGame>();
+            foreach (League l in leagues)
+            {
+                foreach(Room r in l.Rooms)
+                {
+                    games.AddRange(r.PastGames);
+                }
+            }
+            return games;
+        }
     }
 }

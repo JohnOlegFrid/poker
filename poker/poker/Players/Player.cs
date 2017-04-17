@@ -23,8 +23,8 @@ namespace poker.Players
             league.AddPlayerToLeague(this);
         }
 
-        public int Id { get => id;}
-        public string Username { get => username; set => username = value; }
+        public int Id { get{ return id; } }
+        public string Username { get { return username; } set { username = value; } }
 
         public string GetEmail()
         {
@@ -48,6 +48,6 @@ namespace poker.Players
                 this.password = password;
         }
 
-        internal League League { get => league; set => league = value; }
+        internal League League { get { return league; } set { league = value; } }
     }
 }

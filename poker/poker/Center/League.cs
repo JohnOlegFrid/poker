@@ -29,9 +29,10 @@ namespace poker.Center
             this.rooms = rooms;
         }
 
-        public int Id { get => id; }
-        public string Name { get => name; set => name = value; }
-        public List<Player> PlayersInLeague { get => playersInLeague; set => playersInLeague = value; }
+        public int Id { get { return id; } }
+        public string Name { get { return name; } set { name = value; } }
+        public List<Player> PlayersInLeague { get { return playersInLeague; } set { playersInLeague = value; } }
+        public List<Room> Rooms{ get { return rooms; } set { rooms = value; } }
 
         public void RemovePlayerFromLeague(Player player)
         {
