@@ -9,7 +9,7 @@ using poker.Center;
 
 namespace poker
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -23,7 +23,7 @@ namespace poker
             Console.ReadKey();
         }
 
-        private static void InitData(ILeaguesData leaguesDate, IPlayersData usersData)
+        public static void InitData(ILeaguesData leaguesDate, IPlayersData usersData)
         {
             // create Lagues
             League league1 = new League(1, "Level One");
