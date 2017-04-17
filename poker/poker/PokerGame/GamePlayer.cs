@@ -7,7 +7,7 @@ using poker.Players;
 
 namespace poker.PokerGame
 {
-    class GamePlayer
+    public class GamePlayer
     {
         private Player player;
         private int money;    

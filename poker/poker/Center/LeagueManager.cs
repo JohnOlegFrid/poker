@@ -7,7 +7,7 @@ using poker.Players;
 
 namespace poker.Center
 {
-    class LeagueManager
+    public class LeagueManager
     {
         public void MovePlayerToLeauge(Player player, League league)
         {
