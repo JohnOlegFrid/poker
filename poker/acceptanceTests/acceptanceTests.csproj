@@ -10,8 +10,4 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Proxys\" />
-  </ItemGroup>
-
 </Project>
