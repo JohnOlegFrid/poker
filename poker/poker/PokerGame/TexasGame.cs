@@ -9,5 +9,16 @@ namespace poker.PokerGame
 {
     public class TexasGame : IGame
     {
+        private GamePreferences gamePreferences;
+
+        public TexasGame(GamePreferences gamePreferences)
+        {
+            this.gamePreferences = gamePreferences;
+        }
+
+        public bool isAllowSpectating()
+        {
+            return gamePreferences.AllowSpectating;
+        }
     }
 }

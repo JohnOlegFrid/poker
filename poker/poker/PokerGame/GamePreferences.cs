@@ -8,5 +8,13 @@ namespace poker.PokerGame
 {
     public class GamePreferences
     {
+        private bool allowSpectating;
+
+        public GamePreferences(bool allowSpectating)
+        {
+            this.allowSpectating = allowSpectating;
+        }
+
+        public bool AllowSpectating { get => allowSpectating; set => allowSpectating = value; }
     }
 }

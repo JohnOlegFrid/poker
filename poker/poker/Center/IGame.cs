@@ -8,5 +8,6 @@ namespace poker.Center
 {
     public interface IGame
     {
+        bool isAllowSpectating();
     }
 }
