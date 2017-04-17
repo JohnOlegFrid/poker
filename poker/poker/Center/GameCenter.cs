@@ -8,7 +8,7 @@ using poker.Players;
 namespace poker.Center
 {
     
-    class GameCenter
+    public class GameCenter
     {
         private List<League> leagues;
         private Player loggedPlayer;
@@ -23,7 +23,7 @@ namespace poker.Center
         {
             if (loggedPlayer == null) //optional argument
                 loggedPlayer = this.loggedPlayer;
-            return loggedPlayer.League.getAllActiveGames();
+            return loggedPlayer.League.GetAllActiveGames();
         }
     }
 }
