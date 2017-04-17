@@ -14,5 +14,7 @@ namespace poker.Data
         void AddLeague(League league);
 
         void DeleteLeague(League league);
+
+        League GetDefalutLeague();
     }
 }

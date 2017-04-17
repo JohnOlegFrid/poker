@@ -27,5 +27,10 @@ namespace poker.Data
         {
             return leagues;
         }
+
+        public League GetDefalutLeague()
+        {
+            return leagues[0];
+        }
     }
 }

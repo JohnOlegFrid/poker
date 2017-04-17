@@ -16,7 +16,9 @@ namespace poker
             ILeaguesData leaguesDate = new LeaguesByList();
             IPlayersData usersData = new PlayersByList();
             InitData(leaguesDate, usersData);
-            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues());           
+            Player playerLogged = new Player(5, "logged", "1234", "logged@gmail.com", leaguesDate.GetDefalutLeague());
+            usersData.AddPlayer(playerLogged);
+            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues(), playerLogged);           
 
             Console.ReadKey();
         }
@@ -35,7 +37,7 @@ namespace poker
             Player user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1);
             Player user2 = new Player(2, "oleg", "1234", "oleg@gmail.com", league1);
             Player user3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league2);
-            Player user4 = new Player(3, "slava", "1234", "slave@gmail.com", league3);
+            Player user4 = new Player(4, "slava", "1234", "slave@gmail.com", league3);
             usersData.AddPlayer(user1);
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
