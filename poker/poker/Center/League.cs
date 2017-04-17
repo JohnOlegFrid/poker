@@ -42,5 +42,16 @@ namespace poker.Center
         {
             playersInLeague.Add(player);
         }
+
+        public List<Room> getAllActiveGames()
+        {
+            List<Room> games = new List<Room>();
+            foreach(Room room in rooms)
+            {
+                if (room.HaveActiveGame)
+                    games.Add(room);
+            }
+            return games;
+        }
     }
 }

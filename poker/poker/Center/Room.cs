@@ -10,10 +10,14 @@ namespace poker.Center
     {
         private Chat chat;
         private IGame game;
+        private bool haveActiveGame;
 
         public Room(IGame game)
         {
             this.game = game;
+            this.haveActiveGame = false;
         }
+
+        public bool HaveActiveGame { get => haveActiveGame; set => haveActiveGame = value; }
     }
 }

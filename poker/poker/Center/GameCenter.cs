@@ -18,5 +18,12 @@ namespace poker.Center
             this.leagues = leagues;
             this.loggedPlayer = loggedPlayer;
         }
+
+        public List<Room> DisplayAvailablePokerGames(Player loggedPlayer = null)
+        {
+            if (loggedPlayer == null) //optional argument
+                loggedPlayer = this.loggedPlayer;
+            return loggedPlayer.League.getAllActiveGames();
+        }
     }
 }
