@@ -17,7 +17,7 @@ namespace poker
             IPlayersData usersData = new PlayersByList();
             InitData(leaguesDate, usersData);
             GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues());   
-
+            //just a check
             Console.ReadKey();
         }
 
