@@ -48,6 +48,6 @@ namespace poker.Players
                 this.password = password;
         }
 
-        public League League { get => league; set => league = value; }
+        public League League { get { return league; } set { league = value; } }
     }
 }

@@ -45,6 +45,6 @@ namespace poker.Center
             }
         }
 
-        public bool HaveActiveGame { get => haveActiveGame; set => haveActiveGame = value; }
+        public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
     }
 }

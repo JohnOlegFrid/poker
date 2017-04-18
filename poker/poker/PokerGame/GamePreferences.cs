@@ -75,6 +75,6 @@ namespace poker.PokerGame
 
         }
 
-        public bool AllowSpectating { get => allowSpectating; set => allowSpectating = value; }
+        public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
     }
 }
