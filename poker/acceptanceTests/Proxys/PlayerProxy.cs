@@ -12,12 +12,12 @@ namespace acceptanceTests.Proxys
             return false;
         }
 
-        public bool ChangeEmail(string newMail)
+        public bool ChangeEmail(string newMail, Player player)
         {
             return false;
         }
 
-        public bool ChangePassword(string newPassword)
+        public bool ChangePassword(string newPassword, Player player)
         {
             return false;
         }

@@ -9,9 +9,9 @@ namespace acceptanceTests
     {
         bool EditUserProfile(ProfileFeatures features, Player player);
 
-        bool ChangePassword(String newPassword);
+        bool ChangePassword(String newPassword, Player player);
 
-        bool ChangeEmail(String newMail);
+        bool ChangeEmail(String newMail, Player player);
 
         // use cases: player checks, calls, raises, folds.
 

@@ -6,5 +6,6 @@ namespace acceptanceTests.testObjects
 {
     class Preferences
     {
+
     }
 }
