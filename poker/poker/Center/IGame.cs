@@ -14,6 +14,6 @@ namespace poker.Center
         List<int> askToJoin();
         bool isActive();
         void finishGame();
-        void startGame(); 
+        void startGame();
     }
 }

@@ -23,7 +23,7 @@ namespace poker.Players
             league.AddPlayerToLeague(this);
         }
 
-        public int Id { get{ return id; } }
+        public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
 
         public string GetEmail()

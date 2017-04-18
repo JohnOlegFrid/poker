@@ -9,15 +9,15 @@ using poker.Center;
 
 namespace poker
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             ILeaguesData leaguesDate = new LeaguesByList();
             IPlayersData usersData = new PlayersByList();
             InitData(leaguesDate, usersData);
-            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues());   
-            //just a check
+            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues());
+
             Console.ReadKey();
         }
 
@@ -40,7 +40,7 @@ namespace poker
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            
+
         }
     }
 }
