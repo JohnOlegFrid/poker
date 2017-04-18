@@ -10,10 +10,22 @@ namespace poker.PokerGame
 {
     public class TexasGame : IGame
     {
-        private int maxPlayers;
-        private Player[] playersInGame;
+        private GamePlayer[] playersInGame;
         private List<Player> spectators;
         private bool active;
+        private bool finished;
+        private List<string> gameLog;
+        private GamePreferences gp;
+
+        public TexasGame(GamePreferences gp)
+        {
+            this.gp = gp;
+            playersInGame = new GamePlayer[this.gp.MaxPlayers];
+            spectators = new List<Player>();
+            active = false;
+            finished = false;
+            gameLog = new List<string>();
+        }
 
         public bool Active
         {
@@ -30,12 +42,32 @@ namespace poker.PokerGame
 
         public List<int> askToJoin()
         {
-            throw new NotImplementedException();
+            List<int> ans = new List<int>();
+            if (!finished)
+            {
+                for (int i = 0; i < gp.MaxPlayers; i++)
+                    if (playersInGame[i] == null)
+                        ans.Add(i);
+            }
+            return ans;
         }
 
-        public bool join(int amount)
+        public bool join(int amount, int chair, GamePlayer p)
         {
-            throw new NotImplementedException();
+            for(int i=0; i<gp.MaxPlayers;i++)
+            {
+                if ((playersInGame[i]!=null) && (playersInGame[i].Equals(p))) //a player can't join a game twice.
+                    return false;
+            }
+            if (playersInGame[chair] != null)
+                return false;
+            if (amount < gp.MinBuyIn || amount > gp.MaxBuyIn)
+                return false;
+            if (amount > p.Money)
+                return false;
+            playersInGame[chair] = p;
+            gameLog.Add(p.Player.Username + " joined the game.");
+            return true;
         }
 
         public bool isActive()
@@ -45,12 +77,25 @@ namespace poker.PokerGame
 
         public void finishGame()
         {
+            gameLog.Add("Game is finished.");
             Active = false;
+            finished = true;
         }
 
         public void startGame()
         {
+            gameLog.Add("Starting game.");
             Active = true;
+        }
+
+        public List<string> replayGame()
+        {
+            if(!isActive())
+            {
+                gameLog.Add("game replayed");
+                return gameLog;
+            }
+            return null;
         }
     }
 }

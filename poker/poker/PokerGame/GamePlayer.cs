@@ -19,5 +19,18 @@ namespace poker.PokerGame
         }
 
         public int Money { get { return money; } set { money = value; } }
+
+        public Player Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
+            }
+        }
     }
 }

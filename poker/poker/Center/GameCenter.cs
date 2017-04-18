@@ -27,5 +27,10 @@ namespace poker.Center
             }
             return games;
         }
+        public void replayGame(IGame game)
+        {
+            //will be modified in the future after adding UI.
+            game.replayGame();
+        }
     }
 }
