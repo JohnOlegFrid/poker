@@ -20,16 +20,16 @@ namespace poker.Center.Tests
         {
             Player logged = gameCenter.LoggedPlayer;
             League league = logged.League;
-            Room room1 = new Room(new TexasGame());
+            GamePreferences gp = new GamePreferences(4, 100, 1000, true);
+            Room room1 = new Room(new TexasGame(gp));
             league.AddRoom(room1);
             room1.HaveActiveGame = true;
-            Room room2 = new Room(new TexasGame())
+            Room room2 = new Room(new TexasGame(gp))
             {
                 HaveActiveGame = false
             };
             league.AddRoom(room2);
-            List<Room> activeGames = new List<Room>();
-            activeGames.Add(room1);
+            List<Room> activeGames = new List<Room> { room1 };
             // used emmpty GetAllActiveGame that use his field
             List<Room> listEmptyArgs = gameCenter.DisplayAvailablePokerGames();
             Assert.IsTrue(Enumerable.SequenceEqual(listEmptyArgs, activeGames));

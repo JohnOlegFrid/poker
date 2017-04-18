@@ -12,6 +12,7 @@ namespace poker.PokerGame
         private bool isPrivate;
         private int minBuyIn;
         private int maxBuyIn;
+        private bool allowSpectating;
 
         public int MaxPlayers
         {
@@ -65,19 +66,13 @@ namespace poker.PokerGame
             }
         }
 
-        public GamePreferences(int maxPlayers, bool isPrivate, int minBuyIn, int maxBuyIn)
+        public GamePreferences(int maxPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating)
         {
             this.maxPlayers = maxPlayers;
-            this.isPrivate = isPrivate;
             this.minBuyIn = minBuyIn;
             this.maxBuyIn = maxBuyIn;
-        }
-
-        private bool allowSpectating;
-
-        public GamePreferences(bool allowSpectating)
-        {
             this.allowSpectating = allowSpectating;
+
         }
 
         public bool AllowSpectating { get => allowSpectating; set => allowSpectating = value; }

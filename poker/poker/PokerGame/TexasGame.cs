@@ -15,12 +15,12 @@ namespace poker.PokerGame
         private bool active;
         private bool finished;
         private List<string> gameLog;
-        private GamePreferences gp;
+        private GamePreferences gamePreferences;
 
         public TexasGame(GamePreferences gp)
         {
-            this.gp = gp;
-            playersInGame = new GamePlayer[this.gp.MaxPlayers];
+            this.gamePreferences = gp;
+            playersInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             spectators = new List<Player>();
             active = false;
             finished = false;
@@ -45,7 +45,7 @@ namespace poker.PokerGame
             List<int> ans = new List<int>();
             if (!finished)
             {
-                for (int i = 0; i < gp.MaxPlayers; i++)
+                for (int i = 0; i < gamePreferences.MaxPlayers; i++)
                     if (playersInGame[i] == null)
                         ans.Add(i);
             }
@@ -54,14 +54,14 @@ namespace poker.PokerGame
 
         public bool join(int amount, int chair, GamePlayer p)
         {
-            for(int i=0; i<gp.MaxPlayers;i++)
+            for(int i=0; i<gamePreferences.MaxPlayers;i++)
             {
                 if ((playersInGame[i]!=null) && (playersInGame[i].Equals(p))) //a player can't join a game twice.
                     return false;
             }
             if (playersInGame[chair] != null)
                 return false;
-            if (amount < gp.MinBuyIn || amount > gp.MaxBuyIn)
+            if (amount < gamePreferences.MinBuyIn || amount > gamePreferences.MaxBuyIn)
                 return false;
             if (amount > p.Money)
                 return false;
@@ -98,12 +98,7 @@ namespace poker.PokerGame
         {
             return finished;
         }
-        private GamePreferences gamePreferences;
-
-        public TexasGame(GamePreferences gamePreferences)
-        {
-            this.gamePreferences = gamePreferences;
-        }
+        
 
         public bool isAllowSpectating()
         {

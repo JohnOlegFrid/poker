@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using poker.PokerGame;
 using poker.Center;
 
 namespace poker.PokerGame.Tests
@@ -14,10 +13,10 @@ namespace poker.PokerGame.Tests
     public class TexasGameTests
     {
         [TestMethod()]
-        public void isAllowSpectatingTest()
+        public void IsAllowSpectatingTest()
         {
-            GamePreferences prefAllow = new GamePreferences(true);
-            GamePreferences prefDisallow = new GamePreferences(false);
+            GamePreferences prefAllow = new GamePreferences(4,  100, 1000, true);
+            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false);
             IGame game1 = new TexasGame(prefAllow);
             Assert.IsTrue(game1.isAllowSpectating());
             IGame game2 = new TexasGame(prefDisallow);

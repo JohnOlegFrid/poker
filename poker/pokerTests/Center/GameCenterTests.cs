@@ -43,11 +43,12 @@ namespace poker.Center.Tests
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
             
-            Room r = new Room(new TexasGame(new GamePreferences(4, false, 100, 1000)));
+            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(5, false, 200, 1000)));
+            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true)));
             league1.Rooms.Add(r);
-            gameCenter = new GameCenter(leaguesData.GetAllLeagues());
+            
+            gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }
 
         [TestCleanup()]
@@ -74,15 +75,15 @@ namespace poker.Center.Tests
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            Room r = new Room(new TexasGame(new GamePreferences(4, false, 100, 1000)));
+            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(5, false, 200, 1000)));
+            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true)));
             league1.Rooms.Add(r);
-            gameCenter = new GameCenter(leaguesData.GetAllLeagues());
+            gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }
 
         [TestMethod()]
-        public void getAllFinishedGamesTest()
+        public void GetAllFinishedGamesTest()
         {
             List<IGame> inActiveGames = gameCenter.getAllFinishedGames();
             Assert.AreEqual(0, inActiveGames.Count);
@@ -93,7 +94,7 @@ namespace poker.Center.Tests
         }
 
         [TestMethod()]
-        public void replayGameTest()
+        public void ReplayGameTest()
         {
             List<IGame> inActiveGames = gameCenter.getAllFinishedGames();
             Assert.AreEqual(0, inActiveGames.Count);
