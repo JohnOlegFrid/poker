@@ -7,7 +7,7 @@ using poker.Center;
 
 namespace poker.PokerGame
 {
-    public class TexasGame : IGame
+    class TexasGame : IGame
     {
     }
 }

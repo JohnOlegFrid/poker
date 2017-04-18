@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
-    public class Chat
+    class Chat
     {
     }
 }

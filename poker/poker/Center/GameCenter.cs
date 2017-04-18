@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
-
-    public class GameCenter
+    
+    class GameCenter
     {
         private List<League> leagues;
         

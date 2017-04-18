@@ -4,7 +4,7 @@ using poker.Center;
 
 namespace poker.Data
 {
-    public class LeaguesByList : ILeaguesData
+    class LeaguesByList : ILeaguesData
     {
         private List<League> leagues;
 

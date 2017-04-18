@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.Players
 {
-    public class PlayerAction
+    class PlayerAction
     {
         public static void Login(Player player)
         {

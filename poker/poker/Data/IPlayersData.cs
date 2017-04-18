@@ -7,7 +7,7 @@ using poker.Players;
 
 namespace poker.Data
 {
-    public interface IPlayersData
+    interface IPlayersData
     {
         List<Player> GetAllPlayers();
 

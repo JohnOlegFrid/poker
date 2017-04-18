@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame
 {
-    public class GamePreferences
+    class GamePreferences
     {
     }
 }
