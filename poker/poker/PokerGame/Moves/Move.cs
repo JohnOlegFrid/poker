@@ -24,7 +24,7 @@ namespace poker.PokerGame.Moves
 
         public abstract Move DoAction();
 
-        public String ToString()
+        public override String ToString()
         {
             return "Player " + player.GetUsername() + " is " + name;
         }

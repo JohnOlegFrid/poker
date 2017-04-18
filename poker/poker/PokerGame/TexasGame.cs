@@ -89,7 +89,7 @@ namespace poker.PokerGame
         {
             gameLog.Add("Starting game.");
             Active = true;
-            activePlayerNumber = 0;
+            activePlayer = GetFirstPlayer();
         }
 
         public List<string> replayGame()
@@ -110,11 +110,13 @@ namespace poker.PokerGame
 
         public GamePlayer GetActivePlayer()
         {
-            return playersInGame[this.activePlayerNumber];
+            return playersInGame[this.activePlayer.ChairNum];
         }
 
         public void NextTurn()
         {
+            if (GetActivePlayer() == null)
+                return;
             Move currentMove = GetActivePlayer().Play();
             AddMoveToLog(currentMove);
             MoveToNextPlayer();
@@ -135,11 +137,16 @@ namespace poker.PokerGame
             int chair = activePlayer.ChairNum;
             for(int i=1; i<gamePreferences.MaxPlayers - chair; i++)
             {
-                if (chair < gamePreferences.MaxPlayers && playersInGame[chair + i] != null && !playersInGame[chair + i].IsFold())
+                if (chair+1 < gamePreferences.MaxPlayers && playersInGame[chair + i] != null && !playersInGame[chair + i].IsFold())
                     return playersInGame[chair + i];
 
             }
             return null;
+        }
+
+        public GamePlayer GetFirstPlayer()
+        {
+            return playersInGame[0];
         }
     }
 }
