@@ -55,6 +55,8 @@
     <Compile Include="Players\PlayerAction.cs" />
     <Compile Include="PokerGame\GamePlayer.cs" />
     <Compile Include="PokerGame\GamePreferences.cs" />
+    <Compile Include="PokerGame\Moves\Check.cs" />
+    <Compile Include="PokerGame\Moves\Move.cs" />
     <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

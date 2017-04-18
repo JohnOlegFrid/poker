@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.Center;
 using poker.Players;
+using poker.PokerGame.Moves;
 
 namespace poker.PokerGame
 {
@@ -16,6 +17,7 @@ namespace poker.PokerGame
         private bool finished;
         private List<string> gameLog;
         private GamePreferences gamePreferences;
+        private GamePlayer activePlayer;
 
         public TexasGame(GamePreferences gp)
         {
@@ -56,7 +58,7 @@ namespace poker.PokerGame
         {
             for(int i=0; i<gamePreferences.MaxPlayers;i++)
             {
-                if ((playersInGame[i]!=null) && (playersInGame[i].Equals(p))) //a player can't join a game twice.
+                if ((playersInGame[i] != null) && (playersInGame[i].Equals(p))) //a player can't join a game twice.
                     return false;
             }
             if (playersInGame[chair] != null)
@@ -66,6 +68,7 @@ namespace poker.PokerGame
             if (amount > p.Money)
                 return false;
             playersInGame[chair] = p;
+            p.ChairNum = chair;
             gameLog.Add(p.Player.Username + " joined the game.");
             return true;
         }
@@ -86,6 +89,7 @@ namespace poker.PokerGame
         {
             gameLog.Add("Starting game.");
             Active = true;
+            activePlayer = GetFirstPlayer();
         }
 
         public List<string> replayGame()
@@ -99,10 +103,50 @@ namespace poker.PokerGame
             return finished;
         }
         
-
         public bool isAllowSpectating()
         {
             return gamePreferences.AllowSpectating;
+        }
+
+        public GamePlayer GetActivePlayer()
+        {
+            return playersInGame[this.activePlayer.ChairNum];
+        }
+
+        public void NextTurn()
+        {
+            if (GetActivePlayer() == null)
+                return;
+            Move currentMove = GetActivePlayer().Play();
+            AddMoveToLog(currentMove);
+            MoveToNextPlayer();
+        }
+
+        private void MoveToNextPlayer()
+        {
+            activePlayer = GetNextPlayer();
+        }
+
+        private void AddMoveToLog(Move move)
+        {
+            gameLog.Add(move.ToString());
+        }
+
+        public GamePlayer GetNextPlayer()
+        {
+            int chair = activePlayer.ChairNum;
+            for(int i=1; i<gamePreferences.MaxPlayers - chair; i++)
+            {
+                if (chair+1 < gamePreferences.MaxPlayers && playersInGame[chair + i] != null && !playersInGame[chair + i].IsFold())
+                    return playersInGame[chair + i];
+
+            }
+            return null;
+        }
+
+        public GamePlayer GetFirstPlayer()
+        {
+            return playersInGame[0];
         }
     }
 }

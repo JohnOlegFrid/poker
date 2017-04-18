@@ -20,5 +20,12 @@ namespace poker.Center
         void startGame(); 
         bool isAllowSpectating();
         List<string> replayGame();
+        GamePlayer GetActivePlayer();
+        GamePlayer GetNextPlayer();
+        GamePlayer GetFirstPlayer();
+        void NextTurn();
+
+
+
     }
 }
