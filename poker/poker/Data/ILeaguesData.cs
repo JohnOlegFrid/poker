@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace poker.Data
 {
-    interface ILeaguesData
+    public interface ILeaguesData
     {
         List<League> GetAllLeagues();
 

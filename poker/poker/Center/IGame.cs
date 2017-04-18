@@ -15,6 +15,7 @@ namespace poker.Center
         //returns a list of numbers representing free seats from which the player will later on choose.
         List<int> askToJoin();
         bool isActive();
+        bool isFinished();
         void finishGame();
         void startGame();
         List<string> replayGame();

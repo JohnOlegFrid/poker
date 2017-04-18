@@ -90,12 +90,13 @@ namespace poker.PokerGame
 
         public List<string> replayGame()
         {
-            if(!isActive())
-            {
                 gameLog.Add("game replayed");
                 return gameLog;
-            }
-            return null;
+        }
+
+        public bool isFinished()
+        {
+            return finished;
         }
     }
 }

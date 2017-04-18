@@ -4,7 +4,7 @@ using poker.Players;
 
 namespace poker.Data
 {
-    class PlayersByList : IPlayersData
+    public class PlayersByList : IPlayersData
     {
         private List<Player> players;
 
