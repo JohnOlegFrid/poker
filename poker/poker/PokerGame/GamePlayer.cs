@@ -7,10 +7,10 @@ using poker.Players;
 
 namespace poker.PokerGame
 {
-    class GamePlayer
+    public class GamePlayer
     {
         private Player player;
-        private int money;    
+        private int money;
 
         public GamePlayer(Player player, int money)
         {
@@ -19,5 +19,18 @@ namespace poker.PokerGame
         }
 
         public int Money { get { return money; } set { money = value; } }
+
+        public Player Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
+            }
+        }
     }
 }

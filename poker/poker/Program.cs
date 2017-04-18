@@ -42,7 +42,7 @@ namespace poker
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            
+
         }
     }
 }
