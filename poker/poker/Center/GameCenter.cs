@@ -17,7 +17,11 @@ namespace poker.Center
             this.leagues = leagues;
             this.loggedPlayer = loggedPlayer;
         }
-        public Player LoggedPlayer { get => loggedPlayer; set => loggedPlayer = value; }
+        public Player LoggedPlayer
+        {
+            get { return loggedPlayer; }
+            set { loggedPlayer = value; }
+        }
 
         public List<Room> DisplayAvailablePokerGames(Player loggedPlayer = null)
         {
