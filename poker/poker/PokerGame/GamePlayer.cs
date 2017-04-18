@@ -18,6 +18,6 @@ namespace poker.PokerGame
             this.money = money;
         }
 
-        public int Money { get => money; set => money = value; }
+        public int Money { get { return money; } set { money = value; } }
     }
 }
