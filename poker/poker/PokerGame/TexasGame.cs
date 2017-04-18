@@ -8,7 +8,7 @@ using poker.Players;
 
 namespace poker.PokerGame
 {
-    class TexasGame : IGame
+    public class TexasGame : IGame
     {
         private int maxPlayers;
         private Player[] playersInGame;

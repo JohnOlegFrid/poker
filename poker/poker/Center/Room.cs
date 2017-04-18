@@ -10,6 +10,7 @@ namespace poker.Center
     {
         private Chat chat;
         private IGame game;
+        private bool haveActiveGame;
         private List<IGame> pastGames;
 
         public Room(IGame game)
@@ -43,5 +44,7 @@ namespace poker.Center
                 return pastGames;
             }
         }
+
+        public bool HaveActiveGame { get => haveActiveGame; set => haveActiveGame = value; }
     }
 }

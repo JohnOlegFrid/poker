@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace poker.Data
 {
-    interface ILeaguesData
+    public interface ILeaguesData
     {
         List<League> GetAllLeagues();
 
         void AddLeague(League league);
 
         void DeleteLeague(League league);
+
+        League GetDefalutLeague();
     }
 }
