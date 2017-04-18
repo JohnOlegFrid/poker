@@ -52,5 +52,16 @@ namespace poker.PokerGame
         {
             Active = true;
         }
+        private GamePreferences gamePreferences;
+
+        public TexasGame(GamePreferences gamePreferences)
+        {
+            this.gamePreferences = gamePreferences;
+        }
+
+        public bool isAllowSpectating()
+        {
+            return gamePreferences.AllowSpectating;
+        }
     }
 }

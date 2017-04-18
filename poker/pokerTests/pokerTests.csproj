@@ -59,6 +59,7 @@
     <Compile Include="Center\LeagueTests.cs" />
     <Compile Include="DataForTesting.cs" />
     <Compile Include="Players\PlayerTests.cs" />
+    <Compile Include="PokerGame\TexasGameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

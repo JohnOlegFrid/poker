@@ -15,5 +15,6 @@ namespace poker.Center
         bool isActive();
         void finishGame();
         void startGame(); 
+        bool isAllowSpectating();
     }
 }
