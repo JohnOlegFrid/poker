@@ -15,13 +15,21 @@ namespace acceptanceTests
 
         // use cases: player checks, calls, raises, folds.
 
-        bool Check();
+        bool Check(Game game, Player player);
 
-        bool Call();
+        bool Call(Game game, Player player);
 
-        bool Fold();
+        bool Fold(Game game, Player player);
 
-        bool Raise(int amount);
+        bool Raise(Game game, Player player, int amount);
+
+        void InitPlayers();
+
+        void InitGame();
+
+        Player getPlayer(int player);
+
+        Game getGame();
 
         //--------------------------------------------
     }

@@ -11,11 +11,14 @@ namespace acceptanceTests
     {
         private IPlayerBridge playerBridge;
         private Player player1, player2;
+        private Game game;
 
-        public PlayerTest(String testType)
+        public PlayerTest()
         {
-            SetTestInterface(testType);
-            InitPlayers();
+            SetTestInterface("Proxy");
+            playerBridge.InitPlayers();
+            player1 = playerBridge.getPlayer(0);
+            player1 = playerBridge.getPlayer(1);
         }
 
 
@@ -32,25 +35,6 @@ namespace acceptanceTests
             else Console.WriteLine("Unkonwn Interface");
         }
 
-        private void InitPlayers()
-        {
-            ProfileFeatures pf1 = new ProfileFeatures();
-            ProfileFeatures pf2 = new ProfileFeatures();
-
-            pf1.eMail = "Player1@gmail.com";
-            pf1.password = "stupid123";
-            pf1.username = "CrazyHorse";
-
-            pf2.eMail = "Player2@post.bgu.ac.il";
-            pf2.password = "1234Fool";
-            pf2.username = "SlavaBliat";
-
-            player1.name = "Yossi";
-            player1.features = pf1;
-
-            player2.name = "Slava";
-            player2.features = pf2;
-        }
 
 
         [TestMethod]
@@ -84,6 +68,64 @@ namespace acceptanceTests
             {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod]
+        public void TestCall()
+        {
+            playerBridge.InitPlayers();
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            Assert.IsTrue(playerBridge.Call(game, player2));
+            Assert.IsTrue(playerBridge.Call(game, player2));
+            Assert.IsTrue(playerBridge.Call(game, player1));
+            game.gamePlayers[0].chips = 0;
+            game.gamePot = 80;
+            Assert.IsTrue(playerBridge.Call(game, player1));
+        }
+
+        [TestMethod]
+        public void TestCheck()
+        {
+            playerBridge.InitPlayers();
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            Assert.IsTrue(playerBridge.Check(game, player2));
+            Assert.IsTrue(playerBridge.Check(game, player2));
+            Assert.IsTrue(playerBridge.Check(game, player1));
+            game.gamePlayers[0].chips = 0;
+            game.gamePot = 80;
+            Assert.IsTrue(playerBridge.Check(game, player1));
+        }
+
+        [TestMethod]
+        public void TestRaise()
+        {
+            playerBridge.InitPlayers();
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            Assert.IsTrue(playerBridge.Raise(game, player2, 100));
+            Assert.IsTrue(player2.chips == 500);
+            Assert.IsTrue(playerBridge.Raise(game, player1, 200));
+            Assert.IsFalse(playerBridge.Raise(game, player1, 50));
+            Assert.IsFalse(playerBridge.Raise(game, player2, 5));
+            Assert.IsTrue(playerBridge.Raise(game, player2, 50));
+            Assert.IsTrue(playerBridge.Call(game, player1));
+            game.gamePlayers[1].chips = 0;
+            game.gamePot = 390;
+            Assert.IsFalse(playerBridge.Raise(game, player2, player2.chips));
+        }
+
+        public void TestFold()
+        {
+            playerBridge.InitPlayers();
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            Assert.IsTrue(playerBridge.Fold(game, player2));
+            Assert.IsTrue(game.gamePot==40);//current pot
+            Assert.IsTrue(playerBridge.Fold(game, player1));
+            Assert.IsTrue(game.gamePot == 10);//big blind
+            Assert.IsFalse(playerBridge.Fold(game, player1));
         }
 
     }
