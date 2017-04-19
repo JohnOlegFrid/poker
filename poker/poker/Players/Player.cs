@@ -10,6 +10,7 @@ namespace poker.Players
     public class Player
     {
         private int id;
+        private int rank;
         private string username;
         private String password;
         private String email;
@@ -20,11 +21,13 @@ namespace poker.Players
             this.id = id;
             this.username = username;
             this.league = league;
+            rank = 0;
             league.AddPlayerToLeague(this);
         }
 
         public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
+        public int Rank { get { return rank; } set { rank = value} }
 
         public string GetEmail()
         {
