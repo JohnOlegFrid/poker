@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using poker.Data;
 
 namespace poker.Players
 {
-    class PlayerAction
+    public class PlayerAction
     {
-        public static void Login(Player player)
+        public static Player Login(String username , String password, IPlayersData date)
         {
-            //TODO create login   
+            Player player = date.FindPlayerByUsername(username);
+            if (player == null || !player.GetPassword().Equals(password))
+                return null;
+            return player;
         }
 
         public static Player Register()
