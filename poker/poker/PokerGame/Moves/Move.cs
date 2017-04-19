@@ -22,11 +22,16 @@ namespace poker.PokerGame.Moves
         public string Name { get { return name; } set { name = value; }}
         public int Amount { get { return amount; } set { amount = value; } }
 
+        public GamePlayer Player { get { return player; }}
+
         public abstract Move DoAction();
 
         public override String ToString()
         {
-            return "Player " + player.GetUsername() + " is " + name;
+            String s =  "Player " + player.GetUsername() + " is " + name;
+            if (amount > 0)
+                s += " By " + amount;
+            return s;
         }
     }
 }

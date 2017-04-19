@@ -53,10 +53,16 @@
     <Compile Include="Center\LeagueManager.cs" />
     <Compile Include="Center\Room.cs" />
     <Compile Include="Players\PlayerAction.cs" />
+    <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
+    <Compile Include="PokerGame\Exceptions\NotEnoughMoneyException.cs" />
+    <Compile Include="PokerGame\Exceptions\PokerExceptions.cs" />
     <Compile Include="PokerGame\GamePlayer.cs" />
     <Compile Include="PokerGame\GamePreferences.cs" />
+    <Compile Include="PokerGame\Moves\Call.cs" />
     <Compile Include="PokerGame\Moves\Check.cs" />
+    <Compile Include="PokerGame\Moves\Fold.cs" />
     <Compile Include="PokerGame\Moves\Move.cs" />
+    <Compile Include="PokerGame\Moves\Raise.cs" />
     <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

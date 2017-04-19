@@ -9,10 +9,11 @@ namespace poker.PokerGame
     public class GamePreferences
     {
         private int maxPlayers;
-        private bool isPrivate;
         private int minBuyIn;
         private int maxBuyIn;
         private bool allowSpectating;
+        private int smallBlind;
+        private int bigBlind;
 
         public int MaxPlayers
         {
@@ -27,18 +28,6 @@ namespace poker.PokerGame
             }
         }
 
-        public bool IsPrivate
-        {
-            get
-            {
-                return isPrivate;
-            }
-
-            set
-            {
-                isPrivate = value;
-            }
-        }
 
         public int MinBuyIn
         {
@@ -50,6 +39,32 @@ namespace poker.PokerGame
             set
             {
                 minBuyIn = value;
+            }
+        }
+
+        public int BigBlind
+        {
+            get
+            {
+                return bigBlind;
+            }
+
+            set
+            {
+                bigBlind = value;
+            }
+        }
+
+        public int SmallBlind
+        {
+            get
+            {
+                return smallBlind;
+            }
+
+            set
+            {
+                smallBlind = value;
             }
         }
 
@@ -66,13 +81,14 @@ namespace poker.PokerGame
             }
         }
 
-        public GamePreferences(int maxPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating)
+        public GamePreferences(int maxPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
         {
             this.maxPlayers = maxPlayers;
             this.minBuyIn = minBuyIn;
             this.maxBuyIn = maxBuyIn;
             this.allowSpectating = allowSpectating;
-
+            this.bigBlind = bigBlind;
+            this.smallBlind = bigBlind / 2;
         }
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }

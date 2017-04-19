@@ -29,7 +29,7 @@ namespace poker.Center
                 loggedPlayer = this.loggedPlayer;
             return loggedPlayer.League.GetAllActiveGames();
         }
-        public List<IGame> getAllFinishedGames()
+        public List<IGame> GetAllFinishedGames()
         {
             List<IGame> games = new List<IGame>();
             foreach (League l in leagues)
@@ -42,12 +42,12 @@ namespace poker.Center
             }
             return games;
         }
-        public string replayGame(IGame game)
+        public string ReplayGame(IGame game)
         {
             //will be modified in the future after adding UI.
             string ans = "";
-            if (game.isFinished())
-                foreach (string s in game.replayGame())
+            if (!game.IsActive())
+                foreach (string s in game.ReplayGame())
                 {
                     ans = ans + s + "/n";
                 }
