@@ -17,12 +17,12 @@ namespace poker.PokerGame.Tests
         [TestMethod()]
         public void IsAllowSpectatingTest()
         {
-            GamePreferences prefAllow = new GamePreferences(4,  100, 1000, true);
-            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false);
+            GamePreferences prefAllow = new GamePreferences(4,  100, 1000, true, 100);
+            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false, 100);
             IGame game1 = new TexasGame(prefAllow);
-            Assert.IsTrue(game1.isAllowSpectating());
+            Assert.IsTrue(game1.IsAllowSpectating());
             IGame game2 = new TexasGame(prefDisallow);
-            Assert.IsFalse(game2.isAllowSpectating());
+            Assert.IsFalse(game2.IsAllowSpectating());
         }
 
         [TestMethod()]
@@ -30,7 +30,7 @@ namespace poker.PokerGame.Tests
         {
             Player logged = gameCenter.LoggedPlayer;
             League league = logged.League;
-            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true);
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -44,7 +44,7 @@ namespace poker.PokerGame.Tests
         {
             Player logged = gameCenter.LoggedPlayer;
             League league = logged.League;
-            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true);
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -52,11 +52,11 @@ namespace poker.PokerGame.Tests
             p1.NextMove= new Check(p1);
             p2.NextMove = new Check(p2);
             p3.NextMove = new Check(p3);
-            game1.join(100, 0, p1);
-            game1.join(100, 1, p2);
-            game1.join(100, 2, p3);
+            game1.Join(100, 0, p1);
+            game1.Join(100, 1, p2);
+            game1.Join(100, 2, p3);
             GamePlayer firstPlayer = game1.GetFirstPlayer();
-            game1.startGame();       
+            game1.StartGame();       
             GamePlayer nextPlayer = game1.GetNextPlayer();
             game1.NextTurn();
             Assert.AreSame(p2, nextPlayer);        
@@ -70,7 +70,7 @@ namespace poker.PokerGame.Tests
         {
             Player logged = gameCenter.LoggedPlayer;
             League league = logged.League;
-            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true);
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -78,11 +78,11 @@ namespace poker.PokerGame.Tests
             p1.NextMove = new Check(p1);
             p2.NextMove = new Check(p2);
             p3.NextMove = new Check(p3);
-            game1.join(100, 0, p1);
-            game1.join(100, 1, p2);
-            game1.join(100, 2, p3);
+            game1.Join(100, 0, p1);
+            game1.Join(100, 1, p2);
+            game1.Join(100, 2, p3);
             GamePlayer firstPlayer = game1.GetFirstPlayer();
-            game1.startGame();
+            game1.StartGame();
             GamePlayer nextPlayer = game1.GetNextPlayer();
             game1.NextTurn();
             Assert.AreSame(p2, nextPlayer);

@@ -28,9 +28,9 @@ namespace poker.Center
 
             set
             {
-                if (game != null && game.isActive())
+                if (game != null && game.IsActive())
                 {
-                    game.finishGame();
+                    game.FinishGame();
                     pastGames.Add(game);
                 }
                 game = value;

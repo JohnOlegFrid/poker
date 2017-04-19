@@ -43,9 +43,9 @@ namespace poker.Center.Tests
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
             
-            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true)));
+            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true, 100)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true)));
+            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true, 100)));
             league1.Rooms.Add(r);
             
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
@@ -75,9 +75,9 @@ namespace poker.Center.Tests
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true)));
+            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true, 100)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true)));
+            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true, 100)));
             league1.Rooms.Add(r);
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }
@@ -85,25 +85,25 @@ namespace poker.Center.Tests
         [TestMethod()]
         public void GetAllFinishedGamesTest()
         {
-            List<IGame> inActiveGames = gameCenter.getAllFinishedGames();
+            List<IGame> inActiveGames = gameCenter.GetAllFinishedGames();
             Assert.AreEqual(0, inActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.startGame();
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game=null;
-            inActiveGames = gameCenter.getAllFinishedGames();
+            inActiveGames = gameCenter.GetAllFinishedGames();
             Assert.AreEqual(1, inActiveGames.Count);
         }
 
         [TestMethod()]
         public void ReplayGameTest()
         {
-            List<IGame> inActiveGames = gameCenter.getAllFinishedGames();
+            List<IGame> inActiveGames = gameCenter.GetAllFinishedGames();
             Assert.AreEqual(0, inActiveGames.Count);
-            Assert.AreEqual("game is not finished, can't replay", gameCenter.replayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.startGame();
-            Assert.AreEqual("game is not finished, can't replay", gameCenter.replayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
+            Assert.AreEqual("game is not finished, can't replay", gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
+            Assert.AreEqual("game is not finished, can't replay", gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
-            inActiveGames = gameCenter.getAllFinishedGames();
-            Assert.AreNotEqual("game is not finished, can't replay",gameCenter.replayGame(inActiveGames.ElementAt(0)));
+            inActiveGames = gameCenter.GetAllFinishedGames();
+            Assert.AreNotEqual("game is not finished, can't replay",gameCenter.ReplayGame(inActiveGames.ElementAt(0)));
         }
     }
 }

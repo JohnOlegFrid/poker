@@ -15,7 +15,6 @@ namespace poker.PokerGame
         private GamePlayer[] playersInGame;
         private List<Player> spectators;
         private bool active;
-        private bool finished;
         private List<string> gameLog;
         private GamePreferences gamePreferences;
         private GamePlayer activePlayer;
@@ -27,8 +26,7 @@ namespace poker.PokerGame
             this.gamePreferences = gp;
             playersInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             spectators = new List<Player>();
-            active = false;
-            finished = false;
+            active = true;
             gameLog = new List<string>();
             pot = 0;
         }
@@ -46,10 +44,10 @@ namespace poker.PokerGame
             }
         }
 
-        public List<int> askToJoin()
+        public List<int> AskToJoin()
         {
             List<int> ans = new List<int>();
-            if (!finished)
+            if (active)
             {
                 for (int i = 0; i < gamePreferences.MaxPlayers; i++)
                     if (playersInGame[i] == null)
@@ -58,7 +56,7 @@ namespace poker.PokerGame
             return ans;
         }
 
-        public bool join(int amount, int chair, GamePlayer p)
+        public bool Join(int amount, int chair, GamePlayer p)
         {
             for(int i=0; i<gamePreferences.MaxPlayers;i++)
             {
@@ -77,19 +75,18 @@ namespace poker.PokerGame
             return true;
         }
 
-        public bool isActive()
+        public bool IsActive()
         {
             return Active;
         }
 
-        public void finishGame()
+        public void FinishGame()
         {
             gameLog.Add("Game is finished.");
             Active = false;
-            finished = true;
         }
 
-        public void startGame()
+        public void StartGame()
         {
             gameLog.Add("Starting game.");
             Active = true;
@@ -98,18 +95,13 @@ namespace poker.PokerGame
             this.highestBet = 0;
         }
 
-        public List<string> replayGame()
+        public List<string> ReplayGame()
         {
                 gameLog.Add("game replayed");
                 return gameLog;
         }
-
-        public bool isFinished()
-        {
-            return finished;
-        }
         
-        public bool isAllowSpectating()
+        public bool IsAllowSpectating()
         {
             return gamePreferences.AllowSpectating;
         }
