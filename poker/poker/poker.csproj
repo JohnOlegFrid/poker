@@ -59,6 +59,7 @@
     <Compile Include="PokerGame\GamePreferences.cs" />
     <Compile Include="PokerGame\Moves\Call.cs" />
     <Compile Include="PokerGame\Moves\Check.cs" />
+    <Compile Include="PokerGame\Moves\Fold.cs" />
     <Compile Include="PokerGame\Moves\Move.cs" />
     <Compile Include="PokerGame\Moves\Raise.cs" />
     <Compile Include="PokerGame\TexasGame.cs" />

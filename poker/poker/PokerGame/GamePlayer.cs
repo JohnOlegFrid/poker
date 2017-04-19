@@ -65,5 +65,11 @@ namespace poker.PokerGame
             return Call(raise);
         }
 
+        public Move Fold(Fold fold)
+        {
+            this.isFold = true;
+            return fold;
+        }
+
     }
 }
