@@ -18,6 +18,7 @@ namespace poker.PokerGame
         private List<string> gameLog;
         private GamePreferences gamePreferences;
         private GamePlayer activePlayer;
+        private int pot;
 
         public TexasGame(GamePreferences gp)
         {
@@ -27,6 +28,7 @@ namespace poker.PokerGame
             active = false;
             finished = false;
             gameLog = new List<string>();
+            pot = 0;
         }
 
         public bool Active
@@ -118,8 +120,14 @@ namespace poker.PokerGame
             if (GetActivePlayer() == null)
                 return;
             Move currentMove = GetActivePlayer().Play();
+            AddMoveToPot(currentMove);
             AddMoveToLog(currentMove);
             MoveToNextPlayer();
+        }
+
+        private void AddMoveToPot(Move currentMove)
+        {
+            this.pot += currentMove.Amount;
         }
 
         private void MoveToNextPlayer()

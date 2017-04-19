@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
 using poker.PokerGame.Moves;
+using poker.PokerGame.Exceptions;
 
 namespace poker.PokerGame
 {
@@ -30,6 +31,10 @@ namespace poker.PokerGame
         public Move NextMove { get { return nextMove; } set { nextMove = value; } }
 
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
+        public String GetUsername()
+        {
+            return player.Username;
+        }
 
         public bool IsFold()
         {
@@ -41,9 +46,13 @@ namespace poker.PokerGame
             return nextMove.DoAction(); 
         }
 
-        public String GetUsername()
+        public Move Call(Call call)
         {
-            return player.Username;
+            int balance = call.Amount - money;
+            if (balance < 0)
+                throw new NotEnoughMoneyException("You need more " + (balance * -1));
+            this.money -= call.Amount;
+            return call;
         }
 
     }

@@ -64,5 +64,31 @@ namespace poker.PokerGame.Tests
             Assert.AreSame(p3, nextPlayer);
             game1.NextTurn();
         }
+
+        [TestMethod()]
+        public void CallAndRaiseTest()
+        {
+            Player logged = gameCenter.LoggedPlayer;
+            League league = logged.League;
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true);
+            IGame game1 = new TexasGame(prefAllow);
+            GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
+            GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
+            GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
+            p1.NextMove = new Check(p1);
+            p2.NextMove = new Check(p2);
+            p3.NextMove = new Check(p3);
+            game1.join(100, 0, p1);
+            game1.join(100, 1, p2);
+            game1.join(100, 2, p3);
+            GamePlayer firstPlayer = game1.GetFirstPlayer();
+            game1.startGame();
+            GamePlayer nextPlayer = game1.GetNextPlayer();
+            game1.NextTurn();
+            Assert.AreSame(p2, nextPlayer);
+            nextPlayer = game1.GetNextPlayer();
+            Assert.AreSame(p3, nextPlayer);
+            game1.NextTurn();
+        }
     }
 }
