@@ -32,7 +32,7 @@ namespace poker.Cards
             {
                 for (int cardNumberIndex = 0; cardNumberIndex < 13; cardNumberIndex++)
                 {
-                    deck.Cards.Add(new Card((CardNumber)cardNumberIndex, (Suit)suitIndex));
+                    deck.Cards.Add(new Card((CardNumber)cardNumberIndex, (Suits)suitIndex));
                 }
             }
             return deck;
@@ -85,6 +85,11 @@ namespace poker.Cards
 
                 Cards.Add(cardToShuffle);
             }
+        }
+
+        public override string ToString()
+        {
+            return "Deck[" + Count() + " cards]";
         }
     }
 }
