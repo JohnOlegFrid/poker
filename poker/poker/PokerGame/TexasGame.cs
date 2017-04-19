@@ -131,11 +131,20 @@ namespace poker.PokerGame
 
         private void AddMoveToPot(Move currentMove)
         {
-            if (currentMove.Amount != 0 && currentMove.Amount < gamePreferences.BigBlind)
-                throw new SmallThenBigBlindException("Error! , you need at least " + gamePreferences.BigBlind);
+            ValidateMoveIsLeagal(currentMove);
             this.pot += currentMove.Amount;
             if (currentMove.Player.CurrentBet > this.highestBet)
                 this.highestBet = currentMove.Player.CurrentBet;
+        }
+
+        private void ValidateMoveIsLeagal(Move currentMove)
+        {
+            //TODO 3 GAME MODE
+            if (currentMove.Amount == 0)
+                return;
+            if(currentMove.Amount < gamePreferences.BigBlind)
+                throw new IllegalMoveException("Error!, you can raise at least "+ gamePreferences.BigBlind);
+            return;
         }
 
         private void MoveToNextPlayer()

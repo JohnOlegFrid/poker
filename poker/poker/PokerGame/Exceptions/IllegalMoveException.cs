@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame.Exceptions
 {
-    class SmallThenBigBlindException : Exception
+    class IllegalMoveException : Exception
     {
-        public SmallThenBigBlindException(string message) : base(message) { }
+        public IllegalMoveException(string message) : base(message) { }
     }
 }
