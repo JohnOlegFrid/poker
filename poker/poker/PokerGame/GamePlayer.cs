@@ -47,12 +47,19 @@ namespace poker.PokerGame
 
         public Move Play()
         {
-            return nextMove.DoAction(); 
+            try
+            {
+                return nextMove.DoAction();
+            }
+            catch (PokerExceptions pe)
+            {
+                return null;
+            }
         }
 
         public Move Call(Move call)
         {
-            int balance = call.Amount - money;
+            int balance = money - call.Amount;
             if (balance < 0)
                 throw new NotEnoughMoneyException("You need more " + (balance * -1));
             this.money -= call.Amount;
@@ -60,6 +67,7 @@ namespace poker.PokerGame
             return call;
         }
 
+        //Raise amount = call amount + more amount
         public Move Raise(Raise raise)
         {
             return Call(raise);
@@ -71,5 +79,15 @@ namespace poker.PokerGame
             return fold;
         }
 
+        public void CancelMove(Move currentMove)
+        {
+            this.money += currentMove.Amount;
+            this.currentBet -= currentMove.Amount;
+        }
+
+        public override string ToString()
+        {
+            return player.Username;
+        }
     }
 }

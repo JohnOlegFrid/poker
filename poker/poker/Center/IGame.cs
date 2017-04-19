@@ -24,6 +24,8 @@ namespace poker.Center
         GamePlayer GetFirstPlayer();
         void NextTurn();
 
+        void NextRound();
+
 
 
     }

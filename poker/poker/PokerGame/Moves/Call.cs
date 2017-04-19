@@ -8,7 +8,7 @@ namespace poker.PokerGame.Moves
 {
     public class Call : Move
     {
-        public Call(string name, int amount, GamePlayer player) : base("Call", amount, player) { }
+        public Call(int amount, GamePlayer player) : base("Call", amount, player) { }
 
 
         public override Move DoAction()

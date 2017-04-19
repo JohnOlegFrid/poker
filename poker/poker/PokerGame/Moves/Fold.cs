@@ -8,7 +8,7 @@ namespace poker.PokerGame.Moves
 {
     public class Fold : Move
     {
-        public Fold(string name, GamePlayer player) : base("Fold", 0, player) { }
+        public Fold(GamePlayer player) : base("Fold", 0, player) { }
 
         public override Move DoAction()
         {

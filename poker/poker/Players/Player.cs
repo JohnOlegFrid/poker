@@ -49,5 +49,6 @@ namespace poker.Players
         }
 
         public League League { get { return league; } set { league = value; } }
+
     }
 }

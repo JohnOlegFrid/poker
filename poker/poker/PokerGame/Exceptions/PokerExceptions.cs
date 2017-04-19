@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame.Exceptions
 {
-    class NotEnoughMoneyException : PokerExceptions
+    public abstract class PokerExceptions : Exception
     {
-        public NotEnoughMoneyException(string message) : base(message) { }
-    }
+        public PokerExceptions(string message) : base(message) { }
+}
 }

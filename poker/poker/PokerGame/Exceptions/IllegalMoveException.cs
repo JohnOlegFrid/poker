@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame.Exceptions
 {
-    class IllegalMoveException : Exception
+    class IllegalMoveException : PokerExceptions
     {
         public IllegalMoveException(string message) : base(message) { }
     }

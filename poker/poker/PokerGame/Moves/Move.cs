@@ -28,7 +28,10 @@ namespace poker.PokerGame.Moves
 
         public override String ToString()
         {
-            return "Player " + player.GetUsername() + " is " + name;
+            String s =  "Player " + player.GetUsername() + " is " + name;
+            if (amount > 0)
+                s += " By " + amount;
+            return s;
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Players\PlayerAction.cs" />
     <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
     <Compile Include="PokerGame\Exceptions\NotEnoughMoneyException.cs" />
+    <Compile Include="PokerGame\Exceptions\PokerExceptions.cs" />
     <Compile Include="PokerGame\GamePlayer.cs" />
     <Compile Include="PokerGame\GamePreferences.cs" />
     <Compile Include="PokerGame\Moves\Call.cs" />
