@@ -67,7 +67,7 @@ namespace poker.Center
 
         public Player GetHiggestRankPlayer()
         {
-            Player bestPlayer, currentPlayer;
+            Player bestPlayer = null, currentPlayer;
             int bestPlayerRank = -1;
             foreach(League league in leagues)
             {

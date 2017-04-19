@@ -27,7 +27,7 @@ namespace poker.Players
 
         public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
-        public int Rank { get { return rank; } set { rank = value} }
+        public int Rank { get { return rank; } set { rank = value;  } }
 
         public string GetEmail()
         {
