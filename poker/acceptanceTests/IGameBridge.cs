@@ -32,7 +32,9 @@ namespace acceptanceTests
 
         bool SaveFavoriteTurns(Game game);
 
+        Game getGame();
 
+        void InitGame();
 
 
     }
