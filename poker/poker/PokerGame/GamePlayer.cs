@@ -16,15 +16,19 @@ namespace poker.PokerGame
         private int money;
         private bool isFold;
         private Move nextMove;
+        private int currentBet;
 
         public GamePlayer(Player player, int money)
         {
             this.player = player;
             this.money = money;
             isFold = false;
+            currentBet = 0;
         }
 
         public int Money { get { return money; } set { money = value; } }
+
+        public int CurrentBet { get { return currentBet; } set { currentBet = value; } }
 
         public Player Player { get { return player; } set { player = value; } }
 
@@ -46,13 +50,19 @@ namespace poker.PokerGame
             return nextMove.DoAction(); 
         }
 
-        public Move Call(Call call)
+        public Move Call(Move call)
         {
             int balance = call.Amount - money;
             if (balance < 0)
                 throw new NotEnoughMoneyException("You need more " + (balance * -1));
             this.money -= call.Amount;
+            this.currentBet += call.Amount;
             return call;
+        }
+
+        public Move Raise(Raise raise)
+        {
+            return Call(raise);
         }
 
     }

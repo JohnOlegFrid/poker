@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using poker.Center;
 using poker.Players;
 using poker.PokerGame.Moves;
+using poker.PokerGame.Exceptions;
 
 namespace poker.PokerGame
 {
@@ -19,6 +20,7 @@ namespace poker.PokerGame
         private GamePreferences gamePreferences;
         private GamePlayer activePlayer;
         private int pot;
+        private int highestBet;
 
         public TexasGame(GamePreferences gp)
         {
@@ -92,6 +94,8 @@ namespace poker.PokerGame
             gameLog.Add("Starting game.");
             Active = true;
             activePlayer = GetFirstPlayer();
+            this.pot = 0;
+            this.highestBet = 0;
         }
 
         public List<string> replayGame()
@@ -127,7 +131,11 @@ namespace poker.PokerGame
 
         private void AddMoveToPot(Move currentMove)
         {
+            if (currentMove.Amount != 0 && currentMove.Amount < gamePreferences.BigBlind)
+                throw new SmallThenBigBlindException("Error! , you need at least " + gamePreferences.BigBlind);
             this.pot += currentMove.Amount;
+            if (currentMove.Player.CurrentBet > this.highestBet)
+                this.highestBet = currentMove.Player.CurrentBet;
         }
 
         private void MoveToNextPlayer()
