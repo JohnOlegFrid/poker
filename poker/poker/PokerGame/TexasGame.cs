@@ -13,6 +13,7 @@ namespace poker.PokerGame
     public class TexasGame : IGame
     {
         private GamePlayer[] playersInGame;
+        private int currentPlayers;
         private List<Player> spectators;
         private bool active;
         private List<string> gameLog;
@@ -21,7 +22,10 @@ namespace poker.PokerGame
         private GamePlayer activePlayer;
         private int pot;
         private int highestBet;
-        private Move lastMove; 
+        private Move lastMove;
+        private GamePlayer smallBlind;
+        private GamePlayer bigBlind;
+        private GamePlayer dealer;//the first player to get the cards in each hand.
 
         public TexasGame(GamePreferences gp)
         {
@@ -32,6 +36,8 @@ namespace poker.PokerGame
             gameLog = new List<string>();
             errorLog = new List<string>();
             pot = 0;
+            highestBet = 0;
+            currentPlayers = 0;
         }
 
         public bool Active
@@ -75,6 +81,7 @@ namespace poker.PokerGame
             playersInGame[chair] = p;
             p.ChairNum = chair;
             gameLog.Add(p.Player.Username + " joined the game.");
+            currentPlayers++;
             return true;
         }
 
@@ -89,13 +96,27 @@ namespace poker.PokerGame
             Active = false;
         }
 
+        public void placeBlinds()
+        {
+            smallBlind = activePlayer;
+            bigBlind = GetNextPlayer();
+            smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
+            bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
+        }
+
         public void StartGame()
         {
-            gameLog.Add("Starting game.");
-            Active = true;
-            activePlayer = GetFirstPlayer();
-            this.pot = 0;
-            this.highestBet = 0;
+            if (currentPlayers >= 2)
+            {
+                gameLog.Add("Starting game.");
+                Active = true;
+                activePlayer = GetFirstPlayer();
+                this.pot = 0;
+                this.highestBet = 0;
+                placeBlinds();
+            }
+            else
+                gameLog.Add("Not enough players to start");
         }
 
         public List<string> ReplayGame()
@@ -171,6 +192,7 @@ namespace poker.PokerGame
         public void NextRound()
         {
             activePlayer = GetFirstPlayer();
+            highestBet = 0;
             //TODO add this function logic , with deck
         }
 
