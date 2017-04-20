@@ -26,6 +26,7 @@ namespace poker.PokerGame.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "no free chair.")]
         public void JoinExistingGameTest()
         {
             Player logged = gameCenter.LoggedPlayer;
@@ -37,6 +38,40 @@ namespace poker.PokerGame.Tests
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
             GamePlayer p4 = new GamePlayer(new Player(4, "oleg", "1234", "oleg@gmail.com", league), 1000);
             GamePlayer p5 = new GamePlayer(new Player(5, "eliran", "1234", "eliran@gmail.com", league), 1000);
+            List<int> chairs = game1.AskToJoin();
+            Random rnd = new Random();
+            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(500, chair, p1);
+            chairs = game1.AskToJoin();
+            Assert.IsFalse(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 3);
+            chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(500, chair, p2);
+            chairs = game1.AskToJoin();
+            Assert.IsFalse(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 2);
+            chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(500, chair, p3);
+            chairs = game1.AskToJoin();
+            Assert.IsFalse(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 1);
+            chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(500, chair, p3);
+            chairs = game1.AskToJoin();
+            Assert.IsTrue(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 1);
+            chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(5000, chair, p4);
+            chairs = game1.AskToJoin();
+            Assert.IsTrue(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 1);
+            chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            game1.Join(500, chair, p4);
+            chairs = game1.AskToJoin();
+            Assert.IsFalse(chairs.Contains(chair));
+            Assert.IsTrue(chairs.Count == 0);
+            chair=chairs.ElementAt(rnd.Next(chairs.Count));//should throw exception- game is full.
+            game1.Join(500, chair, p5);
         }
 
         [TestMethod()]
