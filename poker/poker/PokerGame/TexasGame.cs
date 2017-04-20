@@ -28,7 +28,7 @@ namespace poker.PokerGame
             this.gamePreferences = gp;
             playersInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             spectators = new List<Player>();
-            active = true;
+            active = false;
             gameLog = new List<string>();
             errorLog = new List<string>();
             pot = 0;
