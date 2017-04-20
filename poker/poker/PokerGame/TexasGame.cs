@@ -207,5 +207,28 @@ namespace poker.PokerGame
             }
             return null;
         }
+
+        public void spectateGame(Player p)
+        {
+            if (IsActive() && IsAllowSpectating() && !spectators.Contains(p))
+            {
+                spectators.Add(p);
+                p.CurrentlyWatching.Add(this);
+            }
+        }
+
+        public void stopWatching(Player p)
+        {
+            if (spectators.Contains(p))
+            {
+                spectators.Remove(p);
+                p.CurrentlyWatching.Remove(this);
+            }
+        }
+
+        public List<Player> getAllSpectators()
+        {
+            return spectators;
+        }
     }
 }

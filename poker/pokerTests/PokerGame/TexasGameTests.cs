@@ -24,6 +24,34 @@ namespace poker.PokerGame.Tests
             IGame game2 = new TexasGame(prefDisallow);
             Assert.IsFalse(game2.IsAllowSpectating());
         }
+        [TestMethod()]
+        public void SpectateGameTest()
+        {
+            Player p = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
+            Player p2 = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
+            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false, 100);
+            IGame game1 = new TexasGame(prefAllow);
+            game1.StartGame();
+            game1.spectateGame(p);
+            Assert.IsTrue(p.CurrentlyWatching.Count == 1);
+            Assert.IsTrue(game1.getAllSpectators().Count == 1);
+            game1.spectateGame(p2);
+            Assert.IsTrue(p2.CurrentlyWatching.Count == 1);
+            Assert.IsTrue(game1.getAllSpectators().Count == 2);
+
+            IGame game2 = new TexasGame(prefDisallow);
+            game2.StartGame();
+            game2.spectateGame(p);
+            Assert.IsTrue(p.CurrentlyWatching.Count == 1);
+            Assert.IsTrue(game2.getAllSpectators().Count == 0);
+
+            IGame game3 = new TexasGame(prefAllow);
+            game3.StartGame();
+            game3.spectateGame(p);
+            Assert.IsTrue(p.CurrentlyWatching.Count == 2);
+            Assert.IsTrue(game3.getAllSpectators().Count == 1);
+        }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "no free chair.")]

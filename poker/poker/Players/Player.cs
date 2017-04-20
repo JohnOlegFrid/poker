@@ -15,6 +15,7 @@ namespace poker.Players
         private String password;
         private String email;
         private League league;
+        private List<IGame> currentlyWatching;
 
         public Player(int id, String username, String password, String email, League league)
         {
@@ -25,11 +26,13 @@ namespace poker.Players
             SetEmail(email);
             rank = 0;
             league.AddPlayerToLeague(this);
+            currentlyWatching = new List<IGame>();
         }
 
         public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
         public int Rank { get { return rank; } set { rank = value;  } }
+        public List<IGame> CurrentlyWatching { get { return currentlyWatching; } }
 
         public string GetEmail()
         {
