@@ -53,7 +53,7 @@ namespace poker.Players.Tests
         {
             String passBefore = player.GetPassword();
             player.SetPassword("");
-            Assert.AreEqual(passBefore, player.GetEmail());
+            Assert.AreEqual(passBefore, player.GetPassword());
             String newPass = "12345";
             player.SetPassword(newPass);
             Assert.AreEqual(newPass, player.GetPassword());
