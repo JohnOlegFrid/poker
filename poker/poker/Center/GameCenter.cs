@@ -11,6 +11,7 @@ namespace poker.Center
     {
         private List<League> leagues;
         private Player loggedPlayer;
+        private League defaultLeagues = null;
         
         public GameCenter(List<League> leagues, Player loggedPlayer)
         {
@@ -58,9 +59,7 @@ namespace poker.Center
 
         public void MovePlayerToLeauge(Player player, League league, Player loggedPlayer = null)
         {
-            if (loggedPlayer == null) //optional argument
-                loggedPlayer = this.loggedPlayer;
-            if (loggedPlayer != GetHiggestRankPlayer())
+            if (!IsLoggedPlayerHiggestRanked(loggedPlayer))
                 return;
             LeagueManager.MovePlayerToLeauge(player, league);
         }
@@ -79,6 +78,30 @@ namespace poker.Center
                 }
             }
             return bestPlayer;
+        }
+
+        public bool IsLoggedPlayerHiggestRanked(Player loggedPlayer)
+        {
+            if (loggedPlayer == null) //optional argument
+                loggedPlayer = this.loggedPlayer;
+            if (loggedPlayer != GetHiggestRankPlayer())
+                return false;
+            return true;
+
+        }
+
+        public League GetDefaultLeagues()
+        {
+            if (this.defaultLeagues != null)
+                return defaultLeagues;
+            return leagues[0];
+        }
+
+        public void SetDefaultLeagues(League leauge, Player loggedPlayer = null)
+        {
+            if (!IsLoggedPlayerHiggestRanked(loggedPlayer))
+                return;
+            this.defaultLeagues = leauge;
         }
     }
 }
