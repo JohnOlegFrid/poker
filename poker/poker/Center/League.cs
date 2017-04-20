@@ -59,5 +59,10 @@ namespace poker.Center
             }
             return games;
         }
+
+        public Player getHiggestRankPlayer()
+        {
+            return playersInLeague.OrderByDescending(x => x.Rank).First();
+        }
     }
 }

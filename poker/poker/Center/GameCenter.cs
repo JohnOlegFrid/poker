@@ -55,5 +55,30 @@ namespace poker.Center
                 ans = "game is not finished, can't replay";
             return ans;
         }
+
+        public void MovePlayerToLeauge(Player player, League league, Player loggedPlayer = null)
+        {
+            if (loggedPlayer == null) //optional argument
+                loggedPlayer = this.loggedPlayer;
+            if (loggedPlayer != GetHiggestRankPlayer())
+                return;
+            LeagueManager.MovePlayerToLeauge(player, league);
+        }
+
+        public Player GetHiggestRankPlayer()
+        {
+            Player bestPlayer = null, currentPlayer;
+            int bestPlayerRank = -1;
+            foreach(League league in leagues)
+            {
+                currentPlayer = league.getHiggestRankPlayer();
+                if(currentPlayer.Rank > bestPlayerRank)
+                {
+                    bestPlayer = currentPlayer;
+                    bestPlayerRank = bestPlayer.Rank;
+                }
+            }
+            return bestPlayer;
+        }
     }
 }
