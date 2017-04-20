@@ -21,6 +21,7 @@ namespace poker.Players
             this.id = id;
             this.username = username;
             this.league = league;
+            this.password = password;
             rank = 0;
             league.AddPlayerToLeague(this);
         }

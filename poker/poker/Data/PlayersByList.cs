@@ -23,9 +23,15 @@ namespace poker.Data
             players.Remove(player);
         }
 
+        public Player FindPlayerByUsername(String username)
+        {
+            return players.Find( x=> x.Username.Equals(username));
+        }
+
         public List<Player> GetAllPlayers()
         {
             return players;
         }
+
     }
 }
