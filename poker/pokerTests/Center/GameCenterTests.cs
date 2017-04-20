@@ -96,5 +96,19 @@ namespace poker.Center.Tests
             gameCenter.MovePlayerToLeauge(user3, league1); // need to work
             Assert.IsTrue(user3.League.Equals(league1));
         }
+
+
+        [TestMethod()]
+        public void SetDefaultLeaguesTest()
+        {
+            Player higgestRankPlayer = gameCenter.GetHiggestRankPlayer();
+            Assert.IsTrue(higgestRankPlayer.Username.Equals("oleg"));
+            gameCenter.SetDefaultLeagues(league2); // not need to work ,oleg is not logged
+            Assert.AreNotEqual(league2, gameCenter.GetDefaultLeagues());
+            Assert.AreEqual(league1, gameCenter.GetDefaultLeagues()); // If not set , default will be the first league
+            gameCenter.LoggedPlayer = higgestRankPlayer;
+            gameCenter.SetDefaultLeagues(league2); // need to work ,oleg is logged
+            Assert.AreEqual(league2, gameCenter.GetDefaultLeagues());
+        }
     }
 }
