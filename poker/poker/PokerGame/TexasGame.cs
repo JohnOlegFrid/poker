@@ -28,7 +28,7 @@ namespace poker.PokerGame
             this.gamePreferences = gp;
             playersInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             spectators = new List<Player>();
-            active = true;
+            active = false;
             gameLog = new List<string>();
             errorLog = new List<string>();
             pot = 0;
@@ -206,6 +206,29 @@ namespace poker.PokerGame
                     return playersInGame[i];
             }
             return null;
+        }
+
+        public void spectateGame(Player p)
+        {
+            if (IsActive() && IsAllowSpectating() && !spectators.Contains(p))
+            {
+                spectators.Add(p);
+                p.CurrentlyWatching.Add(this);
+            }
+        }
+
+        public void stopWatching(Player p)
+        {
+            if (spectators.Contains(p))
+            {
+                spectators.Remove(p);
+                p.CurrentlyWatching.Remove(this);
+            }
+        }
+
+        public List<Player> getAllSpectators()
+        {
+            return spectators;
         }
     }
 }

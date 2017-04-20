@@ -77,7 +77,7 @@ namespace poker.Center.Tests
         {
             List<IGame> inActiveGames = gameCenter.GetAllFinishedGames();
             Assert.AreEqual(0, inActiveGames.Count);
-            Assert.AreEqual("game is not finished, can't replay", gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
+            Assert.IsTrue("game is not finished, can't replay".Equals(gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game)));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
             Assert.AreEqual("game is not finished, can't replay", gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
@@ -109,6 +109,23 @@ namespace poker.Center.Tests
             gameCenter.LoggedPlayer = higgestRankPlayer;
             gameCenter.SetDefaultLeagues(league2); // need to work ,oleg is logged
             Assert.AreEqual(league2, gameCenter.GetDefaultLeagues());
+        }
+
+        [TestMethod()]
+        public void getGamesAvailableToSpectateTest()
+        {
+            List<IGame> spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            Assert.AreEqual(0, spectateActiveGames.Count);
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
+            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            Assert.AreEqual(1, spectateActiveGames.Count);
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game = new TexasGame(new GamePreferences(4, 100, 1000, false, 10));
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game.StartGame();
+            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            Assert.AreEqual(1, spectateActiveGames.Count);
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
+            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            Assert.AreEqual(0, spectateActiveGames.Count);
         }
     }
 }

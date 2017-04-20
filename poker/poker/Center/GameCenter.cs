@@ -47,7 +47,7 @@ namespace poker.Center
         {
             //will be modified in the future after adding UI.
             string ans = "";
-            if (!game.IsActive())
+            if (GetAllFinishedGames().Contains(game))
                 foreach (string s in game.ReplayGame())
                 {
                     ans = ans + s + "/n";
@@ -102,6 +102,20 @@ namespace poker.Center
             if (!IsLoggedPlayerHiggestRanked(loggedPlayer))
                 return;
             this.defaultLeagues = leauge;
+        }
+
+        public List<IGame> getGamesAvailableToSpectate()
+        {
+            List<IGame> games = new List<IGame>();
+            foreach (League l in leagues)
+            {
+                foreach (Room r in l.Rooms)
+                {
+                    if (r.Game!=null && r.Game.IsActive() && r.Game.IsAllowSpectating())
+                        games.Add(r.Game);
+                }
+            }
+            return games;
         }
     }
 }
