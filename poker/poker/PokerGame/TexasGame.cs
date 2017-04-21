@@ -207,5 +207,16 @@ namespace poker.PokerGame
             }
             return null;
         }
+
+        public List<Player> GetListActivePlayers()
+        {
+            List<Player> ans = new List<Player>();
+            if (playersInGame.Length == 0) return null; // no active players for that game
+            foreach(GamePlayer p in playersInGame)
+            {
+                ans.Add(p.Player);
+            }
+            return ans;
+        }
     }
 }
