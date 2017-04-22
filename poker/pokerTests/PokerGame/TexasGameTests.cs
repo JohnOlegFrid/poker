@@ -199,23 +199,6 @@ namespace poker.PokerGame.Tests
             Assert.IsTrue(CompareLists(accpectedAnswer1,receivedAnswer1));
         }
 
-        private static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
-        {
-            List<int> chairs = gameAddTo.AskToJoin();
-            Random rnd = new Random();
-            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
-            gameAddTo.Join(playerAmount, chair, playerToAdd);
-        }
-
-        private bool CompareLists(List<Player> listA,List<Player> listB)
-        {
-            if (listA.Count != listB.Count) return false;
-            foreach (Player p1 in listA)
-            {
-                if ((listB.Find(x => x.Equals(p1))) == null)
-                    return false;
-            }
-            return true;
-        }
+        
     }
 }
