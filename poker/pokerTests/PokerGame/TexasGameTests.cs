@@ -91,10 +91,10 @@ namespace poker.PokerGame.Tests
             game1.Join(100, 1, p2);
             game1.Join(100, 2, p3);
             GamePlayer firstPlayer = game1.GetFirstPlayer();
-            game1.StartGame();       
+            game1.StartGame();
             GamePlayer nextPlayer = game1.GetNextPlayer();
             game1.NextTurn();
-            Assert.AreSame(p2, nextPlayer);        
+            Assert.AreSame(p2, nextPlayer);
             nextPlayer = game1.GetNextPlayer();
             Assert.AreSame(p3, nextPlayer);
             game1.NextTurn();
@@ -118,7 +118,7 @@ namespace poker.PokerGame.Tests
             currnetPlayer.NextMove = new Raise(10, currnetPlayer);
             game1.NextTurn();
             Assert.AreNotEqual(currnetPlayer, game1.GetActivePlayer());
-            Assert.AreEqual(990, currnetPlayer.Money); 
+            Assert.AreEqual(990, currnetPlayer.Money);
 
             currnetPlayer = game1.GetActivePlayer(); //p2
             currnetPlayer.NextMove = new Check(currnetPlayer);
@@ -162,6 +162,60 @@ namespace poker.PokerGame.Tests
             Assert.IsNull(game1.GetActivePlayer());
             Assert.AreEqual(970, currnetPlayer.Money);
 
+        }
+
+        [TestMethod()]
+        public void GetListActivePlayersTest()
+        {
+            Player logged = gameCenter.LoggedPlayer;
+            League league = logged.League;
+            int maxPlayers = 6;
+            int minBuyIn = 100;
+            int maxBuyIn = 1000;
+            bool allowSpectating = true;
+            int bigBlind = 100;
+            int playerAmount = 500;
+            GamePreferences prefAllow = new GamePreferences(maxPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
+            IGame game1 = new TexasGame(prefAllow);
+            GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
+            GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
+            GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
+            GamePlayer p4 = new GamePlayer(new Player(4, "oleg", "1234", "oleg@gmail.com", league), 1000);
+            GamePlayer p5 = new GamePlayer(new Player(5, "eliran", "1234", "eliran@gmail.com", league), 1000);
+            AddPlayerToGame(playerAmount, game1, p1);
+            AddPlayerToGame(playerAmount, game1, p2);
+            AddPlayerToGame(playerAmount, game1, p3);
+            AddPlayerToGame(playerAmount, game1, p4);
+            AddPlayerToGame(playerAmount, game1, p5);
+
+            List<Player> accpectedAnswer1 = new List<Player>();
+            List<Player> receivedAnswer1 = game1.GetListActivePlayers();
+            accpectedAnswer1.Add(p1.Player);
+            accpectedAnswer1.Add(p2.Player);
+            accpectedAnswer1.Add(p3.Player);
+            accpectedAnswer1.Add(p4.Player);
+            accpectedAnswer1.Add(p5.Player);
+                     
+            Assert.IsTrue(CompareLists(accpectedAnswer1,receivedAnswer1));
+        }
+
+        private static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
+        {
+            List<int> chairs = gameAddTo.AskToJoin();
+            Random rnd = new Random();
+            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            gameAddTo.Join(playerAmount, chair, playerToAdd);
+        }
+
+        private bool CompareLists(List<Player> listA,List<Player> listB)
+        {
+            if (listA.Count != listB.Count) return false;
+            foreach (Player p1 in listA)
+            {
+                if ((listB.Find(x => x.Equals(p1))) == null)
+                    return false;
+            }
+            return true;
         }
     }
 }
