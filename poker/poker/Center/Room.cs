@@ -17,6 +17,7 @@ namespace poker.Center
         public Room(IGame game)
         {
             this.game = game;
+            haveActiveGame = true;
             pastGames = new List<IGame>();
         }
 
