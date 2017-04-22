@@ -47,7 +47,7 @@ namespace poker.PokerGame
             }
         }
 
-        public List<int> AskToJoin()
+        public List<int> AskToJoin() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
         {
             List<int> ans = new List<int>();
             if (active)
@@ -214,7 +214,8 @@ namespace poker.PokerGame
             if (playersInGame.Length == 0) return null; // no active players for that game
             foreach(GamePlayer p in playersInGame)
             {
-                ans.Add(p.Player);
+                if(p!=null)
+                    ans.Add(p.Player);
             }
             return ans;
         }
