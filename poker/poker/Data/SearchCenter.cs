@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace poker.Data
 {
-    class SearchCenter
+    public class SearchCenter
     {
         private IPlayersData playersData;
         private ILeaguesData leaguesData;
