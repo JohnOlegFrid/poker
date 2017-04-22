@@ -10,10 +10,10 @@ namespace poker.Data
 {
     class SearchCenter
     {
-        private PlayersByList playersData;
-        private LeaguesByList leaguesData;
+        private IPlayersData playersData;
+        private ILeaguesData leaguesData;
 
-        public SearchCenter (PlayersByList newPlayerData,LeaguesByList newLeagueData)
+        public SearchCenter (IPlayersData newPlayerData,ILeaguesData newLeagueData)
         {
             this.playersData = newPlayerData;
             this.leaguesData = newLeagueData;
