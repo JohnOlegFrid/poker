@@ -13,25 +13,26 @@ namespace poker
     {
         static void Main(string[] args)
         {
-            ILeaguesData leaguesDate = new LeaguesByList();
+            ILeaguesData leaguesData = new LeaguesByList();
             IPlayersData usersData = new PlayersByList();
-            InitData(leaguesDate, usersData);
-            Player playerLogged = new Player(5, "logged", "1234", "logged@gmail.com", leaguesDate.GetDefalutLeague());
+            InitData(leaguesData, usersData);
+            SearchCenter searchCenter = new SearchCenter(usersData, leaguesData);
+            Player playerLogged = new Player(5, "logged", "1234", "logged@gmail.com", leaguesData.GetDefalutLeague());
             usersData.AddPlayer(playerLogged);
-            GameCenter gameCenter = new GameCenter(leaguesDate.GetAllLeagues(), playerLogged);           
+            GameCenter gameCenter = new GameCenter(leaguesData.GetAllLeagues(), playerLogged);           
 
             Console.ReadKey();
         }
 
-        public static void InitData(ILeaguesData leaguesDate, IPlayersData usersData)
+        public static void InitData(ILeaguesData leaguesData, IPlayersData usersData)
         {
             // create Lagues
             League league1 = new League(1, "Level One");
             League league2 = new League(2, "Level Two");
             League league3 = new League(1, "Level Three");
-            leaguesDate.AddLeague(league1);
-            leaguesDate.AddLeague(league2);
-            leaguesDate.AddLeague(league3);
+            leaguesData.AddLeague(league1);
+            leaguesData.AddLeague(league2);
+            leaguesData.AddLeague(league3);
 
             // create Users
             Player user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1);
