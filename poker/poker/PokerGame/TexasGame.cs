@@ -211,13 +211,23 @@ namespace poker.PokerGame
         public List<Player> GetListActivePlayers()
         {
             List<Player> ans = new List<Player>();
-            if (playersInGame.Length == 0) return null; // no active players for that game
+            if (playersInGame.Length == 0 || !Active) return null; // no active players for that game
             foreach(GamePlayer p in playersInGame)
             {
                 if(p!=null)
                     ans.Add(p.Player);
             }
             return ans;
+        }
+
+        public override bool Equals (Object obj)
+        {
+            if (!(obj is TexasGame))
+                return false;
+            TexasGame tg = (TexasGame)obj;
+            if (tg.playersInGame != playersInGame)
+                return false;
+            return true;
         }
     }
 }
