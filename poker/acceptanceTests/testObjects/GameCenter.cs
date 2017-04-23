@@ -1,0 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace acceptanceTests.testObjects
+{
+    class GameCenter
+    {
+        public List<Game> gamesForSpectating;
+    }
+}

@@ -132,15 +132,38 @@ namespace acceptanceTests.Tests
         [TestMethod]
         public void TestSetGamePrivacy()
         {
-            gameBridge.InitGame();
-            game = gameBridge.GetGame();
+            try
+            {
+                gameBridge.InitGame();
+                game = gameBridge.GetGame();
+                Assert.IsTrue(gameBridge.SetGamePrivacy(game, true));
+                Assert.IsTrue(game.AddSpectator(GivePlayer()));
+                Assert.IsTrue(gameBridge.SetGamePrivacy(game, false));
+                Assert.IsFalse(game.AddSpectator(GivePlayer()));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
         public void TestSetGameTypePolicy()
         {
-            gameBridge.InitGame();
-            game = gameBridge.GetGame();
+            try
+            {
+                gameBridge.InitGame();
+                game = gameBridge.GetGame();
+                Assert.IsTrue(gameBridge.SetGameTypePolicy(game, "LIMIT"));
+                Assert.IsTrue(gameBridge.SetGameTypePolicy(game, "NO LIMIT"));
+                Assert.IsTrue(gameBridge.SetGameTypePolicy(game, "POT LIMIT"));
+                Assert.IsFalse(gameBridge.SetGameTypePolicy(game, "Blah"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+
         }
 
         [TestMethod]
