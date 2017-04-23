@@ -37,5 +37,17 @@ namespace poker.Data
             return ans;
 
         }
+
+        public List<IGame> SearchGamesByPotSize(int potSize)
+        {
+            List<IGame> ans = new List<IGame>();
+            List<League> listOfCurrentExistingLeagues = leaguesData.GetAllLeagues();
+            
+            foreach(League l in listOfCurrentExistingLeagues)
+            {
+               
+            }
+            return ans;
+        }
     }
 }
