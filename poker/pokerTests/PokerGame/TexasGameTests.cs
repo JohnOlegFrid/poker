@@ -29,8 +29,8 @@ namespace poker.PokerGame.Tests
         {
             Player p = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
             Player p2 = new Player(2, "yakir", "123", "yakir@gmail.com", leaguesData.GetDefalutLeague());
-            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
-            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false, 100);
+            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
+            GamePreferences prefDisallow = new GamePreferences(4, 2, 100, 1000, false, 100);
             IGame game1 = new TexasGame(prefAllow);
             game1.StartGame();
             game1.spectateGame(p);
