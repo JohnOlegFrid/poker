@@ -58,5 +58,18 @@ namespace poker.Players
 
         public League League { get { return league; } set { league = value; } }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Player))
+                return false;
+            Player p = (Player)obj;
+            return p.Username.CompareTo(username)==0;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using poker.Players;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace poker.Center
         public Room(IGame game)
         {
             this.game = game;
+            haveActiveGame = true;
             pastGames = new List<IGame>();
         }
 
@@ -46,5 +48,26 @@ namespace poker.Center
         }
 
         public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
+
+        public bool IsPlayerActiveInRoom (Player pl)
+        {
+            bool ans = false;
+            if (game == null)  //no active game so the player isn't active player in that room.
+                ans = false;
+            else
+            {
+                List<Player> activePlayers = game.GetListActivePlayers();
+                foreach (Player p in activePlayers)
+                {
+                    if (p.Equals(pl))
+                    {
+                        ans = true;
+                        break;
+                    }
+                }
+            }
+           
+            return ans;
+        }
     }
 }

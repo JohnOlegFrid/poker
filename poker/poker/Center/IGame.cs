@@ -22,6 +22,7 @@ namespace poker.Center
         GamePlayer GetActivePlayer();
         GamePlayer GetNextPlayer();
         GamePlayer GetFirstPlayer();
+        List<Player> GetListActivePlayers();
         void NextTurn();
         void spectateGame(Player p);
         void stopWatching(Player p);
