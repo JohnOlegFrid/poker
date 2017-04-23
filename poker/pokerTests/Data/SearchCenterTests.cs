@@ -39,12 +39,13 @@ namespace poker.Data.Tests
             }
                 
             int maxPlayers = 6;
+            int minPlayers = 2;
             int minBuyIn = 100;
             int maxBuyIn = 1000;
             bool allowSpectating = true;
             int bigBlind = 100;
             int playerAmount = 500;
-            GamePreferences prefAllow = new GamePreferences(maxPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
+            GamePreferences prefAllow = new GamePreferences(maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             game1 = new TexasGame(prefAllow);
             game2 = new TexasGame(prefAllow);
             game3 = new TexasGame(prefAllow);
