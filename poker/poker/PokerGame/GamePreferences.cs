@@ -9,11 +9,13 @@ namespace poker.PokerGame
     public class GamePreferences
     {
         private int maxPlayers;
+        private int minPlayers;
         private int minBuyIn;
         private int maxBuyIn;
         private bool allowSpectating;
         private int smallBlind;
         private int bigBlind;
+        
 
         public int MaxPlayers
         {
@@ -81,14 +83,24 @@ namespace poker.PokerGame
             }
         }
 
-        public GamePreferences(int maxPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
+        public GamePreferences(int maxPlayers,int minPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
         {
             this.maxPlayers = maxPlayers;
+            SetMinPlayers(minPlayers);
             this.minBuyIn = minBuyIn;
             this.maxBuyIn = maxBuyIn;
             this.allowSpectating = allowSpectating;
             this.bigBlind = bigBlind;
             this.smallBlind = bigBlind / 2;
+        }
+
+        private void SetMinPlayers(int minPlayers)
+        {
+            if(minPlayers>=2 && minPlayers <= MaxPlayers)
+            {
+                this.minPlayers = minPlayers;
+
+            }
         }
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }

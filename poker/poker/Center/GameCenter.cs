@@ -104,7 +104,7 @@ namespace poker.Center
             this.defaultLeagues = leauge;
         }
 
-        public List<IGame> getGamesAvailableToSpectate()
+        public List<IGame> GetGamesAvailableToSpectate()
         {
             List<IGame> games = new List<IGame>();
             foreach (League l in leagues)

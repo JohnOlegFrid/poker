@@ -112,19 +112,19 @@ namespace poker.Center.Tests
         }
 
         [TestMethod()]
-        public void getGamesAvailableToSpectateTest()
+        public void GetGamesAvailableToSpectateTest()
         {
-            List<IGame> spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            List<IGame> spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(0, spectateActiveGames.Count);
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
-            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(1, spectateActiveGames.Count);
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game = new TexasGame(new GamePreferences(4, 100, 1000, false, 10));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game.StartGame();
-            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(1, spectateActiveGames.Count);
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
-            spectateActiveGames = gameCenter.getGamesAvailableToSpectate();
+            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(0, spectateActiveGames.Count);
         }
     }
