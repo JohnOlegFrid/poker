@@ -96,7 +96,7 @@ namespace poker.PokerGame
             Active = false;
         }
 
-        public void placeBlinds()
+        public void PlaceBlinds()
         {
             smallBlind = activePlayer;
             bigBlind = GetNextPlayer();
@@ -113,7 +113,7 @@ namespace poker.PokerGame
                 activePlayer = GetFirstPlayer();
                 this.pot = 0;
                 this.highestBet = 0;
-                placeBlinds();
+                PlaceBlinds();
             }
             else
                 gameLog.Add("Not enough players to start");

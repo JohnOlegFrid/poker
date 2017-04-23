@@ -20,7 +20,7 @@ namespace poker.Center.Tests
         {
             Player logged = gameCenter.LoggedPlayer;
             League league = logged.League;
-            GamePreferences gp = new GamePreferences(4, 100, 1000, true, 100);
+            GamePreferences gp = new GamePreferences(4, 2, 100, 1000, true, 100);
             Room room1 = new Room(new TexasGame(gp));
             league.AddRoom(room1);
             room1.HaveActiveGame = true;

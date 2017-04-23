@@ -54,9 +54,9 @@ namespace poker.Center.Tests
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            Room r = new Room(new TexasGame(new GamePreferences(4, 100, 1000, true, 100)));
+            Room r = new Room(new TexasGame(new GamePreferences(4, 2, 100, 1000, true, 100)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(5, 200, 1000, true, 100)));
+            r = new Room(new TexasGame(new GamePreferences(5, 2, 200, 1000, true, 100)));
             league1.Rooms.Add(r);
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }
@@ -119,7 +119,7 @@ namespace poker.Center.Tests
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
             spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(1, spectateActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game = new TexasGame(new GamePreferences(4, 100, 1000, false, 10));
+            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game = new TexasGame(new GamePreferences(4, 2, 100, 1000, false, 10));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game.StartGame();
             spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
             Assert.AreEqual(1, spectateActiveGames.Count);
