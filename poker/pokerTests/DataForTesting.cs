@@ -29,7 +29,7 @@ namespace pokerTests
 
         public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
         {
-            List<int> chairs = gameAddTo.AskToJoin();
+            List<int> chairs = gameAddTo.getFreeChairs();
             Random rnd = new Random();
             int chair = chairs.ElementAt(rnd.Next(chairs.Count));
             gameAddTo.Join(playerAmount, chair, playerToAdd);
