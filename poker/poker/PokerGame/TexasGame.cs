@@ -106,7 +106,7 @@ namespace poker.PokerGame
 
         public void StartGame()
         {
-            if (currentPlayers >= 2)
+            if (currentPlayers >= gamePreferences.GetMinPlayers())
             {
                 gameLog.Add("Starting game.");
                 Active = true;

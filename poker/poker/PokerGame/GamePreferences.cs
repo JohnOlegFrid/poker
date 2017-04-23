@@ -94,7 +94,7 @@ namespace poker.PokerGame
             this.smallBlind = bigBlind / 2;
         }
 
-        private void SetMinPlayers(int minPlayers)
+        public void SetMinPlayers(int minPlayers)
         {
             if(minPlayers>=2 && minPlayers <= MaxPlayers)
             {
@@ -102,6 +102,13 @@ namespace poker.PokerGame
 
             }
         }
+
+        public int GetMinPlayers()
+        {
+            return minPlayers;
+        }
+
+        
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
     }
