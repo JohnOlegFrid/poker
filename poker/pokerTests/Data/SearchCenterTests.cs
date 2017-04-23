@@ -50,6 +50,10 @@ namespace poker.Data.Tests
             game2 = new TexasGame(prefAllow);
             game3 = new TexasGame(prefAllow);
 
+            game1.StartGame();
+            game2.StartGame();
+            game3.StartGame();
+
             Player p1 = new Player(1, "oleg", "1234", "oleg@gmail.com", league);
             Player p2 = new Player(2, "hen", "1234", "hen@gmail.com", league);
             Player p3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league);

@@ -28,9 +28,9 @@ namespace poker.PokerGame.Tests
         public void SpectateGameTest()
         {
             Player p = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
-            Player p2 = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
-            GamePreferences prefDisallow = new GamePreferences(4, 2, 100, 1000, false, 100);
+            Player p2 = new Player(2, "yakir", "123", "yakir@gmail.com", leaguesData.GetDefalutLeague());
+            GamePreferences prefAllow = new GamePreferences(4, 100, 1000, true, 100);
+            GamePreferences prefDisallow = new GamePreferences(4, 100, 1000, false, 100);
             IGame game1 = new TexasGame(prefAllow);
             game1.StartGame();
             game1.spectateGame(p);
@@ -206,6 +206,7 @@ namespace poker.PokerGame.Tests
             int playerAmount = 500;            
             GamePreferences prefAllow = new GamePreferences(maxPlayers,minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             IGame game1 = new TexasGame(prefAllow);
+            game1.StartGame();
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
