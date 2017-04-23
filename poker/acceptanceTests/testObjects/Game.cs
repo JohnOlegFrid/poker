@@ -11,15 +11,18 @@ namespace acceptanceTests.testObjects
         public int numOfPlayers;
         public Preferences gamePrefs;
         public Player[] gamePlayers;
+        public List<Player> spectators;
         public Player curPlayer;
-        public List<Turn> gameTurns;
+        private List<Turn> gameTurns;
+
+        internal List<Turn> GameTurns { get => gameTurns; set => gameTurns = value; }
 
         public Game(Preferences prefs)
         {
             gamePrefs = prefs;
             gamePlayers = new Player[prefs.playersInTable[1]];
         }
-        private String allPlayers()
+        private String AllPlayers()
         {
             String ans = "";
             foreach (Player p in gamePlayers)
@@ -33,7 +36,7 @@ namespace acceptanceTests.testObjects
         {
             return "Game ID: " + gameID + "\n" +
                 "Game Prferences: " + gamePrefs.ToString() +
-                "Game Players: " + allPlayers();
+                "Game Players: " + AllPlayers();
 
         }
 
@@ -45,6 +48,22 @@ namespace acceptanceTests.testObjects
         public void NextRoundPhase()
         {
 
+        }
+
+        public bool AddSpectator(Player p)
+        {
+            if (spectators.Contains(p))
+                return false;
+            else spectators.Add(p);
+            return true;
+        }
+
+        public bool RemoveSpectator(Player p)
+        {
+            if (!spectators.Contains(p))
+                return false;
+            else spectators.Remove(p);
+            return true;
         }
 
         public void JoinGame(Player player)

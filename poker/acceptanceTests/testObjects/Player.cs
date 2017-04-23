@@ -10,6 +10,7 @@ namespace acceptanceTests.testObjects
         public ProfileFeatures features;
         public int money;
         public int chips;
+        public List<Turn> SavedTurns;
 
        
         public override String ToString()
@@ -17,6 +18,14 @@ namespace acceptanceTests.testObjects
             return "Player Name: "+name + ", " + features.ToString()+"\n"+
                 "Money: "+ money+"\n"+
                 "Chips: "+ chips+"\n";
+        }
+
+        public bool AddSavedTurns(Turn t)
+        {
+            if (SavedTurns.Contains(t))
+                return false;
+            SavedTurns.Add(t);
+            return true;
         }
 
     }

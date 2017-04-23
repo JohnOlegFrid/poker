@@ -12,6 +12,16 @@ namespace acceptanceTests.Real
             throw new NotImplementedException();
         }
 
+        public Game GetGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InitGame()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool JoinGame(Player player)
         {
             throw new NotImplementedException();
@@ -22,32 +32,33 @@ namespace acceptanceTests.Real
             throw new NotImplementedException();
         }
 
-        public bool SaveFavoriteTurns(Game game)
+        public bool SaveFavoriteTurns(Game game, Player player)
         {
             throw new NotImplementedException();
         }
 
-        public bool SetBuyInPolicy(int buyIn)
+        public bool SetBuyInPolicy(Game game, int buyIn)
         {
             throw new NotImplementedException();
         }
 
-        public bool SetChipPoicy(int amount)
+        public bool SetChipPoicy(Game game, int amount)
         {
             throw new NotImplementedException();
         }
 
-        public bool setGamePrivacy(bool privacy)
+
+        public bool SetGamePrivacy(Game game, bool privacy)
         {
             throw new NotImplementedException();
         }
 
-        public bool SetGameTypePolicy(string Policy)
+        public bool SetGameTypePolicy(Game game, string Policy)
         {
             throw new NotImplementedException();
         }
 
-        public bool SetMinimumBet(int amount)
+        public bool SetMinimumBet(Game game, int amount)
         {
             throw new NotImplementedException();
         }

@@ -14,7 +14,7 @@ namespace acceptanceTests.Proxys
             return false;
         }
 
-        public Game getGame()
+        public Game GetGame()
         {
             return null;
         }
@@ -34,32 +34,32 @@ namespace acceptanceTests.Proxys
             return false;
         }
 
-        public bool SaveFavoriteTurns(Game game)
+        public bool SaveFavoriteTurns(Game game, Player player)
         {
             return false;
         }
 
-        public bool SetBuyInPolicy(int buyIn)
+        public bool SetBuyInPolicy(Game game, int buyIn)
         {
             return false;
         }
 
-        public bool SetChipPoicy(int amount)
+        public bool SetChipPoicy(Game game, int amount)
         {
             return false;
         }
 
-        public bool setGamePrivacy(bool privacy)
+        public bool SetGamePrivacy(Game game, bool privacy)
         {
             return false;
         }
 
-        public bool SetGameTypePolicy(string Policy)
+        public bool SetGameTypePolicy(Game game, string Policy)
         {
             return false;
         }
 
-        public bool SetMinimumBet(int amount)
+        public bool SetMinimumBet(Game game, int amount)
         {
             return false;
         }

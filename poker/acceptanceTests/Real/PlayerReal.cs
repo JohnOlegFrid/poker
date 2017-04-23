@@ -37,6 +37,26 @@ namespace acceptanceTests.Real
             throw new NotImplementedException();
         }
 
+        public Game getGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Player getPlayer(int player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InitGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InitPlayers()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Raise(Game game, Player player, int amount)
         {
             throw new NotImplementedException();

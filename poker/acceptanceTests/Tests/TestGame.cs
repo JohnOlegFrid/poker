@@ -17,7 +17,7 @@ namespace acceptanceTests.Tests
         public TestGame()
         {
             SetTestInterface("Proxy");
-            game = gameBridge.getGame();
+            game = gameBridge.GetGame();
         }
 
         private void SetTestInterface(String testType)
@@ -55,7 +55,7 @@ namespace acceptanceTests.Tests
         public void TestJoinGame()
         {
             gameBridge.InitGame();
-            game = gameBridge.getGame();
+            game = gameBridge.GetGame();
             try
             {
                 Player player1 = GivePlayer();
@@ -80,7 +80,7 @@ namespace acceptanceTests.Tests
         public void TestLeaveGame()
         {
             gameBridge.InitGame();
-            game = gameBridge.getGame();
+            game = gameBridge.GetGame();
             try
             {
                 Player player1 = GivePlayer();
@@ -100,9 +100,78 @@ namespace acceptanceTests.Tests
             catch (Exception)
             {
                 Assert.Fail();
+            } 
+        }
+
+        [TestMethod]
+        public void TestSetBuyInPolicy()
+        {
+            gameBridge.InitGame();
+            game = gameBridge.GetGame();
+        }
+
+        [TestMethod]
+        public void TestSetChipPolicy()
+        {
+            try
+            {
+                gameBridge.InitGame();
+                game = gameBridge.GetGame();
+                Assert.IsFalse(gameBridge.SetChipPoicy(game, -400));
+                Assert.IsTrue(gameBridge.SetChipPoicy(game, 1000));
+                Assert.IsTrue(game.gamePrefs.chipPolicy == 1000);
+                Assert.IsTrue(game.gamePlayers[0].chips == 1000);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+            
+        }
+
+        [TestMethod]
+        public void TestSetGamePrivacy()
+        {
+            gameBridge.InitGame();
+            game = gameBridge.GetGame();
+        }
+
+        [TestMethod]
+        public void TestSetGameTypePolicy()
+        {
+            gameBridge.InitGame();
+            game = gameBridge.GetGame();
+        }
+
+        [TestMethod]
+        public void TestSetMinimumBet()
+        {
+            gameBridge.InitGame();
+            game = gameBridge.GetGame();
+        }
+
+        [TestMethod]
+        public void TestSaveFavoriteTurns()
+        {
+            try
+            {
+                gameBridge.InitGame();
+                game = gameBridge.GetGame();
+                Player p1 = GivePlayer();
+                Random rnd = new Random();
+                List<Turn> gameTurns = game.GameTurns;
+                Assert.IsFalse(gameBridge.SaveFavoriteTurns(game, p1));
+                int randTurn = rnd.Next(0, gameTurns.Count - 1);
+                Assert.IsTrue(p1.AddSavedTurns(gameTurns[randTurn]));
+                Assert.IsTrue(p1.SavedTurns.Contains(gameTurns[randTurn]));
+                Assert.IsFalse(p1.AddSavedTurns(gameTurns[randTurn]));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
             }
 
-            
+
         }
 
         private Player GivePlayer()

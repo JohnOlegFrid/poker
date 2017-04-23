@@ -10,17 +10,17 @@ namespace acceptanceTests
 
         //---------Game Preferences--------------------------
 
-        bool SetGameTypePolicy(String Policy);
+        bool SetGameTypePolicy(Game game, String Policy);
 
-        bool SetBuyInPolicy(int buyIn);
+        bool SetBuyInPolicy(Game game, int buyIn);
 
-        bool SetChipPoicy(int amount);
+        bool SetChipPoicy(Game game, int amount);
 
-        bool SetMinimumBet(int amount);
+        bool SetMinimumBet(Game game, int amount);
 
         bool DefinePlayersInTable(int minPlayers, int maxPlayers);
 
-        bool setGamePrivacy(bool privacy);
+        bool SetGamePrivacy(Game game, bool privacy);
 
         //---------------------------------------------------
 
@@ -30,9 +30,9 @@ namespace acceptanceTests
 
         bool LeaveGame(Player player);
 
-        bool SaveFavoriteTurns(Game game);
+        bool SaveFavoriteTurns(Game game, Player player);
 
-        Game getGame();
+        Game GetGame();
 
         void InitGame();
 
