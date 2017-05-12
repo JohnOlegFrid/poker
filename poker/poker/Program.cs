@@ -7,6 +7,7 @@ using poker.Data;
 using poker.Players;
 using poker.Center;
 using System.IO;
+using poker.Server;
 
 namespace poker
 {
@@ -28,8 +29,6 @@ namespace poker
             Player playerLogged = new Player(5, "logged", "1234", "logged@gmail.com", leaguesData.GetDefalutLeague());
             usersData.AddPlayer(playerLogged);
             GameCenter gameCenter = new GameCenter(leaguesData.GetAllLeagues(), playerLogged);
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(playerLogged));
 
             Console.ReadKey();
         }
