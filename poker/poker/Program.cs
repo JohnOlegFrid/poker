@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 using poker.Data;
 using poker.Players;
 using poker.Center;
+using poker.Server;
 
 namespace poker
 {
     public class Program
     {
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Multi-Threaded TCP Server Starting..");
+            TcpServer server = new TcpServer(5555);
+        }
+
+        static void Main1(string[] args)
         {
             ILeaguesData leaguesData = new LeaguesByList();
             IPlayersData usersData = new PlayersByList();
