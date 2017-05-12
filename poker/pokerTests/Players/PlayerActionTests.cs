@@ -1,17 +1,29 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using poker.Data;
 using poker.Players;
+using poker.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using pokerTests;
 
 namespace poker.Players.Tests
 {
     [TestClass()]
-    public class PlayerActionTests : DataForTesting 
+    public class PlayerActionTests
     {
+        private ILeaguesData leaguesData;
+        private IPlayersData playersData;
+
+        public PlayerActionTests()
+        {
+            Program.InitData();
+            leaguesData = Service.GetLastInstance().LeaguesData;
+            playersData = Service.GetLastInstance().PlayersData;
+        }
+        
+        
         [TestMethod()]
         public void LoginTest()
         {

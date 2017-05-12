@@ -2,24 +2,29 @@
 using poker.Center;
 using poker.Players;
 using poker.PokerGame;
-using pokerTests;
+using poker.ServiceLayer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace poker.Data.Tests
 {
     [TestClass()]
-    public class SearchCenterTests : DataForTesting
+    public class SearchCenterTests
     {
         SearchCenter searchCenter;
         IGame game1;
         IGame game2;
         IGame game3;
+        ILeaguesData leaguesData;
+        IPlayersData playersData;
+        GameCenter gameCenter;
 
         public SearchCenterTests()
         {
-            leaguesData = new LeaguesByList();
-            playersData = new PlayersByList();
+            Program.InitData();
+            leaguesData = Service.GetLastInstance().LeaguesData;
+            playersData = Service.GetLastInstance().PlayersData;
             League league = new League(1, "first league");
             leaguesData.AddLeague(league);
 
@@ -66,18 +71,24 @@ namespace poker.Data.Tests
             GamePlayer gp4 = new GamePlayer(p4, 1000);
             GamePlayer gp5 = new GamePlayer(p5, 1000);
 
-            AddPlayerToGame(playerAmount, game1, gp1);
-            AddPlayerToGame(playerAmount, game1, gp2);
+            game1.Join(playerAmount, 0, gp1);
+            game1.Join(playerAmount, 1, gp2);
+            game1.StartGame();
             AddPlayerToGame(playerAmount, game1, gp3);
             AddPlayerToGame(playerAmount, game1, gp4);
             AddPlayerToGame(playerAmount, game1, gp5);
 
-            AddPlayerToGame(playerAmount, game2, gp1);
-            AddPlayerToGame(playerAmount, game2, gp3);
+            game2.Join(playerAmount, 0, gp1);
+            game2.Join(playerAmount, 1, gp3);
+            game2.StartGame();
 
-            AddPlayerToGame(playerAmount, game3, gp2);
-            AddPlayerToGame(playerAmount, game3, gp3);
+
+            game3.Join(playerAmount, 0, gp2);
+            game3.Join(playerAmount, 1, gp3);
+            game3.StartGame();
             AddPlayerToGame(playerAmount, game3, gp4);
+
+
 
             league.AddRoom(new Room(game1));
             league.AddRoom(new Room(game2));
@@ -116,6 +127,25 @@ namespace poker.Data.Tests
             Assert.IsTrue(CompareLists<IGame>(expectedAnswer1, receivedAnswer1));
             Assert.IsTrue(CompareLists<IGame>(expectedAnswer2, receivedAnswer2));
             Assert.IsTrue(CompareLists<IGame>(expectedAnswer3, receivedAnswer3));
+        }
+
+        public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
+        {
+            List<int> chairs = gameAddTo.getFreeChairs();
+            Random rnd = new Random();
+            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            gameAddTo.Join(playerAmount, chair, playerToAdd);
+        }
+
+        public bool CompareLists<T>(List<T> listA, List<T> listB)
+        {
+            if (listA.Count != listB.Count) return false;
+            foreach (T p1 in listA)
+            {
+                if ((listB.Find(x => x.Equals(p1))) == null)
+                    return false;
+            }
+            return true;
         }
     }
 }

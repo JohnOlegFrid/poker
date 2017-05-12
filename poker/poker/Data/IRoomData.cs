@@ -7,7 +7,7 @@ using poker.Center;
 
 namespace poker.Data
 {
-    interface IRoomData
+    public interface IRoomData
     {
         List<Room> GetAllRooms();
 

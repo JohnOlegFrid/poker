@@ -26,6 +26,7 @@ namespace poker.PokerGame
         private GamePlayer smallBlind;
         private GamePlayer bigBlind;
         private GamePlayer dealer;//the first player to get the cards in each hand.
+        public bool debug = false;
 
         public TexasGame(GamePreferences gp)
         {
@@ -100,8 +101,10 @@ namespace poker.PokerGame
         {
             smallBlind = activePlayer;
             bigBlind = GetNextPlayer();
-            smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
-            bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
+            if (smallBlind != null)
+                smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
+            if (bigBlind != null)
+                bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
         }
 
         public void StartGame()
@@ -113,7 +116,8 @@ namespace poker.PokerGame
                 activePlayer = GetFirstPlayer();
                 this.pot = 0;
                 this.highestBet = 0;
-                PlaceBlinds();
+                if(!this.debug)
+                    PlaceBlinds();
             }
             else
                 gameLog.Add("Not enough players to start");
@@ -236,7 +240,7 @@ namespace poker.PokerGame
             if (chairsInGame.Length == 0 || !Active) return null; // no active players for that game
             foreach(GamePlayer p in chairsInGame)
             {
-                if(p!=null)
+                if (p!=null)
                     ans.Add(p.Player);
             }
             return ans;

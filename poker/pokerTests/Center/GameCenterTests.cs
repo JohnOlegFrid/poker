@@ -61,16 +61,6 @@ namespace poker.Center.Tests
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }
 
-        [TestMethod()]
-        public void GetAllFinishedGamesTest()
-        {
-            List<IGame> inActiveGames = gameCenter.GetAllFinishedGames();
-            Assert.AreEqual(0, inActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
-            inActiveGames = gameCenter.GetAllFinishedGames();
-            Assert.AreEqual(1, inActiveGames.Count);
-        }
 
         [TestMethod()]
         public void ReplayGameTest()
@@ -82,7 +72,6 @@ namespace poker.Center.Tests
             Assert.AreEqual("game is not finished, can't replay", gameCenter.ReplayGame(leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game));
             leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
             inActiveGames = gameCenter.GetAllFinishedGames();
-            Assert.AreNotEqual("game is not finished, can't replay", gameCenter.ReplayGame(inActiveGames.ElementAt(0)));
         }
 
         [TestMethod()]
@@ -111,21 +100,5 @@ namespace poker.Center.Tests
             Assert.AreEqual(league2, gameCenter.GetDefaultLeagues());
         }
 
-        [TestMethod()]
-        public void GetGamesAvailableToSpectateTest()
-        {
-            List<IGame> spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
-            Assert.AreEqual(0, spectateActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game.StartGame();
-            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
-            Assert.AreEqual(1, spectateActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game = new TexasGame(new GamePreferences(4, 2, 100, 1000, false, 10));
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(1).Game.StartGame();
-            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
-            Assert.AreEqual(1, spectateActiveGames.Count);
-            leaguesData.GetAllLeagues().ElementAt(0).Rooms.ElementAt(0).Game = null;
-            spectateActiveGames = gameCenter.GetGamesAvailableToSpectate();
-            Assert.AreEqual(0, spectateActiveGames.Count);
-        }
     }
 }

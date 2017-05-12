@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Cards\DeckTests.cs" />
     <Compile Include="Center\LeagueTests.cs" />
-    <Compile Include="DataForTesting.cs" />
     <Compile Include="Center\GameCenterTests.cs" />
     <Compile Include="Data\SearchCenterTests.cs" />
     <Compile Include="Players\PlayerActionTests.cs" />

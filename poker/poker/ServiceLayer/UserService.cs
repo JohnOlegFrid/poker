@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
+using Newtonsoft.Json;
 
 namespace poker.ServiceLayer
 {
-    class UserService
+    public class UserService
     {
         private Service service;
 
@@ -25,7 +26,7 @@ namespace poker.ServiceLayer
 
         public string Login(String username, String password)
         {
-            return service.CreateJson(PlayerAction.Login(username, password, service.PlayersData));
+            return JsonConvert.SerializeObject(PlayerAction.Login(username, password, service.PlayersData));
         }
 
         public string EditPlayer(string username, string type, string newValue)

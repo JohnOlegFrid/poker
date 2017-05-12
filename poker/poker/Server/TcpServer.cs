@@ -59,20 +59,29 @@ namespace poker.Server
 
             while (bClientConnected)
             {
-                // reads from stream
-                sData = sReader.ReadLine();
+                try
+                {
+                    // reads from stream
+                    sData = sReader.ReadLine();
 
-                Command command = JsonConvert.DeserializeObject<Command>(sData);
-                respond = Parser.Parse(command);
-                if (respond == null) 
-                { // exit client
-                    bClientConnected = false;
+                    Command command = JsonConvert.DeserializeObject<Command>(sData);
+                    respond = Parser.Parse(command);
+                    if (respond == null)
+                    { // exit client
+                        bClientConnected = false;
+                        return;
+                    }
+
+                    // to write something back.
+                    sWriter.WriteLine(respond);
+                    sWriter.Flush();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error with client, disconect...");
                     return;
                 }
-                   
-                // to write something back.
-                sWriter.WriteLine(respond);
-                sWriter.Flush();
+               
             }
         }
 

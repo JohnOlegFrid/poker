@@ -9,13 +9,14 @@ using Newtonsoft.Json;
 
 namespace poker.ServiceLayer
 {
-    class Service
+    public class Service : IService
     {
         private ILeaguesData leaguesData;
         private IRoomData roomsData;
         private IPlayersData playersData;
 
         private UserService userService;
+        private static Service instance;
 
         public Service(ILeaguesData leaguesData, IRoomData roomsData, IPlayersData playersData)
         {
@@ -24,6 +25,12 @@ namespace poker.ServiceLayer
             this.playersData = playersData;
 
             this.userService = new UserService(this);
+            Service.instance = this;
+        }
+
+        public static Service GetLastInstance()
+        {
+            return instance;
         }
 
         public ILeaguesData LeaguesData { get { return leaguesData; } set { leaguesData = value; } }
@@ -33,6 +40,21 @@ namespace poker.ServiceLayer
         public string CreateJson(Object obj)
         {
             return JsonConvert.SerializeObject(obj);
+        }
+
+        public string Register(string username, string password, string email)
+        {
+            return userService.Register(username, password, email);
+        }
+
+        public string Login(string username, string password)
+        {
+            return userService.Login(username, password);
+        }
+
+        public string EditPlayer(string username, string type, string newValue)
+        {
+            return userService.EditPlayer(username, type, newValue);
         }
     }
 }

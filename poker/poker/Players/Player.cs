@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using poker.Center;
+using Newtonsoft.Json;
 
 namespace poker.Players
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Player
     {
+        [JsonProperty]
         private int id;
+        [JsonProperty]
         private int rank;
+        [JsonProperty]
         private string username;
+        [JsonProperty]
         private String password;
+        [JsonProperty]
         private String email;
         private League league;
         private List<IGame> currentlyWatching;

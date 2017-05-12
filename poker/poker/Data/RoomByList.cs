@@ -7,7 +7,7 @@ using poker.Center;
 
 namespace poker.Data
 {
-    class RoomByList : IRoomData
+    public class RoomByList : IRoomData
     {
         private List<Room> rooms;
 
