@@ -78,11 +78,25 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Center\Chat.cs" />
+    <Compile Include="Center\IGame.cs" />
+    <Compile Include="Center\Room.cs" />
     <Compile Include="MainInfo.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
+    <Compile Include="PokerGame\Exceptions\NotEnoughMoneyException.cs" />
+    <Compile Include="PokerGame\Exceptions\PokerExceptions.cs" />
+    <Compile Include="PokerGame\GamePlayer.cs" />
+    <Compile Include="PokerGame\GamePreferences.cs" />
+    <Compile Include="PokerGame\Moves\Call.cs" />
+    <Compile Include="PokerGame\Moves\Check.cs" />
+    <Compile Include="PokerGame\Moves\Fold.cs" />
+    <Compile Include="PokerGame\Moves\Move.cs" />
+    <Compile Include="PokerGame\Moves\Raise.cs" />
+    <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
     <Page Include="Login.xaml">

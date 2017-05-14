@@ -16,6 +16,7 @@ namespace poker.ServiceLayer
         private IPlayersData playersData;
 
         private UserService userService;
+        private CenterService centerService;
         private static Service instance;
 
         public Service(ILeaguesData leaguesData, IRoomData roomsData, IPlayersData playersData)
@@ -25,6 +26,7 @@ namespace poker.ServiceLayer
             this.playersData = playersData;
 
             this.userService = new UserService(this);
+            this.centerService = new CenterService(this);
             Service.instance = this;
         }
 
@@ -56,6 +58,18 @@ namespace poker.ServiceLayer
         public string EditPlayer(string username, string type, string newValue)
         {
             return userService.EditPlayer(username, type, newValue);
+        }
+
+        public string SendMessage(string username, string from, string msg)
+        {
+            userService.SendMessge(username, from, msg);
+            return "null";
+        }
+
+        public string GetAllRoomsToPlay(string username)
+        {
+            Command command = new Command("TakeAllRoomsToPlay", new string[1] { this.centerService.GetAllRoomsToPlay(username) });
+            return CreateJson(command);
         }
     }
 }

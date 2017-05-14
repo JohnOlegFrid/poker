@@ -11,5 +11,7 @@ namespace poker.ServiceLayer
         string Register(string username, string password, string email);
         string Login(String username, String password);
         string EditPlayer(string username, string type, string newValue);
+        string SendMessage(string username, string from, string msg);
+        string GetAllRoomsToPlay(string username);
     }
 }

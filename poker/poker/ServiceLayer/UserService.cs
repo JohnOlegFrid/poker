@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
 using Newtonsoft.Json;
+using poker.Server;
 
 namespace poker.ServiceLayer
 {
@@ -44,6 +45,13 @@ namespace poker.ServiceLayer
                     break;
             }
             return service.CreateJson(true);
+        }
+
+        public void SendMessge(string username, string from, string msg)
+        {
+            Player player = service.PlayersData.FindPlayerByUsername(username);
+            Command command = new Command("GetMessage", new string[2] { from, msg });
+            player.SWriter.WriteLine(JsonConvert.SerializeObject(command));
         }
     }
 }

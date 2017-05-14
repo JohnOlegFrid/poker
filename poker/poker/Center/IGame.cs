@@ -27,10 +27,7 @@ namespace poker.Center
         void spectateGame(Player p);
         void stopWatching(Player p);
         List<Player> getAllSpectators();
-
         void NextRound();
-
-
 
     }
 }

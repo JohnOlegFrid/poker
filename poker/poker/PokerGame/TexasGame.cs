@@ -7,25 +7,37 @@ using poker.Center;
 using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
+using Newtonsoft.Json;
 
 namespace poker.PokerGame
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class TexasGame : IGame
     {
+        [JsonProperty]
         private GamePlayer[] chairsInGame;
+        [JsonProperty]
         private int currentPlayers;
         private List<Player> spectators;
+        [JsonProperty]
         private bool active;
+        [JsonProperty]
         private List<string> gameLog;
         private List<string> errorLog;
+        [JsonProperty]
         private GamePreferences gamePreferences;
+        [JsonProperty]
         private GamePlayer activePlayer;
+        [JsonProperty]
         private int pot;
+        [JsonProperty]
         private int highestBet;
+        [JsonProperty]
         private Move lastMove;
+        [JsonProperty]
         private GamePlayer smallBlind;
+        [JsonProperty]
         private GamePlayer bigBlind;
-        private GamePlayer dealer;//the first player to get the cards in each hand.
         public bool debug = false;
 
         public TexasGame(GamePreferences gp)
