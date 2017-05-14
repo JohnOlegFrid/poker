@@ -16,9 +16,9 @@ namespace acceptanceTests
         public PlayerTest()
         {
             SetTestInterface("Proxy");
-            playerBridge.InitPlayers();
+            playerBridge.InitGame();
             player1 = playerBridge.getPlayer(0);
-            player1 = playerBridge.getPlayer(1);
+            player2 = playerBridge.getPlayer(1);
         }
 
 
@@ -38,31 +38,28 @@ namespace acceptanceTests
 
 
         [TestMethod]
-        public void TestChangeEmail()
+        public void TestChangeEmailMainScenario()
         {
-            Assert.IsTrue(playerBridge.ChangeEmail("newPlayer1@gmail.com", player1));
-            Assert.IsTrue(playerBridge.ChangeEmail("Player2@gmail.com", player2));
-            Assert.IsTrue(playerBridge.ChangeEmail("EA_Sports", player1));
-            Assert.IsTrue(playerBridge.ChangeEmail("", player2));
             try
             {
-                Assert.IsTrue(playerBridge.ChangeEmail("newPlayer2@gmail.com", player2));
+                Assert.IsTrue(playerBridge.ChangeEmail("newPlayer1@gmail.com", player1));
+                Assert.IsTrue(playerBridge.ChangeEmail("Player2@gmail.com", player2));
+                Assert.IsTrue(player1.features.eMail.Equals("newPlayer1@gmail.com"));  
             }catch(Exception)
             {
                 Assert.Fail();
             }
         }
-
         [TestMethod]
-        public void TestChangePassword()
+        public void TestChangeEmailInvalidInput()
         {
-            Assert.IsTrue(playerBridge.ChangePassword("abcd1234", player1));
-            Assert.IsTrue(playerBridge.ChangePassword("1234Fool", player2));
-            Assert.IsTrue(playerBridge.ChangePassword("a1", player1));
-            Assert.IsTrue(playerBridge.ChangePassword("1234567890", player2));
             try
             {
-                Assert.IsTrue(playerBridge.ChangePassword("mYnEwPaSs111", player2));
+                Assert.IsFalse(playerBridge.ChangeEmail("EA_Sports", player1));
+                Assert.IsFalse(playerBridge.ChangeEmail("", player2));
+                Assert.IsFalse(playerBridge.ChangeEmail("newPlayer2@gmail.com", player2));
+                Assert.IsFalse(playerBridge.ChangeEmail("newPlayer1@gmail.com", player1));
+                Assert.IsTrue(player1.features.eMail.Equals("newPlayer1@gmail.com"));
             }
             catch (Exception)
             {
@@ -71,17 +68,62 @@ namespace acceptanceTests
         }
 
         [TestMethod]
-        public void TestCall()
+        public void TestChangePasswordMainScenario()
         {
-            playerBridge.InitPlayers();
+            try
+            {
+                Assert.IsTrue(playerBridge.ChangePassword("abcd1234", player1));
+                Assert.IsTrue(playerBridge.ChangePassword("BiGbEn1812", player2));
+                Assert.AreEqual(player1.features.password, "abcd1234");
+                Assert.AreEqual(player2.features.password, "BiGbEn1812");
+                Assert.IsTrue(playerBridge.ChangePassword("a1", player1));
+                Assert.IsTrue(playerBridge.ChangePassword("1234567890", player2));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+        [TestMethod]
+        public void TestChangePasswordInvalidInput()
+        {
+            try
+            {
+                Assert.IsFalse(playerBridge.ChangePassword("BiGbEn1812", player2));
+                Assert.IsFalse(playerBridge.ChangePassword("a1", player1));
+                Assert.IsFalse(playerBridge.ChangePassword("1234567890", player2));
+                Assert.AreNotEqual(player1.features.password, "a1");
+                Assert.AreNotEqual(player2.features.password, "1234567890");
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void TestCallMainScenario()
+        {
             playerBridge.InitGame();
             game = playerBridge.getGame();
+            int prevPot = game.gamePot;
+            int prevChips = player1.chips;
             Assert.IsTrue(playerBridge.Call(game, player2));
-            Assert.IsTrue(playerBridge.Call(game, player2));
-            Assert.IsTrue(playerBridge.Call(game, player1));
-            game.gamePlayers[0].chips = 0;
-            game.gamePot = 80;
-            Assert.IsTrue(playerBridge.Call(game, player1));
+            Assert.IsTrue(prevPot < game.gamePot);
+            Assert.IsTrue(prevChips > player1.chips);
+            //there are 2 players, so after a successful call the next phase starts with player1.
+            Assert.IsTrue(game.curPlayer == 0);
+        }
+
+        [TestMethod]
+        public void TestCallNotEnoughMoney()
+        {
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            int prevPot = game.gamePot;
+            player1.chips = 0;
+            Assert.IsFalse(playerBridge.Call(game, player1));
+            Assert.IsTrue(prevPot == game.gamePot);
         }
 
         [TestMethod]

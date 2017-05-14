@@ -12,7 +12,7 @@ namespace acceptanceTests.testObjects
         public Preferences gamePrefs;
         public Player[] gamePlayers;
         public List<Player> spectators;
-        public Player curPlayer;
+        public int curPlayer;
         private List<Turn> gameTurns;
 
         internal List<Turn> GameTurns { get => gameTurns; set => gameTurns = value; }

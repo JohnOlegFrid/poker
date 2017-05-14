@@ -66,7 +66,8 @@ namespace acceptanceTests.Proxys
             prefs.playersInTable[0] = 2;
             prefs.playersInTable[1] = 5;
             prefs.isPrivate = false;
-
+            game = new Game(prefs);
+            game.curPlayer = 0;
             game.gameID = 1234;
             game.gamePlayers[0] = player1;
             game.gamePlayers[1] = player2;
@@ -78,6 +79,8 @@ namespace acceptanceTests.Proxys
         {
             ProfileFeatures pf1 = new ProfileFeatures();
             ProfileFeatures pf2 = new ProfileFeatures();
+            player1 = new Player();
+            player2 = new Player();
 
             pf1.eMail = "Player1@gmail.com";
             pf1.password = "stupid123";
