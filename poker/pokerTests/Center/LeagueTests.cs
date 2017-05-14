@@ -6,20 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
-using pokerTests;
 using poker.PokerGame;
+using poker.Data;
+using poker.ServiceLayer;
 
 namespace poker.Center.Tests
 {
     [TestClass()]
-    public class LeagueTests : DataForTesting
+    public class LeagueTests
     {
 
         [TestMethod()]
         public void DisplayAvailablePokerGamesTest()
         {
-            Player logged = gameCenter.LoggedPlayer;
-            League league = logged.League;
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            GameCenter gameCenter = new GameCenter(Service.GetLastInstance().LeaguesData.GetAllLeagues(),
+                Service.GetLastInstance().PlayersData.FindPlayerByUsername("Eliran"));
+            League league = leaguesData.GetDefalutLeague();
             GamePreferences gp = new GamePreferences(4, 2, 100, 1000, true, 100);
             Room room1 = new Room(new TexasGame(gp));
             league.AddRoom(room1);
@@ -33,7 +37,7 @@ namespace poker.Center.Tests
             // used emmpty GetAllActiveGame that use his field
             List<Room> listEmptyArgs = gameCenter.DisplayAvailablePokerGames();
             Assert.IsTrue(Enumerable.SequenceEqual(listEmptyArgs, activeGames));
-            List<Room> listWithArgs = gameCenter.DisplayAvailablePokerGames(logged);
+            List<Room> listWithArgs = gameCenter.DisplayAvailablePokerGames(gameCenter.LoggedPlayer);
             Assert.IsTrue(Enumerable.SequenceEqual(listWithArgs, activeGames));
         }
     }

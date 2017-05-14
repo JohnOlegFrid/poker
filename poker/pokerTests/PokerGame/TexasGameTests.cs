@@ -4,15 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using poker.ServiceLayer;
 using poker.Center;
 using poker.Players;
-using pokerTests;
 using poker.PokerGame.Moves;
+using poker.Data;
+
 namespace poker.PokerGame.Tests
 {
     [TestClass()]
-    public class TexasGameTests:DataForTesting
+    public class TexasGameTests
     {
         [TestMethod()]
         public void IsAllowSpectatingTest()  //TODO Split to two test: pass/fail
@@ -24,41 +25,15 @@ namespace poker.PokerGame.Tests
             IGame game2 = new TexasGame(prefDisallow);
             Assert.IsFalse(game2.IsAllowSpectating());
         }
-        [TestMethod()]
-        public void SpectateGameTest()
-        {
-            Player p = new Player(1, "moshe", "123", "moshe@gmail.com", leaguesData.GetDefalutLeague());
-            Player p2 = new Player(2, "yakir", "123", "yakir@gmail.com", leaguesData.GetDefalutLeague());
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
-            GamePreferences prefDisallow = new GamePreferences(4, 2, 100, 1000, false, 100);
-            IGame game1 = new TexasGame(prefAllow);
-            game1.StartGame();
-            game1.spectateGame(p);
-            Assert.IsTrue(p.CurrentlyWatching.Count == 1);
-            Assert.IsTrue(game1.getAllSpectators().Count == 1);
-            game1.spectateGame(p2);
-            Assert.IsTrue(p2.CurrentlyWatching.Count == 1);
-            Assert.IsTrue(game1.getAllSpectators().Count == 2);
 
-            IGame game2 = new TexasGame(prefDisallow);
-            game2.StartGame();
-            game2.spectateGame(p);
-            Assert.IsTrue(p.CurrentlyWatching.Count == 1);
-            Assert.IsTrue(game2.getAllSpectators().Count == 0);
-
-            IGame game3 = new TexasGame(prefAllow);
-            game3.StartGame();
-            game3.spectateGame(p);
-            Assert.IsTrue(p.CurrentlyWatching.Count == 2);
-            Assert.IsTrue(game3.getAllSpectators().Count == 1);
-        }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "no free chair.")]
         public void JoinExistingGameTest()
         {
-            Player logged = gameCenter.LoggedPlayer;
-            League league = logged.League;
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            League league = leaguesData.GetDefalutLeague();
             GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
@@ -66,36 +41,36 @@ namespace poker.PokerGame.Tests
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
             GamePlayer p4 = new GamePlayer(new Player(4, "oleg", "1234", "oleg@gmail.com", league), 1000);
             GamePlayer p5 = new GamePlayer(new Player(5, "eliran", "1234", "eliran@gmail.com", league), 1000);
-            List<int> chairs = game1.AskToJoin();
+            List<int> chairs = game1.getFreeChairs();
             Random rnd = new Random();
             int chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p1);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 3);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p2);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 2);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p3);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p3);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsTrue(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(5000, chair, p4);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsTrue(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p4);
-            chairs = game1.AskToJoin();
+            chairs = game1.getFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 0);
             chair=chairs.ElementAt(rnd.Next(chairs.Count));//should throw exception- game is full.
@@ -105,8 +80,9 @@ namespace poker.PokerGame.Tests
         [TestMethod()]
         public void CheckTest()
         {
-            Player logged = gameCenter.LoggedPlayer;
-            League league = logged.League;
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            League league = leaguesData.GetDefalutLeague();
             GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
@@ -131,8 +107,9 @@ namespace poker.PokerGame.Tests
         [TestMethod()]
         public void CallRaiseFoldTest()
         {
-            Player logged = gameCenter.LoggedPlayer;
-            League league = logged.League;
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            League league = leaguesData.GetDefalutLeague();
             GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 10);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
@@ -141,6 +118,7 @@ namespace poker.PokerGame.Tests
             game1.Join(100, 0, p1);
             game1.Join(100, 1, p2);
             game1.Join(100, 2, p3);
+            ((TexasGame)game1).debug = true;
             game1.StartGame();
             GamePlayer currnetPlayer = game1.GetActivePlayer(); //p1
             currnetPlayer.NextMove = new Raise(10, currnetPlayer);
@@ -195,8 +173,9 @@ namespace poker.PokerGame.Tests
         [TestMethod()]
         public void GetListActivePlayersTest()
         {
-            Player logged = gameCenter.LoggedPlayer;
-            League league = logged.League;
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            League league = leaguesData.GetDefalutLeague();
             int maxPlayers = 6;
             int minPlayers = 2;
             int minBuyIn = 100;
@@ -206,14 +185,15 @@ namespace poker.PokerGame.Tests
             int playerAmount = 500;            
             GamePreferences prefAllow = new GamePreferences(maxPlayers,minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             IGame game1 = new TexasGame(prefAllow);
-            game1.StartGame();
+            
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
             GamePlayer p4 = new GamePlayer(new Player(4, "oleg", "1234", "oleg@gmail.com", league), 1000);
             GamePlayer p5 = new GamePlayer(new Player(5, "eliran", "1234", "eliran@gmail.com", league), 1000);
-            AddPlayerToGame(playerAmount, game1, p1);
-            AddPlayerToGame(playerAmount, game1, p2);
+            game1.Join(playerAmount, 0, p1);
+            game1.Join(playerAmount, 1, p2);
+            game1.StartGame();
             AddPlayerToGame(playerAmount, game1, p3);
             AddPlayerToGame(playerAmount, game1, p4);
             AddPlayerToGame(playerAmount, game1, p5);
@@ -229,6 +209,25 @@ namespace poker.PokerGame.Tests
             Assert.IsTrue(CompareLists(accpectedAnswer1,receivedAnswer1));
         }
 
-        
+        public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
+        {
+            List<int> chairs = gameAddTo.getFreeChairs();
+            Random rnd = new Random();
+            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
+            gameAddTo.Join(playerAmount, chair, playerToAdd);
+        }
+
+        public bool CompareLists<T>(List<T> listA, List<T> listB)
+        {
+            if (listA.Count != listB.Count) return false;
+            foreach (T p1 in listA)
+            {
+                if ((listB.Find(x => x.Equals(p1))) == null)
+                    return false;
+            }
+            return true;
+        }
+
+
     }
 }

@@ -13,7 +13,7 @@ namespace poker.Center
         bool Join(int amount, int chair, GamePlayer p);
         //A player can choose which seat he wants to sit in
         //returns a list of numbers representing free seats from which the player will later on choose.
-        List<int> AskToJoin();
+        List<int> getFreeChairs();
         bool IsActive();
         void FinishGame();
         void StartGame(); 

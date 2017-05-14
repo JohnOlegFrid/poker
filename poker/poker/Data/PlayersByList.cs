@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using poker.Players;
+using System.Linq;
 
 namespace poker.Data
 {
@@ -25,7 +26,14 @@ namespace poker.Data
 
         public Player FindPlayerByUsername(String username)
         {
-            return players.Find( x=> x.Username.Equals(username));
+            try
+            {
+                return players.Find(x => x.Username.Equals(username));
+            }
+            catch(ArgumentNullException e)
+            {
+                return null;
+            }
         }
 
         public List<Player> GetAllPlayers()
@@ -33,5 +41,9 @@ namespace poker.Data
             return players;
         }
 
+        public int getNextId()
+        {
+            return players.Max(player => player.Id) + 1;
+        }
     }
 }
