@@ -15,7 +15,7 @@ namespace poker.PokerGame.Tests
     public class TexasGameTests:DataForTesting
     {
         [TestMethod()]
-        public void IsAllowSpectatingTest()
+        public void IsAllowSpectatingTest()  //TODO Split to two test: pass/fail
         {
             GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
             GamePreferences prefDisallow = new GamePreferences(4, 2, 100, 1000, false, 100);
