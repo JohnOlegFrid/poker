@@ -6,13 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace ClientPoker
+namespace ClientPoker.ClientFiles
 {
-    class Client
+    public class Client
     {
         private TcpClient client;
+        private readonly object lock_ = new object();
 
         private StreamReader sReader;
         private StreamWriter sWriter;
@@ -25,18 +27,35 @@ namespace ClientPoker
             client.Connect(ipAddress, portNum);
             isConnected = true;
 
-
             sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
             sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
+
+            Thread listener = new Thread(new ThreadStart(this.Listener));
+            listener.Start();
         }
 
-        public string SendMessage(Object obj)
+        public void SendMessage(Command command)
         {
-            sWriter.WriteLine(JsonConvert.SerializeObject(obj));
+            sWriter.WriteLine(JsonConvert.SerializeObject(command));
             sWriter.Flush();
+        }
 
-            // if you want to receive anything
-            return sReader.ReadLine();
+        public Command GetMessage()
+        {
+            return JsonConvert.DeserializeObject<Command>(sReader.ReadLine());
+        }
+
+        public void Listener()
+        {
+            Command command;
+            while (true)
+            {
+                string answer = sReader.ReadLine();
+                command = JsonConvert.DeserializeObject<Command>(answer);
+                if (command == null)
+                    continue;
+                Parser.Parse(command);
+            }
         }
 
         public void CloseConnection()

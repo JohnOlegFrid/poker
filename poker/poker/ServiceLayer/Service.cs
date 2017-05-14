@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.Data;
 using Newtonsoft.Json;
-
+using poker.Server;
 
 namespace poker.ServiceLayer
 {
@@ -49,7 +49,8 @@ namespace poker.ServiceLayer
 
         public string Login(string username, string password)
         {
-            return userService.Login(username, password);
+            Command command = new Command("Login", new string[1] { userService.Login(username, password) });
+            return CreateJson(command);
         }
 
         public string EditPlayer(string username, string type, string newValue)

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClientPoker.ClientFiles;
 
 namespace ClientPoker
 {
@@ -21,38 +22,46 @@ namespace ClientPoker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Client client = null;
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public bool ConnectToServer()
-        {
-            if (client != null)
-                return true;       
-            String ip = Client.GetLocalIPAddress();
-            int port = 5555;
-            try
-            {
-                client = new Client(ip, port);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Cannot Connect To Server...");
-                return false;
-            }
-            return true;
+            MainInfo.Instance.MainWindow = this;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!ConnectToServer())
+            if (!MainInfo.Instance.ConnectToServer())
+            {
+                MessageBox.Show("Cannot Connect To Server...");
                 return;
+            }
+                
             Command command = new Command("Login", new String[2] { usernameBox.Text, passwordBox.Password });
-            String answer = client.SendMessage(command);
+            MainInfo.Instance.SendMessage(command);
+            loginButton.IsEnabled = false;
+        }
 
-            MessageBox.Show(answer);
+        public void DoLogin()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
+            });       
+        }
+
+        public void LoginFaild()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                ShowMessage("Error with loggin, please try again");
+                loginButton.IsEnabled = true;
+            });
+            
+        }
+
+        public void ShowMessage(string msg)
+        {
+            MessageBox.Show(msg);
         }
 
     }
