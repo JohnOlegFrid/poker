@@ -26,6 +26,11 @@ namespace ClientPoker.ServiceLayer
             }
         }
 
+        public void GetMessage(string from, string msg)
+        {
+            MainInfo.Instance.MainWindow.ShowMessage("Message: " + msg + ". From: " + from);
+        }
+
         public void Login(string player)
         {
             if(player == "null")

@@ -63,9 +63,9 @@ namespace poker.Server
                 {
                     // reads from stream
                     sData = sReader.ReadLine();
-
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     respond = Parser.Parse(command);
+                    Parser.RememberPlayer(command, respond, sWriter);
                     if (respond == null)
                     { // exit client
                         bClientConnected = false;
@@ -73,8 +73,12 @@ namespace poker.Server
                     }
 
                     // to write something back.
-                    sWriter.WriteLine(respond);
-                    sWriter.Flush();
+                    if (!respond.Equals("null"))
+                    {
+                        sWriter.WriteLine(respond);
+                        sWriter.Flush();
+                    }
+                    
                 }
                 catch (Exception e)
                 {

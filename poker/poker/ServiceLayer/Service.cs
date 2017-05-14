@@ -57,5 +57,11 @@ namespace poker.ServiceLayer
         {
             return userService.EditPlayer(username, type, newValue);
         }
+
+        public string SendMessage(string username, string from, string msg)
+        {
+            userService.SendMessge(username, from, msg);
+            return "null";
+        }
     }
 }

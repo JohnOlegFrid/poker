@@ -10,5 +10,6 @@ namespace ClientPoker.ServiceLayer
     public interface IService
     {
         void Login(string player);
+        void GetMessage(string from, string msg);
     }
 }
