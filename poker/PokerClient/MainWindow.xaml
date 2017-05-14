@@ -8,17 +8,10 @@
         Title="MainWindow" Height="640" Width="800">
     <Grid Height="640" Margin="0,0,0,0" Width="800">
         <Image Margin="0,0,0,0" Source="high-resolution-poker-cards-wallpaper-hd-game-full-size-backgrounds-on-card-widescreen-of-laptop-.jpg" Stretch="Fill"/>
-        <Grid Margin="150,170" Width="500" Height="300">
-            <TextBlock x:Name="Title" Foreground="White" Width="200" Height="50" Margin="0" Text="Login Page" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" />
-            <TextBlock x:Name="UserNameTitle" Foreground="White" Width="102" Height="26" Margin="81,100,317,0" Text="Username :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
-            <TextBlock x:Name="PasswordTitle" Foreground="White" Width="102" Height="26" Margin="86,143,312,0" Text="Password :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
-            <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Margin="188,100,0,0" VerticalContentAlignment="Center"/>
-            <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="26" Margin="188,143,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
-            <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Center" Margin="0,0,0,90" VerticalAlignment="Bottom" Width="75" Click="LoginButton_Click" RenderTransformOrigin="0.54,-1.299"/>
-
-
-
-        </Grid>
+        <ContentControl x:Name="mainContentControl" Width="800" Height="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            
+        </ContentControl> 
+        
 
 
     </Grid>

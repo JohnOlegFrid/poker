@@ -30,7 +30,7 @@ namespace ClientPoker.ServiceLayer
         {
             if(player == "null")
             {
-                MainInfo.Instance.MainWindow.LoginFaild();
+                MainInfo.Instance.Login.LoginFaild();
                 return;
             }      
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);

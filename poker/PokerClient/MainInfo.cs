@@ -13,6 +13,8 @@ namespace ClientPoker
         private Client client = null;
         private Player player = null;
         private MainWindow mainWindow = null;
+        private Login login = null;
+       
 
         private static MainInfo instance;
 
@@ -55,5 +57,7 @@ namespace ClientPoker
         public Player Player { get { return player; } set { player = value; } }
 
         public MainWindow MainWindow { get { return mainWindow; } set { mainWindow = value; } }
+
+        public Login Login { get => login; set => login = value; }
     }
 }

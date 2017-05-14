@@ -26,40 +26,26 @@ namespace ClientPoker
         {
             InitializeComponent();
             MainInfo.Instance.MainWindow = this;
+            Login log = new Login();
+            MainInfo.Instance.Login = log;
+
+            mainContentControl.Content = new Login();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!MainInfo.Instance.ConnectToServer())
-            {
-                MessageBox.Show("Cannot Connect To Server...");
-                return;
-            }
-                
-            Command command = new Command("Login", new String[2] { usernameBox.Text, passwordBox.Password });
-            MainInfo.Instance.SendMessage(command);
-            loginButton.IsEnabled = false;
-        }
+        
 
         public void DoLogin()
         {
             this.Dispatcher.Invoke(() =>
             {
                 MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
-            });       
-        }
-
-        public void LoginFaild()
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                ShowMessage("Error with loggin, please try again");
-                loginButton.IsEnabled = true;
             });
-            
+           
         }
 
-        public void ShowMessage(string msg)
+        
+
+        public static void ShowMessage(string msg)
         {
             MessageBox.Show(msg);
         }

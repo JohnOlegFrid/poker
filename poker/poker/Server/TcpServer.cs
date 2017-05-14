@@ -65,7 +65,9 @@ namespace poker.Server
                     sData = sReader.ReadLine();
 
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
+                    
                     respond = Parser.Parse(command);
+                    
                     if (respond == null)
                     { // exit client
                         bClientConnected = false;
