@@ -173,29 +173,6 @@ namespace acceptanceTests.Tests
             game = gameBridge.GetGame();
         }
 
-        [TestMethod]
-        public void TestSaveFavoriteTurns()
-        {
-            try
-            {
-                gameBridge.InitGame();
-                game = gameBridge.GetGame();
-                Player p1 = GivePlayer();
-                Random rnd = new Random();
-                List<Turn> gameTurns = game.GameTurns;
-                Assert.IsFalse(gameBridge.SaveFavoriteTurns(game, p1));
-                int randTurn = rnd.Next(0, gameTurns.Count - 1);
-                Assert.IsTrue(p1.AddSavedTurns(gameTurns[randTurn]));
-                Assert.IsTrue(p1.SavedTurns.Contains(gameTurns[randTurn]));
-                Assert.IsFalse(p1.AddSavedTurns(gameTurns[randTurn]));
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-
-
-        }
 
         private Player GivePlayer()
         {
