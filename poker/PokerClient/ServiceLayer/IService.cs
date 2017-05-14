@@ -11,5 +11,6 @@ namespace ClientPoker.ServiceLayer
     {
         void Login(string player);
         void GetMessage(string from, string msg);
+        void TakeAllRoomsToPlay(string rooms);
     }
 }

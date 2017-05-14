@@ -48,7 +48,6 @@ namespace poker.Server
                 string username = JsonConvert.DeserializeObject<Player>(desRespond.args[0]).Username;
                 Player player = Service.GetLastInstance().PlayersData.FindPlayerByUsername(username);
                 player.SWriter = sWriter;
-                Service.GetLastInstance().SendMessage("Oleg", "server", "Welcome to our crazy poker game!!");
             }
                 
         }

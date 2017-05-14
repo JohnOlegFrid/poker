@@ -1,4 +1,5 @@
-﻿using ClientPoker.ClientFiles;
+﻿using ClientPoker.Center;
+using ClientPoker.ClientFiles;
 using ClientPoker.Players;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ClientPoker
         private Client client = null;
         private Player player = null;
         private MainWindow mainWindow = null;
+        private List<Room> roomsToPlay = null;
 
         private static MainInfo instance;
 
@@ -55,5 +57,7 @@ namespace ClientPoker
         public Player Player { get { return player; } set { player = value; } }
 
         public MainWindow MainWindow { get { return mainWindow; } set { mainWindow = value; } }
+
+        public List<Room> RoomsToPlay { get { return roomsToPlay; } set { roomsToPlay = value; } }
     }
 }

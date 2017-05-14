@@ -11,6 +11,11 @@ namespace poker.Data
     {
         private List<Room> rooms;
 
+        public RoomByList()
+        {
+            rooms = new List<Room>();
+        }
+
         public void AddRoom(Room room)
         {
             rooms.Add(room);

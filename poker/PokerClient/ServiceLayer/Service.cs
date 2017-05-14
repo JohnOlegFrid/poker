@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ClientPoker.Players;
 using Newtonsoft.Json;
+using ClientPoker.Center;
+using ClientPoker.ClientFiles;
 
 namespace ClientPoker.ServiceLayer
 {
@@ -40,6 +42,21 @@ namespace ClientPoker.ServiceLayer
             }      
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
             MainInfo.Instance.MainWindow.DoLogin();
+
+            // stam for testing
+            RequestAllRoomsToPlay();
+        }
+
+        public void TakeAllRoomsToPlay(string rooms)
+        {
+            List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
+            MainInfo.Instance.RoomsToPlay = roomsList;
+        }
+
+        public void RequestAllRoomsToPlay()
+        {
+            Command command = new Command("GetAllRoomsToPlay", new string[1] { MainInfo.Instance.Player.Username });
+            MainInfo.Instance.SendMessage(command);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using poker.Players;
+﻿using Newtonsoft.Json;
+using poker.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Room
     {
+        [JsonProperty]
         private Chat chat;
+        [JsonProperty]
         private IGame game;
+        [JsonProperty]
         private bool haveActiveGame;
         private List<IGame> pastGames;
 
