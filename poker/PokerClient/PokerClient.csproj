@@ -134,5 +134,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="high-resolution-poker-cards-wallpaper-hd-game-full-size-backgrounds-on-card-widescreen-of-laptop-.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
