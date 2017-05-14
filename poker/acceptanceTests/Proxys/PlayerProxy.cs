@@ -68,6 +68,7 @@ namespace acceptanceTests.Proxys
             prefs.isPrivate = false;
             game = new Game(prefs);
             game.curPlayer = 0;
+            game.roundPhase = 1; // flop
             game.gameID = 1234;
             game.gamePlayers[0] = player1;
             game.gamePlayers[1] = player2;

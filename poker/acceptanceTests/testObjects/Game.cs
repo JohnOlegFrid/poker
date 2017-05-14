@@ -13,6 +13,7 @@ namespace acceptanceTests.testObjects
         public Player[] gamePlayers;
         public List<Player> spectators;
         public int curPlayer;
+        public int roundPhase;
         private List<Turn> gameTurns;
 
         internal List<Turn> GameTurns { get => gameTurns; set => gameTurns = value; }

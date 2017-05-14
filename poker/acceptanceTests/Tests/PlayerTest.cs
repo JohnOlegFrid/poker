@@ -127,23 +127,30 @@ namespace acceptanceTests
         }
 
         [TestMethod]
-        public void TestCheck()
+        public void TestCheckMainScenario()
         {
-            playerBridge.InitPlayers();
             playerBridge.InitGame();
             game = playerBridge.getGame();
-            Assert.IsTrue(playerBridge.Check(game, player2));
-            Assert.IsTrue(playerBridge.Check(game, player2));
+            int prevPot = game.gamePot;
             Assert.IsTrue(playerBridge.Check(game, player1));
-            game.gamePlayers[0].chips = 0;
-            game.gamePot = 80;
+            Assert.IsFalse(playerBridge.Check(game, player1));
+            Assert.IsTrue(game.gamePot == prevPot);
+            
+        }
+        [TestMethod]
+        public void TestCheckNextPhase()
+        {
+            playerBridge.InitGame();
+            game = playerBridge.getGame();
+            Assert.IsTrue(playerBridge.Check(game, player1));
+            //continues from previous test.
+            Assert.IsTrue(game.roundPhase > 1);
             Assert.IsTrue(playerBridge.Check(game, player1));
         }
 
         [TestMethod]
         public void TestRaise()
         {
-            playerBridge.InitPlayers();
             playerBridge.InitGame();
             game = playerBridge.getGame();
             Assert.IsTrue(playerBridge.Raise(game, player2, 100));
