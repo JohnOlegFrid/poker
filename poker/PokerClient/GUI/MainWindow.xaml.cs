@@ -15,18 +15,22 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PokerClient.Communication;
 
-namespace PokerClient
+namespace PokerClient.GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        Login log;
+        Register reg;
+
         public MainWindow()
         {
             InitializeComponent();
             MainInfo.Instance.MainWindow = this;
-            Login log = new Login();
+            log = new Login();
+            reg = new Register();
             MainInfo.Instance.Login = log;
 
             mainContentControl.Content = new Login();
@@ -36,22 +40,19 @@ namespace PokerClient
 
         public void DoLogin()
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
-            });
-
-
-
-           
+            log.DoLogin();
+            
         }
 
-        
+        public void RegisterFaild(string registerMsg)
+        {
+
+            reg.RegisterFaild();
+        }
 
         public static void ShowMessage(string msg)
         {
             MessageBox.Show(msg);
         }
-
     }
 }

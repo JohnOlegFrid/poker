@@ -1,6 +1,7 @@
 ﻿using PokerClient.Center;
 using PokerClient.Communication;
 using PokerClient.Players;
+using PokerClient.GUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PokerClient
+namespace PokerClient.GUI
 {
     /// <summary>
     /// Interaction logic for Login.xaml
@@ -39,6 +39,14 @@ namespace PokerClient
             Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
             loginButton.IsEnabled = false;        
 
+        }
+
+        internal void DoLogin()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
+            });
         }
 
         public void LoginFaild()

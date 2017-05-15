@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PokerClient
+namespace PokerClient.GUI
 {
     /// <summary>
     /// Interaction logic for Register.xaml
@@ -42,7 +42,12 @@ namespace PokerClient
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.","Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.IsEnabled = true;
             }
-            
+            Service.Instance.DoRegister(usernameBox.Text,pass,emailBox.Text);
+        }
+
+        internal void RegisterFaild()
+        {
+            throw new NotImplementedException();
         }
     }
 }
