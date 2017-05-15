@@ -12,12 +12,16 @@ namespace poker.Center
     public class Room
     {
         [JsonProperty]
+        private int id;
+        [JsonProperty]
         private Chat chat;
         [JsonProperty]
         private IGame game;
         [JsonProperty]
         private bool haveActiveGame;
         private List<IGame> pastGames;
+        private static int nextId = 0;
+        private readonly object syncLock = new object();
 
         public Room(IGame game)
         {
@@ -25,6 +29,11 @@ namespace poker.Center
             haveActiveGame = true;
             pastGames = new List<IGame>();
             this.chat = new Chat();
+            lock (syncLock)
+            {
+                nextId++;
+                this.Id = nextId;
+            }          
         }
 
         public IGame Game
@@ -54,6 +63,8 @@ namespace poker.Center
         }
 
         public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
+
+        public int Id { get { return id; } set { id = value; } }
 
         public bool IsPlayerActiveInRoom (Player pl)
         {

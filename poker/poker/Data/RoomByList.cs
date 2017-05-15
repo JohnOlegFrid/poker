@@ -26,6 +26,18 @@ namespace poker.Data
             rooms.Remove(room);
         }
 
+        public Room FindRoomById(int id)
+        {
+            try
+            {
+                return rooms.Find(x => x.Id.Equals(id));
+            }
+            catch (ArgumentNullException e)
+            {
+                return null;
+            }
+        }
+
         public List<Room> GetAllRooms()
         {
             return rooms;
