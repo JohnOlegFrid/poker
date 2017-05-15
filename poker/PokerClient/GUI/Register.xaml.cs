@@ -42,6 +42,11 @@ namespace PokerClient.GUI
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.","Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.IsEnabled = true;
             }
+            if (!MainInfo.Instance.ConnectToServer())
+            {
+                MessageBox.Show("Cannot Connect To Server...");
+                return;
+            }
             Service.Instance.DoRegister(usernameBox.Text,pass,emailBox.Text);
         }
 

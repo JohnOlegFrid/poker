@@ -50,9 +50,15 @@ namespace PokerClient.GUI
             reg.RegisterFaild();
         }
 
+        public void OpenMainMenu()
+        {
+            mainContentControl.Content = new MainMenu();
+        }
+
         public static void ShowMessage(string msg)
         {
             MessageBox.Show(msg);
         }
+
     }
 }
