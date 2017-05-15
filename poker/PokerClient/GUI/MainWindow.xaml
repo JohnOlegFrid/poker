@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid Height="640" Margin="0,0,0,0" Width="800">
+        <Image Source="Images/MainBackground.jpg" Stretch="Fill"/>
         <ContentControl x:Name="mainContentControl" Width="800" Height="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             
-        </ContentControl> 
+        </ContentControl>
         
+
+
 
 
     </Grid>

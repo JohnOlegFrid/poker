@@ -176,13 +176,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="high-resolution-poker-cards-wallpaper-hd-game-full-size-backgrounds-on-card-widescreen-of-laptop-.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Back1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\MainBackground.jpg" />
+    <Resource Include="GUI\Images\MainBackground.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
