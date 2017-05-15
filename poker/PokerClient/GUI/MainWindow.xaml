@@ -1,13 +1,13 @@
-﻿<Window x:Class="PokerClient.MainWindow"
+﻿<Window x:Class="PokerClient.GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PokerClient"
+        xmlns:local="clr-namespace:PokerClient.GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid Height="640" Margin="0,0,0,0" Width="800">
-        <Image Margin="0,0,0,0" Source="high-resolution-poker-cards-wallpaper-hd-game-full-size-backgrounds-on-card-widescreen-of-laptop-.jpg" Stretch="Fill"/>
+        <Image Margin="0,0,0,0" Source="Images/background.jpg" Stretch="Fill"/>
         <ContentControl x:Name="mainContentControl" Width="800" Height="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             
         </ContentControl> 

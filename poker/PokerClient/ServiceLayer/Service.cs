@@ -7,6 +7,7 @@ using PokerClient.Players;
 using Newtonsoft.Json;
 using PokerClient.Center;
 using PokerClient.Communication;
+using PokerClient.GUI;
 
 namespace PokerClient.ServiceLayer
 {
@@ -32,7 +33,7 @@ namespace PokerClient.ServiceLayer
 
         public void GetMessage(string from, string msg)
         {
-            MainWindow.ShowMessage("Message: " + msg + ". From: " + from);
+            GUI.MainWindow.ShowMessage("Message: " + msg + ". From: " + from);
         }
 
         public void Login(string player)
