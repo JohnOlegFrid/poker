@@ -28,6 +28,8 @@ namespace ClientPoker.ServiceLayer
             }
         }
 
+        // server to client
+
         public void GetMessage(string from, string msg)
         {
             MainWindow.ShowMessage("Message: " + msg + ". From: " + from);
@@ -43,16 +45,25 @@ namespace ClientPoker.ServiceLayer
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
             MainInfo.Instance.MainWindow.DoLogin();
 
-            // stam for testing
             RequestAllRoomsToPlay();
         }
+
+        public void Register(string registerMsg, string player)
+        {
+            if (!registerMsg.Equals("ok"))
+                return MainInfo.Instance.MainWindow.RegisterFaild(registerMsg);
+        }
+
 
         public void TakeAllRoomsToPlay(string rooms)
         {
             List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
             MainInfo.Instance.RoomsToPlay = roomsList;
         }
+        // end server to client
 
+
+        // client to server
         public void RequestAllRoomsToPlay()
         {
             Command command = new Command("GetAllRoomsToPlay", new string[1] { MainInfo.Instance.Player.Username });
@@ -69,5 +80,7 @@ namespace ClientPoker.ServiceLayer
         {
             throw new NotImplementedException();
         }
+
+        //end server to client
     }
 }

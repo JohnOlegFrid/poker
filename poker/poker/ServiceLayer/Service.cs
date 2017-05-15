@@ -46,7 +46,9 @@ namespace poker.ServiceLayer
 
         public string Register(string username, string password, string email)
         {
-            return userService.Register(username, password, email);
+            string msgRegister = userService.Register(username, password, email);
+            Command command = new Command("Register", new string[2] { msgRegister, userService.Login(username, password)});
+            return CreateJson(command);      
         }
 
         public string Login(string username, string password)
