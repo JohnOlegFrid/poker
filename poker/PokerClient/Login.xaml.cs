@@ -1,4 +1,5 @@
 ﻿using ClientPoker.Communication;
+using ClientPoker.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +36,8 @@ namespace ClientPoker
                 return;
             }
 
-            Command command = new Command("Login", new String[2] { usernameBox.Text, passwordBox.Password });
-            MainInfo.Instance.SendMessage(command);
-            loginButton.IsEnabled = false;
-            
+            Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
+            loginButton.IsEnabled = false;        
 
         }
 

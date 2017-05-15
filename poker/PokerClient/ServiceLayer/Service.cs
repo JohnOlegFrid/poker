@@ -58,5 +58,11 @@ namespace ClientPoker.ServiceLayer
             Command command = new Command("GetAllRoomsToPlay", new string[1] { MainInfo.Instance.Player.Username });
             MainInfo.Instance.SendMessage(command);
         }
+
+        public void DoLogin(string username, string password)
+        {
+            Command command = new Command("Login", new String[2] { username, password });
+            MainInfo.Instance.SendMessage(command);
+        }
     }
 }
