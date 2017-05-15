@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
 using Newtonsoft.Json;
-using ClientPoker.Center;
-using ClientPoker.Players;
+using PokerClient.Center;
+using PokerClient.Players;
 
 namespace poker.PokerGame
 {

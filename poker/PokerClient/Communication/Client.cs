@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ClientPoker.Communication
+namespace PokerClient.Communication
 {
     public class Client
     {

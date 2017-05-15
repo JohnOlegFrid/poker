@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="ClientPoker.Register"
+﻿<UserControl x:Class="PokerClient.Register"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ClientPoker"
+             xmlns:local="clr-namespace:PokerClient"
              mc:Ignorable="d" 
              d:DesignHeight="640" d:DesignWidth="800">
     <Grid Width="800" Height="640">
@@ -15,7 +15,7 @@
             <TextBlock x:Name="PasswordTitle" Foreground="White" Width="102" Height="26" Margin="86,143,312,0" Text="Password :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
             <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Margin="188,100,0,0" VerticalContentAlignment="Center"/>
             <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="26" Margin="188,143,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
-            <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Center" Margin="0,0,0,52" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.54,-1.299"/>
+            <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Center" Margin="0,0,0,52" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.54,-1.299" Click="RegisterButton_Click"/>
             <TextBlock x:Name="confirmPasswordTitle" Foreground="White" Width="175" Height="26" Margin="8,181,317,0" Text="Confirm password :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
             <PasswordBox x:Name="confirmPasswordBox" HorizontalAlignment="Left" Height="26" Margin="188,181,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
             <TextBlock x:Name="emailTitle" Foreground="White" Width="63" Height="26" Margin="123,64,314,0" Text="Email :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />

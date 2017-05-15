@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientPoker.Center
+namespace PokerClient.Center
 {
     public class Chat
     {
@@ -20,3 +20,4 @@ namespace ClientPoker.Center
             return this.messages;
         }
     }
+}
