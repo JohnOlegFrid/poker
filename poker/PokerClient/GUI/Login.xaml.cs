@@ -45,8 +45,9 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
            {
+               MessageBox.Show(MainInfo.Instance.Player.Username + " is logged","Succecful Login",MessageBoxButton.OK,MessageBoxImage.Information);
                MainInfo.Instance.MainWindow.mainContentControl.Content = new MainMenu();
-               MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
+               
 
            });
             

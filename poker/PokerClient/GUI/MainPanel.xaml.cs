@@ -16,17 +16,13 @@ using System.Windows.Shapes;
 namespace PokerClient.GUI
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for MainPanel.xaml
     /// </summary>
-    public partial class MainMenu : UserControl
+    public partial class MainPanel : UserControl
     {
-        public MainMenu()
+        public MainPanel()
         {
             InitializeComponent();
-            this.topMainPanel.Content = new UserPanel();
-            this.bottomMainPanel.Content = new MainPanel();
-
-            
         }
     }
 }

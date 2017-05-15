@@ -27,5 +27,10 @@ namespace PokerClient.GUI
             userRankTB.Text = "Rank: " +MainInfo.Instance.Player.Rank;
             userMoneyTB.Text = MainInfo.Instance.Player.GetEmail();
         }
+
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainInfo.Instance.MainWindow.mainContentControl.Content = new Login();
+        }
     }
 }

@@ -8,9 +8,10 @@
              d:DesignHeight="20" d:DesignWidth="800">
     
     <DockPanel LastChildFill="True" Background="Black">
-        <TextBlock x:Name="userNameTB" DockPanel.Dock="Left" Width="400" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
+        <TextBlock x:Name="userNameTB" DockPanel.Dock="Left" Width="300" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
         <TextBlock x:Name="userRankTB" DockPanel.Dock="Left" Width="200" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
-        <TextBlock x:Name="userMoneyTB" DockPanel.Dock="Right" Width="200"  FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold" />
+        <TextBlock x:Name="userMoneyTB" DockPanel.Dock="Left" Width="200"  FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold" />
+        <Button x:Name="logoutButton" Background="#FF5F5D5D" Foreground="#FFF6F6F6" BorderBrush="#FFFAFAFA"  Content="Logout" IsCancel="True" FontWeight="Bold" Click="logoutButton_Click"/>
     </DockPanel>
     
 </UserControl>
