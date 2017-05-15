@@ -65,6 +65,9 @@ namespace ClientPoker.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-
+        public void DoRegister(string username, string password, string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
