@@ -28,6 +28,7 @@ namespace PokerClient.GUI
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             MainInfo.Instance.MainWindow = this;
             log = new Login();
             reg = new Register();
@@ -38,11 +39,7 @@ namespace PokerClient.GUI
 
         
 
-        public void DoLogin()
-        {
-            log.DoLogin();
-            
-        }
+        
 
         public void RegisterFaild(string registerMsg)
         {
@@ -52,7 +49,7 @@ namespace PokerClient.GUI
 
         public void OpenMainMenu()
         {
-            mainContentControl.Content = new MainMenu();
+            log.OpenMainMenu();
         }
 
         public static void ShowMessage(string msg)

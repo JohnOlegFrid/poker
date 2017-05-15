@@ -44,7 +44,7 @@ namespace PokerClient.ServiceLayer
                 return;
             }      
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
-            MainInfo.Instance.MainWindow.DoLogin();
+            MainInfo.Instance.MainWindow.OpenMainMenu();
 
             RequestAllRoomsToPlay();
         }

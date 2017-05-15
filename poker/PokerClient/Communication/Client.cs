@@ -54,7 +54,10 @@ namespace PokerClient.Communication
                 command = JsonConvert.DeserializeObject<Command>(answer);
                 if (command == null)
                     continue;
-                Parser.Parse(command);
+                var t = new Thread(() => Parser.Parse(command));
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+                //Parser.Parse(command);
             }
         }
 

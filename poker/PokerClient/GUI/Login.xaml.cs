@@ -32,21 +32,25 @@ namespace PokerClient.GUI
 
             if (!MainInfo.Instance.ConnectToServer())
             {
-                MessageBox.Show("Cannot Connect To Server...");
+                MessageBox.Show("Cannot Connect To Server...","Connection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
-            loginButton.IsEnabled = false;        
+            //loginButton.IsEnabled = false;        
 
         }
 
-        internal void DoLogin()
+        internal void OpenMainMenu()
         {
             this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
-            });
+           {
+               MainInfo.Instance.MainWindow.mainContentControl.Content = new MainMenu();
+               MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
+
+           });
+            
+
         }
 
         public void LoginFaild()

@@ -16,16 +16,16 @@ using System.Windows.Shapes;
 namespace PokerClient.GUI
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for UserPanel.xaml
     /// </summary>
-    public partial class MainMenu : UserControl
+    public partial class UserPanel : UserControl
     {
-        public MainMenu()
+        public UserPanel()
         {
             InitializeComponent();
-            this.topMainPanel.Content = new UserPanel();
-
-            
+            userNameTB.Text = "Username: " + MainInfo.Instance.Player.Username;
+            userRankTB.Text = "Rank: " +MainInfo.Instance.Player.Rank;
+            userMoneyTB.Text = MainInfo.Instance.Player.GetEmail();
         }
     }
 }
