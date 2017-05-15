@@ -24,7 +24,7 @@ namespace PokerClient.Center
 
         public int Id { get { return id; } set { id = value; } }
         public Chat Chat { get { return chat; } set { chat = value; } }
-        public IGame Game { get { return game; } set { game = value; } 
+        public IGame Game { get { return game; } set { game = value; } }
         public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
     }
 }
