@@ -15,7 +15,8 @@ namespace poker.PokerGame
         private bool allowSpectating;
         private int smallBlind;
         private int bigBlind;
-        
+        private GameTypePolicy gameTypePolicy;
+        public enum GameTypePolicy { LIMIT, NO_LIMIT, POT_LIMIT};
 
         public int MaxPlayers
         {
@@ -83,8 +84,9 @@ namespace poker.PokerGame
             }
         }
 
-        public GamePreferences(int maxPlayers,int minPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
+        public GamePreferences(GameTypePolicy gamePolicy ,int maxPlayers,int minPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
         {
+            gameTypePolicy = gamePolicy;
             this.maxPlayers = maxPlayers;
             SetMinPlayers(minPlayers);
             this.minBuyIn = minBuyIn;
