@@ -24,6 +24,7 @@ namespace poker.Center
             this.game = game;
             haveActiveGame = true;
             pastGames = new List<IGame>();
+            this.chat = new Chat();
         }
 
         public IGame Game
