@@ -64,5 +64,10 @@ namespace PokerClient.ServiceLayer
             Command command = new Command("Login", new String[2] { username, password });
             MainInfo.Instance.SendMessage(command);
         }
+
+        public void DoRegister(string username, string password, string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

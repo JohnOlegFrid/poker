@@ -12,5 +12,7 @@ namespace PokerClient.ServiceLayer
         void Login(string player);
         void GetMessage(string from, string msg);
         void TakeAllRoomsToPlay(string rooms);
+        void DoLogin(string username, string passowrd);
+        void DoRegister(string username, string password, string email);
     }
 }
