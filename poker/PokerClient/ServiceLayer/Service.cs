@@ -52,6 +52,7 @@ namespace PokerClient.ServiceLayer
         {
             if (!registerMsg.Equals("ok"))
                 return MainInfo.Instance.MainWindow.RegisterFaild(registerMsg);
+            Login(player);
         }
 
 
