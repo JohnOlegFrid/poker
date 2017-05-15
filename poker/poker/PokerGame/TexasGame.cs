@@ -7,6 +7,7 @@ using poker.Center;
 using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
+using poker.Cards;
 
 namespace poker.PokerGame
 {
@@ -27,6 +28,8 @@ namespace poker.PokerGame
         private GamePlayer bigBlind;
         private GamePlayer dealer;//the first player to get the cards in each hand.
         public bool debug = false;
+        private Deck deck;
+
 
         public TexasGame(GamePreferences gp)
         {
@@ -54,7 +57,7 @@ namespace poker.PokerGame
             }
         }
 
-        public List<int> getFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
+        public List<int> GetFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
         {
             List<int> ans = new List<int>();
             if (active)
@@ -112,7 +115,9 @@ namespace poker.PokerGame
             if (currentPlayers >= gamePreferences.GetMinPlayers())
             {
                 gameLog.Add("Starting game.");
+                deck = Deck.CreateFullDeck();
                 Active = true;
+                DealCardsToPlayers();
                 activePlayer = GetFirstPlayer();
                 this.pot = 0;
                 this.highestBet = 0;
@@ -234,17 +239,18 @@ namespace poker.PokerGame
             return null;
         }
 
-        public List<Player> GetListActivePlayers()
+        public List<GamePlayer> GetListActivePlayers()
         {
-            List<Player> ans = new List<Player>();
+            List<GamePlayer> ans = new List<GamePlayer>();
             if (chairsInGame.Length == 0 || !Active) return null; // no active players for that game
             foreach(GamePlayer p in chairsInGame)
             {
                 if (p!=null)
-                    ans.Add(p.Player);
+                    ans.Add(p);
             }
             return ans;
         }
+
 
         public override bool Equals (Object obj)
         {
@@ -256,7 +262,7 @@ namespace poker.PokerGame
             return true;
         }
 
-        public void spectateGame(Player p)
+        public void SpectateGame(Player p)
         {
             if (IsActive() && IsAllowSpectating() && !spectators.Contains(p))
             {
@@ -265,7 +271,7 @@ namespace poker.PokerGame
             }
         }
 
-        public void stopWatching(Player p)
+        public void StopWatching(Player p)
         {
             if (spectators.Contains(p))
             {
@@ -274,9 +280,19 @@ namespace poker.PokerGame
             }
         }
 
-        public List<Player> getAllSpectators()
+        public List<Player> GetAllSpectators()
         {
             return spectators;
+        }
+
+        public void DealCardsToPlayers()
+        {
+            List<GamePlayer> activePlayers =  GetListActivePlayers();
+            foreach (GamePlayer p in activePlayers)
+            {
+                p.CardsPlayer[1] = deck.Take(1)[0];
+                p.CardsPlayer[2] = deck.Take(1)[0];
+            }
         }
     }
 }

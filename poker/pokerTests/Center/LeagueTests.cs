@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using poker.Center;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using poker.Players;
 using poker.PokerGame;
 using poker.Data;
 using poker.ServiceLayer;

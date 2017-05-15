@@ -41,36 +41,36 @@ namespace poker.PokerGame.Tests
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
             GamePlayer p4 = new GamePlayer(new Player(4, "oleg", "1234", "oleg@gmail.com", league), 1000);
             GamePlayer p5 = new GamePlayer(new Player(5, "eliran", "1234", "eliran@gmail.com", league), 1000);
-            List<int> chairs = game1.getFreeChairs();
+            List<int> chairs = game1.GetFreeChairs();
             Random rnd = new Random();
             int chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p1);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 3);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p2);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 2);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p3);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p3);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsTrue(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(5000, chair, p4);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsTrue(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 1);
             chair = chairs.ElementAt(rnd.Next(chairs.Count));
             game1.Join(500, chair, p4);
-            chairs = game1.getFreeChairs();
+            chairs = game1.GetFreeChairs();
             Assert.IsFalse(chairs.Contains(chair));
             Assert.IsTrue(chairs.Count == 0);
             chair=chairs.ElementAt(rnd.Next(chairs.Count));//should throw exception- game is full.
@@ -198,20 +198,20 @@ namespace poker.PokerGame.Tests
             AddPlayerToGame(playerAmount, game1, p4);
             AddPlayerToGame(playerAmount, game1, p5);
 
-            List<Player> accpectedAnswer1 = new List<Player>();
-            List<Player> receivedAnswer1 = game1.GetListActivePlayers();
-            accpectedAnswer1.Add(p1.Player);
-            accpectedAnswer1.Add(p2.Player);
-            accpectedAnswer1.Add(p3.Player);
-            accpectedAnswer1.Add(p4.Player);
-            accpectedAnswer1.Add(p5.Player);
+            List<GamePlayer> accpectedAnswer1 = new List<GamePlayer>();
+            List<GamePlayer> receivedAnswer1 = game1.GetListActivePlayers();
+            accpectedAnswer1.Add(p1);
+            accpectedAnswer1.Add(p2);
+            accpectedAnswer1.Add(p3);
+            accpectedAnswer1.Add(p4);
+            accpectedAnswer1.Add(p5);
                      
             Assert.IsTrue(CompareLists(accpectedAnswer1,receivedAnswer1));
         }
 
         public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
         {
-            List<int> chairs = gameAddTo.getFreeChairs();
+            List<int> chairs = gameAddTo.GetFreeChairs();
             Random rnd = new Random();
             int chair = chairs.ElementAt(rnd.Next(chairs.Count));
             gameAddTo.Join(playerAmount, chair, playerToAdd);
