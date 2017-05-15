@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientPoker.ClientFiles
+namespace ClientPoker.Communication
 {
     public class Command
     {

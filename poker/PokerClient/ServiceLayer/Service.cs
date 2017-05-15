@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ClientPoker.Players;
 using Newtonsoft.Json;
 using ClientPoker.Center;
-using ClientPoker.ClientFiles;
+using ClientPoker.Communication;
 
 namespace ClientPoker.ServiceLayer
 {

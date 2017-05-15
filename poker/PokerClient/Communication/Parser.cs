@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClientPoker.ServiceLayer;
 
-namespace ClientPoker.ClientFiles
+namespace ClientPoker.Communication
 {
     public class Parser
     {

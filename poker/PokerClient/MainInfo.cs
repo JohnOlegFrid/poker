@@ -1,5 +1,5 @@
 ﻿using ClientPoker.Center;
-using ClientPoker.ClientFiles;
+using ClientPoker.Communication;
 using ClientPoker.Players;
 using System;
 using System.Collections.Generic;

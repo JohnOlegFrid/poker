@@ -20,5 +20,3 @@ namespace ClientPoker.Center
             return this.messages;
         }
     }
-}
-}
