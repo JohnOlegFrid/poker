@@ -131,7 +131,7 @@ namespace poker.Data.Tests
 
         public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
         {
-            List<int> chairs = gameAddTo.getFreeChairs();
+            List<int> chairs = gameAddTo.GetFreeChairs();
             Random rnd = new Random();
             int chair = chairs.ElementAt(rnd.Next(chairs.Count));
             gameAddTo.Join(playerAmount, chair, playerToAdd);

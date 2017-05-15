@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
+using poker.Cards;
 
 namespace poker.PokerGame
 {
@@ -17,6 +18,7 @@ namespace poker.PokerGame
         private bool isFold;
         private Move nextMove;
         private int currentBet;
+        private Card[] cardsPlayer;
 
         public GamePlayer(Player player, int money)
         {
@@ -24,6 +26,7 @@ namespace poker.PokerGame
             this.money = money;
             isFold = false;
             currentBet = 0;
+        
         }
 
         public int Money { get { return money; } set { money = value; } }
@@ -35,6 +38,9 @@ namespace poker.PokerGame
         public Move NextMove { get { return nextMove; } set { nextMove = value; } }
 
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
+
+        public Card[] CardsPlayer { get { return cardsPlayer; } set { cardsPlayer = value; } }
+
         public String GetUsername()
         {
             return player.Username;
