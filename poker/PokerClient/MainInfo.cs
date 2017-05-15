@@ -1,13 +1,13 @@
-﻿using ClientPoker.Center;
-using ClientPoker.Communication;
-using ClientPoker.Players;
+﻿using PokerClient.Center;
+using PokerClient.Communication;
+using PokerClient.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientPoker
+namespace PokerClient
 {
     public class MainInfo
     {

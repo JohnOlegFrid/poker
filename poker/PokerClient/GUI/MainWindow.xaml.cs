@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ClientPoker.Communication;
+using PokerClient.Communication;
 
-namespace ClientPoker
+namespace PokerClient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -40,6 +40,9 @@ namespace ClientPoker
             {
                 MessageBox.Show(MainInfo.Instance.Player.Username + " is logged");
             });
+
+
+
            
         }
 

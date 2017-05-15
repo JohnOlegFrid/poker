@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ClientPoker.Players;
+using PokerClient.Players;
 using Newtonsoft.Json;
-using ClientPoker.Center;
-using ClientPoker.Communication;
+using PokerClient.Center;
+using PokerClient.Communication;
 
-namespace ClientPoker.ServiceLayer
+namespace PokerClient.ServiceLayer
 {
     public class Service : IService
     {

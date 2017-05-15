@@ -1,4 +1,4 @@
-﻿using ClientPoker.Players;
+﻿using PokerClient.Players;
 using poker.PokerGame.Exceptions;
 using poker.PokerGame.Moves;
 using System;

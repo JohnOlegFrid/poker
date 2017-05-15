@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using ClientPoker.ServiceLayer;
+using PokerClient.ServiceLayer;
 
-namespace ClientPoker.Communication
+namespace PokerClient.Communication
 {
     public class Parser
     {
