@@ -16,7 +16,7 @@ namespace PokerClient.Center
 
         public Room(int id, Chat chat, TexasGame game, bool haveActiveGame)
         {
-            this.Id = id;
+            this.id = id;
             this.chat = chat;
             this.game = game;
             this.haveActiveGame = haveActiveGame;

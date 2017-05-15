@@ -83,7 +83,8 @@ namespace PokerClient.ServiceLayer
 
         public void DoRegister(string username, string password, string email)
         {
-            throw new NotImplementedException();
+            Command command = new Command("Register", new String[3] { username, password, email });
+            MainInfo.Instance.SendMessage(command);
         }
 
         //end server to client
