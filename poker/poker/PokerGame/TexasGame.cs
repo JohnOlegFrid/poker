@@ -29,6 +29,7 @@ namespace poker.PokerGame
         private GamePlayer dealer;//the first player to get the cards in each hand.
         public bool debug = false;
         private Deck deck;
+        private Card[] board;
 
 
         public TexasGame(GamePreferences gp)
@@ -71,7 +72,7 @@ namespace poker.PokerGame
 
         public bool Join(int amount, int chair, GamePlayer p)
         {
-            for(int i=0; i<gamePreferences.MaxPlayers;i++)
+            for (int i = 0; i < gamePreferences.MaxPlayers; i++)
             {
                 if ((chairsInGame[i] != null) && (chairsInGame[i].Equals(p))) //a player can't join a game twice.
                     return false;
@@ -117,12 +118,32 @@ namespace poker.PokerGame
                 gameLog.Add("Starting game.");
                 deck = Deck.CreateFullDeck();
                 Active = true;
+
+                /*
+                 * --big and small put blinds
+                 * --dealing cards to players
+                 * first round to table {call/raise/fold}
+                 * chack if raise {do call round to}
+                 * burn card +deal 3 card to board
+                 * seccond round to table {call/raise/fold}
+                 * chack if raise {do call round to}
+                 * burn card +deal 4's card to board
+                 * third round to table {call/raise/fold}
+                 * chack if raise {do call round to}
+                 * burn card +deal 5's card to board
+                 * fourth round to table {call/raise/fold}
+                 * chack if raise {do call round to}
+                 * reveal all cards
+                 * calculate winner
+                 * deal money to winners
+                 *
+                 */
+                if (!this.debug)
+                    PlaceBlinds();
                 DealCardsToPlayers();
                 activePlayer = GetFirstPlayer();
-                this.pot = 0;
-                this.highestBet = 0;
-                if(!this.debug)
-                    PlaceBlinds();
+                this.pot = gamePreferences.SmallBlind + gamePreferences.BigBlind;
+                this.highestBet = gamePreferences.BigBlind;
             }
             else
                 gameLog.Add("Not enough players to start");
@@ -130,10 +151,10 @@ namespace poker.PokerGame
 
         public List<string> ReplayGame()
         {
-                gameLog.Add("game replayed");
-                return gameLog;
+            gameLog.Add("game replayed");
+            return gameLog;
         }
-        
+
         public bool IsAllowSpectating()
         {
             return gamePreferences.AllowSpectating;
@@ -145,7 +166,7 @@ namespace poker.PokerGame
                 return activePlayer;
             return chairsInGame[this.activePlayer.ChairNum];
         }
-        
+
         public void NextTurn()
         {
             if (GetActivePlayer() == null)
@@ -174,7 +195,7 @@ namespace poker.PokerGame
         }
 
         private void AddMoveToPot(Move currentMove)
-        {       
+        {
             this.pot += currentMove.Amount;
             if (currentMove.Player.CurrentBet > this.highestBet)
                 this.highestBet = currentMove.Player.CurrentBet;
@@ -183,17 +204,17 @@ namespace poker.PokerGame
         private void ValidateMoveIsLeagal(Move currentMove)
         {
             //TODO 3 GAME MODE
-            if(currentMove == null)
+            if (currentMove == null)
                 throw new IllegalMoveException("Error!, you cant do this move");
             if (currentMove.Name == "Fold")
                 return;
-            if(lastMove != null && lastMove.Name == "Raise" && currentMove.Amount < lastMove.Amount)
-                throw new IllegalMoveException("Error!, " + currentMove.Player +" cant do " +currentMove.Name+ " you need at least "+ lastMove.Amount);
+            if (lastMove != null && lastMove.Name == "Raise" && currentMove.Amount < lastMove.Amount)
+                throw new IllegalMoveException("Error!, " + currentMove.Player + " cant do " + currentMove.Name + " you need at least " + lastMove.Amount);
             if (currentMove.Player.CurrentBet < this.highestBet)
-                throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " +this.highestBet);
+                throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " + this.highestBet);
             if (currentMove.Amount == 0)
                 return;
-            if(currentMove.Amount < gamePreferences.BigBlind)
+            if (currentMove.Amount < gamePreferences.BigBlind)
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind);
             return;
         }
@@ -219,9 +240,9 @@ namespace poker.PokerGame
         public GamePlayer GetNextPlayer()
         {
             int chair = activePlayer.ChairNum;
-            for(int i=1; i<gamePreferences.MaxPlayers - chair; i++)
+            for (int i = 1; i < gamePreferences.MaxPlayers - chair; i++)
             {
-                if (chair+1 < gamePreferences.MaxPlayers && chairsInGame[chair + i] != null && !chairsInGame[chair + i].IsFold())
+                if (chair + 1 < gamePreferences.MaxPlayers && chairsInGame[chair + i] != null && !chairsInGame[chair + i].IsFold())
                     return chairsInGame[chair + i];
 
             }
@@ -231,7 +252,7 @@ namespace poker.PokerGame
         // return null if no more active players
         public GamePlayer GetFirstPlayer()
         {
-            for(int i = 0; i < this.chairsInGame.Length; i++)
+            for (int i = 0; i < this.chairsInGame.Length; i++)
             {
                 if (chairsInGame[i] != null && !chairsInGame[i].IsFold())
                     return chairsInGame[i];
@@ -243,16 +264,16 @@ namespace poker.PokerGame
         {
             List<GamePlayer> ans = new List<GamePlayer>();
             if (chairsInGame.Length == 0 || !Active) return null; // no active players for that game
-            foreach(GamePlayer p in chairsInGame)
+            foreach (GamePlayer p in chairsInGame)
             {
-                if (p!=null)
+                if (p != null)
                     ans.Add(p);
             }
             return ans;
         }
 
 
-        public override bool Equals (Object obj)
+        public override bool Equals(Object obj)
         {
             if (!(obj is TexasGame))
                 return false;
@@ -287,7 +308,7 @@ namespace poker.PokerGame
 
         public void DealCardsToPlayers()
         {
-            List<GamePlayer> activePlayers =  GetListActivePlayers();
+            List<GamePlayer> activePlayers = GetListActivePlayers();
             foreach (GamePlayer p in activePlayers)
             {
                 p.CardsPlayer[1] = deck.Take(1)[0];
