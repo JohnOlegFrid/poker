@@ -81,7 +81,7 @@ namespace poker.Players.Tests
             string ans = PlayerAction.Register(player, playersData);
             ans = PlayerAction.Register(player, playersData);
             Assert.IsFalse(ans.Equals("ok"));
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count-1);
         }
 
         [TestMethod()]
@@ -93,7 +93,7 @@ namespace poker.Players.Tests
             string ans = PlayerAction.Register(player1, playersData);
             ans = PlayerAction.Register(player2, playersData);
             Assert.IsFalse(ans.Equals("ok"));
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count-1);
         }
 
 
