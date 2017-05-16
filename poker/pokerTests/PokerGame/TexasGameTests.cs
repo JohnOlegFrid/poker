@@ -18,8 +18,8 @@ namespace poker.PokerGame.Tests
         [TestMethod()]
         public void IsAllowSpectatingTest()  //TODO Split to two test: pass/fail
         {
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
-            GamePreferences prefDisallow = new GamePreferences(4, 2, 100, 1000, false, 100);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 100);
+            GamePreferences prefDisallow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, false, 100);
             IGame game1 = new TexasGame(prefAllow);
             Assert.IsTrue(game1.IsAllowSpectating());
             IGame game2 = new TexasGame(prefDisallow);
@@ -34,7 +34,7 @@ namespace poker.PokerGame.Tests
             Program.InitData();
             ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
             League league = leaguesData.GetDefalutLeague();
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -83,7 +83,7 @@ namespace poker.PokerGame.Tests
             Program.InitData();
             ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
             League league = leaguesData.GetDefalutLeague();
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 100);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 100);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -110,7 +110,7 @@ namespace poker.PokerGame.Tests
             Program.InitData();
             ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
             League league = leaguesData.GetDefalutLeague();
-            GamePreferences prefAllow = new GamePreferences(4, 2, 100, 1000, true, 10);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 10);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
@@ -183,7 +183,7 @@ namespace poker.PokerGame.Tests
             bool allowSpectating = true;
             int bigBlind = 100;
             int playerAmount = 500;            
-            GamePreferences prefAllow = new GamePreferences(maxPlayers,minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             IGame game1 = new TexasGame(prefAllow);
             
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);

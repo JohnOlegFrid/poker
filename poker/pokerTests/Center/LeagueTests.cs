@@ -19,7 +19,7 @@ namespace poker.Center.Tests
             GameCenter gameCenter = new GameCenter(Service.GetLastInstance().LeaguesData.GetAllLeagues(),
                 Service.GetLastInstance().PlayersData.FindPlayerByUsername("Eliran"));
             League league = leaguesData.GetDefalutLeague();
-            GamePreferences gp = new GamePreferences(4, 2, 100, 1000, true, 100);
+            GamePreferences gp = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 100);
             Room room1 = new Room(new TexasGame(gp));
             league.AddRoom(room1);
             room1.HaveActiveGame = true;
