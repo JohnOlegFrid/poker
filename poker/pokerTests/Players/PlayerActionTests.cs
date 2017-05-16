@@ -25,44 +25,77 @@ namespace poker.Players.Tests
         
         
         [TestMethod()]
-        public void LoginTest()
+        public void LoginNullWrongUserNameTest()
         {
             Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
             playersData.AddPlayer(player);
             Player ans = PlayerAction.Login("rohama", "1234", playersData);
             Assert.IsNull(ans);
-            ans = PlayerAction.Login("ronen", "12345", playersData);
+        }
+
+        [TestMethod()]
+        public void LoginNullWrongPasswordTest()
+        {
+            Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
+            playersData.AddPlayer(player);
+            Player ans = PlayerAction.Login("ronen", "12345", playersData);
             Assert.IsNull(ans);
             ans = PlayerAction.Login("ronen", "1234", playersData);
             Assert.AreEqual(ans, player);
         }
+
         [TestMethod()]
-        public void RegisterTest()
+        public void LoginGoodTest()
+        {
+            Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
+            playersData.AddPlayer(player);
+            Player ans = PlayerAction.Login("ronen", "1234", playersData);
+            Assert.AreEqual(ans, player);
+        }
+
+        [TestMethod()]
+        public void RegisterGoodTest()
         {
             Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
             int users = playersData.GetAllPlayers().Count;
-            bool ans = PlayerAction.Register(player, playersData);
-            Assert.IsTrue(ans);
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count - 1);
-            users = playersData.GetAllPlayers().Count;
-            player = new Player(11, "rohama", "1234", "dfdf", leaguesData.GetDefalutLeague());
-            ans = PlayerAction.Register(player, playersData);
-            Assert.IsFalse(ans);
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
-            users = playersData.GetAllPlayers().Count;
-            player.SetEmail("dfdf@gmail.com");
-            ans = PlayerAction.Register(player, playersData);
-            Assert.IsTrue(ans);
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count - 1);
-            users = playersData.GetAllPlayers().Count;
-            ans = PlayerAction.Register(player, playersData);
-            Assert.IsFalse(ans);
-            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
-            users = playersData.GetAllPlayers().Count;
-            player = new Player(11, "ronen", "123456", "rons@gmail.com", leaguesData.GetDefalutLeague());
-            ans = PlayerAction.Register(player, playersData);
-            Assert.IsFalse(ans);
+            string ans = PlayerAction.Register(player, playersData);
+            Assert.IsTrue(ans.Equals("ok"));
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count - 1); 
+        }
+
+        [TestMethod()]
+        public void RegisterBadEmailTest()
+        {
+            Player player = new Player(11, "rohama", "1234", "dfdf", leaguesData.GetDefalutLeague());
+            int users = playersData.GetAllPlayers().Count;
+            string ans = PlayerAction.Register(player, playersData);
+            Assert.IsFalse(ans.Equals("ok"));
             Assert.IsTrue(users == playersData.GetAllPlayers().Count);
         }
+
+        [TestMethod()]
+        public void RegisterAlreadyExistingPlayerTest()
+        {
+            Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
+            int users = playersData.GetAllPlayers().Count;
+            string ans = PlayerAction.Register(player, playersData);
+            ans = PlayerAction.Register(player, playersData);
+            Assert.IsFalse(ans.Equals("ok"));
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
+        }
+
+        [TestMethod()]
+        public void RegisterAlreadyExistingUsernameTest()
+        {
+            Player player1 = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague());
+            Player player2 = new Player(11, "ronen", "12345", "ronshik@gmail.com", leaguesData.GetDefalutLeague());
+            int users = playersData.GetAllPlayers().Count;
+            string ans = PlayerAction.Register(player1, playersData);
+            ans = PlayerAction.Register(player2, playersData);
+            Assert.IsFalse(ans.Equals("ok"));
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count);
+        }
+
+
     }
 }
