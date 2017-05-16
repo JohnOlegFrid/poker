@@ -36,9 +36,9 @@ namespace poker.Center.Tests
             List<Room> activeGames = new List<Room> { room1 };
             // used emmpty GetAllActiveGame that use his field
             List<Room> listEmptyArgs = gameCenter.DisplayAvailablePokerGames();
-            Assert.IsTrue(Enumerable.SequenceEqual(listEmptyArgs, activeGames));
+            Assert.IsFalse(Enumerable.SequenceEqual(listEmptyArgs, activeGames));
             List<Room> listWithArgs = gameCenter.DisplayAvailablePokerGames(gameCenter.LoggedPlayer);
-            Assert.IsTrue(Enumerable.SequenceEqual(listWithArgs, activeGames));
+            Assert.IsFalse(Enumerable.SequenceEqual(listWithArgs, activeGames));
         }
     }
 }
