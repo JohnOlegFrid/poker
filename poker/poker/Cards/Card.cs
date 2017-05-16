@@ -8,73 +8,122 @@ namespace poker.Cards
 {
     public class Card
     {
-        public readonly CardNumber cardNumber;
-        public readonly Suits suits;
 
-        public Card(CardNumber cardNumber, Suits suits)
+        public readonly int Suit;
+        public readonly int Value;
+
+        public Card(int Suit, int Value)
         {
-            this.cardNumber = cardNumber;
-            this.suits = suits;
+            this.Suit = Suit;
+            this.Value = Value;
         }
 
-        public override bool Equals(object obj)
+        public Card(int Index)
         {
-            if (!(obj is Card))
-                return false;
-            Card c = (Card)obj;
-            return (c.cardNumber.Equals(cardNumber) && c.suits.Equals(suits));
+            Suit = Index / 13;
+            Value = Index % 13;
         }
-
-        public override string ToString()
+        public const int Ace = 12;
+        public const int King = 11;
+        public const int Queen = 10;
+        public const int Jack = 9;
+        public const int Ten = 8;
+        public const int Nine = 7;
+        public const int eight = 6;
+        public const int seven = 5;
+        public const int six = 4;
+        public const int five = 3;
+        public const int four = 2;
+        public const int three = 1;
+        public const int two = 0;
+        public Card(String Name)
         {
-            return "Card[" + cardNumber + ", " + suits + "]";
-        }
-
-        public override int GetHashCode()
-        {
-            int num = (int)cardNumber;
-            switch (suits)
+            Name = Name.ToLower();
+            switch (Name[0])
             {
-                case Suits.Spades:
-                    num *= 1;
+                case 'a':
+                    Value = 12;
                     break;
-                case Suits.Hearts:
-                    num *= 20;
+                case 'k':
+                    Value = 11;
                     break;
-                case Suits.Diamonds:
-                    num *= 200;
+                case 'q':
+                    Value = 10;
                     break;
-                case Suits.Clubs:
-                    num *= 2000;
+                case 'j':
+                    Value = 9;
+                    break;
+                case 't':
+                    Value = 8;
+                    break;
+                default:
+                    Value = Name[0] - '0' - 2;
                     break;
             }
-            return num;
+            switch (Name[1])
+            {
+                case 'c':
+                    Suit = 0;
+                    break;
+                case 'd':
+                    Suit = 1;
+                    break;
+                case 'h':
+                    Suit = 2;
+                    break;
+                case 's':
+                    Suit = 3;
+                    break;
+            }
+        }
+
+        public int GetIndex()
+        {
+            return Suit * 13 + Value;
+        }
+
+        public override String ToString()
+        {
+            String name = "";
+
+            switch (Value)
+            {
+                case 8:
+                    name += "T";
+                    break;
+                case 9:
+                    name += "J";
+                    break;
+                case 10:
+                    name += "Q";
+                    break;
+                case 11:
+                    name += "K";
+                    break;
+                case 12:
+                    name += "A";
+                    break;
+                default:
+                    name += (Value + 2).ToString();
+                    break;
+            }
+            switch (Suit)
+            {
+                case 0:
+                    name += "c";
+                    break;
+                case 1:
+                    name += "d";
+                    break;
+                case 2:
+                    name += "h";
+                    break;
+                case 3:
+                    name += "s";
+                    break;
+            }
+            return name;
         }
     }
-
-
-    public enum CardNumber
-    {
-        Ace = 1,
-        Two = 2,
-        Three = 3,
-        Four = 4,
-        Five = 5,
-        Six = 6,
-        Seven = 7,
-        Eight = 8,
-        Nine = 9,
-        Ten = 10,
-        Jack = 11,
-        Queen = 12,
-        King = 13
-    }
-    public enum Suits
-    {
-        Spades,
-        Clubs,
-        Diamonds,
-        Hearts,
-
-    }
 }
+
