@@ -8,6 +8,8 @@ using poker.Center;
 using poker.Server;
 using poker.ServiceLayer;
 using poker.PokerGame;
+using System.Net;
+using System.Net.Sockets;
 
 namespace poker
 {
@@ -16,7 +18,7 @@ namespace poker
         public static void Main(string[] args)
         {
             InitData();
-            Console.WriteLine("Multi-Threaded TCP Server Starting..");
+            Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress());
             TcpServer server = new TcpServer(5555);
         }
 
@@ -60,6 +62,19 @@ namespace poker
 
             //create service layer
             new Service(leaguesData, roomsData, playersData);
+        }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
         }
     }
 }

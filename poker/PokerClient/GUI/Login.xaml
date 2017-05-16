@@ -21,12 +21,9 @@
                 <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Center" Margin="10,15,114,15"  Width="76" Click="LoginButton_Click" RenderTransformOrigin="0.54,-1.299" VerticalContentAlignment="Center" Height="20"/>
                 <Button x:Name="newUserButton" Content="New User" HorizontalAlignment="Center"  Width="76" RenderTransformOrigin="0.54,-1.299" Margin="114,15,10,15" Height="20" Click="newUserButton_Click"/>
             </Grid>
-
-
-
-
-
         </Grid>
+        <TextBox x:Name="IPadress" HorizontalAlignment="Right" Height="26" Margin="0,562,601,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
+        <TextBlock  Foreground="White" Width="22" Height="26" Margin="34,560,744,0" Text="IP:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
 
     </Grid>
 </UserControl>

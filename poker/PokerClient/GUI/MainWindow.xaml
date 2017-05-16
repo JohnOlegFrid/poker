@@ -11,10 +11,6 @@
         <ContentControl x:Name="mainContentControl" Width="800" Height="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             
         </ContentControl>
-        
-
-
-
 
     </Grid>
 

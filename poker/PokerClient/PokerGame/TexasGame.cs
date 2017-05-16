@@ -33,7 +33,7 @@ namespace poker.PokerGame
             this.currentPlayers = currentPlayers;
             this.active = active;
             this.gameLog = gameLog;
-            this.gamePreferences = gamePreferences;
+            this.GamePreferences = gamePreferences;
             this.activePlayer = activePlayer;
             this.pot = pot;
             this.highestBet = highestBet;
@@ -60,12 +60,14 @@ namespace poker.PokerGame
             }
         }
 
+        public GamePreferences GamePreferences { get { return gamePreferences; } set { gamePreferences = value; } }
+
         public List<int> getFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
         {
             List<int> ans = new List<int>();
             if (active)
             {
-                for (int i = 0; i < gamePreferences.MaxPlayers; i++)
+                for (int i = 0; i < GamePreferences.MaxPlayers; i++)
                     if (chairsInGame[i] == null)
                         ans.Add(i);
             }
@@ -79,7 +81,7 @@ namespace poker.PokerGame
 
         public bool IsAllowSpectating()
         {
-            return gamePreferences.AllowSpectating;
+            return GamePreferences.AllowSpectating;
         }
 
         public GamePlayer GetActivePlayer()
@@ -102,8 +104,8 @@ namespace poker.PokerGame
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " + this.highestBet);
             if (currentMove.Amount == 0)
                 return;
-            if (currentMove.Amount < gamePreferences.BigBlind)
-                throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind);
+            if (currentMove.Amount < GamePreferences.BigBlind)
+                throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + GamePreferences.BigBlind);
             return;
         }
 

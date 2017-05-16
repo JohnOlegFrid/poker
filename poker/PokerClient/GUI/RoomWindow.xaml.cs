@@ -1,4 +1,5 @@
-﻿using PokerClient.Center;
+﻿using poker.PokerGame;
+using PokerClient.Center;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,10 +28,12 @@ namespace PokerClient.GUI
             this.room = room;
             InitializeComponent();
             this.InfoText.Content = room;
+            PokerTable.game = (TexasGame)room.Game;
+            PokerTable.Init();
         }
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            room.IsOpenInWindow = false;
+            room.RoomWindow = null;
             base.OnClosing(e);
         }
     }

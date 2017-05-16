@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PokerClient.Communication;
 
 namespace PokerClient.GUI
 {
@@ -24,6 +25,7 @@ namespace PokerClient.GUI
         public Register()
         {
             InitializeComponent();
+            IPadress.Text = Client.GetLocalIPAddress();
         }
 
         private void goBackButton_Click(object sender, RoutedEventArgs e)
@@ -44,9 +46,10 @@ namespace PokerClient.GUI
             }
             else
             {
-                if (!MainInfo.Instance.ConnectToServer())
+                if (!MainInfo.Instance.ConnectToServer(IPadress.Text))
                 {
                     MessageBox.Show("Cannot Connect To Server...");
+                    this.IsEnabled = true;
                     return;
                 }
                 Service.Instance.DoRegister(usernameBox.Text, pass, emailBox.Text);

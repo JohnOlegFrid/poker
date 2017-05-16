@@ -25,12 +25,13 @@ namespace PokerClient.GUI
         public Login()
         {
             InitializeComponent();
+            IPadress.Text = Client.GetLocalIPAddress();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!MainInfo.Instance.ConnectToServer())
+            if (!MainInfo.Instance.ConnectToServer(IPadress.Text))
             {
                 MessageBox.Show("Cannot Connect To Server...","Connection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;

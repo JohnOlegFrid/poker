@@ -16,21 +16,14 @@ using System.Windows.Shapes;
 namespace PokerClient.GUI
 {
     /// <summary>
-    /// Interaction logic for UserPanel.xaml
+    /// Interaction logic for PokerOP.xaml
     /// </summary>
-    public partial class UserPanel : UserControl
+    public partial class PokerOP : UserControl
     {
-        public UserPanel()
+        public PokerOP()
         {
             InitializeComponent();
-            userNameTB.Text = "Username: " + MainInfo.Instance.Player.Username;
-            userRankTB.Text = "Rank: " + MainInfo.Instance.Player.Rank;
-            userMoneyTB.Text = MainInfo.Instance.Player.GetEmail();
         }
 
-        private void logoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainInfo.Instance.MainWindow.mainContentControl.Content = new Login();
-        }
     }
 }

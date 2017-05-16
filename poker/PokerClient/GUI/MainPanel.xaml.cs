@@ -30,13 +30,14 @@ namespace PokerClient.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Room selcted = (Room)RoomsList.SelectedItem;
-            if (selcted.IsOpenInWindow)
+            if (selcted.RoomWindow != null)
             {
-                MessageBox.Show("This room is already open!");
+                selcted.RoomWindow.Activate();
                 return;
             }
-            selcted.IsOpenInWindow = true;
             RoomWindow roomWindow = new RoomWindow(selcted);
+            selcted.RoomWindow = roomWindow;
+            
             roomWindow.Show();
         }
     }

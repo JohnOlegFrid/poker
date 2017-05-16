@@ -57,7 +57,6 @@ namespace PokerClient.Communication
                 var t = new Thread(() => Parser.Parse(command));
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
-                //Parser.Parse(command);
             }
         }
 

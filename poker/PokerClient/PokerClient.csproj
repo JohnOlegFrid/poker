@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI\Chair.xaml.cs">
+      <DependentUpon>Chair.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -90,6 +93,12 @@
     </Compile>
     <Compile Include="GUI\MainPanel.xaml.cs">
       <DependentUpon>MainPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Poker.xaml.cs">
+      <DependentUpon>Poker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PokerOP.xaml.cs">
+      <DependentUpon>PokerOP.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\RoomWindow.xaml.cs">
       <DependentUpon>RoomWindow.xaml</DependentUpon>
@@ -115,6 +124,10 @@
     <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
+    <Page Include="GUI\Chair.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +155,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GUI\Poker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\PokerOP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

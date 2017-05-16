@@ -1,4 +1,5 @@
 ﻿using poker.PokerGame;
+using PokerClient.GUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace PokerClient.Center
         private Chat chat;
         private IGame game;
         private bool haveActiveGame;
-        private bool isOpenInWindow;
+        private RoomWindow roomWindow = null;
 
         public Room(int id, Chat chat, TexasGame game, bool haveActiveGame)
         {
@@ -21,7 +22,6 @@ namespace PokerClient.Center
             this.chat = chat;
             this.game = game;
             this.haveActiveGame = haveActiveGame;
-            this.isOpenInWindow = false;
         }
 
         public override string ToString()
@@ -33,6 +33,6 @@ namespace PokerClient.Center
         public Chat Chat { get { return chat; } set { chat = value; } }
         public IGame Game { get { return game; } set { game = value; } }
         public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
-        public bool IsOpenInWindow { get { return isOpenInWindow; } set { isOpenInWindow = value; } }
+        public RoomWindow RoomWindow { get { return roomWindow; } set { roomWindow = value; } }
     }
 }

@@ -16,21 +16,25 @@ using System.Windows.Shapes;
 namespace PokerClient.GUI
 {
     /// <summary>
-    /// Interaction logic for UserPanel.xaml
+    /// Interaction logic for Chair.xaml
     /// </summary>
-    public partial class UserPanel : UserControl
+    public partial class Chair : UserControl
     {
-        public UserPanel()
+
+        public static readonly DependencyProperty chairNum =
+        DependencyProperty.Register("ChairNum", typeof(int), typeof(Chair));
+
+        private string playerId;
+        public Chair()
         {
             InitializeComponent();
-            userNameTB.Text = "Username: " + MainInfo.Instance.Player.Username;
-            userRankTB.Text = "Rank: " + MainInfo.Instance.Player.Rank;
-            userMoneyTB.Text = MainInfo.Instance.Player.GetEmail();
         }
 
-        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        public int ChairNum { get { return (int)GetValue(chairNum); } set { SetValue(chairNum, value); } }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MainInfo.Instance.MainWindow.mainContentControl.Content = new Login();
+            MessageBox.Show("chair num " + ChairNum);
         }
     }
 }

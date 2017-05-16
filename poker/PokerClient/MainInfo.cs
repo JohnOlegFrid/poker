@@ -27,11 +27,10 @@ namespace PokerClient
             this.roomsToPlayObsever = new ObservableCollection<Room>();
         }
 
-        public bool ConnectToServer()
+        public bool ConnectToServer(String ip)
         {
             if (client != null)
                 return true;
-            String ip = Client.GetLocalIPAddress();
             int port = 5555;
             try
             {

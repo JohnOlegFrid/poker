@@ -8,10 +8,11 @@
         Title="RoomWindow" Height="640" Width="800">
     <Grid Height="640" Margin="0,0,0,0" Width="800">
         <Image Source="Images/MainBackground.jpg" Stretch="Fill"/>
-        <ContentControl x:Name="mainContentControl" Width="800" Height="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <ContentControl x:Name="mainContentControl" Width="800" Height="600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <local:Poker x:Name="PokerTable" HorizontalAlignment="Right" Height="503" Margin="0,87,189,0" VerticalAlignment="Top" Width="601"/>
 
         </ContentControl>
-        <Label x:Name="InfoText" Content="Info room" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="43" Width="735" Margin="39,35,26,0" FontSize="20" Foreground="White">
+        <Label x:Name="InfoText" Content="Info room" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="43" Width="764" Margin="10,17,26,0" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="#FF780303" Opacity="0.5"/>
             </Label.Background>
