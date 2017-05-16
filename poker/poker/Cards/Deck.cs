@@ -32,7 +32,7 @@ namespace poker.Cards
             {
                 for (int cardNumberIndex = 0; cardNumberIndex < 13; cardNumberIndex++)
                 {
-                    deck.Cards.Add(new Card((CardNumber)cardNumberIndex, (Suits)suitIndex));
+                    deck.Cards.Add(new Card(cardNumberIndex, suitIndex));
                 }
             }
             return deck;

@@ -26,7 +26,6 @@ namespace poker.PokerGame
         private Move lastMove;
         private GamePlayer smallBlind;
         private GamePlayer bigBlind;
-        private GamePlayer dealer;//the first player to get the cards in each hand.
         public bool debug = false;
         private Deck deck;
 
