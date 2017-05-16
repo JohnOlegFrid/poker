@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace PokerClient
 {
@@ -17,11 +19,13 @@ namespace PokerClient
         private MainWindow mainWindow = null;
         private Login login = null;
         private List<Room> roomsToPlay = null;
-       
+        ObservableCollection<Room> roomsToPlayObsever = null;
 
         private static MainInfo instance;
 
-        private MainInfo() { }
+        private MainInfo() {
+            this.roomsToPlayObsever = new ObservableCollection<Room>();
+        }
 
         public bool ConnectToServer()
         {
@@ -63,6 +67,14 @@ namespace PokerClient
 
 
         public Login Login { get => login; set => login = value; }
-        public List<Room> RoomsToPlay { get { return roomsToPlay; } set { roomsToPlay = value; } }
+        public List<Room> RoomsToPlay { get { return roomsToPlay; }
+            set {
+                roomsToPlay = value;
+                Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Clear(); });
+                    foreach (Room room in roomsToPlay)
+                    Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Add(room); });                  
+            } }
+
+        public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
     }
 }

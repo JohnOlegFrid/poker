@@ -91,6 +91,9 @@
     <Compile Include="GUI\MainPanel.xaml.cs">
       <DependentUpon>MainPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\RoomWindow.xaml.cs">
+      <DependentUpon>RoomWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserPanel.xaml.cs">
       <DependentUpon>UserPanel.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="GUI\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\RoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

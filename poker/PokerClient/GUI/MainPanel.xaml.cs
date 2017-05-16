@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokerClient.Center;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace PokerClient.GUI
         public MainPanel()
         {
             InitializeComponent();
+            RoomsList.DataContext = MainInfo.Instance.RoomsToPlayObsever;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Room selcted = (Room)RoomsList.SelectedItem;
+            if (selcted.IsOpenInWindow)
+            {
+                MessageBox.Show("This room is already open!");
+                return;
+            }
+            selcted.IsOpenInWindow = true;
+            RoomWindow roomWindow = new RoomWindow(selcted);
+            roomWindow.Show();
         }
     }
 }

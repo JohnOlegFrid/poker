@@ -37,7 +37,7 @@ namespace PokerClient.GUI
             }
 
             Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
-            //loginButton.IsEnabled = false;        
+            loginButton.IsEnabled = false;        
 
         }
 
@@ -45,10 +45,7 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
            {
-               MessageBox.Show(MainInfo.Instance.Player.Username + " is logged","Succecful Login",MessageBoxButton.OK,MessageBoxImage.Information);
                MainInfo.Instance.MainWindow.mainContentControl.Content = new MainMenu();
-               
-
            });
             
 

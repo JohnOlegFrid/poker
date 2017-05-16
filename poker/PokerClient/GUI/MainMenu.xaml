@@ -10,7 +10,6 @@
         <DockPanel LastChildFill="True">
             <ContentControl x:Name="topMainPanel" DockPanel.Dock="Top" Height="20" Background="Black"/>
             <ContentControl x:Name="bottomMainPanel" DockPanel.Dock="Bottom" >
-                
             </ContentControl>
         </DockPanel>
 

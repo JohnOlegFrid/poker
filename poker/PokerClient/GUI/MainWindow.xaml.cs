@@ -36,15 +36,11 @@ namespace PokerClient.GUI
 
             mainContentControl.Content = new Login();
         }
-
-        
-
-        
+     
 
         public void RegisterFaild(string registerMsg)
         {
-
-            reg.RegisterFaild();
+            reg.RegisterFaild(registerMsg);
         }
 
         public void OpenMainMenu()

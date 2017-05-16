@@ -8,7 +8,15 @@
              d:DesignHeight="620" d:DesignWidth="800">
     <Grid>
         <Image Source="Images/MainMenuBack.jpg" Height="620" Stretch="Fill"/>
-
-
+        <ListBox x:Name="RoomsList" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="446" Margin="42,108,0,0" VerticalAlignment="Top" Width="357"/>
+        <Label Content=" Rooms available to play :" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top" Height="40" Width="357" FontSize="20" Foreground="#FF060000" FontWeight="Bold">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEEEAEA" Offset="0"/>
+                    <GradientStop Color="#FFDE5A5A" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Button Content="Open Room!" HorizontalAlignment="Left" Height="224" Margin="463,195,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF3A49AF" Click="Button_Click"/>
     </Grid>
 </UserControl>

@@ -42,6 +42,11 @@ namespace poker.PokerGame
             this.bigBlind = bigBlind;
         }
 
+        public override string ToString()
+        {
+            return "Active:" + active.ToString() + " Pot:" + pot;
+        }
+
         public bool Active
         {
             get

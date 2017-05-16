@@ -51,9 +51,10 @@ namespace PokerClient.ServiceLayer
 
         public void Register(string registerMsg, string player)
         {
-            if (!registerMsg.Equals("ok"))
+            string regMsg = JsonConvert.DeserializeObject<string>(registerMsg);
+            if (!regMsg.Equals("ok"))
             {
-                MainInfo.Instance.MainWindow.RegisterFaild(registerMsg);
+                MainInfo.Instance.MainWindow.RegisterFaild(regMsg);
                 return;
             }
             Login(player);

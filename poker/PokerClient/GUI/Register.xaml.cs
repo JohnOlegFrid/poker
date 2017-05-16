@@ -34,11 +34,11 @@ namespace PokerClient.GUI
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            this.IsEnabled = false;
             String pass = passwordBox.Password;
             String confPass = confirmPasswordBox.Password;
             if (pass.CompareTo(confPass) != 0)
-            {
-                this.IsEnabled = false;
+            {              
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.", "Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.IsEnabled = true;
             }
@@ -53,9 +53,10 @@ namespace PokerClient.GUI
             }
         }
 
-        internal void RegisterFaild()
+        public void RegisterFaild(string msg)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(msg);
+            this.IsEnabled = true;
         }
     }
 }
