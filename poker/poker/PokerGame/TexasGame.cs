@@ -70,16 +70,7 @@ namespace poker.PokerGame
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
 
-        {
-            List<int> ans = new List<int>();
-            if (active)
-            {
-                for (int i = 0; i < gamePreferences.MaxPlayers; i++)
-                    if (ChairsInGame[i] == null)
-                        ans.Add(i);
-            }
-            return ans;
-        }
+
 
         public bool Join(int amount, int chair, GamePlayer p)
         {
@@ -295,7 +286,7 @@ namespace poker.PokerGame
         }
 
 
-        public GamePlayer[] getChairs()
+        public GamePlayer[] GetChairs()
         {
             return chairsInGame;
         }
@@ -305,9 +296,14 @@ namespace poker.PokerGame
             List<GamePlayer> activePlayers = GetListActivePlayers();
             foreach (GamePlayer p in activePlayers)
             {
+                p.CardsPlayer[0] = deck.Take(1)[0];
                 p.CardsPlayer[1] = deck.Take(1)[0];
-                p.CardsPlayer[2] = deck.Take(1)[0];
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

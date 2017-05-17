@@ -84,10 +84,10 @@ namespace poker.Center
                 ans = false;
             else
             {
-                List<Player> activePlayers = game.GetListActivePlayers();
-                foreach (Player p in activePlayers)
+                List<GamePlayer> activePlayers = game.GetListActivePlayers();
+                foreach (GamePlayer p in activePlayers)
                 {
-                    if (p.Equals(pl))
+                    if (p.Player.Equals(pl))
                     {
                         ans = true;
                         break;

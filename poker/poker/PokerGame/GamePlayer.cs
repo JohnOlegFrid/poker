@@ -26,6 +26,7 @@ namespace poker.PokerGame
             this.money = money;
             isFold = false;
             currentBet = 0;
+            cardsPlayer = new Card[2];
         
         }
 

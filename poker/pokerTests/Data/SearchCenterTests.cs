@@ -73,10 +73,10 @@ namespace poker.Data.Tests
 
             game1.Join(playerAmount, 0, gp1);
             game1.Join(playerAmount, 1, gp2);
+            game1.Join(playerAmount, 2, gp3);
+            game1.Join(playerAmount, 3, gp4);
+            game1.Join(playerAmount, 4, gp5);
             game1.StartGame();
-            AddPlayerToGame(playerAmount, game1, gp3);
-            AddPlayerToGame(playerAmount, game1, gp4);
-            AddPlayerToGame(playerAmount, game1, gp5);
 
             game2.Join(playerAmount, 0, gp1);
             game2.Join(playerAmount, 1, gp3);
@@ -85,9 +85,8 @@ namespace poker.Data.Tests
 
             game3.Join(playerAmount, 0, gp2);
             game3.Join(playerAmount, 1, gp3);
+            game3.Join(playerAmount, 2, gp4);
             game3.StartGame();
-            AddPlayerToGame(playerAmount, game3, gp4);
-
 
 
             league.AddRoom(new Room(game1));
@@ -129,13 +128,6 @@ namespace poker.Data.Tests
             Assert.IsTrue(CompareLists<IGame>(expectedAnswer3, receivedAnswer3));
         }
 
-        public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
-        {
-            List<int> chairs = gameAddTo.GetFreeChairs();
-            Random rnd = new Random();
-            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
-            gameAddTo.Join(playerAmount, chair, playerToAdd);
-        }
 
         public bool CompareLists<T>(List<T> listA, List<T> listB)
         {

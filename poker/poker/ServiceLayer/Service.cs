@@ -82,7 +82,7 @@ namespace poker.ServiceLayer
                 GamePlayer gPlayer = new GamePlayer(player, int.Parse(money));
                 if (!room.Game.Join(int.Parse(money), int.Parse(chairNum), gPlayer))
                     return "null";
-                SendCommandToPlayersInGame(CreateJson(new Command("UpdateChairs", new string[2] { roomId, CreateJson(room.Game.getChairs()) })), roomId);
+                SendCommandToPlayersInGame(CreateJson(new Command("UpdateChairs", new string[2] { roomId, CreateJson(room.Game.GetChairs()) })), roomId);
                 return "null";
             }
             catch(Exception e)
