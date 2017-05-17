@@ -142,6 +142,8 @@ namespace poker.ServiceLayer
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
                 room.Game.StartGame();
+                Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
+                SendCommandToPlayersInGame(CreateJson(command), room.Id + "");
                 return "null";
             }
             catch (Exception e)

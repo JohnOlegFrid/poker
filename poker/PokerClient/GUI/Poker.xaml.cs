@@ -52,8 +52,15 @@ namespace PokerClient.GUI
                     chairs[i].Visibility = Visibility.Hidden;
                 });
                 
-            }
-                
+            }             
+        }
+        internal void UpdateGame()
+        {
+            Init();
+            this.Dispatcher.Invoke(() =>
+            {
+                this.StartGameButton.Visibility = game.Active ? Visibility.Hidden : Visibility.Visible;
+            });       
         }
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
@@ -70,5 +77,6 @@ namespace PokerClient.GUI
             Service.Instance.StartGame(roomId+"");
 
         }
+
     }
 }

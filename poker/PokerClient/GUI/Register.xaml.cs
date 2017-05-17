@@ -59,7 +59,10 @@ namespace PokerClient.GUI
         public void RegisterFaild(string msg)
         {
             MessageBox.Show(msg);
-            this.IsEnabled = true;
+            this.Dispatcher.Invoke(() =>
+            {
+                this.IsEnabled = true;
+            });         
         }
     }
 }

@@ -75,6 +75,13 @@ namespace PokerClient.ServiceLayer
             room.RoomWindow.PokerTable.Init();
         }
 
+        public void UpdateGame(string roomId, string gameJson)
+        {
+            Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
+            room.RoomWindow.PokerTable.game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
+            room.RoomWindow.PokerTable.UpdateGame();
+        }
+
         // end server to client
 
 

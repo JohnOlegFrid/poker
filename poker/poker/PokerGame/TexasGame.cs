@@ -135,10 +135,10 @@ namespace poker.PokerGame
                  * deal money to winners
                  *
                  */
+                activePlayer = GetFirstPlayer();
                 if (!this.debug)
                     PlaceBlinds();
-                DealCardsToPlayers();
-                activePlayer = GetFirstPlayer();
+                DealCardsToPlayers();              
                 this.pot = gamePreferences.SmallBlind + gamePreferences.BigBlind;
                 this.highestBet = gamePreferences.BigBlind;
                 board = new Hand();

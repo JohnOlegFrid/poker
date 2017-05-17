@@ -47,9 +47,7 @@ namespace PokerClient.GUI
             this.Dispatcher.Invoke(() =>
            {
                MainInfo.Instance.MainWindow.mainContentControl.Content = new MainMenu();
-           });
-            
-
+           });       
         }
 
         public void LoginFaild()
@@ -57,7 +55,7 @@ namespace PokerClient.GUI
             this.Dispatcher.Invoke(() =>
             {
                MainWindow.ShowMessage("Error with loggin, please try again");
-                loginButton.IsEnabled = true;
+               loginButton.IsEnabled = true;
             });
 
         }

@@ -11,6 +11,8 @@ namespace PokerClient.Cards
         public readonly int Suit;
         public readonly int Value;
 
+        public Card() { }
+
         public Card(int Suit, int Value)
         {
             this.Suit = Suit;

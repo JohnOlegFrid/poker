@@ -18,6 +18,7 @@ namespace PokerClient.ServiceLayer
         void AddPlayerToRoom(string roomId, string username);
         void RemovePlayerFromRoom(string roomId, string username);
         void StartGame(string roomId);
+        void UpdateGame(string roomId, string gameJson);
 
     }
 }
