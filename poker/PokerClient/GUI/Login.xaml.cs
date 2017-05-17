@@ -38,7 +38,7 @@ namespace PokerClient.GUI
             }
 
             Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
-            loginButton.IsEnabled = false;        
+                    
 
         }
 
@@ -56,8 +56,8 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
             {
-               MainWindow.ShowMessage("Error with loggin, please try again");
-                loginButton.IsEnabled = true;
+                MessageBox.Show("Login Fail,Password or Username incorrect.", "Login Fail", MessageBoxButton.OK, MessageBoxImage.Error); ; ;
+                //loginButton.IsEnabled = true;
             });
 
         }
