@@ -24,10 +24,8 @@ namespace poker.Center
         GamePlayer GetFirstPlayer();
         List<Player> GetListActivePlayers();
         void NextTurn();
-        void spectateGame(Player p);
-        void stopWatching(Player p);
-        List<Player> getAllSpectators();
         void NextRound();
+        GamePlayer[] getChairs();
 
     }
 }

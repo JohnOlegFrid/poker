@@ -71,7 +71,7 @@ namespace PokerClient
                 roomsToPlay = value;
                 Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Clear(); });
                     foreach (Room room in roomsToPlay)
-                    Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Add(room); });                  
+                        Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Add(room); });                  
             } }
 
         public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }

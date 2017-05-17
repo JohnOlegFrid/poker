@@ -23,19 +23,46 @@ namespace PokerClient.GUI
     {
         public Chair[] chairs;
         public TexasGame game;
-        int activePlayers;
+        public int activePlayers;
+        public bool isSelectChair;
+        public int roomId;
+
         public Poker()
         {
             InitializeComponent();
             chairs = new Chair[8] { Chair0, Chair1, Chair2, Chair3, Chair4, Chair5, Chair6, Chair7 };
-            activePlayers = 0;          
+            activePlayers = 0;
+            isSelectChair = false;
         }
 
+   
         public void Init()
         {
+            for (int i = 0; i < game.ChairsInGame.Length; i++)
+            {
+                chairs[i].poker = this;
+                chairs[i].player = game.ChairsInGame[i];
+                chairs[i].Init();
+            }
             for (int i = game.GamePreferences.MaxPlayers; i < chairs.Length; i++)
-                chairs[i].IsEnabled = false;
-            MessageBox.Show(game.GamePreferences.MaxPlayers.ToString());
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    chairs[i].Visibility = Visibility.Hidden;
+                });
+                
+            }
+                
+        }
+
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(game.GamePreferences.GetMinPlayers() > game.GetListActivePlayers().Count)
+            {
+                MessageBox.Show("Not enough players to start game!");
+                return;
+            }
+
         }
     }
 }

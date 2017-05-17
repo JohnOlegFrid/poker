@@ -1,4 +1,6 @@
-﻿using System;
+﻿using poker.PokerGame;
+using PokerClient.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +25,9 @@ namespace PokerClient.GUI
 
         public static readonly DependencyProperty chairNum =
         DependencyProperty.Register("ChairNum", typeof(int), typeof(Chair));
+        public GamePlayer player = null;
+        public Poker poker;
 
-        private string playerId;
         public Chair()
         {
             InitializeComponent();
@@ -34,7 +37,25 @@ namespace PokerClient.GUI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("chair num " + ChairNum);
+            if (!poker.isSelectChair)
+            {
+                MessageBox.Show("chair num " + ChairNum);
+                poker.isSelectChair = true;
+                Service.Instance.SitOnChair(poker.roomId+"", MainInfo.Instance.Player.Username, ChairNum+"");
+            }       
+        }
+
+        public void Init()
+        {
+            if(player != null)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    Button.Visibility = Visibility.Hidden;
+                    PlayerInfo.Visibility = Visibility.Visible;
+                    PlayerName.Content = player.GetUsername();
+                });
+            }
         }
     }
 }

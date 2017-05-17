@@ -79,5 +79,11 @@ namespace poker.Players
         {
             return Id;
         }
+
+        public void sendMessageToPlayer(string msg)
+        {
+            SWriter.WriteLine(msg);
+            SWriter.Flush();
+        }
     }
 }

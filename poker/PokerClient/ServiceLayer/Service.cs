@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using PokerClient.Center;
 using PokerClient.Communication;
 using PokerClient.GUI;
+using poker.PokerGame;
 
 namespace PokerClient.ServiceLayer
 {
@@ -66,6 +67,14 @@ namespace PokerClient.ServiceLayer
             List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
             MainInfo.Instance.RoomsToPlay = roomsList;
         }
+
+        public void UpdateChairs(string roomId, string jsonChairs)
+        {
+            Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
+            room.RoomWindow.PokerTable.game.ChairsInGame = JsonConvert.DeserializeObject<GamePlayer[]>(jsonChairs);
+            room.RoomWindow.PokerTable.Init();
+        }
+
         // end server to client
 
 
@@ -88,6 +97,30 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        //end server to client
+        public void SitOnChair(string roomId, string username, string chairNum)
+        {
+            Command command = new Command("SitOnChair", new string[4] { roomId, username, "1000", chairNum });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void AddPlayerToRoom(string roomId, string username)
+        {
+            Command command = new Command("AddPlayerToRoom", new string[2] { roomId, username });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void RemovePlayerFromRoom(string roomId, string username)
+        {
+            Command command = new Command("RemovePlayerFromRoom", new string[2] { roomId, username });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void StartGame(string roomId)
+        {
+            Command command = new Command("StartGame", new string[1] { roomId });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        //end client to server
     }
 }

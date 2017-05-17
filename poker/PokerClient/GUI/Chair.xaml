@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid Background="#FF1DF903">
-        <Button x:Name="Button" Content="Sit HERE!" HorizontalAlignment="Left" Height="81" Margin="4,9,0,0" VerticalAlignment="Top" Width="91" Opacity="0.8" Click="Button_Click_1"/>
+        <Button x:Name="Button" Visibility="Visible" Content="Sit HERE!" HorizontalAlignment="Left" Height="81" Margin="4,9,0,0" VerticalAlignment="Top" Width="91" Opacity="0.8" Click="Button_Click_1"/>
+        <Grid x:Name="PlayerInfo" Visibility="Hidden" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
+            <Image x:Name="Card1"  HorizontalAlignment="Left" Height="50" Margin="9,3,0,0" VerticalAlignment="Top" Width="38" Source="Images/Card_Back_Vertical_Red.png"/>
+            <Image x:Name="Card2"  HorizontalAlignment="Left" Height="50" Margin="48,3,0,0" VerticalAlignment="Top" Width="38" Source="Images/Card_Back_Vertical_Red.png"/>
+            <Label x:Name="PlayerName" Content="" HorizontalAlignment="Left" Height="42" Margin="0,58,0,0" VerticalAlignment="Top" Width="100"/>
+        </Grid>
 
     </Grid>
 </UserControl>

@@ -29,7 +29,7 @@ namespace poker.PokerGame
             GamePreferences gamePreferences, GamePlayer activePlayer, int pot, int highestBet, Move lastMove,
             GamePlayer smallBlind, GamePlayer bigBlind)
         {
-            this.chairsInGame = chairsInGame;
+            this.ChairsInGame = chairsInGame;
             this.currentPlayers = currentPlayers;
             this.active = active;
             this.gameLog = gameLog;
@@ -62,13 +62,15 @@ namespace poker.PokerGame
 
         public GamePreferences GamePreferences { get { return gamePreferences; } set { gamePreferences = value; } }
 
+        public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
+
         public List<int> getFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
         {
             List<int> ans = new List<int>();
             if (active)
             {
                 for (int i = 0; i < GamePreferences.MaxPlayers; i++)
-                    if (chairsInGame[i] == null)
+                    if (ChairsInGame[i] == null)
                         ans.Add(i);
             }
             return ans;
@@ -88,7 +90,7 @@ namespace poker.PokerGame
         {
             if (activePlayer == null)
                 return activePlayer;
-            return chairsInGame[this.activePlayer.ChairNum];
+            return ChairsInGame[this.activePlayer.ChairNum];
         }
 
         private void ValidateMoveIsLeagal(Move currentMove)
@@ -109,15 +111,26 @@ namespace poker.PokerGame
             return;
         }
 
-
         public override bool Equals(Object obj)
         {
             if (!(obj is TexasGame))
                 return false;
             TexasGame tg = (TexasGame)obj;
-            if (tg.chairsInGame != chairsInGame)
+            if (tg.ChairsInGame != ChairsInGame)
                 return false;
             return true;
+        }
+
+        public List<GamePlayer> GetListActivePlayers()
+        {
+            List<GamePlayer> ans = new List<GamePlayer>();
+            if (ChairsInGame.Length == 0) return null; // no active players for that game
+            foreach (GamePlayer p in ChairsInGame)
+            {
+                if (p != null)
+                    ans.Add(p);
+            }
+            return ans;
         }
     }
 }
