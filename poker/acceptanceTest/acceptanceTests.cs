@@ -38,7 +38,7 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsNotNull(service.Register("moshe","1234","moshe@gmail.com"));//happy scenario- all fields are correct.
+                Assert.IsNotNull(service.Register("moshe", "1234", "moshe@gmail.com"));//happy scenario- all fields are correct.
                 Assert.IsNull(service.Register("moshe", "1234", "moshe@gmail.com"));//bad scenario- username unavailable.
                 Assert.IsNull(service.Register("avi", "", "avi@gmail.com"));//bad scenario- empty password.
                 Assert.IsNull(service.Register("", "1234", "avi@gmail.com"));//bad scenario- empty username.
@@ -59,7 +59,7 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsTrue(service.Login("admin","admin"));//happy scenario- all fields are correct.
+                Assert.IsTrue(service.Login("admin", "admin"));//happy scenario- all fields are correct.
                 Assert.IsFalse(service.Login("avi", ""));//bad scenario- empty password.
                 Assert.IsFalse(service.Login("", "1234"));//bad scenario- empty username.
                 Assert.IsFalse(service.Login("moshe", "1234"));//bad scenario- user does not exist.
@@ -118,7 +118,7 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsNotNull(service.CreateGame(new GamePreferences(9,2,100,10000,true,20)));//happy scenario- all fields are correct.
+                Assert.IsNotNull(service.CreateGame(new GamePreferences(9, 2, 100, 10000, true, 20)));//happy scenario- all fields are correct.
                 Assert.IsNull(service.CreateGame(new GamePreferences(9, 1, 100, 10000, true, 20)));//sad scenario- invalid minimum players (needs to be greater-equal to 2).
                 Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, -100, 10000, true, 20)));//bad scenario- minimum buy in can't be negative
                 Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, 100, -10000, true, 20)));//bad scenario- maximum buy in can't be negative
@@ -139,14 +139,14 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsNotNull(service.JoinGame(g1, "admin",200));//happy scenario- all fields are correct.
-                Assert.IsNull(service.JoinGame(g1, "admin",200));//sad scenario- can't join twice.
-                Assert.IsNull(service.JoinGame(g1, "moshe",200));//bad scenario- user doesn't exist
-                Assert.IsNull(service.JoinGame(new TexasGame(new GamePreferences(9, 3, 100, 10000, true, 20)), "admin",200));//bad scenario- fictive game (not added to the system properly)
+                Assert.IsNotNull(service.JoinGame(g1, "admin", 200));//happy scenario- all fields are correct.
+                Assert.IsNull(service.JoinGame(g1, "admin", 200));//sad scenario- can't join twice.
+                Assert.IsNull(service.JoinGame(g1, "moshe", 200));//bad scenario- user doesn't exist
+                Assert.IsNull(service.JoinGame(new TexasGame(new GamePreferences(9, 3, 100, 10000, true, 20)), "admin", 200));//bad scenario- fictive game (not added to the system properly)
                 Assert.IsNull(service.JoinGame(g2, "admin", 50));//bad scenario- amount of buy in is too low.
                 Assert.IsNull(service.JoinGame(g2, "admin", 50000));//bad scenario- amount of buy in is too high.
                 g2.StartGame();
-                Assert.IsNotNull(service.JoinGame(g2, "admin",200));//happy scenario- can join a started game if still active.
+                Assert.IsNotNull(service.JoinGame(g2, "admin", 200));//happy scenario- can join a started game if still active.
                 service.Register("moshe1", "1234", "moshe1@gmail.com");
                 Assert.IsNotNull(service.JoinGame(g2, "moshe1", 200));//happy scenario- all fields are correct.
                 service.Register("moshe2", "1234", "moshe2@gmail.com");
@@ -198,7 +198,7 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsTrue(service.SpectateGame(g1,"admin"));//happy scenario- all fields are correct.
+                Assert.IsTrue(service.SpectateGame(g1, "admin"));//happy scenario- all fields are correct.
                 Assert.IsFalse(service.SpectateGame(g2, "admin"));//sad scenario- g2 isn't allowed to be spectated
                 service.Register("moshe", "1234", "moshe@gmail.com");
                 g1.StartGame();
@@ -268,7 +268,7 @@ namespace acceptanceTest
                 Assert.IsTrue(service.call(g1, admin1));//happy scenario- all fields are correct.
                 Assert.IsTrue(g1.highestBet() == 100);//check state
                 Assert.IsTrue(admin1.Money == 100);//check state.
-                Assert.IsTrue(g1.getPot() == pot+100);//check state.
+                Assert.IsTrue(g1.getPot() == pot + 100);//check state.
                 Assert.IsTrue(!g1.GetActivePlayer().Equals(admin1));//after happy scenario turn should pass.
                 CleanUp();
                 g1.StartGame();
@@ -332,18 +332,18 @@ namespace acceptanceTest
                 g1.setHighestBet(100);
                 g1.SetActivePlayer(admin1);
                 pot = g1.getPot();
-                Assert.IsTrue(service.raise(g1, admin1,150));//happy scenario- all fields are correct.
+                Assert.IsTrue(service.raise(g1, admin1, 150));//happy scenario- all fields are correct.
                 Assert.IsTrue(g1.highestBet() == 150);//check state
                 Assert.IsTrue(admin1.Money == 50);//check state.
                 Assert.IsTrue(g1.getPot() == pot + 150);//check state
                 Assert.IsTrue(!g1.GetActivePlayer().Equals(admin1));//after happy scenario turn should pass.
                 CleanUp();
                 g1.StartGame();
-                Assert.IsFalse(service.raise(g1, new GamePlayer(admin, 400),200));//bad scenario- hasn't joined properly.
+                Assert.IsFalse(service.raise(g1, new GamePlayer(admin, 400), 200));//bad scenario- hasn't joined properly.
                 GamePlayer admin2 = service.JoinGame(g1, "admin", 200);
                 g1.setHighestBet(300);
                 g1.SetActivePlayer(admin2);
-                Assert.IsFalse(service.raise(g1, admin2,150));//sad scenario- can't raise to amount lower than highest bet.
+                Assert.IsFalse(service.raise(g1, admin2, 150));//sad scenario- can't raise to amount lower than highest bet.
                 Assert.IsTrue(g1.highestBet() == 300);//check state
                 Assert.IsTrue(admin2.Money == 200);//check state.
                 Assert.IsTrue(g1.getPot() == pot);//check state
@@ -353,7 +353,7 @@ namespace acceptanceTest
                 GamePlayer admin3 = service.JoinGame(g1, "admin", 200);
                 g1.setHighestBet(0);
                 g1.SetActivePlayer(admin3);
-                Assert.IsFalse(service.raise(g1, admin3,300));//sad scenario- can't raise more than what you have.
+                Assert.IsFalse(service.raise(g1, admin3, 300));//sad scenario- can't raise more than what you have.
                 Assert.IsTrue(g1.highestBet() == 0);//check state
                 Assert.IsTrue(admin3.Money == 200);//check state.
                 Assert.IsTrue(g1.getPot() == pot);//check state
@@ -415,18 +415,77 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsTrue(service.SpectateGame(g1, "admin"));//happy scenario- all fields are correct.
-                Assert.IsFalse(service.SpectateGame(g2, "admin"));//sad scenario- g2 isn't allowed to be spectated
-                service.Register("moshe", "1234", "moshe@gmail.com");
                 g1.StartGame();
-                g1.FinishGame();
-                Assert.IsFalse(service.SpectateGame(g1, "moshe"));//bad scenario-can't spectate a finished game.
+                GamePlayer admin12 = service.JoinGame(g1, "admin", 200);
+                g1.setHighestBet(100);
+                int pot;
+                pot = g1.getPot();
+                Assert.IsFalse(service.fold(g1, admin12));//bad scenario- can't fold not in turn.
+                Assert.IsTrue(g1.highestBet() == 100);//check state
+                Assert.IsTrue(admin12.Money == 200);//check state.
+                Assert.IsTrue(g1.getPot() == pot);//check state
+                CleanUp();
+                g1.StartGame();
+                GamePlayer admin1 = service.JoinGame(g1, "admin", 200);
+                g1.setHighestBet(100);
+                g1.SetActivePlayer(admin1);
+                pot = g1.getPot();
+                Assert.IsTrue(service.fold(g1, admin1));//happy scenario- can fold at an time, as long as it's your turn.
+                Assert.IsTrue(g1.highestBet() == 100);//check state
+                Assert.IsTrue(admin1.Money == 200);//check state.
+                Assert.IsTrue(g1.getPot() == pot);//check state
+                Assert.IsTrue(!g1.GetActivePlayer().Equals(admin1));//after happy scenario turn should pass.
                 CleanUp();
             }
             catch (Exception)
             {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod]
+        public void TestSetGameTypePolicy()
+        {
+        }
+        [TestMethod]
+        public void TestSetBuyInPolicy()
+        {
+        }
+        [TestMethod]
+        public void TestSetChipPoicy()
+        {
+        }
+        [TestMethod]
+        public void TestSetMinimumBet()
+        {
+        }
+        [TestMethod]
+        public void TestDefinePlayersInTable()
+        {
+        }
+        [TestMethod]
+        public void TestSetGamePrivacy()
+        {
+        }
+        [TestMethod]
+        public void TestFindAllGamesCanJoin()
+        {
+        }
+        [TestMethod]
+        public void TestFindAllGamesCanSpectate()
+        {
+        }
+        [TestMethod]
+        public void TestfindGamesByPlayerName()
+        {
+        }
+        [TestMethod]
+        public void TestfindGamesByPotSize()
+        {
+        }
+        [TestMethod]
+        public void TestfindGamesByPreferenc()
+        {
         }
     }
 }

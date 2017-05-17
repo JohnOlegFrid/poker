@@ -21,12 +21,12 @@ namespace acceptanceTest
         bool FinishGame(IGame game);
         bool LeaveGame(IGame game, string username);
         bool ReplayGame(IGame game, string username);//needs to be added to the log- who watched the replay.
-        List<IGame> FindAllGamesCanJoin(string username);
-        List<IGame> FindAllGamesCanSpectate(string username);
         bool call(IGame game, GamePlayer player);//no need for amount parameter, game object should know the amount.
         bool raise(IGame game, GamePlayer player, int amount);
         bool check(IGame game, GamePlayer player);
         bool fold(IGame game, GamePlayer player);
+        List<IGame> FindAllGamesCanJoin(string username);
+        List<IGame> FindAllGamesCanSpectate(string username);
         List<IGame> findGamesByPlayerName(string username);
         List<IGame> findGamesByPotSize(int pot);
         List<IGame> findGamesByPreferenc(GamePreferences pref);
