@@ -27,7 +27,7 @@ namespace poker.Players.Tests
 
 
         [TestMethod()]
-        public void SetEmailTest()
+        public void SetBadEmailTest()
         {
             String emailBefore = player.GetEmail();
             player.SetEmail("");
@@ -49,11 +49,27 @@ namespace poker.Players.Tests
         }
 
         [TestMethod()]
-        public void SetPasswordTest()
+        public void SetGoodEmailTest()
+        {
+            String emailBefore = player.GetEmail();
+            String newEmail = "maor@gmail.com";
+            player.SetEmail(newEmail);
+            Assert.AreEqual(newEmail, player.GetEmail());
+            Assert.AreNotEqual(emailBefore, player.GetEmail());
+        }
+
+        [TestMethod()]
+        public void SetBadPasswordTest()
         {
             String passBefore = player.GetPassword();
             player.SetPassword("");
             Assert.AreEqual(passBefore, player.GetPassword());
+        }
+
+        [TestMethod()]
+        public void SetGoodPasswordTest()
+        {
+            String passBefore = player.GetPassword();
             String newPass = "12345";
             player.SetPassword(newPass);
             Assert.AreEqual(newPass, player.GetPassword());
