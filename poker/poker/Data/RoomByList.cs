@@ -11,6 +11,11 @@ namespace poker.Data
     {
         private List<Room> rooms;
 
+        public RoomByList()
+        {
+            rooms = new List<Room>();
+        }
+
         public void AddRoom(Room room)
         {
             rooms.Add(room);
@@ -19,6 +24,18 @@ namespace poker.Data
         public void DeleteRoom(Room room)
         {
             rooms.Remove(room);
+        }
+
+        public Room FindRoomById(int id)
+        {
+            try
+            {
+                return rooms.Find(x => x.Id.Equals(id));
+            }
+            catch (ArgumentNullException e)
+            {
+                return null;
+            }
         }
 
         public List<Room> GetAllRooms()

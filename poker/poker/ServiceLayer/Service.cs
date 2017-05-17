@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using poker.Data;
 using Newtonsoft.Json;
-
+using poker.Server;
+using poker.Center;
+using poker.Players;
+using poker.PokerGame;
 
 namespace poker.ServiceLayer
 {
@@ -16,6 +16,7 @@ namespace poker.ServiceLayer
         private IPlayersData playersData;
 
         private UserService userService;
+        private CenterService centerService;
         private static Service instance;
 
         public Service(ILeaguesData leaguesData, IRoomData roomsData, IPlayersData playersData)
@@ -25,6 +26,7 @@ namespace poker.ServiceLayer
             this.playersData = playersData;
 
             this.userService = new UserService(this);
+            this.centerService = new CenterService(this);
             Service.instance = this;
         }
 
@@ -44,17 +46,108 @@ namespace poker.ServiceLayer
 
         public string Register(string username, string password, string email)
         {
-            return userService.Register(username, password, email);
+            string msgRegister = userService.Register(username, password, email);
+            Command command = new Command("Register", new string[2] { msgRegister, userService.Login(username, password)});
+            return CreateJson(command);      
         }
 
         public string Login(string username, string password)
         {
-            return userService.Login(username, password);
+            Command command = new Command("Login", new string[1] { userService.Login(username, password) });
+            return CreateJson(command);
         }
 
         public string EditPlayer(string username, string type, string newValue)
         {
             return userService.EditPlayer(username, type, newValue);
+        }
+
+        public string SendMessage(string username, string from, string msg)
+        {
+            userService.SendMessge(username, from, msg);
+            return "null";
+        }
+
+        public string GetAllRoomsToPlay(string username)
+        {
+            Command command = new Command("TakeAllRoomsToPlay", new string[1] { this.centerService.GetAllRoomsToPlay(username) });
+            return CreateJson(command);
+        }
+
+        public string SitOnChair(string roomId, string username, string money, string chairNum)
+        {
+            try {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                Player player = playersData.FindPlayerByUsername(username);
+                GamePlayer gPlayer = new GamePlayer(player, int.Parse(money));
+                if (!room.Game.Join(int.Parse(money), int.Parse(chairNum), gPlayer))
+                    return "null";
+                SendCommandToPlayersInGame(CreateJson(new Command("UpdateChairs", new string[2] { roomId, CreateJson(room.Game.getChairs()) })), roomId);
+                return "null";
+            }
+            catch(Exception e)
+            {
+                return "null"; //null mean that sever done need to send back message
+            }
+            
+        }
+
+        public void SendCommandToPlayersInGame(string command, string roomId)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                List<Player> players = room.Spectators;
+                foreach (Player player in players)
+                {
+                    player.sendMessageToPlayer(command);
+                }
+            }
+            catch {  }                   
+        }
+
+        public string AddPlayerToRoom(string roomId, string username)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                Player player = playersData.FindPlayerByUsername(username);
+                room.AddPlayerToRoom(player);
+                return "null";
+            }
+            catch (Exception e)
+            {
+                return "null"; //null mean that sever done need to send back message
+            }
+        }
+
+        public string RemovePlayerFromRoom(string roomId, string username)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                Player player = playersData.FindPlayerByUsername(username);
+                room.RemovePlayerFromRoom(player);
+                return "null";
+            }
+            catch (Exception e)
+            {
+                return "null"; //null mean that sever done need to send back message
+            }
+        }
+
+        public string StartGame(string roomId)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                room.Game.StartGame();
+                return "null";
+            }
+            catch (Exception e)
+            {
+                return "null"; //null mean that sever done need to send back message
+            }
         }
     }
 }

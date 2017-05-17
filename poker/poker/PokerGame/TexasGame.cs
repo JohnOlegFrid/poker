@@ -8,23 +8,35 @@ using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
 using poker.Cards;
+using Newtonsoft.Json;
 
 namespace poker.PokerGame
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class TexasGame : IGame
     {
+        [JsonProperty]
         private GamePlayer[] chairsInGame;
+        [JsonProperty]
         private int currentPlayers;
-        private List<Player> spectators;
+        [JsonProperty]
         private bool active;
+        [JsonProperty]
         private List<string> gameLog;
         private List<string> errorLog;
+        [JsonProperty]
         private GamePreferences gamePreferences;
+        [JsonProperty]
         private GamePlayer activePlayer;
+        [JsonProperty]
         private int pot;
+        [JsonProperty]
         private int highestBet;
+        [JsonProperty]
         private Move lastMove;
+        [JsonProperty]
         private GamePlayer smallBlind;
+        [JsonProperty]
         private GamePlayer bigBlind;
         public bool debug = false;
         private Deck deck;
@@ -34,8 +46,7 @@ namespace poker.PokerGame
         public TexasGame(GamePreferences gp)
         {
             this.gamePreferences = gp;
-            chairsInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
-            spectators = new List<Player>();
+            ChairsInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             active = false;
             gameLog = new List<string>();
             errorLog = new List<string>();
@@ -57,13 +68,14 @@ namespace poker.PokerGame
             }
         }
 
-        public List<int> GetFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
+        public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
+
         {
             List<int> ans = new List<int>();
             if (active)
             {
                 for (int i = 0; i < gamePreferences.MaxPlayers; i++)
-                    if (chairsInGame[i] == null)
+                    if (ChairsInGame[i] == null)
                         ans.Add(i);
             }
             return ans;
@@ -73,16 +85,16 @@ namespace poker.PokerGame
         {
             for (int i = 0; i < gamePreferences.MaxPlayers; i++)
             {
-                if ((chairsInGame[i] != null) && (chairsInGame[i].Equals(p))) //a player can't join a game twice.
+                if ((ChairsInGame[i] != null) && (ChairsInGame[i].Equals(p))) //a player can't join a game twice.
                     return false;
             }
-            if (chairsInGame[chair] != null)
+            if (ChairsInGame[chair] != null)
                 return false;
             if (amount < gamePreferences.MinBuyIn || amount > gamePreferences.MaxBuyIn)
                 return false;
             if (amount > p.Money)
                 return false;
-            chairsInGame[chair] = p;
+            ChairsInGame[chair] = p;
             p.ChairNum = chair;
             gameLog.Add(p.Player.Username + " joined the game.");
             currentPlayers++;
@@ -163,7 +175,7 @@ namespace poker.PokerGame
         {
             if (activePlayer == null)
                 return activePlayer;
-            return chairsInGame[this.activePlayer.ChairNum];
+            return ChairsInGame[this.activePlayer.ChairNum];
         }
 
         public void NextTurn()
@@ -241,8 +253,8 @@ namespace poker.PokerGame
             int chair = activePlayer.ChairNum;
             for (int i = 1; i < gamePreferences.MaxPlayers - chair; i++)
             {
-                if (chair + 1 < gamePreferences.MaxPlayers && chairsInGame[chair + i] != null && !chairsInGame[chair + i].IsFold())
-                    return chairsInGame[chair + i];
+                if (chair+1 < gamePreferences.MaxPlayers && ChairsInGame[chair + i] != null && !ChairsInGame[chair + i].IsFold())
+                    return ChairsInGame[chair + i];
 
             }
             return null;
@@ -251,10 +263,10 @@ namespace poker.PokerGame
         // return null if no more active players
         public GamePlayer GetFirstPlayer()
         {
-            for (int i = 0; i < this.chairsInGame.Length; i++)
+            for(int i = 0; i < this.ChairsInGame.Length; i++)
             {
-                if (chairsInGame[i] != null && !chairsInGame[i].IsFold())
-                    return chairsInGame[i];
+                if (ChairsInGame[i] != null && !ChairsInGame[i].IsFold())
+                    return ChairsInGame[i];
             }
             return null;
         }
@@ -262,8 +274,8 @@ namespace poker.PokerGame
         public List<GamePlayer> GetListActivePlayers()
         {
             List<GamePlayer> ans = new List<GamePlayer>();
-            if (chairsInGame.Length == 0 || !Active) return null; // no active players for that game
-            foreach (GamePlayer p in chairsInGame)
+            if (ChairsInGame.Length == 0 ) return null; // no active players for that game
+            foreach(GamePlayer p in ChairsInGame)
             {
                 if (p != null)
                     ans.Add(p);
@@ -277,32 +289,15 @@ namespace poker.PokerGame
             if (!(obj is TexasGame))
                 return false;
             TexasGame tg = (TexasGame)obj;
-            if (tg.chairsInGame != chairsInGame)
+            if (tg.ChairsInGame != ChairsInGame)
                 return false;
             return true;
         }
 
-        public void SpectateGame(Player p)
-        {
-            if (IsActive() && IsAllowSpectating() && !spectators.Contains(p))
-            {
-                spectators.Add(p);
-                p.CurrentlyWatching.Add(this);
-            }
-        }
 
-        public void StopWatching(Player p)
+        public GamePlayer[] getChairs()
         {
-            if (spectators.Contains(p))
-            {
-                spectators.Remove(p);
-                p.CurrentlyWatching.Remove(this);
-            }
-        }
-
-        public List<Player> GetAllSpectators()
-        {
-            return spectators;
+            return chairsInGame;
         }
 
         public void DealCardsToPlayers()

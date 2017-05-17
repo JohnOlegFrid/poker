@@ -17,17 +17,17 @@ namespace poker.Players
             return player;
         }
 
-        public static bool Register(Player newPlayer, IPlayersData data)
+        public static string Register(Player newPlayer, IPlayersData data)
         {
             Player player = data.FindPlayerByUsername(newPlayer.Username);
             if (player != null)
-                return false; //username taken
+                return "Error! username is already taken";
             if (!IsValidEmail(newPlayer.GetEmail()))
-                return false; //invalid email
+                return "Error! invalid email";
             if (!IsValidPassword(newPlayer.GetPassword()))
-                return false;
+                return "Error! invalid password";
             data.AddPlayer(newPlayer);
-            return true;
+            return "ok";
         }
 
         public static bool IsValidEmail(string email)

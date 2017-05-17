@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.ServiceLayer;
 using System.Reflection;
+using System.IO;
+using Newtonsoft.Json;
+using poker.Players;
 
 namespace poker.Server
 {
@@ -35,6 +38,17 @@ namespace poker.Server
             return result;
         }
 
-        
+        public static void RememberPlayer(Command command, string respond, StreamWriter sWriter)
+        {
+            if (!command.commandName.Equals("Login"))
+                return;
+            Command desRespond = JsonConvert.DeserializeObject<Command>(respond);
+            if(desRespond.args[0] != "null")
+            {
+                string username = JsonConvert.DeserializeObject<Player>(desRespond.args[0]).Username;
+                Player player = Service.GetLastInstance().PlayersData.FindPlayerByUsername(username);
+                player.SWriter = sWriter;
+            }               
+        }
     }
 }

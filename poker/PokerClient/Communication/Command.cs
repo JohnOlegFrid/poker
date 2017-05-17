@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientPoker
+namespace PokerClient.Communication
 {
-    class Command
+    public class Command
     {
         public string commandName;
         public string[] args;

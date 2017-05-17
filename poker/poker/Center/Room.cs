@@ -1,4 +1,5 @@
-﻿using poker.Players;
+﻿using Newtonsoft.Json;
+using poker.Players;
 using poker.PokerGame;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,32 @@ using System.Threading.Tasks;
 
 namespace poker.Center
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Room
     {
+        [JsonProperty]
+        private int id;
+        [JsonProperty]
         private Chat chat;
+        [JsonProperty]
         private IGame game;
-        private bool haveActiveGame;
+        [JsonProperty]
+        private List<Player> spectators;
         private List<IGame> pastGames;
+        private static int nextId = 0;
+        private readonly object syncLock = new object();
 
         public Room(IGame game)
         {
             this.game = game;
-            haveActiveGame = true;
             pastGames = new List<IGame>();
+            this.chat = new Chat();
+            spectators = new List<Player>();
+            lock (syncLock)
+            {
+                nextId++;
+                this.Id = nextId;
+            }          
         }
 
         public IGame Game
@@ -40,6 +55,16 @@ namespace poker.Center
             }
         }
 
+        public void AddPlayerToRoom(Player player)
+        {
+            this.Spectators.Add(player);
+        }
+
+        public void RemovePlayerFromRoom(Player player)
+        {
+            this.Spectators.Remove(player);
+        }
+
         public List<IGame> PastGames
         {
             get
@@ -48,7 +73,9 @@ namespace poker.Center
             }
         }
 
-        public bool HaveActiveGame { get { return haveActiveGame; } set { haveActiveGame = value; } }
+        public int Id { get { return id; } set { id = value; } }
+
+        public List<Player> Spectators { get { return spectators; } }
 
         public bool IsPlayerActiveInRoom (Player pl)
         {
@@ -57,10 +84,10 @@ namespace poker.Center
                 ans = false;
             else
             {
-                List<GamePlayer> activePlayers = game.GetListActivePlayers();
-                foreach (GamePlayer p in activePlayers)
+                List<Player> activePlayers = game.GetListActivePlayers();
+                foreach (Player p in activePlayers)
                 {
-                    if (p.Player.Equals(pl))
+                    if (p.Equals(pl))
                     {
                         ans = true;
                         break;

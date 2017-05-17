@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using poker.Center;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace poker.Players
 {
@@ -20,6 +21,7 @@ namespace poker.Players
         private String email;
         private League league;
         private List<IGame> currentlyWatching;
+        private StreamWriter sWriter;
 
         public Player(int id, String username, String password, String email, League league)
         {
@@ -29,7 +31,8 @@ namespace poker.Players
             this.password = password;
             SetEmail(email);
             rank = 0;
-            league.AddPlayerToLeague(this);
+            if(league != null)
+                league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
         }
 
@@ -37,6 +40,7 @@ namespace poker.Players
         public string Username { get { return username; } set { username = value; } }
         public int Rank { get { return rank; } set { rank = value;  } }
         public List<IGame> CurrentlyWatching { get { return currentlyWatching; } }
+        public StreamWriter SWriter { get { return sWriter; } set { sWriter = value; } }
 
         public string GetEmail()
         {
@@ -74,6 +78,12 @@ namespace poker.Players
         public override int GetHashCode()
         {
             return Id;
+        }
+
+        public void sendMessageToPlayer(string msg)
+        {
+            SWriter.WriteLine(msg);
+            SWriter.Flush();
         }
     }
 }

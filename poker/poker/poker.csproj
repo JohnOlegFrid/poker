@@ -93,6 +93,7 @@
     <Compile Include="Players\Player.cs" />
     <Compile Include="Server\Command.cs" />
     <Compile Include="Server\Parser.cs" />
+    <Compile Include="ServiceLayer\CenterService.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
     <Compile Include="ServiceLayer\UserService.cs" />

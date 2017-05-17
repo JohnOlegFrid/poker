@@ -17,7 +17,6 @@ namespace poker.PokerGame
         private int bigBlind;
         private GameTypePolicy gameTypePolicy;
         public enum GameTypePolicy { LIMIT, NO_LIMIT, POT_LIMIT};
-
         public int MaxPlayers
         {
             get
@@ -28,6 +27,19 @@ namespace poker.PokerGame
             set
             {
                 maxPlayers = value;
+            }
+        }
+
+        public int MinPlayers
+        {
+            get
+            {
+                return minPlayers;
+            }
+
+            set
+            {
+                minPlayers = value;
             }
         }
 
@@ -109,8 +121,6 @@ namespace poker.PokerGame
         {
             return minPlayers;
         }
-
-        
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
     }

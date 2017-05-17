@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8859E771-4633-46BE-AA01-612982473A38}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ClientPoker</RootNamespace>
-    <AssemblyName>ClientPoker</AssemblyName>
+    <RootNamespace>PokerClient</RootNamespace>
+    <AssemblyName>PokerClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,6 +51,10 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -75,7 +79,68 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="GUI\Chair.xaml.cs">
+      <DependentUpon>Chair.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Center\Chat.cs" />
+    <Compile Include="Center\IGame.cs" />
+    <Compile Include="Center\Room.cs" />
+    <Compile Include="GUI\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainPanel.xaml.cs">
+      <DependentUpon>MainPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Poker.xaml.cs">
+      <DependentUpon>Poker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PokerOP.xaml.cs">
+      <DependentUpon>PokerOP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\RoomWindow.xaml.cs">
+      <DependentUpon>RoomWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserPanel.xaml.cs">
+      <DependentUpon>UserPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainInfo.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="GUI\Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
+    <Compile Include="PokerGame\Exceptions\NotEnoughMoneyException.cs" />
+    <Compile Include="PokerGame\Exceptions\PokerExceptions.cs" />
+    <Compile Include="PokerGame\GamePlayer.cs" />
+    <Compile Include="PokerGame\GamePreferences.cs" />
+    <Compile Include="PokerGame\Moves\Call.cs" />
+    <Compile Include="PokerGame\Moves\Check.cs" />
+    <Compile Include="PokerGame\Moves\Fold.cs" />
+    <Compile Include="PokerGame\Moves\Move.cs" />
+    <Compile Include="PokerGame\Moves\Raise.cs" />
+    <Compile Include="PokerGame\TexasGame.cs" />
+    <Compile Include="ServiceLayer\IService.cs" />
+    <Compile Include="ServiceLayer\Service.cs" />
+    <Page Include="GUI\Chair.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -83,12 +148,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Client.cs" />
-    <Compile Include="Command.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Communication\Client.cs" />
+    <Compile Include="Communication\Command.cs" />
+    <Compile Include="Communication\Parser.cs" />
+    <Compile Include="GUI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GUI\Poker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\PokerOP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\RoomWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -108,7 +194,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,6 +216,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Images\MainBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Images\MainMenuBack.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Images\Card_Back_Vertical_Red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
