@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
@@ -18,7 +14,7 @@ namespace poker.PokerGame
         private bool isFold;
         private Move nextMove;
         private int currentBet;
-        private Card[] cardsPlayer;
+        private Hand hand;
 
         public GamePlayer(Player player, int money)
         {
@@ -26,7 +22,7 @@ namespace poker.PokerGame
             this.money = money;
             isFold = false;
             currentBet = 0;
-            cardsPlayer = new Card[2];
+            hand = new Hand();
         
         }
 
@@ -40,7 +36,7 @@ namespace poker.PokerGame
 
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
 
-        public Card[] CardsPlayer { get { return cardsPlayer; } set { cardsPlayer = value; } }
+        public Hand Hand { get { return hand; } set { hand = value; } }
 
         public String GetUsername()
         {

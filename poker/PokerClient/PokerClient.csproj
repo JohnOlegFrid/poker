@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\Deck.cs" />
+    <Compile Include="Cards\Hand.cs" />
     <Compile Include="GUI\Chair.xaml.cs">
       <DependentUpon>Chair.xaml</DependentUpon>
     </Compile>

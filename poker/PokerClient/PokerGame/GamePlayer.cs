@@ -2,11 +2,7 @@
 using poker.PokerGame.Exceptions;
 using poker.PokerGame.Moves;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using PokerClient.Cards;
 
 namespace poker.PokerGame
 {
@@ -18,13 +14,17 @@ namespace poker.PokerGame
         private bool isFold;
         private Move nextMove;
         private int currentBet;
+        private Hand hand;
 
-        public GamePlayer(Player player, int money)
+        public GamePlayer(Player player, int chairNum, int money, bool isFold, Move nextMove, int currentBet, Hand hand)
         {
             this.player = player;
+            this.chairNum = chairNum;
             this.money = money;
-            isFold = false;
-            currentBet = 0;
+            this.isFold = isFold;
+            this.nextMove = nextMove;
+            this.currentBet = currentBet;
+            this.hand = hand;
         }
 
         public int Money { get { return money; } set { money = value; } }
@@ -36,6 +36,9 @@ namespace poker.PokerGame
         public Move NextMove { get { return nextMove; } set { nextMove = value; } }
 
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
+
+        public Hand Hand { get { return hand; } set { hand = value; } }
+
         public String GetUsername()
         {
             return player.Username;

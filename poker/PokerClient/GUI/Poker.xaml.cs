@@ -1,4 +1,5 @@
 ﻿using poker.PokerGame;
+using PokerClient.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,11 @@ namespace PokerClient.GUI
                 MessageBox.Show("Not enough players to start game!");
                 return;
             }
+            this.Dispatcher.Invoke(() =>
+            {
+                StartGameButton.IsEnabled = false;
+            });       
+            Service.Instance.StartGame(roomId+"");
 
         }
     }

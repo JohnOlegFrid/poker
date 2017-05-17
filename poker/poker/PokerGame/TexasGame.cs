@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using poker.Center;
-using poker.Players;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
 using poker.Cards;
@@ -40,7 +36,8 @@ namespace poker.PokerGame
         private GamePlayer bigBlind;
         public bool debug = false;
         private Deck deck;
-        private Card[] board;
+        [JsonProperty]
+        private Hand board;
 
 
         public TexasGame(GamePreferences gp)
@@ -69,8 +66,6 @@ namespace poker.PokerGame
         }
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
-
-
 
         public bool Join(int amount, int chair, GamePlayer p)
         {
@@ -119,8 +114,8 @@ namespace poker.PokerGame
             {
                 gameLog.Add("Starting game.");
                 deck = Deck.CreateFullDeck();
+                deck.Shuffle();
                 Active = true;
-
                 /*
                  * --big and small put blinds
                  * --dealing cards to players
@@ -146,6 +141,7 @@ namespace poker.PokerGame
                 activePlayer = GetFirstPlayer();
                 this.pot = gamePreferences.SmallBlind + gamePreferences.BigBlind;
                 this.highestBet = gamePreferences.BigBlind;
+                board = new Hand();
             }
             else
                 gameLog.Add("Not enough players to start");
@@ -274,7 +270,6 @@ namespace poker.PokerGame
             return ans;
         }
 
-
         public override bool Equals(Object obj)
         {
             if (!(obj is TexasGame))
@@ -284,7 +279,6 @@ namespace poker.PokerGame
                 return false;
             return true;
         }
-
 
         public GamePlayer[] GetChairs()
         {
@@ -296,8 +290,7 @@ namespace poker.PokerGame
             List<GamePlayer> activePlayers = GetListActivePlayers();
             foreach (GamePlayer p in activePlayers)
             {
-                p.CardsPlayer[0] = deck.Take(1)[0];
-                p.CardsPlayer[1] = deck.Take(1)[0];
+                p.Hand.Add(deck.Take(2));
             }
         }
 

@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
-using Newtonsoft.Json;
 using PokerClient.Center;
-using PokerClient.Players;
+using PokerClient.Cards;
 
 namespace poker.PokerGame
 {
@@ -24,14 +20,15 @@ namespace poker.PokerGame
         private Move lastMove;
         private GamePlayer smallBlind;
         private GamePlayer bigBlind;
+        private Hand board;
 
         public TexasGame(GamePlayer[] chairsInGame, int currentPlayers, bool active, List<string> gameLog,
             GamePreferences gamePreferences, GamePlayer activePlayer, int pot, int highestBet, Move lastMove,
-            GamePlayer smallBlind, GamePlayer bigBlind)
+            GamePlayer smallBlind, GamePlayer bigBlind, Hand hand)
         {
             this.ChairsInGame = chairsInGame;
             this.currentPlayers = currentPlayers;
-            this.active = active;
+            this.Active = active;
             this.gameLog = gameLog;
             this.GamePreferences = gamePreferences;
             this.activePlayer = activePlayer;
@@ -40,41 +37,23 @@ namespace poker.PokerGame
             this.lastMove = lastMove;
             this.smallBlind = smallBlind;
             this.bigBlind = bigBlind;
+            this.Board = hand;
+
         }
 
         public override string ToString()
         {
-            return "Active:" + active.ToString() + " Pot:" + pot;
+            return "Active:" + Active.ToString() + " Pot:" + pot;
         }
 
-        public bool Active
-        {
-            get
-            {
-                return active;
-            }
-
-            set
-            {
-                active = value;
-            }
-        }
 
         public GamePreferences GamePreferences { get { return gamePreferences; } set { gamePreferences = value; } }
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
 
-        public List<int> getFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
-        {
-            List<int> ans = new List<int>();
-            if (active)
-            {
-                for (int i = 0; i < GamePreferences.MaxPlayers; i++)
-                    if (ChairsInGame[i] == null)
-                        ans.Add(i);
-            }
-            return ans;
-        }
+        public Hand Board { get { return board; } set { board = value; } }
+
+        public bool Active { get { return active; } set { active = value; } }
 
         public bool IsActive()
         {
@@ -111,15 +90,6 @@ namespace poker.PokerGame
             return;
         }
 
-        public override bool Equals(Object obj)
-        {
-            if (!(obj is TexasGame))
-                return false;
-            TexasGame tg = (TexasGame)obj;
-            if (tg.ChairsInGame != ChairsInGame)
-                return false;
-            return true;
-        }
 
         public List<GamePlayer> GetListActivePlayers()
         {
