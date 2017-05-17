@@ -223,5 +223,8 @@
   <ItemGroup>
     <Resource Include="GUI\Images\MainMenuBack.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Images\Card_Back_Vertical_Red.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -54,7 +54,7 @@ namespace poker.Center
             List<Room> games = new List<Room>();
             foreach(Room room in rooms)
             {
-                if (room.HaveActiveGame)
+                if (room.Game.IsActive())
                     games.Add(room);
             }
             return games;
