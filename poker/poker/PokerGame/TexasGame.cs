@@ -16,7 +16,8 @@ namespace poker.PokerGame
         private GamePlayer[] chairsInGame;
         private int currentPlayers;
         private List<Player> spectators;
-        private bool active;
+        private bool started;
+        private bool finished;
         private List<string> gameLog;
         private List<string> errorLog;
         private GamePreferences gamePreferences;
@@ -37,7 +38,8 @@ namespace poker.PokerGame
             this.gamePreferences = gp;
             chairsInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
             spectators = new List<Player>();
-            active = false;
+            started = false;
+            finished = false;
             gameLog = new List<string>();
             errorLog = new List<string>();
             pot = 0;
@@ -45,23 +47,10 @@ namespace poker.PokerGame
             currentPlayers = 0;
         }
 
-        public bool Active
-        {
-            get
-            {
-                return active;
-            }
-
-            set
-            {
-                active = value;
-            }
-        }
-
         public List<int> GetFreeChairs() //the method returns list of free chairs , why its AskToJoin? doesn't clear enough.
         {
             List<int> ans = new List<int>();
-            if (active)
+            if (IsActive())
             {
                 for (int i = 0; i < gamePreferences.MaxPlayers; i++)
                     if (chairsInGame[i] == null)
@@ -92,13 +81,13 @@ namespace poker.PokerGame
 
         public bool IsActive()
         {
-            return Active;
+            return !finished;
         }
 
         public void FinishGame()
         {
             gameLog.Add("Game is finished.");
-            Active = false;
+            finished = true;
         }
 
         public void PlaceBlinds()
@@ -117,7 +106,7 @@ namespace poker.PokerGame
             {
                 gameLog.Add("Starting game.");
                 deck = Deck.CreateFullDeck();
-                Active = true;
+                started = true;
 
                 /*
                  * --big and small put blinds
@@ -263,7 +252,7 @@ namespace poker.PokerGame
         public List<GamePlayer> GetListActivePlayers()
         {
             List<GamePlayer> ans = new List<GamePlayer>();
-            if (chairsInGame.Length == 0 || !Active) return null; // no active players for that game
+            if (chairsInGame.Length == 0 || !IsActive()) return null; // no active players for that game
             foreach (GamePlayer p in chairsInGame)
             {
                 if (p != null)
@@ -314,6 +303,26 @@ namespace poker.PokerGame
                 p.CardsPlayer[1] = deck.Take(1)[0];
                 p.CardsPlayer[2] = deck.Take(1)[0];
             }
+        }
+
+        int IGame.highestBet()
+        {
+            return highestBet;
+        }
+
+        public void setHighestBet(int bet)
+        {
+            highestBet = bet;
+        }
+
+        public void SetActivePlayer(GamePlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getPot()
+        {
+            throw new NotImplementedException();
         }
     }
 }

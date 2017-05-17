@@ -20,6 +20,7 @@ namespace poker.Center
         bool IsAllowSpectating();
         List<string> ReplayGame();
         GamePlayer GetActivePlayer();
+        void SetActivePlayer(GamePlayer player);
         GamePlayer GetNextPlayer();
         GamePlayer GetFirstPlayer();
         List<GamePlayer> GetListActivePlayers();
@@ -27,7 +28,9 @@ namespace poker.Center
         void SpectateGame(Player p);
         void StopWatching(Player p);
         List<Player> GetAllSpectators();
-
+        int highestBet();//get the amount needed for call.
+        int getPot();
+        void setHighestBet(int bet);
         void NextRound();
 
 
