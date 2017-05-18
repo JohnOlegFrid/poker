@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using poker.Players;
 using poker.PokerGame;
 using poker.Center;
+using System.Collections.Generic;
 
 namespace acceptanceTest
 {
@@ -525,6 +526,16 @@ namespace acceptanceTest
         [TestMethod]
         public void TestFindAllGamesCanSpectate()
         {
+            List<IGame> games= service.FindAllGamesCanSpectate("admin");
+            Assert.IsTrue(games.Count == 1);//happy scenario - g1 allows spectating, g2 doesn't.
+            CleanUp();
+            games = service.FindAllGamesCanSpectate("moshe");
+            Assert.IsTrue(games==null);//bad scenario- username doesn't exist.
+            CleanUp();
+            games = service.FindAllGamesCanSpectate("admin");
+            service.SetGamePrivacy(g1, true);
+            Assert.IsTrue(games.Count == 0);//happy scenario- g1 is now private.
+            CleanUp();
         }
         [TestMethod]
         public void TestfindGamesByPlayerName()
