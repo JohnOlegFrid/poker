@@ -34,11 +34,6 @@ namespace acceptanceTest
             throw new NotImplementedException();
         }
 
-        public bool DefinePlayersInTable(int minPlayers, int maxPlayers)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool EditPlayer(string username, string type, string newValue)
         {
             throw new NotImplementedException();
@@ -64,7 +59,7 @@ namespace acceptanceTest
             throw new NotImplementedException();
         }
 
-        public List<IGame> findGamesByPreferenc(GamePreferences pref)
+        public List<IGame> findGamesByPreference(GamePreferences pref)
         {
             throw new NotImplementedException();
         }
@@ -104,7 +99,7 @@ namespace acceptanceTest
             throw new NotImplementedException();
         }
 
-        public bool SetBuyInPolicy(IGame game, int buyIn)
+        public bool SetBuyInPolicy(IGame game, int minBuyIn, int maxBuyIn)
         {
             throw new NotImplementedException();
         }
@@ -140,6 +135,21 @@ namespace acceptanceTest
         }
 
         public bool FinishGame(IGame game)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DefinePlayersInTable(IGame game, int minPlayers, int maxPlayers)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MessageToChat(IGame game, string username, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Whisper(IGame game, string from, string to, string msg)
         {
             throw new NotImplementedException();
         }

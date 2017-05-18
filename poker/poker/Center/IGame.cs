@@ -32,6 +32,11 @@ namespace poker.Center
         int getPot();
         void setHighestBet(int bet);
         void NextRound();
+        string getPolicy();
+        int getMinBuyIn();
+        int getMaxBuyIn();
+        int getMinPlayer();
+        int getMaxPlayer();
 
 
 

@@ -446,10 +446,36 @@ namespace acceptanceTest
         [TestMethod]
         public void TestSetGameTypePolicy()
         {
+            string prev = g1.getPolicy();
+            Assert.IsTrue(service.SetGameTypePolicy(g1, "limit"));//happy scenario- all fields are correct.
+            Assert.IsTrue(g1.getPolicy() != prev);//check state changed.
+            CleanUp();
+            prev = g1.getPolicy();
+            Assert.IsTrue(service.SetGameTypePolicy(g1, "bla bla"));//bad scenario- no such game policy.
+            Assert.IsTrue(g1.getPolicy() == prev);//check state hasn't changed.
+            CleanUp();
         }
         [TestMethod]
         public void TestSetBuyInPolicy()
         {
+            int prevMax = g1.getMaxBuyIn();
+            int prevMin = g1.getMinBuyIn();
+            Assert.IsTrue(service.SetBuyInPolicy(g1,200,20000));//happy scenario- all fields are correct.
+            Assert.IsTrue(g1.getMaxBuyIn() != prevMax);//check state changed.
+            Assert.IsTrue(g1.getMinBuyIn() != prevMin);//check state changed.
+            CleanUp();
+            prevMax = g1.getMaxBuyIn();
+            prevMin = g1.getMinBuyIn();
+            Assert.IsFalse(service.SetBuyInPolicy(g1, 20000, 200));//sad scenario- min can't be higher than max.
+            Assert.IsTrue(g1.getMaxBuyIn() == prevMax);//check state hasn't changed.
+            Assert.IsTrue(g1.getMinBuyIn() == prevMin);//check state hasn't changed.
+            CleanUp();
+            prevMax = g1.getMaxBuyIn();
+            prevMin = g1.getMinBuyIn();
+            Assert.IsFalse(service.SetBuyInPolicy(g1, -2000, -200));//bad scenario- min/max fields can't be negative.
+            Assert.IsTrue(g1.getMaxBuyIn() == prevMax);//check state hasn't changed.
+            Assert.IsTrue(g1.getMinBuyIn() == prevMin);//check state hasn't changed.
+            CleanUp();
         }
         [TestMethod]
         public void TestSetChipPoicy()
@@ -462,10 +488,35 @@ namespace acceptanceTest
         [TestMethod]
         public void TestDefinePlayersInTable()
         {
+            int prevMax = g1.getMaxPlayer();
+            int prevMin = g1.getMinPlayer();
+            Assert.IsTrue(service.DefinePlayersInTable(g1, 3, 5));//happy scenario- all fields are correct.
+            Assert.IsTrue(g1.getMaxBuyIn() != prevMax);//check state changed.
+            Assert.IsTrue(g1.getMinBuyIn() != prevMin);//check state changed.
+            CleanUp();
+            prevMax = g1.getMaxBuyIn();
+            prevMin = g1.getMinBuyIn();
+            Assert.IsFalse(service.DefinePlayersInTable(g1, 5, 2));//sad scenario- min can't be higher than max.
+            Assert.IsTrue(g1.getMaxBuyIn() == prevMax);//check state hasn't changed.
+            Assert.IsTrue(g1.getMinBuyIn() == prevMin);//check state hasn't changed.
+            CleanUp();
+            prevMax = g1.getMaxBuyIn();
+            prevMin = g1.getMinBuyIn();
+            Assert.IsFalse(service.DefinePlayersInTable(g1, 1, 5));//bad scenario- min can't be lower than 2.
+            Assert.IsTrue(g1.getMaxBuyIn() == prevMax);//check state hasn't changed.
+            Assert.IsTrue(g1.getMinBuyIn() == prevMin);//check state hasn't changed.
+            CleanUp();
         }
         [TestMethod]
         public void TestSetGamePrivacy()
         {
+            //true indicates can't private (can't spectate), false means can spectate.
+            Assert.IsTrue(service.SetGamePrivacy(g1, true));//happy scenario- all fields are correct.
+            Assert.IsFalse(service.SpectateGame(g1, "admin"));
+            CleanUp();
+            Assert.IsTrue(service.SetGamePrivacy(g1, false));//happy scenario- all fields are correct.
+            Assert.IsTrue(service.SpectateGame(g1, "admin"));
+            CleanUp();
         }
         [TestMethod]
         public void TestFindAllGamesCanJoin()
@@ -484,7 +535,15 @@ namespace acceptanceTest
         {
         }
         [TestMethod]
-        public void TestfindGamesByPreferenc()
+        public void TestfindGamesByPreference()
+        {
+        }
+        [TestMethod]
+        public void TestMessageToChat()
+        {
+        }
+        [TestMethod]
+        public void TestWhisper()
         {
         }
     }

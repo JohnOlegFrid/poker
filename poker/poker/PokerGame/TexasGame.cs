@@ -324,5 +324,30 @@ namespace poker.PokerGame
         {
             throw new NotImplementedException();
         }
+
+        public string getPolicy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getMinBuyIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getMaxBuyIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getMinPlayer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getMaxPlayer()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

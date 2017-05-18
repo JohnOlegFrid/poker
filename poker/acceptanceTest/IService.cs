@@ -29,12 +29,14 @@ namespace acceptanceTest
         List<IGame> FindAllGamesCanSpectate(string username);
         List<IGame> findGamesByPlayerName(string username);
         List<IGame> findGamesByPotSize(int pot);
-        List<IGame> findGamesByPreferenc(GamePreferences pref);
+        List<IGame> findGamesByPreference(GamePreferences pref);
         bool SetGameTypePolicy(IGame game, String Policy);
-        bool SetBuyInPolicy(IGame game, int buyIn);
+        bool SetBuyInPolicy(IGame game, int minBuyIn, int maxBuyIn);
         bool SetChipPoicy(IGame game, int amount);
         bool SetMinimumBet(IGame game, int amount);
-        bool DefinePlayersInTable(int minPlayers, int maxPlayers);
+        bool DefinePlayersInTable(IGame game, int minPlayers, int maxPlayers);
         bool SetGamePrivacy(IGame game, bool privacy);
+        bool MessageToChat(IGame game, string username, string msg);
+        bool Whisper(IGame game, string from, string to, string msg);
     }
 }
