@@ -228,7 +228,7 @@
     <Resource Include="GUI\Images\MainMenuBack.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GUI\Images\Cards\2a.png" />
+    <Resource Include="GUI\Images\Cards\2h.png" />
     <Resource Include="GUI\Images\Cards\2c.png" />
     <Resource Include="GUI\Images\Cards\2d.png" />
     <Resource Include="GUI\Images\Cards\2s.png" />

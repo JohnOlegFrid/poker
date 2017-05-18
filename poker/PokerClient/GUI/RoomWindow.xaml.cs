@@ -40,5 +40,10 @@ namespace PokerClient.GUI
             Service.Instance.RemovePlayerFromRoom(room.Id + "", MainInfo.Instance.Player.Username);
             base.OnClosing(e);
         }
+
+        public void UpdateRooms(object sender, RoutedEventArgs e)
+        {
+            Service.Instance.RequestAllRoomsToPlay();
+        }
     }
 }
