@@ -545,6 +545,18 @@ namespace acceptanceTest
         [TestMethod]
         public void TestWhisper()
         {
+            service.Register("moshe1", "1234", "moshe1@gmail.com");
+            service.Register("moshe2", "1234", "moshe2@gmail.com");
+            service.Register("moshe3", "1234", "moshe3@gmail.com");
+            service.JoinGame(g1, "admin", 200);
+            service.JoinGame(g1, "moshe1", 200);
+            service.SpectateGame(g1, "moshe2");
+            service.SpectateGame(g1, "moshe3");
+            Assert.IsTrue(service.Whisper(g1, "moshe2", "moshe3", "sup?"));//happy scenario- whisper from spec to spec
+            Assert.IsTrue(service.Whisper(g1, "moshe1", "moshe3", "sup?"));// happy scenario- whisper from player to spec
+            Assert.IsTrue(service.Whisper(g1, "moshe1", "admin", "sup?"));//happy scenario- whisper from player to player
+            Assert.IsFalse(service.Whisper(g1, "moshe2", "moshe1", "sup?"));//bad scenario- whisper from spec to player
+            Assert.IsFalse(service.Whisper(g1, "moshe2", "avi", "sup?"));//sad scenatio- whisper to username that isn't part of the game
         }
     }
 }
