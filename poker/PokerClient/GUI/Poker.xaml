@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" Width="600">
     <Grid Background="#FF04662B">
-        <Border BorderBrush="#FF90BF03" BorderThickness="2" HorizontalAlignment="Left" Height="100" Margin="162,191,0,0" VerticalAlignment="Top" Width="248">
+        <Border BorderBrush="#FF90BF03" BorderThickness="2" HorizontalAlignment="Left" Height="100" Margin="162,205,0,0" VerticalAlignment="Top" Width="248">
             <Button x:Name="StartGameButton" Content="Start Game!" HorizontalAlignment="Left" Height="71" Margin="34.222,13.222,0,0" VerticalAlignment="Top" Width="166" Click="StartGameButton_Click"/>
         </Border>
         <local:PokerOP HorizontalAlignment="Left" Height="46" Margin="0,454,0,0" VerticalAlignment="Top" Width="600"/>
@@ -19,5 +19,11 @@
         <local:Chair x:Name="Chair3" ChairNum="3" HorizontalAlignment="Left" Height="100" Margin="10,190,0,0" VerticalAlignment="Top" Width="100"/>
         <local:Chair x:Name="Chair5" ChairNum="5" HorizontalAlignment="Left" Height="100" Margin="10,342,0,0" VerticalAlignment="Top" Width="100"/>
         <local:Chair x:Name="Chair6" ChairNum="6" HorizontalAlignment="Left" Height="100" Margin="237,342,0,0" VerticalAlignment="Top" Width="100"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="40" Margin="203,160,0,0" VerticalAlignment="Top" Width="158" Background="#FFF1DF89" Opacity="0.6">
+            <Grid Margin="0.111,0.111,96.444,0.111">
+                <Label Content="POT :" FontSize="18" RenderTransformOrigin="0.64,0.731"/>
+                <Label Name="PotLabel" Content="0$" FontSize="18" Margin="64,0,-85.999,0" FontWeight="Bold"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

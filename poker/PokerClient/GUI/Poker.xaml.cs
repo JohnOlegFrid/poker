@@ -37,13 +37,13 @@ namespace PokerClient.GUI
         }
 
    
-        public void Init()
+        public void UpdateChairs()
         {
             for (int i = 0; i < game.ChairsInGame.Length; i++)
             {
                 chairs[i].poker = this;
                 chairs[i].player = game.ChairsInGame[i];
-                chairs[i].Init();
+                chairs[i].Update();
             }
             for (int i = game.GamePreferences.MaxPlayers; i < chairs.Length; i++)
             {
@@ -56,10 +56,11 @@ namespace PokerClient.GUI
         }
         internal void UpdateGame()
         {
-            Init();
+            UpdateChairs();
             this.Dispatcher.Invoke(() =>
             {
                 this.StartGameButton.Visibility = game.Active ? Visibility.Hidden : Visibility.Visible;
+                this.PotLabel.Content = game.Pot + "$";
             });       
         }
 

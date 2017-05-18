@@ -151,5 +151,17 @@ namespace poker.ServiceLayer
                 return "null"; //null mean that sever done need to send back message
             }
         }
+
+        public string UpdateGame(string roomId)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
+                return CreateJson(command);
+            }
+            catch { return "null"; }
+            
+        }
     }
 }

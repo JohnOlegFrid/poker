@@ -8,8 +8,8 @@ namespace PokerClient.Cards
 {
     public class Card
     {
-        public readonly int Suit;
-        public readonly int Value;
+        private int suit;
+        private int value;
 
         public Card() { }
 
@@ -38,6 +38,9 @@ namespace PokerClient.Cards
         public const int four = 2;
         public const int three = 1;
         public const int two = 0;
+
+        public int Suit { get { return suit; } set { suit = value; } }
+        public int Value { get { return value; } set { this.value = value; } }
 
         public Card(String Name)
         {

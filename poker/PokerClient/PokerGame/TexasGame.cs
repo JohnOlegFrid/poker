@@ -32,7 +32,7 @@ namespace poker.PokerGame
             this.gameLog = gameLog;
             this.GamePreferences = gamePreferences;
             this.activePlayer = activePlayer;
-            this.pot = pot;
+            this.Pot = pot;
             this.highestBet = highestBet;
             this.lastMove = lastMove;
             this.smallBlind = smallBlind;
@@ -43,7 +43,7 @@ namespace poker.PokerGame
 
         public override string ToString()
         {
-            return "Active:" + Active.ToString() + " Pot:" + pot;
+            return "Active:" + Active.ToString() + " Pot:" + Pot;
         }
 
 
@@ -54,6 +54,8 @@ namespace poker.PokerGame
         public Hand Board { get { return board; } set { board = value; } }
 
         public bool Active { get { return active; } set { active = value; } }
+
+        public int Pot { get { return pot; } set { pot = value; } }
 
         public bool IsActive()
         {

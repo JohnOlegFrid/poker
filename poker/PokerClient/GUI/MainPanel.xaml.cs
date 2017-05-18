@@ -1,4 +1,5 @@
 ﻿using PokerClient.Center;
+using PokerClient.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace PokerClient.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Room selcted = (Room)RoomsList.SelectedItem;
+            Service.Instance.RequestUpdateGame(selcted.Id + "");
             if (selcted.RoomWindow != null)
             {
                 selcted.RoomWindow.Activate();

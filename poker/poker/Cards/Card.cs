@@ -8,19 +8,19 @@ namespace poker.Cards
 {
     public class Card
     {
-        public readonly int Suit;
-        public readonly int Value;
+        public readonly int suit;
+        public readonly int value;
 
         public Card(int Suit, int Value)
         {
-            this.Suit = Suit;
-            this.Value = Value;
+            this.suit = Suit;
+            this.value = Value;
         }
 
         public Card(int Index)
         {
-            Suit = Index / 13;
-            Value = Index % 13;
+            suit = Index / 13;
+            value = Index % 13;
         }
 
         public const int Ace = 12;
@@ -43,51 +43,51 @@ namespace poker.Cards
             switch (Name[0])
             {
                 case 'a':
-                    Value = 12;
+                    value = 12;
                     break;
                 case 'k':
-                    Value = 11;
+                    value = 11;
                     break;
                 case 'q':
-                    Value = 10;
+                    value = 10;
                     break;
                 case 'j':
-                    Value = 9;
+                    value = 9;
                     break;
                 case 't':
-                    Value = 8;
+                    value = 8;
                     break;
                 default:
-                    Value = Name[0] - '0' - 2;
+                    value = Name[0] - '0' - 2;
                     break;
             }
             switch (Name[1])
             {
                 case 'c':
-                    Suit = 0;
+                    suit = 0;
                     break;
                 case 'd':
-                    Suit = 1;
+                    suit = 1;
                     break;
                 case 'h':
-                    Suit = 2;
+                    suit = 2;
                     break;
                 case 's':
-                    Suit = 3;
+                    suit = 3;
                     break;
             }
         }
 
         public int GetIndex()
         {
-            return Suit * 13 + Value;
+            return suit * 13 + value;
         }
 
         public override String ToString()
         {
             String name = "";
 
-            switch (Value)
+            switch (value)
             {
                 case 8:
                     name += "T";
@@ -105,10 +105,10 @@ namespace poker.Cards
                     name += "A";
                     break;
                 default:
-                    name += (Value + 2).ToString();
+                    name += (value + 2).ToString();
                     break;
             }
-            switch (Suit)
+            switch (suit)
             {
                 case 0:
                     name += "c";

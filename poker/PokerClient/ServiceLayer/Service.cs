@@ -72,7 +72,7 @@ namespace PokerClient.ServiceLayer
         {
             Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
             room.RoomWindow.PokerTable.game.ChairsInGame = JsonConvert.DeserializeObject<GamePlayer[]>(jsonChairs);
-            room.RoomWindow.PokerTable.Init();
+            room.RoomWindow.PokerTable.UpdateChairs();
         }
 
         public void UpdateGame(string roomId, string gameJson)
@@ -81,6 +81,7 @@ namespace PokerClient.ServiceLayer
             room.RoomWindow.PokerTable.game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
             room.RoomWindow.PokerTable.UpdateGame();
         }
+
 
         // end server to client
 
@@ -125,6 +126,12 @@ namespace PokerClient.ServiceLayer
         public void StartGame(string roomId)
         {
             Command command = new Command("StartGame", new string[1] { roomId });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void RequestUpdateGame(string roomId)
+        {
+            Command command = new Command("UpdateGame", new string[1] { roomId });
             MainInfo.Instance.SendMessage(command);
         }
 

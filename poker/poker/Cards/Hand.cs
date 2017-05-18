@@ -98,7 +98,7 @@ namespace poker.Cards
                 changed = false;
                 for (int i = 0; i < n - 1; i++)
                 {
-                    if (this[i].Value < this[i + 1].Value)
+                    if (this[i].value < this[i + 1].value)
                     {
                         Card Buffer = this[i];
                         this[i] = this[i + 1];
@@ -118,7 +118,7 @@ namespace poker.Cards
                 changed = false;
                 for (int i = 0; i < n - 1; i++)
                 {
-                    if (this[i].Suit < this[i + 1].Suit)
+                    if (this[i].suit < this[i + 1].suit)
                     {
                         Card Buffer = this[i];
                         this[i] = this[i + 1];
@@ -135,21 +135,21 @@ namespace poker.Cards
             this.SortByValue();
             for (int i = 0; i < this.Count - 1; i++)
             {
-                if (this[i].Value == this[i + 1].Value)
+                if (this[i].value == this[i + 1].value)
                 {
                     int Potenz = 10000;
                     int found = 0;
                     int AddValue = 0;
                     for (int k = 0; k < this.Count && found < 3; k++)
                     {
-                        if (this[i].Value != this[k].Value)
+                        if (this[i].value != this[k].value)
                         {
                             found++;
-                            AddValue = AddValue + Potenz * this[k].Value;
+                            AddValue = AddValue + Potenz * this[k].value;
                             Potenz = Potenz / 100;
                         }
                     }
-                    return ((this[i].Value + 1) * 1000000) + AddValue;
+                    return ((this[i].value + 1) * 1000000) + AddValue;
 
                 }
             }
@@ -160,21 +160,21 @@ namespace poker.Cards
             this.SortByValue();
             for (int i = 0; i < this.Count - 2; i++)
             {
-                if (this[i].Value == this[i + 1].Value && this[i].Value == this[i + 2].Value)
+                if (this[i].value == this[i + 1].value && this[i].value == this[i + 2].value)
                 {
                     int Potenz = 100;
                     int found = 0;
                     int AddValue = 0;
                     for (int k = 0; k < this.Count && found < 2; k++)
                     {
-                        if (this[i].Value != this[k].Value)
+                        if (this[i].value != this[k].value)
                         {
                             found++;
-                            AddValue = AddValue + Potenz * this[k].Value;
+                            AddValue = AddValue + Potenz * this[k].value;
                             Potenz = Potenz / 100;
                         }
                     }
-                    return ((this[i].Value + 1) * 10000) + AddValue;
+                    return ((this[i].value + 1) * 10000) + AddValue;
                 }
             }
             return 0;
@@ -184,9 +184,9 @@ namespace poker.Cards
             this.SortByValue();
             for (int i = 0; i < this.Count - 3; i++)
             {
-                if (this[i].Value == this[i + 1].Value && this[i].Value == this[i + 2].Value && this[i].Value == this[i + 3].Value)
+                if (this[i].value == this[i + 1].value && this[i].value == this[i + 2].value && this[i].value == this[i + 3].value)
                 {
-                    return this[i].Value + 1;
+                    return this[i].value + 1;
                 }
             }
             return 0;
@@ -197,7 +197,7 @@ namespace poker.Cards
             int HighCardIndex = -1;
             for (int i = 0; i < this.Count - 1; i++)
             {
-                if (this[i].Value == this[i + 1].Value)
+                if (this[i].value == this[i + 1].value)
                 {
                     HighCardIndex = i + 1;
                     break;
@@ -207,18 +207,18 @@ namespace poker.Cards
             {
                 for (int i = HighCardIndex + 1; i < this.Count - 1; i++)
                 {
-                    if (this[i].Value == this[i + 1].Value)
+                    if (this[i].value == this[i + 1].value)
                     {
                         int ValueAdd = 0;
                         for (int k = 0; k < this.Count; k++)
                         {
-                            if (this[k].Value != this[i].Value && this[k].Value != this[HighCardIndex].Value)
+                            if (this[k].value != this[i].value && this[k].value != this[HighCardIndex].value)
                             {
-                                ValueAdd = this[k].Value;
+                                ValueAdd = this[k].value;
                                 break;
                             }
                         }
-                        return (10000 * this[HighCardIndex].Value) + this[i].Value * 100 + ValueAdd;
+                        return (10000 * this[HighCardIndex].value) + this[i].value * 100 + ValueAdd;
                     }
                 }
             }
@@ -232,15 +232,15 @@ namespace poker.Cards
                 return 0;
             }
             this.SortByValue();
-            int WantedValue = this[0].Value - 1;
+            int WantedValue = this[0].value - 1;
             int found = 1;
             for (int i = 1; i < this.Count; i++)
             {
-                if (this[i].Value == WantedValue + 1)
+                if (this[i].value == WantedValue + 1)
                 {
                     continue;
                 }
-                if (this[i].Value == WantedValue)
+                if (this[i].value == WantedValue)
                 {
                     found++;
                     WantedValue--;
@@ -250,9 +250,9 @@ namespace poker.Cards
                 else
                 {
                     found = 1;
-                    WantedValue = this[i].Value - 1;
+                    WantedValue = this[i].value - 1;
                 }
-                if (WantedValue == -1 && found == 4 && this[0].Value == 12)
+                if (WantedValue == -1 && found == 4 && this[0].value == 12)
                 {
                     return 3;
                 }
@@ -265,19 +265,19 @@ namespace poker.Cards
             this.SortBySuit();
             for (int i = 0; i < this.Count - 4; i++)
             {
-                if (this[i].Suit == this[i + 1].Suit && this[i].Suit == this[i + 2].Suit && this[i].Suit == this[i + 3].Suit && this[i].Suit == this[i + 4].Suit)
+                if (this[i].suit == this[i + 1].suit && this[i].suit == this[i + 2].suit && this[i].suit == this[i + 3].suit && this[i].suit == this[i + 4].suit)
                 {
-                    int WantedSuit = this[i].Suit;
+                    int WantedSuit = this[i].suit;
                     this.SortByValue();
                     int mul = 100000000;
                     int Value = 0;
 
                     for (i = 0; i < this.Count; i++)
                     {
-                        if (this[i].Suit == WantedSuit)
+                        if (this[i].suit == WantedSuit)
                         {
 
-                            Value += (this[i].Value * mul);
+                            Value += (this[i].value * mul);
                             mul /= 100;
                             if (mul == 0)
                                 return Value;
@@ -292,14 +292,14 @@ namespace poker.Cards
             this.SortByValue();
             for (int i = 0; i < this.Count - 2; i++)
             {
-                if (this[i].Value == this[i + 1].Value && this[i].Value == this[i + 2].Value)
+                if (this[i].value == this[i + 1].value && this[i].value == this[i + 2].value)
                 {
-                    int TripsValue = this[i].Value;
+                    int TripsValue = this[i].value;
                     for (i = 0; i < this.Count - 1; i++)
                     {
-                        if (this[i].Value == this[i + 1].Value && this[i].Value != TripsValue)
+                        if (this[i].value == this[i + 1].value && this[i].value != TripsValue)
                         {
-                            return TripsValue * 100 + this[i + 1].Value;
+                            return TripsValue * 100 + this[i + 1].value;
                         }
                     }
                 }
@@ -316,12 +316,12 @@ namespace poker.Cards
             this.SortByValue();
             for (int m = 0; m <= this.Count - 3; m++)
             {
-                int WantedValue = this[m].Value - 1;
-                int WantedSuit = this[m].Suit;
+                int WantedValue = this[m].value - 1;
+                int WantedSuit = this[m].suit;
                 int found = 0;
                 for (int i = m + 1; i < this.Count; i++)
                 {
-                    if (this[i].Value == WantedValue && this[i].Suit == WantedSuit)
+                    if (this[i].value == WantedValue && this[i].suit == WantedSuit)
                     {
                         found++;
                         WantedValue--;
@@ -329,8 +329,8 @@ namespace poker.Cards
                             return WantedValue + 5;
                         if (WantedValue == -1
                                 && found == 3
-                                && ((this[0].Value == 12 && this[0].Suit == WantedSuit) || (this[1].Value == 12 && this[1].Suit == WantedSuit)
-                                        || (this[2].Value == 12 && this[2].Suit == WantedSuit) || (this[3].Value == 12 && this[3].Suit == WantedSuit)))
+                                && ((this[0].value == 12 && this[0].suit == WantedSuit) || (this[1].value == 12 && this[1].suit == WantedSuit)
+                                        || (this[2].value == 12 && this[2].suit == WantedSuit) || (this[3].value == 12 && this[3].suit == WantedSuit)))
                         {
                             return 3;
                         }
@@ -346,7 +346,7 @@ namespace poker.Cards
             int value = 0;
             for (int i = 0; i < 5 && i < this.Count; i++)
             {
-                value += (this[i].Value + 1) * potenz;
+                value += (this[i].value + 1) * potenz;
                 potenz /= 100;
             }
             return value;

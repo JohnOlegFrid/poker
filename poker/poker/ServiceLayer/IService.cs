@@ -18,6 +18,7 @@ namespace poker.ServiceLayer
         string AddPlayerToRoom(string roomId, string username);
         string RemovePlayerFromRoom(string roomId, string username);
         string StartGame(string roomId);
+        string UpdateGame(string roomId);
 
         //server to client
         void SendCommandToPlayersInGame(string command, string roomId);

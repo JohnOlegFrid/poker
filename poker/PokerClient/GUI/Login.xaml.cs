@@ -36,10 +36,7 @@ namespace PokerClient.GUI
                 MessageBox.Show("Cannot Connect To Server...","Connection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);
-            loginButton.IsEnabled = false;        
-
+            Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);       
         }
 
         internal void OpenMainMenu()
@@ -54,8 +51,7 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
             {
-               MainWindow.ShowMessage("Error with loggin, please try again");
-               loginButton.IsEnabled = true;
+                MainWindow.ShowMessage("Error with loggin, please try again");            
             });
 
         }

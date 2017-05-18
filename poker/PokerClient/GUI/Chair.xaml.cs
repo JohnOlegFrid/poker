@@ -45,7 +45,7 @@ namespace PokerClient.GUI
             }       
         }
 
-        public void Init()
+        public void Update()
         {
             if(player != null)
             {
@@ -53,6 +53,19 @@ namespace PokerClient.GUI
                 {
                     Button.Visibility = Visibility.Hidden;
                     PlayerInfo.Visibility = Visibility.Visible;
+                    if(player.Hand.Count == 2)
+                    {
+                        if (player.GetUsername().Equals(MainInfo.Instance.Player.Username))
+                        {
+                            String stringPath1 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[0].ToString() + ".png";
+                            String stringPath2 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[1].ToString() + ".png";
+                            Card1.Source = new BitmapImage(new Uri(stringPath1));
+                            Card2.Source = new BitmapImage(new Uri(stringPath2));
+                        }
+                        Card1.Visibility = Visibility.Visible;
+                        Card2.Visibility = Visibility.Visible;
+                        PlayerMoney.Content = player.Money + "$";
+                    }
                     PlayerName.Content = player.GetUsername();
                 });
             }

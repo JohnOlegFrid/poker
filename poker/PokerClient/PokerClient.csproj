@@ -197,6 +197,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="GUI\Images\Cards\Thumbs.db" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -227,7 +228,72 @@
     <Resource Include="GUI\Images\MainMenuBack.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GUI\Images\Card_Back_Vertical_Red.png" />
+    <Resource Include="GUI\Images\Cards\2a.png" />
+    <Resource Include="GUI\Images\Cards\2c.png" />
+    <Resource Include="GUI\Images\Cards\2d.png" />
+    <Resource Include="GUI\Images\Cards\2s.png" />
+    <Resource Include="GUI\Images\Cards\3c.png" />
+    <Resource Include="GUI\Images\Cards\3d.png" />
+    <Resource Include="GUI\Images\Cards\3h.png" />
+    <Resource Include="GUI\Images\Cards\3s.png" />
+    <Resource Include="GUI\Images\Cards\4c.png" />
+    <Resource Include="GUI\Images\Cards\4d.png" />
+    <Resource Include="GUI\Images\Cards\4h.png" />
+    <Resource Include="GUI\Images\Cards\4s.png" />
+    <Resource Include="GUI\Images\Cards\5c.png" />
+    <Resource Include="GUI\Images\Cards\5d.png" />
+    <Resource Include="GUI\Images\Cards\5h.png" />
+    <Resource Include="GUI\Images\Cards\5s.png" />
+    <Resource Include="GUI\Images\Cards\6c.png" />
+    <Resource Include="GUI\Images\Cards\6d.png" />
+    <Resource Include="GUI\Images\Cards\6h.png" />
+    <Resource Include="GUI\Images\Cards\6s.png" />
+    <Resource Include="GUI\Images\Cards\7c.png" />
+    <Resource Include="GUI\Images\Cards\7d.png" />
+    <Resource Include="GUI\Images\Cards\7h.png" />
+    <Resource Include="GUI\Images\Cards\7s.png" />
+    <Resource Include="GUI\Images\Cards\8c.png" />
+    <Resource Include="GUI\Images\Cards\8d.png" />
+    <Resource Include="GUI\Images\Cards\8h.png" />
+    <Resource Include="GUI\Images\Cards\8s.png" />
+    <Resource Include="GUI\Images\Cards\9c.png" />
+    <Resource Include="GUI\Images\Cards\9d.png" />
+    <Resource Include="GUI\Images\Cards\9h.png" />
+    <Resource Include="GUI\Images\Cards\9s.png" />
+    <Resource Include="GUI\Images\Cards\Ac.png" />
+    <Resource Include="GUI\Images\Cards\Ad.png" />
+    <Resource Include="GUI\Images\Cards\Ah.png" />
+    <Resource Include="GUI\Images\Cards\As.png" />
+    <Resource Include="GUI\Images\Cards\b1pb.png" />
+    <Resource Include="GUI\Images\Cards\b1pl.png" />
+    <Resource Include="GUI\Images\Cards\b1pr.png" />
+    <Resource Include="GUI\Images\Cards\b1pt.png" />
+    <Resource Include="GUI\Images\Cards\b2pb.png" />
+    <Resource Include="GUI\Images\Cards\b2pl.png" />
+    <Resource Include="GUI\Images\Cards\b2pr.png" />
+    <Resource Include="GUI\Images\Cards\b2pt.png" />
+    <Resource Include="GUI\Images\Cards\Card_Back_Horizontal_Blue.png" />
+    <Resource Include="GUI\Images\Cards\Card_Back_Horizontal_Red.png" />
+    <Resource Include="GUI\Images\Cards\Card_Back_Vertical_Blue.png" />
+    <Resource Include="GUI\Images\Cards\Card_Back_Vertical_Red.png" />
+    <Resource Include="GUI\Images\Cards\Card_Black_Joker.png" />
+    <Resource Include="GUI\Images\Cards\Card_Red_Joker.png" />
+    <Resource Include="GUI\Images\Cards\Jc.png" />
+    <Resource Include="GUI\Images\Cards\Jd.png" />
+    <Resource Include="GUI\Images\Cards\Jh.png" />
+    <Resource Include="GUI\Images\Cards\Js.png" />
+    <Resource Include="GUI\Images\Cards\Kc.png" />
+    <Resource Include="GUI\Images\Cards\Kd.png" />
+    <Resource Include="GUI\Images\Cards\Kh.png" />
+    <Resource Include="GUI\Images\Cards\Ks.png" />
+    <Resource Include="GUI\Images\Cards\Qc.png" />
+    <Resource Include="GUI\Images\Cards\Qd.png" />
+    <Resource Include="GUI\Images\Cards\Qh.png" />
+    <Resource Include="GUI\Images\Cards\Qs.png" />
+    <Resource Include="GUI\Images\Cards\Tc.png" />
+    <Resource Include="GUI\Images\Cards\Td.png" />
+    <Resource Include="GUI\Images\Cards\Th.png" />
+    <Resource Include="GUI\Images\Cards\Ts.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

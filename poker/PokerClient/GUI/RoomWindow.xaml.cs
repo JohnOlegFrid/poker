@@ -31,7 +31,7 @@ namespace PokerClient.GUI
             this.InfoText.Content = room;
             PokerTable.game = (TexasGame)room.Game;
             PokerTable.roomId = room.Id;
-            PokerTable.Init();
+            PokerTable.UpdateChairs();
             Service.Instance.AddPlayerToRoom(room.Id+"", MainInfo.Instance.Player.Username);
         }
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
