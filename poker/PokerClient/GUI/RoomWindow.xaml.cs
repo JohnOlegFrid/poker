@@ -28,9 +28,9 @@ namespace PokerClient.GUI
         {
             this.room = room;
             InitializeComponent();
+            this.topMainPanel.Content = new UserPanel();
             this.InfoText.Content = room;
-            PokerTable.game = (TexasGame)room.Game;
-            PokerTable.roomId = room.Id;
+            PokerTable.room = room;
             PokerTable.UpdateChairs();
             Service.Instance.AddPlayerToRoom(room.Id+"", MainInfo.Instance.Player.Username);
         }
@@ -41,9 +41,5 @@ namespace PokerClient.GUI
             base.OnClosing(e);
         }
 
-        public void UpdateRooms(object sender, RoutedEventArgs e)
-        {
-            Service.Instance.RequestAllRoomsToPlay();
-        }
     }
 }

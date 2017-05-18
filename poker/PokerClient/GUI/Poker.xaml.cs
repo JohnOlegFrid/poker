@@ -1,4 +1,5 @@
 ﻿using poker.PokerGame;
+using PokerClient.Center;
 using PokerClient.ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,9 @@ namespace PokerClient.GUI
     public partial class Poker : UserControl
     {
         public Chair[] chairs;
-        public TexasGame game;
         public int activePlayers;
         public bool isSelectChair;
-        public int roomId;
+        public Room room;
 
         public Poker()
         {
@@ -39,34 +39,33 @@ namespace PokerClient.GUI
    
         public void UpdateChairs()
         {
-            for (int i = 0; i < game.ChairsInGame.Length; i++)
+            for (int i = 0; i < ((TexasGame)room.Game).ChairsInGame.Length; i++)
             {
                 chairs[i].poker = this;
-                chairs[i].player = game.ChairsInGame[i];
+                chairs[i].player = ((TexasGame)room.Game).ChairsInGame[i];
                 chairs[i].Update();
             }
-            for (int i = game.GamePreferences.MaxPlayers; i < chairs.Length; i++)
+            for (int i = ((TexasGame)room.Game).GamePreferences.MaxPlayers; i < chairs.Length; i++)
             {
                 this.Dispatcher.Invoke(() =>
                 {
                     chairs[i].Visibility = Visibility.Hidden;
-                });
-                
+                });           
             }             
         }
         internal void UpdateGame()
         {
             UpdateChairs();
             this.Dispatcher.Invoke(() =>
-            {
-                this.StartGameButton.Visibility = game.Active ? Visibility.Hidden : Visibility.Visible;
-                this.PotLabel.Content = game.Pot + "$";
+            {               
+                this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;
+                this.PotLabel.Content = ((TexasGame)room.Game).Pot + "$";
             });       
         }
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
-            if(game.GamePreferences.GetMinPlayers() > game.GetListActivePlayers().Count)
+            if(((TexasGame)room.Game).GamePreferences.GetMinPlayers() > ((TexasGame)room.Game).GetListActivePlayers().Count)
             {
                 MessageBox.Show("Not enough players to start game!");
                 return;
@@ -75,8 +74,7 @@ namespace PokerClient.GUI
             {
                 StartGameButton.IsEnabled = false;
             });       
-            Service.Instance.StartGame(roomId+"");
-
+            Service.Instance.StartGame(room.Id+"");
         }
 
     }

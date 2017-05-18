@@ -15,7 +15,7 @@ namespace PokerClient.Center
         private Chat chat;
         private IGame game;
         private List<Player> spectators;
-        private RoomWindow roomWindow = null;
+        private RoomWindow roomWindow;
 
         public Room(int id, Chat chat, TexasGame game, List<Player> spectators)
         {
@@ -23,6 +23,7 @@ namespace PokerClient.Center
             this.chat = chat;
             this.game = game;
             this.spectators = spectators;
+            roomWindow = null;
         }
 
         public override string ToString()

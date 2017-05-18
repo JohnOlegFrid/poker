@@ -104,5 +104,15 @@ namespace poker.PokerGame
             }
             return ans;
         }
+
+        public GamePlayer[] GetChairsInGame()
+        {
+            return ChairsInGame;
+        }
+
+        public void SetChairsInGame(GamePlayer[] chairs)
+        {
+            ChairsInGame = chairs;
+        }
     }
 }

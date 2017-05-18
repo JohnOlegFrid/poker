@@ -71,14 +71,16 @@ namespace PokerClient.ServiceLayer
         public void UpdateChairs(string roomId, string jsonChairs)
         {
             Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
-            room.RoomWindow.PokerTable.game.ChairsInGame = JsonConvert.DeserializeObject<GamePlayer[]>(jsonChairs);
+            if (room.RoomWindow == null) return;
+            room.Game.SetChairsInGame(JsonConvert.DeserializeObject<GamePlayer[]>(jsonChairs));
             room.RoomWindow.PokerTable.UpdateChairs();
         }
 
         public void UpdateGame(string roomId, string gameJson)
         {
             Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
-            room.RoomWindow.PokerTable.game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
+            if (room.RoomWindow == null) return;
+            room.Game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
             room.RoomWindow.PokerTable.UpdateGame();
         }
 

@@ -36,7 +36,16 @@ namespace PokerClient.GUI
 
             mainContentControl.Content = new Login();
         }
-     
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            this.Dispatcher.Invoke(() =>
+            {
+                Application.Current.Shutdown();
+            });         
+        }
+
 
         public void RegisterFaild(string registerMsg)
         {

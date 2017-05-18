@@ -20,6 +20,7 @@ namespace PokerClient
         private Login login = null;
         private List<Room> roomsToPlay = null;
         ObservableCollection<Room> roomsToPlayObsever = null;
+        private static readonly object syncRoot = new object();
 
         private static MainInfo instance;
 
@@ -54,7 +55,13 @@ namespace PokerClient
             {
                 if (instance == null)
                 {
-                    instance = new MainInfo();
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new MainInfo();
+                        }
+                    }
                 }
                 return instance;
             }
@@ -66,14 +73,36 @@ namespace PokerClient
 
 
         public Login Login { get => login; set => login = value; }
-        public List<Room> RoomsToPlay { get { return roomsToPlay; }
+        public List<Room> RoomsToPlay {
+            get { return roomsToPlay; }
             set {
-                roomsToPlay = value;
+                UpdateRooms(value);
                 Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Clear(); });
                     foreach (Room room in roomsToPlay)
                         Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Add(room); });                  
             } }
 
         public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
+
+        public Room FindRoomById(int roomId)
+        {
+            return roomsToPlay.Find(r => r.Id == roomId);
+        }
+
+        private void UpdateRooms(List<Room> rooms)
+        {
+            if (roomsToPlay == null) roomsToPlay = rooms;
+            Room findRoom;
+            foreach(Room room in rooms)
+            {
+                try
+                {
+                    findRoom = FindRoomById(room.Id);
+                }
+                catch {
+                    roomsToPlay.Add(room);
+                }
+            }
+        }
     }
 }

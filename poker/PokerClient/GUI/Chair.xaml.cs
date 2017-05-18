@@ -39,9 +39,9 @@ namespace PokerClient.GUI
         {
             if (!poker.isSelectChair)
             {
-                MessageBox.Show("chair num " + ChairNum);
-                poker.isSelectChair = true;
-                Service.Instance.SitOnChair(poker.roomId+"", MainInfo.Instance.Player.Username, ChairNum+"");
+                    MessageBox.Show("chair num " + ChairNum);
+                    poker.isSelectChair = true;
+                    Service.Instance.SitOnChair(poker.room.Id + "", MainInfo.Instance.Player.Username, ChairNum + "");
             }       
         }
 

@@ -31,6 +31,7 @@ namespace PokerClient.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Room selcted = (Room)RoomsList.SelectedItem;
+            if (selcted == null) return;
             if (selcted.RoomWindow != null)
             {
                 selcted.RoomWindow.Activate();
@@ -38,9 +39,8 @@ namespace PokerClient.GUI
             }
             RoomWindow roomWindow = new RoomWindow(selcted);
             selcted.RoomWindow = roomWindow;
-            Service.Instance.RequestUpdateGame(selcted.Id + "");
-
             roomWindow.Show();
+            Service.Instance.RequestUpdateGame(selcted.Id + "");
         }
     }
 }
