@@ -522,6 +522,14 @@ namespace acceptanceTest
         [TestMethod]
         public void TestFindAllGamesCanJoin()
         {
+            g1.setRank(1);
+            g2.setRank(2);
+            Assert.IsTrue(service.FindAllGamesCanJoin("admin").Count == 2);//admins rank is unkown.
+            admin.Rank = 2;
+            Assert.IsTrue(service.FindAllGamesCanJoin("admin").Count == 1);//admin can join g2 only.
+            Assert.IsTrue(service.FindAllGamesCanJoin("moshe") == null);//username doesn't exist
+            admin.Rank = 3;
+            Assert.IsTrue(service.FindAllGamesCanJoin("admin").Count == 0);//admin exists but has no games available for his rank.
         }
         [TestMethod]
         public void TestFindAllGamesCanSpectate()
@@ -540,6 +548,13 @@ namespace acceptanceTest
         [TestMethod]
         public void TestfindGamesByPlayerName()
         {
+            service.JoinGame(g1, "admin", 200);
+            Assert.IsTrue(service.findGamesByPlayerName("admin").Count == 1);//user exists and has games should return a list of his games
+            CleanUp();
+            Assert.IsTrue(service.findGamesByPlayerName("moshe") == null);//user doesn't exist should return null
+            CleanUp();
+            Assert.IsTrue(service.findGamesByPlayerName("admin").Count == 0);//user exists but has no games should return empty list
+            CleanUp();
         }
         [TestMethod]
         public void TestfindGamesByPotSize()

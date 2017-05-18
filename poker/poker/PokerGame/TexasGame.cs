@@ -349,5 +349,15 @@ namespace poker.PokerGame
         {
             throw new NotImplementedException();
         }
+
+        public int getRank()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setRank(int rank)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

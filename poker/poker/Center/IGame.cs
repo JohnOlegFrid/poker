@@ -37,7 +37,8 @@ namespace poker.Center
         int getMaxBuyIn();
         int getMinPlayer();
         int getMaxPlayer();
-
+        int getRank();
+        void setRank(int rank);
 
 
     }

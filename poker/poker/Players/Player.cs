@@ -28,7 +28,7 @@ namespace poker.Players
             this.league = league;
             this.password = password;
             SetEmail(email);
-            rank = 0;
+            rank = 0;//indicates unknown rank
             league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
         }
