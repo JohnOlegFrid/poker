@@ -92,5 +92,10 @@ namespace poker.PokerGame
         {
             return player.Username;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj.ToString().Equals(this.ToString());
+        }
     }
 }

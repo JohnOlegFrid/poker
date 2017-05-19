@@ -3,6 +3,7 @@ using PokerClient.Center;
 using PokerClient.ServiceLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace PokerClient.GUI
     public partial class RoomWindow : Window
     {
         Room room;
+        public ObservableCollection<string> gameLog;
         public RoomWindow(Room room)
         {
             this.room = room;
@@ -31,6 +33,9 @@ namespace PokerClient.GUI
             this.topMainPanel.Content = new UserPanel();
             this.InfoText.Content = room;
             PokerTable.room = room;
+            this.gameLog = new ObservableCollection<string>();
+            GameLog.DataContext = gameLog;
+            Chat.DataContext = room.Chat.GetMessages();
             PokerTable.UpdateChairs();
             Service.Instance.AddPlayerToRoom(room.Id+"", MainInfo.Instance.Player.Username);
         }
@@ -41,5 +46,20 @@ namespace PokerClient.GUI
             base.OnClosing(e);
         }
 
+        public void SetLog(List<string> logs)
+        {
+            Application.Current.Dispatcher.Invoke(() => {
+                gameLog.Clear();
+                foreach (string s in logs)
+                    this.gameLog.Add(s);
+            });          
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            string txt = MsgBox.Text;
+            string username = MainInfo.Instance.Player.Username;
+            Service.Instance.SendChatMessage(room.Id + "", username, txt, room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player) +"");
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using poker.PokerGame;
+using PokerClient.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace PokerClient.Center
     {
         GamePlayer[] GetChairsInGame();
         void SetChairsInGame(GamePlayer[] chairs);
+        List<GamePlayer> GetListActivePlayers();
+        List<string> GetGameLog();
+        bool IsPlayerActiveInGame(Player player);
     }
 }

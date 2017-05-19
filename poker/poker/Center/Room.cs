@@ -77,6 +77,8 @@ namespace poker.Center
 
         public List<Player> Spectators { get { return spectators; } }
 
+        public Chat Chat { get { return chat; } set { chat = value; } }
+
         public bool IsPlayerActiveInRoom (Player pl)
         {
             bool ans = false;

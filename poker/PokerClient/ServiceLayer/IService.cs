@@ -16,6 +16,7 @@ namespace PokerClient.ServiceLayer
         void TakeAllRoomsToPlay(string rooms);
         void UpdateChairs(string roomId, string jsonChairs);
         void UpdateGame(string roomId, string gameJson);
+        void AddChatMessage(string roomId, string msgJson);
         //
 
         //client to server
@@ -26,6 +27,7 @@ namespace PokerClient.ServiceLayer
         void RemovePlayerFromRoom(string roomId, string username);
         void StartGame(string roomId);
         void RequestUpdateGame(string roomId);
+        void SendChatMessage(string roomId, string username, string msg, string isActiveInGame);
         //
         
 

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace poker.Center
 {
     public class Chat
     {
-        private List<string[]> messages;
+        private ObservableCollection<Message> messages;
 
         public Chat()
         {
-            this.messages = new List<string[]>();
+            this.messages = new ObservableCollection<Message>();
         }
 
-        public void AddMessage(string username, string msg)
+        public void AddMessage(string username, string msg, bool isActiveInGame)
         {
-            messages.Add(new string[2] { username, msg });
+            messages.Add(new Message(username, msg, isActiveInGame));
         }
 
-        public List<string[]> GetMessages()
+        public ObservableCollection<Message> GetMessages()
         {
             return this.messages;
         }

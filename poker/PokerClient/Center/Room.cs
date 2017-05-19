@@ -28,7 +28,7 @@ namespace PokerClient.Center
 
         public override string ToString()
         {
-            return "Room id:" + id + " Game: " + game;
+            return "Room id:" + id + " Texas Poker Game";
         }
 
         public int Id { get { return id; } set { id = value; } }

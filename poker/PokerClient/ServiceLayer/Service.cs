@@ -81,7 +81,16 @@ namespace PokerClient.ServiceLayer
             Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
             if (room.RoomWindow == null) return;
             room.Game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
+            room.RoomWindow.SetLog(room.Game.GetGameLog());
             room.RoomWindow.PokerTable.UpdateGame();
+        }
+
+        public void AddChatMessage(string roomId, string msgJson)
+        {
+            Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
+            if (room.RoomWindow == null) return;
+            Message msg = JsonConvert.DeserializeObject<Message>(msgJson);
+            room.Chat.AddMessage(msg);
         }
 
 
@@ -134,6 +143,12 @@ namespace PokerClient.ServiceLayer
         public void RequestUpdateGame(string roomId)
         {
             Command command = new Command("UpdateGame", new string[1] { roomId });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void SendChatMessage(string roomId, string username, string msg, string isActiveInGame)
+        {
+            Command command = new Command("AddChatMessage", new string[4] { roomId, username, msg, isActiveInGame });
             MainInfo.Instance.SendMessage(command);
         }
 

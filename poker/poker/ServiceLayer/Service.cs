@@ -163,5 +163,18 @@ namespace poker.ServiceLayer
             catch { return "null"; }
             
         }
+
+        public string AddChatMessage(string roomId, string username, string msg, string isActiveInGame)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                room.Chat.AddMessage(username, msg, bool.Parse(isActiveInGame));
+                Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
+                SendCommandToPlayersInGame(CreateJson(command), room.Id + "");
+                return "null";
+            }
+            catch { return "null"; }
+        }
     }
 }

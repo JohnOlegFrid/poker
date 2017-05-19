@@ -4,6 +4,8 @@ using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
 using PokerClient.Center;
 using PokerClient.Cards;
+using PokerClient.Players;
+using System.Linq;
 
 namespace poker.PokerGame
 {
@@ -113,6 +115,16 @@ namespace poker.PokerGame
         public void SetChairsInGame(GamePlayer[] chairs)
         {
             ChairsInGame = chairs;
+        }
+
+        public List<string> GetGameLog()
+        {
+            return gameLog;
+        }
+
+        public bool IsPlayerActiveInGame(Player player)
+        {
+            return GetListActivePlayers().Any(gp => gp.Player.Equals(player));
         }
     }
 }

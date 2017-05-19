@@ -270,16 +270,6 @@ namespace poker.PokerGame
             return ans;
         }
 
-        public override bool Equals(Object obj)
-        {
-            if (!(obj is TexasGame))
-                return false;
-            TexasGame tg = (TexasGame)obj;
-            if (tg.ChairsInGame != ChairsInGame)
-                return false;
-            return true;
-        }
-
         public GamePlayer[] GetChairs()
         {
             return chairsInGame;
@@ -294,9 +284,5 @@ namespace poker.PokerGame
             }
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

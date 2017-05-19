@@ -12,11 +12,22 @@
         <ContentControl x:Name="mainContentControl" Width="800" Height="600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <local:Poker x:Name="PokerTable" HorizontalAlignment="Right" Height="503" Margin="0,87,189,0" VerticalAlignment="Top" Width="601"/>
         </ContentControl>
-        <Label x:Name="InfoText" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="43" Width="764" Margin="10,59,26,0" FontSize="20" Foreground="White">
+
+        <Label x:Name="InfoText" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="43" Width="764" Margin="10,41,26,0" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="#FF780303" Opacity="0.5"/>
             </Label.Background>
         </Label>
+        <ListBox Name="GameLog" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="216" Margin="608,147,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
+        <Label Content="Game Log" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="610,109,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
+        <Label Content="Chat" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="608,363,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
+        <ListBox Name="Chat" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="165" Margin="608,398,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="610,564,0,0" VerticalAlignment="Top" Width="164" Background="#FFFFC1C1" Opacity="0.8">
+            <Grid>
+                <TextBox Name="MsgBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Margin="0.111,0.111,53.667,0.111"/>
+                <Button Name="SendButton" Content="Send" Margin="108,0,-0.222,9.222" RenderTransformOrigin="0.502,0.5" Click="SendButton_Click"/>
+            </Grid>
+        </Border>
 
     </Grid>
 </Window>
