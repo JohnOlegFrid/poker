@@ -57,7 +57,8 @@ namespace poker.Center
 
         public void AddPlayerToRoom(Player player)
         {
-            this.Spectators.Add(player);
+            if(!this.spectators.Contains(player))
+                this.Spectators.Add(player);
         }
 
         public void RemovePlayerFromRoom(Player player)

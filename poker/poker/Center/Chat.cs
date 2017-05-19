@@ -11,9 +11,9 @@ namespace poker.Center
             this.messages = new ObservableCollection<Message>();
         }
 
-        public void AddMessage(string username, string msg, bool isActiveInGame)
+        public void AddMessage(Message msg)
         {
-            messages.Add(new Message(username, msg, isActiveInGame));
+            messages.Add(msg);
         }
 
         public ObservableCollection<Message> GetMessages()

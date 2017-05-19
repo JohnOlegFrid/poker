@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace PokerClient.Center
 {
@@ -18,7 +19,10 @@ namespace PokerClient.Center
 
         public void AddMessage(Message msg)
         {
-            messages.Add(msg);
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                messages.Add(msg);
+            });            
         }
 
         public ObservableCollection<Message> GetMessages()

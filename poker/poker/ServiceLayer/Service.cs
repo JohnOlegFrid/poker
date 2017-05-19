@@ -169,8 +169,9 @@ namespace poker.ServiceLayer
             try
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
-                room.Chat.AddMessage(username, msg, bool.Parse(isActiveInGame));
-                Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
+                Message message = new Message(username, msg, bool.Parse(isActiveInGame));
+                room.Chat.AddMessage(message);
+                Command command = new Command("AddChatMessage", new string[2] { room.Id + "", CreateJson(message) });
                 SendCommandToPlayersInGame(CreateJson(command), room.Id + "");
                 return "null";
             }

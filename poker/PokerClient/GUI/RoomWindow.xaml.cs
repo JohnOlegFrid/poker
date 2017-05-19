@@ -38,7 +38,18 @@ namespace PokerClient.GUI
             Chat.DataContext = room.Chat.GetMessages();
             PokerTable.UpdateChairs();
             Service.Instance.AddPlayerToRoom(room.Id+"", MainInfo.Instance.Player.Username);
+            MsgBox.KeyDown += new KeyEventHandler(MsgBox_KeyDown);
         }
+
+        private void MsgBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                SendButton_Click(sender,null);
+            }
+        }
+
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             room.RoomWindow = null;
@@ -60,6 +71,7 @@ namespace PokerClient.GUI
             string txt = MsgBox.Text;
             string username = MainInfo.Instance.Player.Username;
             Service.Instance.SendChatMessage(room.Id + "", username, txt, room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player) +"");
+            MsgBox.Text = "";
         }
     }
 }
