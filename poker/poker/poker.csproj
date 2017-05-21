@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -74,7 +74,7 @@
     <Compile Include="Center\League.cs" />
     <Compile Include="Center\LeagueManager.cs" />
     <Compile Include="Center\Room.cs" />
-	<Compile Include="Center\Message.cs" />
+    <Compile Include="Center\Message.cs" />
     <Compile Include="Data\RoomByList.cs" />
     <Compile Include="Data\SearchCenter.cs" />
     <Compile Include="Players\PlayerAction.cs" />
@@ -95,6 +95,7 @@
     <Compile Include="Server\Command.cs" />
     <Compile Include="Server\Parser.cs" />
     <Compile Include="ServiceLayer\CenterService.cs" />
+    <Compile Include="ServiceLayer\GameService.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
     <Compile Include="ServiceLayer\UserService.cs" />

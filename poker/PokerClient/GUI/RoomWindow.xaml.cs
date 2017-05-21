@@ -69,6 +69,8 @@ namespace PokerClient.GUI
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             string txt = MsgBox.Text;
+            if (txt.Trim().Equals(""))
+                return;
             string username = MainInfo.Instance.Player.Username;
             Service.Instance.SendChatMessage(room.Id + "", username, txt, room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player) +"");
             MsgBox.Text = "";

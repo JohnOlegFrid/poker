@@ -90,6 +90,8 @@ namespace PokerClient.ServiceLayer
             Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
             if (room.RoomWindow == null) return;
             Message msg = JsonConvert.DeserializeObject<Message>(msgJson);
+            bool currentIsActive = room.Game.GetListActivePlayers().Exists(gp => gp.Player.Equals(MainInfo.Instance.Player));
+            msg.IsSupposedToShow = msg.IsPlayerActiveInGame == currentIsActive;
             room.Chat.AddMessage(msg);
         }
 

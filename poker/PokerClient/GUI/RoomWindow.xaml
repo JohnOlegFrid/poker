@@ -21,7 +21,25 @@
         <ListBox Name="GameLog" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="216" Margin="608,147,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
         <Label Content="Game Log" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="37" Margin="610,107,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
         <Label Content="Chat" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="608,363,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
-        <ListBox Name="Chat" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="165" Margin="608,398,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
+        <ListBox Name="Chat" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="165" Margin="608,398,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSupposedToShow}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <WrapPanel >
+                        <TextBlock Text="{Binding Path=Username, StringFormat={}{0}:}" FontWeight="Bold" Foreground="#FF0D388A" />
+                        <TextBlock Text="{Binding Path=Msg, StringFormat={} {0}}" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="610,564,0,0" VerticalAlignment="Top" Width="164" Background="#FFFFC1C1" Opacity="0.8">
             <Grid Margin="0.111,0.111,-0.333,-0.889">
                 <TextBox Name="MsgBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap"  Margin="0,0,54,10">

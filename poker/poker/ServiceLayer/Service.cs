@@ -17,6 +17,7 @@ namespace poker.ServiceLayer
 
         private UserService userService;
         private CenterService centerService;
+        private GameService gameService;
         private static Service instance;
 
         public Service(ILeaguesData leaguesData, IRoomData roomsData, IPlayersData playersData)
@@ -27,6 +28,7 @@ namespace poker.ServiceLayer
 
             this.userService = new UserService(this);
             this.centerService = new CenterService(this);
+            this.gameService = new GameService(this);
             Service.instance = this;
         }
 
@@ -138,18 +140,7 @@ namespace poker.ServiceLayer
 
         public string StartGame(string roomId)
         {
-            try
-            {
-                Room room = roomsData.FindRoomById(int.Parse(roomId));
-                room.Game.StartGame();
-                Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
-                SendCommandToPlayersInGame(CreateJson(command), room.Id + "");
-                return "null";
-            }
-            catch (Exception e)
-            {
-                return "null"; //null mean that sever done need to send back message
-            }
+            return gameService.StartGame(roomId);
         }
 
         public string UpdateGame(string roomId)

@@ -42,6 +42,7 @@ namespace PokerClient.GUI
             base.OnClosed(e);
             this.Dispatcher.Invoke(() =>
             {
+                Environment.Exit(0);
                 Application.Current.Shutdown();
             });         
         }
