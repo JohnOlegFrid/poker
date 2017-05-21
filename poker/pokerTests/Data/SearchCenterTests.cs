@@ -50,7 +50,7 @@ namespace poker.Data.Tests
             bool allowSpectating = true;
             int bigBlind = 100;
             int playerAmount = 500;
-            GamePreferences prefAllow = new GamePreferences(maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             game1 = new TexasGame(prefAllow);
             game2 = new TexasGame(prefAllow);
             game3 = new TexasGame(prefAllow);
@@ -73,10 +73,10 @@ namespace poker.Data.Tests
 
             game1.Join(playerAmount, 0, gp1);
             game1.Join(playerAmount, 1, gp2);
+            game1.Join(playerAmount, 2, gp3);
+            game1.Join(playerAmount, 3, gp4);
+            game1.Join(playerAmount, 4, gp5);
             game1.StartGame();
-            AddPlayerToGame(playerAmount, game1, gp3);
-            AddPlayerToGame(playerAmount, game1, gp4);
-            AddPlayerToGame(playerAmount, game1, gp5);
 
             game2.Join(playerAmount, 0, gp1);
             game2.Join(playerAmount, 1, gp3);
@@ -85,9 +85,8 @@ namespace poker.Data.Tests
 
             game3.Join(playerAmount, 0, gp2);
             game3.Join(playerAmount, 1, gp3);
+            game3.Join(playerAmount, 2, gp4);
             game3.StartGame();
-            AddPlayerToGame(playerAmount, game3, gp4);
-
 
 
             league.AddRoom(new Room(game1));
@@ -129,13 +128,6 @@ namespace poker.Data.Tests
             Assert.IsTrue(CompareLists<IGame>(expectedAnswer3, receivedAnswer3));
         }
 
-        public static void AddPlayerToGame(int playerAmount, IGame gameAddTo, GamePlayer playerToAdd)
-        {
-            List<int> chairs = gameAddTo.getFreeChairs();
-            Random rnd = new Random();
-            int chair = chairs.ElementAt(rnd.Next(chairs.Count));
-            gameAddTo.Join(playerAmount, chair, playerToAdd);
-        }
 
         public bool CompareLists<T>(List<T> listA, List<T> listB)
         {

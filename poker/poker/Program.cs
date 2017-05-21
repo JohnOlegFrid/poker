@@ -10,6 +10,7 @@ using poker.ServiceLayer;
 using poker.PokerGame;
 using System.Net;
 using System.Net.Sockets;
+using static poker.PokerGame.GamePreferences;
 
 namespace poker
 {
@@ -45,8 +46,8 @@ namespace poker
             playersData.AddPlayer(user4);
 
             // create rooms
-            GamePreferences gp1 = new GamePreferences(8, 2, 100, 1000, true, 10);
-            GamePreferences gp2 = new GamePreferences(6, 2, 300, 3000, true, 10);
+            GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
+            GamePreferences gp2 = new GamePreferences(GameTypePolicy.NO_LIMIT, 6, 2, 300, 3000, true, 10);
             Room room1 = new Room(new TexasGame(gp1));
             Room room2 = new Room(new TexasGame(gp1));
             Room room3 = new Room(new TexasGame(gp2));

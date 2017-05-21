@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Deck.cs" />
+    <Compile Include="Cards\Hand.cs" />
     <Compile Include="Data\ILeaguesData.cs" />
     <Compile Include="Data\IRoomData.cs" />
     <Compile Include="Data\LeaguesByList.cs" />
@@ -100,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Docs\Modeling.docx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
