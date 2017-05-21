@@ -27,6 +27,7 @@ namespace PokerClient.GUI
         DependencyProperty.Register("ChairNum", typeof(int), typeof(Chair));
         public GamePlayer player = null;
         public Poker poker;
+        public bool isActive = false;
 
         public Chair()
         {
@@ -39,10 +40,17 @@ namespace PokerClient.GUI
         {
             if (!poker.isSelectChair)
             {
-                    MessageBox.Show("chair num " + ChairNum);
                     poker.isSelectChair = true;
                     Service.Instance.SitOnChair(poker.room.Id + "", MainInfo.Instance.Player.Username, ChairNum + "");
             }       
+        }
+
+        public void SetAsActivePlayer()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Grid.Background = new SolidColorBrush(Colors.Yellow);
+            });
         }
 
         public void Update()
@@ -51,6 +59,7 @@ namespace PokerClient.GUI
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    //if(player.)
                     Button.Visibility = Visibility.Hidden;
                     PlayerInfo.Visibility = Visibility.Visible;
                     if(player.Hand.Count == 2)
@@ -64,9 +73,20 @@ namespace PokerClient.GUI
                         }
                         Card1.Visibility = Visibility.Visible;
                         Card2.Visibility = Visibility.Visible;
-                        PlayerMoney.Content = player.Money + "$";
+                        PlayerMoney.Content = player.CurrentBet + "$/"+ player.Money + "$";
                     }
                     PlayerName.Content = player.GetUsername();
+                    if (poker.room.Game.GetBigBlind() != null && poker.room.Game.GetBigBlind().Player.Equals(player.Player))
+                    {
+                        Blind.Content = "BB";
+                        Blind.Visibility = Visibility.Visible;
+                    }
+                        
+                    if (poker.room.Game.GetSmallBlind() != null && poker.room.Game.GetSmallBlind().Player.Equals(player.Player))
+                    {
+                        Blind.Content = "SB";
+                        Blind.Visibility = Visibility.Visible;
+                    }
                 });
             }
         }

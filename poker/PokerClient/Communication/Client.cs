@@ -27,8 +27,8 @@ namespace PokerClient.Communication
             client.Connect(ipAddress, portNum);
             isConnected = true;
 
-            sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
-            sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
+            sReader = new StreamReader(client.GetStream(), Encoding.UTF8);
+            sWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
 
             Thread listener = new Thread(new ThreadStart(this.Listener));
             listener.Start();

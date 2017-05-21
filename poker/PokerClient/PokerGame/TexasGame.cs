@@ -126,5 +126,20 @@ namespace poker.PokerGame
         {
             return GetListActivePlayers().Any(gp => gp.Player.Equals(player));
         }
+
+        public GamePlayer GetSmallBlind()
+        {
+            return smallBlind;
+        }
+
+        public GamePlayer GetBigBlind()
+        {
+            return bigBlind;
+        }
+
+        public Move GetLastMove()
+        {
+            return lastMove;
+        }
     }
 }

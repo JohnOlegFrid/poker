@@ -10,7 +10,7 @@
         <Border BorderBrush="#FF90BF03" BorderThickness="2" HorizontalAlignment="Left" Height="100" Margin="162,205,0,0" VerticalAlignment="Top" Width="248">
             <Button x:Name="StartGameButton" Content="Start Game!" HorizontalAlignment="Left" Height="71" Margin="34.222,13.222,0,0" VerticalAlignment="Top" Width="166" Click="StartGameButton_Click"/>
         </Border>
-        <local:PokerOP HorizontalAlignment="Left" Height="46" Margin="0,454,0,0" VerticalAlignment="Top" Width="600"/>
+        <local:PokerOP x:Name="OP" HorizontalAlignment="Left" Height="46" Margin="0,454,0,0" VerticalAlignment="Top" Width="600"/>
         <local:Chair x:Name="Chair2" ChairNum="2"  HorizontalAlignment="Left" Height="100" Margin="462,33,0,0" VerticalAlignment="Top" Width="100"/>
         <local:Chair x:Name="Chair4" ChairNum="4" HorizontalAlignment="Left" Height="100" Margin="462,190,0,0" VerticalAlignment="Top" Width="100"/>
         <local:Chair x:Name="Chair7" ChairNum="7"  HorizontalAlignment="Left" Height="100" Margin="462,342,0,0" VerticalAlignment="Top" Width="100"/>

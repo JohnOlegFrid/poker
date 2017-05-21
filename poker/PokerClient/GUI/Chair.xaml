@@ -6,13 +6,22 @@
              xmlns:local="clr-namespace:PokerClient.GUI"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Grid Background="#FF1DF903">
+    <Grid Name="Grid" Background="#FF1DF903">
         <Button x:Name="Button" Visibility="Visible" Content="Sit HERE!" HorizontalAlignment="Left" Height="81" Margin="4,9,0,0" VerticalAlignment="Top" Width="91" Opacity="0.8" Click="Button_Click_1"/>
         <Grid x:Name="PlayerInfo" Visibility="Hidden" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
             <Image x:Name="Card1"  HorizontalAlignment="Left" Height="65" Margin="8,3,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
             <Image x:Name="Card2"  HorizontalAlignment="Left" Height="65" Margin="43,3,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
-            <Label x:Name="PlayerName" HorizontalContentAlignment="Center" Content="" HorizontalAlignment="Left" Height="28" Margin="-11,62,0,0" VerticalAlignment="Top" Width="80" FontStyle="Italic"/>
+            <Label x:Name="PlayerName" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="-11,62,0,0" VerticalAlignment="Top" Width="80" FontStyle="Italic">
+            </Label>
             <Label x:Name="PlayerMoney" HorizontalContentAlignment="Center" Content="" HorizontalAlignment="Left" Height="24" Margin="25,76,-5,0" VerticalAlignment="Top" Width="80" Foreground="#FF216FDD" FontWeight="Bold"/>
+            <Label Name="Blind" Content="" Visibility="Hidden" Height="25" Margin="75,0,0,75" Foreground="#FFF40808" Opacity="0.8">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE1DBBD" Offset="0"/>
+                        <GradientStop Color="#FFE1C21B" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
         </Grid>
 
     </Grid>

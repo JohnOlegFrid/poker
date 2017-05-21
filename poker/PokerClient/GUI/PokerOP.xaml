@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:PokerClient.GUI"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="600">
-    <Grid Height="50" VerticalAlignment="Bottom" Background="#FF626262">
-        <Button x:Name="FoldButton" Content="Fold" HorizontalAlignment="Left" Height="30" Margin="10,11,0,0" VerticalAlignment="Top" Width="55"/>
-        <Button x:Name="CheckButton" Content="Check" HorizontalAlignment="Left" Height="30" Margin="98,11,0,0" VerticalAlignment="Top" Width="55"/>
-        <Button x:Name="CallButton" Content="Call" HorizontalAlignment="Left" Height="30" Margin="197,11,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.257,0.522"/>
-        <Button x:Name="RaiseButton" Content="Raise" HorizontalAlignment="Left" Height="30" Margin="306,11,0,0" VerticalAlignment="Top" Width="55"/>
-        <Slider x:Name="Slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="409,11,0,0" TickFrequency="1"  VerticalAlignment="Top" Width="93" SmallChange="1" TickPlacement="TopLeft" Height="29"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="536,11,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="45"/>
+    <Grid Name="MainGrid" Height="50" VerticalAlignment="Bottom" Background="#FF626262">
+        <Button x:Name="FoldButton" Content="Fold" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="55" Click="FoldButton_Click"/>
+        <Button x:Name="CheckButton" Content="Check" HorizontalAlignment="Left" Height="30" Margin="101,10,0,0" VerticalAlignment="Top" Width="55" Click="CheckButton_Click"/>
+        <Button x:Name="CallButton" Content="Call" HorizontalAlignment="Left" Height="30" Margin="203,10,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.257,0.522" Click="CallButton_Click"/>
+        <Button x:Name="RaiseButton" Content="Raise" HorizontalAlignment="Left" Height="30" Margin="306,10,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.222,1.081" Click="RaiseButton_Click"/>
+        <Slider x:Name="Slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="402,11,0,0" TickFrequency="1"  VerticalAlignment="Top" Width="93" SmallChange="1" TickPlacement="TopLeft" Height="29"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="530,11,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="45"/>
 
     </Grid>
 </UserControl>

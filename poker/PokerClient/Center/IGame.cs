@@ -1,4 +1,5 @@
 ﻿using poker.PokerGame;
+using poker.PokerGame.Moves;
 using PokerClient.Players;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,9 @@ namespace PokerClient.Center
         List<GamePlayer> GetListActivePlayers();
         List<string> GetGameLog();
         bool IsPlayerActiveInGame(Player player);
+        GamePlayer GetActivePlayer();
+        GamePlayer GetSmallBlind();
+        GamePlayer GetBigBlind();
+        Move GetLastMove();
     }
 }

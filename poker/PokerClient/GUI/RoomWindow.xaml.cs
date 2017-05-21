@@ -63,6 +63,8 @@ namespace PokerClient.GUI
                 gameLog.Clear();
                 foreach (string s in logs)
                     this.gameLog.Add(s);
+                if(gameLog.Count > 0)
+                    GameLog.ScrollIntoView(gameLog.Last());
             });          
         }
 
@@ -74,6 +76,13 @@ namespace PokerClient.GUI
             string username = MainInfo.Instance.Player.Username;
             Service.Instance.SendChatMessage(room.Id + "", username, txt, room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player) +"");
             MsgBox.Text = "";
+        }
+
+        public void ScrollDownChat(Message msg)
+        {
+            Application.Current.Dispatcher.Invoke(() => {
+                Chat.ScrollIntoView(msg);
+            });
         }
     }
 }

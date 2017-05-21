@@ -102,10 +102,18 @@ namespace poker.PokerGame
         {
             smallBlind = activePlayer;
             bigBlind = GetNextPlayer();
+            Move move;
             if (smallBlind != null)
-                smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
+            {
+                move = smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
+                lastMove = move;
+            }
+
             if (bigBlind != null)
-                bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
+            {
+                move = bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
+                lastMove = move;
+            }
         }
 
         public void StartGame()
@@ -170,6 +178,11 @@ namespace poker.PokerGame
             if (GetActivePlayer() == null)
                 return;
             Move currentMove = GetActivePlayer().Play();
+            PlayMove(currentMove);
+        }
+
+        public void PlayMove(Move currentMove)
+        {
             try
             {
                 ValidateMoveIsLeagal(currentMove);

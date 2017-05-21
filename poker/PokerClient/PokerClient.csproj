@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -91,7 +91,7 @@
     <Compile Include="Center\Chat.cs" />
     <Compile Include="Center\IGame.cs" />
     <Compile Include="Center\Room.cs" />
-	<Compile Include="Center\Message.cs" />
+    <Compile Include="Center\Message.cs" />
     <Compile Include="GUI\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -120,11 +120,7 @@
     <Compile Include="PokerGame\Exceptions\PokerExceptions.cs" />
     <Compile Include="PokerGame\GamePlayer.cs" />
     <Compile Include="PokerGame\GamePreferences.cs" />
-    <Compile Include="PokerGame\Moves\Call.cs" />
-    <Compile Include="PokerGame\Moves\Check.cs" />
-    <Compile Include="PokerGame\Moves\Fold.cs" />
     <Compile Include="PokerGame\Moves\Move.cs" />
-    <Compile Include="PokerGame\Moves\Raise.cs" />
     <Compile Include="PokerGame\TexasGame.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />

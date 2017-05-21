@@ -50,8 +50,8 @@ namespace poker.Server
             TcpClient client = (TcpClient)obj;
 
             // sets two streams
-            StreamWriter sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            StreamReader sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
+            StreamWriter sWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
+            StreamReader sReader = new StreamReader(client.GetStream(), Encoding.UTF8);
 
             Boolean bClientConnected = true;
             String sData = null;

@@ -4,6 +4,8 @@ using PokerClient.ServiceLayer;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+
 namespace PokerClient.GUI
 {
     /// <summary>
@@ -23,6 +25,7 @@ namespace PokerClient.GUI
             chairs = new Chair[8] { Chair0, Chair1, Chair2, Chair3, Chair4, Chair5, Chair6, Chair7 };
             activePlayers = 0;
             isSelectChair = false;
+            OP.SetOp(this);
         }
 
    
@@ -33,6 +36,10 @@ namespace PokerClient.GUI
                 chairs[i].poker = this;
                 chairs[i].player = ((TexasGame)room.Game).ChairsInGame[i];
                 chairs[i].Update();
+                if (chairs[i].player != null && room.Game.GetActivePlayer() != null 
+                    && chairs[i].player.Player.Equals(room.Game.GetActivePlayer().Player))
+                    chairs[i].SetAsActivePlayer();
+
             }
             for (int i = ((TexasGame)room.Game).GamePreferences.MaxPlayers; i < chairs.Length; i++)
             {
@@ -45,6 +52,7 @@ namespace PokerClient.GUI
         internal void UpdateGame()
         {
             UpdateChairs();
+            OP.Update();
             this.Dispatcher.Invoke(() =>
             {               
                 this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;

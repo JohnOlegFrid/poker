@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame.Moves
 {
-    public abstract class Move
+    public class Move
     {
         private String name;
         private int amount;
@@ -23,8 +23,6 @@ namespace poker.PokerGame.Moves
         public int Amount { get { return amount; } set { amount = value; } }
 
         public GamePlayer Player { get { return player; }}
-
-        public abstract Move DoAction();
 
         public override String ToString()
         {

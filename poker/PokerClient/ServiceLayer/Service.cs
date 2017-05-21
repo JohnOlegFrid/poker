@@ -94,6 +94,7 @@ namespace PokerClient.ServiceLayer
             bool currentIsActive = room.Game.GetListActivePlayers().Exists(gp => gp.Player.Equals(MainInfo.Instance.Player));
             msg.IsSupposedToShow = msg.IsPlayerActiveInGame == currentIsActive;
             room.Chat.AddMessage(msg);
+            room.RoomWindow.ScrollDownChat(msg);
         }
 
 
