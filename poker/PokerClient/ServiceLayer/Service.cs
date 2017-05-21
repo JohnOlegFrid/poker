@@ -43,7 +43,8 @@ namespace PokerClient.ServiceLayer
             {
                 MainInfo.Instance.Login.LoginFaild();
                 return;
-            }      
+            }
+            MainInfo.CleanInfo();
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
             MainInfo.Instance.MainWindow.OpenMainMenu();
 

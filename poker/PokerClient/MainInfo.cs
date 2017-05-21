@@ -44,6 +44,13 @@ namespace PokerClient
             return true;
         }
 
+        public static void CleanInfo()
+        {
+            instance.roomsToPlayObsever = new ObservableCollection<Room>();
+            instance.roomsToPlay = null;
+            instance.player = null;
+        }
+
         public void SendMessage(Command command)
         {
             client.SendMessage(command);
