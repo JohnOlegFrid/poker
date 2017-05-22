@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using poker.Center;
 using Newtonsoft.Json;
 using System.IO;
+using poker.Server;
 
 namespace poker.Players
 {
@@ -22,6 +23,7 @@ namespace poker.Players
         private League league;
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
+        public object lock_;
 
         public Player(int id, String username, String password, String email, League league)
         {
@@ -82,8 +84,7 @@ namespace poker.Players
 
         public void sendMessageToPlayer(string msg)
         {
-            SWriter.WriteLine(msg);
-            SWriter.Flush();
+            TcpServer.SendMessage(msg, sWriter, lock_);
         }
     }
 }

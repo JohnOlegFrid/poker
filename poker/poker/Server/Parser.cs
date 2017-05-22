@@ -38,7 +38,7 @@ namespace poker.Server
             return result;
         }
 
-        public static void RememberPlayer(Command command, string respond, StreamWriter sWriter)
+        public static void RememberPlayer(Command command, string respond, StreamWriter sWriter, object lock_)
         {
             if (!command.commandName.Equals("Login"))
                 return;
@@ -48,6 +48,7 @@ namespace poker.Server
                 string username = JsonConvert.DeserializeObject<Player>(desRespond.args[0]).Username;
                 Player player = Service.GetLastInstance().PlayersData.FindPlayerByUsername(username);
                 player.SWriter = sWriter;
+                player.lock_ = lock_;
             }               
         }
     }

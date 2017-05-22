@@ -1,4 +1,7 @@
-﻿using System;
+﻿using poker.PokerGame;
+using poker.PokerGame.Moves;
+using PokerClient.ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +41,13 @@ namespace PokerClient.GUI
                 if (IsEnabled)
                 {
                     Slider.Maximum = poker.room.Game.GetActivePlayer().Money;
-                    Slider.Minimum =  poker.room.Game.GetLastMove().Amount - poker.room.Game.GetActivePlayer().CurrentBet;
+                    int minimumToBet = poker.room.Game.GetHigestBet() - poker.room.Game.GetActivePlayer().CurrentBet;
+
+                    Slider.Minimum = ((TexasGame)poker.room.Game).GamePreferences.BigBlind + minimumToBet;
+                    //you cant Check if minimum is not 0
+                    CheckButton.IsEnabled = minimumToBet == 0;
+                    //you cant Call if minimum is 0
+                    CallButton.IsEnabled = minimumToBet != 0;
                 }
             });       
         }
@@ -50,22 +59,23 @@ namespace PokerClient.GUI
 
         private void FoldButton_Click(object sender, RoutedEventArgs e)
         {
+            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Fold", 0));
 
         }
 
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Check", 0));
         }
 
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Call", (int)poker.room.Game.GetHigestBet() - poker.room.Game.GetActivePlayer().CurrentBet));
         }
 
         private void RaiseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Raise", (int)Slider.Value));
         }
     }
 }

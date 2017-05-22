@@ -5,6 +5,9 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System;
+using System.Windows.Media.Imaging;
+using PokerClient.Cards;
 
 namespace PokerClient.GUI
 {
@@ -36,9 +39,9 @@ namespace PokerClient.GUI
                 chairs[i].poker = this;
                 chairs[i].player = ((TexasGame)room.Game).ChairsInGame[i];
                 chairs[i].Update();
-                if (chairs[i].player != null && room.Game.GetActivePlayer() != null 
-                    && chairs[i].player.Player.Equals(room.Game.GetActivePlayer().Player))
-                    chairs[i].SetAsActivePlayer();
+                bool isActive = chairs[i].player != null && room.Game.GetActivePlayer() != null 
+                    && chairs[i].player.Player.Equals(room.Game.GetActivePlayer().Player);
+                chairs[i].SetAsActivePlayer(isActive);
 
             }
             for (int i = ((TexasGame)room.Game).GamePreferences.MaxPlayers; i < chairs.Length; i++)
@@ -53,11 +56,38 @@ namespace PokerClient.GUI
         {
             UpdateChairs();
             OP.Update();
+            UpdateCardsOfBoard();
             this.Dispatcher.Invoke(() =>
             {               
                 this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;
                 this.PotLabel.Content = ((TexasGame)room.Game).Pot + "$";
             });       
+        }
+
+        private void UpdateCardsOfBoard()
+        {
+            if (((object)((TexasGame)room.Game).Board) == null)
+                return;
+            UpdateCard(Card1, 1);
+            UpdateCard(Card2, 2);
+            UpdateCard(Card3, 3);
+            UpdateCard(Card4, 4);
+            UpdateCard(Card5, 5);
+        }
+
+        private void UpdateCard(Image card, int i)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                if (((TexasGame)room.Game).Board.Count <= i)
+                {
+                    card.Visibility = Visibility.Hidden;
+                    return;
+                }
+                card.Visibility = Visibility.Visible;
+                String stringPath = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + ((TexasGame)room.Game).Board[i].ToString() + ".png";
+                card.Source = new BitmapImage(new Uri(stringPath));
+            });
         }
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)

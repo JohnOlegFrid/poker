@@ -1,4 +1,5 @@
-﻿using PokerClient.Players;
+﻿using poker.PokerGame.Moves;
+using PokerClient.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,9 @@ namespace PokerClient.ServiceLayer
         void StartGame(string roomId);
         void RequestUpdateGame(string roomId);
         void SendChatMessage(string roomId, string username, string msg, string isActiveInGame);
+        void SendMoveToGame(string roomId, Move move);
         //
-        
+
 
     }
 }

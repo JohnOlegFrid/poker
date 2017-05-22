@@ -5,6 +5,7 @@ using poker.PokerGame.Moves;
 using poker.PokerGame.Exceptions;
 using poker.Cards;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace poker.PokerGame
 {
@@ -38,6 +39,11 @@ namespace poker.PokerGame
         private Deck deck;
         [JsonProperty]
         private Hand board;
+        private int roundNumber;
+        bool secondRunOnRound; // if we finish one lap of all the players
+        GamePlayer firstPlayOnRound = null;
+        [JsonProperty]
+        private List<GamePlayer> winners;
 
 
         public TexasGame(GamePreferences gp)
@@ -67,7 +73,9 @@ namespace poker.PokerGame
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
 
-        public bool Join(int amount, int chair, GamePlayer p)
+        public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
+
+        public bool Join(int chair, GamePlayer p)
         {
             for (int i = 0; i < gamePreferences.MaxPlayers; i++)
             {
@@ -76,9 +84,7 @@ namespace poker.PokerGame
             }
             if (ChairsInGame[chair] != null)
                 return false;
-            if (amount < gamePreferences.MinBuyIn || amount > gamePreferences.MaxBuyIn)
-                return false;
-            if (amount > p.Money)
+            if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
                 return false;
             ChairsInGame[chair] = p;
             p.ChairNum = chair;
@@ -96,6 +102,43 @@ namespace poker.PokerGame
         {
             gameLog.Add("Game is finished.");
             Active = false;
+            FindWinners();
+            GiveMoneyToWiners();
+        }
+
+        private void GiveMoneyToWiners()
+        {
+            if (winners.Count == 1)
+                gameLog.Add("And The Winner Is:");
+            else
+                gameLog.Add("And The Winners Are:");
+            foreach(GamePlayer gp in winners)
+            {
+                gp.Money += this.pot / winners.Count;
+                gameLog.Add(gp.GetUsername() + "! Won " + this.pot / winners.Count + "$");
+            }
+        }
+
+        private void FindWinners()
+        {
+            List<GamePlayer> playersInGame = GetListActivePlayers();
+            List<GamePlayer> playersThatFinishGame = playersInGame.FindAll(gp => !gp.IsFold());
+            playersThatFinishGame.ForEach(gp => gp.Hand += board); // add the board cards to finish players
+            Hand bestHand = FindBestHand(playersThatFinishGame);
+            Winners = playersThatFinishGame.FindAll(gp => gp.Hand == bestHand);
+        }
+
+        private static Hand FindBestHand(List<GamePlayer> playersThatFinishGame)
+        {
+            Hand BestHand = playersThatFinishGame[0].Hand;
+            foreach (GamePlayer gp in playersThatFinishGame)
+            {
+                if (gp.Hand > BestHand)
+                {
+                    BestHand = gp.Hand;
+                }
+            }
+            return BestHand;
         }
 
         public void PlaceBlinds()
@@ -124,25 +167,6 @@ namespace poker.PokerGame
                 deck = Deck.CreateFullDeck();
                 deck.Shuffle();
                 Active = true;
-                /*
-                 * --big and small put blinds
-                 * --dealing cards to players
-                 * first round to table {call/raise/fold}
-                 * chack if raise {do call round to}
-                 * burn card +deal 3 card to board
-                 * seccond round to table {call/raise/fold}
-                 * chack if raise {do call round to}
-                 * burn card +deal 4's card to board
-                 * third round to table {call/raise/fold}
-                 * chack if raise {do call round to}
-                 * burn card +deal 5's card to board
-                 * fourth round to table {call/raise/fold}
-                 * chack if raise {do call round to}
-                 * reveal all cards
-                 * calculate winner
-                 * deal money to winners
-                 *
-                 */
                 activePlayer = GetFirstPlayer();
                 if (!this.debug)
                     PlaceBlinds();
@@ -150,6 +174,10 @@ namespace poker.PokerGame
                 this.pot = gamePreferences.SmallBlind + gamePreferences.BigBlind;
                 this.highestBet = gamePreferences.BigBlind;
                 board = new Hand();
+                roundNumber = 0;
+                secondRunOnRound = false;
+                firstPlayOnRound = activePlayer;
+                this.Winners = null;
             }
             else
                 gameLog.Add("Not enough players to start");
@@ -179,6 +207,7 @@ namespace poker.PokerGame
                 return;
             Move currentMove = GetActivePlayer().Play();
             PlayMove(currentMove);
+            MoveToNextPlayer();
         }
 
         public void PlayMove(Move currentMove)
@@ -195,7 +224,6 @@ namespace poker.PokerGame
             }
             AddMoveToPot(currentMove);
             AddMoveToLog(currentMove);
-            MoveToNextPlayer();
             lastMove = currentMove;
         }
 
@@ -219,27 +247,65 @@ namespace poker.PokerGame
                 throw new IllegalMoveException("Error!, you cant do this move");
             if (currentMove.Name == "Fold")
                 return;
-            if (lastMove != null && lastMove.Name == "Raise" && currentMove.Amount < lastMove.Amount)
+            if (lastMove != null && lastMove.Name == "Raise" && currentMove.Player.CurrentBet < lastMove.Player.CurrentBet)
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " cant do " + currentMove.Name + " you need at least " + lastMove.Amount);
             if (currentMove.Player.CurrentBet < this.highestBet)
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " + this.highestBet);
             if (currentMove.Amount == 0)
                 return;
-            if (currentMove.Amount < gamePreferences.BigBlind)
+            if (currentMove.Name == "Raise" && currentMove.Amount < gamePreferences.BigBlind)
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind);
             return;
         }
 
         public void NextRound()
         {
-            activePlayer = GetFirstPlayer();
-            highestBet = 0;
-            //TODO add this function logic , with deck
+            roundNumber++;
+            if (IsGameFinish())
+            {
+                FinishGame();
+                return;
+            }
+            gameLog.Add("Starting round " + roundNumber);
+            secondRunOnRound = false;
+            if (roundNumber == 1)
+            {
+                //burn card + deal 3 card to board
+                deck.Take(1); // burn card
+                board.Add(deck.Take(3));
+            }
+            else
+            {
+                //burn card + deal more one card to board
+                deck.Take(1); // burn card
+                board.Add(deck.Take(1));
+            }
+            activePlayer = lastMove.Player; // move the active for the last player that play
+            firstPlayOnRound = null; // this is new round
+            activePlayer = GetNextPlayer();
+            firstPlayOnRound = activePlayer;
+        }
+
+        private bool IsGameFinish()
+        {
+            if (roundNumber == 5)
+                return true;
+            List<GamePlayer> gpList = GetListActivePlayers();
+            if (gpList.FindAll(gp => !gp.IsFold()).Count == 1)
+                return true;
+            return false;
         }
 
         private void MoveToNextPlayer()
         {
+            if (IsGameFinish())
+            {
+                FinishGame();
+                return;
+            }
             activePlayer = GetNextPlayer();
+            if (activePlayer == null)
+                NextRound();
         }
 
         private void AddMoveToLog(Move move)
@@ -247,20 +313,32 @@ namespace poker.PokerGame
             gameLog.Add(move.ToString());
         }
 
-        // return null if all the players play
         public GamePlayer GetNextPlayer()
         {
             int chair = activePlayer.ChairNum;
-            for (int i = 1; i < gamePreferences.MaxPlayers - chair; i++)
+            for (int i = chair + 1; i != chair; i = (i + 1) % ChairsInGame.Length)
             {
-                if (chair+1 < gamePreferences.MaxPlayers && ChairsInGame[chair + i] != null && !ChairsInGame[chair + i].IsFold())
-                    return ChairsInGame[chair + i];
+                if (ChairsInGame[i] != null && !secondRunOnRound && firstPlayOnRound != null 
+                    && ChairsInGame[i].Player.Equals(firstPlayOnRound.Player))
+                    secondRunOnRound = true;
+                if (ChairsInGame[i] != null && !ChairsInGame[i].IsFold() 
+                    && (!(secondRunOnRound  && ChairsInGame[i].CurrentBet == highestBet)))
+                    return ChairsInGame[i];
+            }
+            return FirstPlayerWithLowerPot();
+        }
 
+        private GamePlayer FirstPlayerWithLowerPot()
+        {
+            int chair = activePlayer.ChairNum;
+            for (int i = chair + 1; i != chair; i = (i + 1) % ChairsInGame.Length)
+            {
+                if (chairsInGame[i] != null &&  !chairsInGame[i].IsFold() && chairsInGame[i].CurrentBet < highestBet)
+                    return chairsInGame[i];
             }
             return null;
         }
 
-        // return null if no more active players
         public GamePlayer GetFirstPlayer()
         {
             for(int i = 0; i < this.ChairsInGame.Length; i++)

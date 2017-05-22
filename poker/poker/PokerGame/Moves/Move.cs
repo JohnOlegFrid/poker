@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace poker.PokerGame.Moves
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class Move
     {
+        [JsonProperty]
         private String name;
+        [JsonProperty]
         private int amount;
         protected GamePlayer player;
 
@@ -22,7 +26,7 @@ namespace poker.PokerGame.Moves
         public string Name { get { return name; } set { name = value; }}
         public int Amount { get { return amount; } set { amount = value; } }
 
-        public GamePlayer Player { get { return player; }}
+        public GamePlayer Player { get { return player; } set { player = value; } }
 
         public abstract Move DoAction();
 

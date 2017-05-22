@@ -11,6 +11,8 @@ namespace poker.Cards
         public readonly int suit;
         public readonly int value;
 
+
+
         public Card(int Suit, int Value)
         {
             this.suit = Suit;
@@ -36,6 +38,8 @@ namespace poker.Cards
         public const int four = 2;
         public const int three = 1;
         public const int two = 0;
+
+        public Card() { }
 
         public Card(String Name)
         {

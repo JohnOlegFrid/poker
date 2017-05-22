@@ -10,9 +10,7 @@ namespace poker.Center
 {
     public interface IGame
     {
-        bool Join(int amount, int chair, GamePlayer p);
-        //A player can choose which seat he wants to sit in
-        //returns a list of numbers representing free seats from which the player will later on choose.
+        bool Join(int chair, GamePlayer p);
         bool IsActive();
         void FinishGame();
         void StartGame(); 

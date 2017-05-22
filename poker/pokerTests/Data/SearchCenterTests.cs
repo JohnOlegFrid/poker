@@ -71,21 +71,21 @@ namespace poker.Data.Tests
             GamePlayer gp4 = new GamePlayer(p4, 1000);
             GamePlayer gp5 = new GamePlayer(p5, 1000);
 
-            game1.Join(playerAmount, 0, gp1);
-            game1.Join(playerAmount, 1, gp2);
-            game1.Join(playerAmount, 2, gp3);
-            game1.Join(playerAmount, 3, gp4);
-            game1.Join(playerAmount, 4, gp5);
+            game1.Join(0, gp1);
+            game1.Join(1, gp2);
+            game1.Join(2, gp3);
+            game1.Join(3, gp4);
+            game1.Join(4, gp5);
             game1.StartGame();
 
-            game2.Join(playerAmount, 0, gp1);
-            game2.Join(playerAmount, 1, gp3);
+            game2.Join(0, gp1);
+            game2.Join(1, gp3);
             game2.StartGame();
 
 
-            game3.Join(playerAmount, 0, gp2);
-            game3.Join(playerAmount, 1, gp3);
-            game3.Join(playerAmount, 2, gp4);
+            game3.Join(0, gp2);
+            game3.Join(1, gp3);
+            game3.Join(2, gp4);
             game3.StartGame();
 
 

@@ -6,6 +6,7 @@ using poker.Server;
 using poker.Center;
 using poker.Players;
 using poker.PokerGame;
+using poker.PokerGame.Moves;
 
 namespace poker.ServiceLayer
 {
@@ -82,7 +83,7 @@ namespace poker.ServiceLayer
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
                 Player player = playersData.FindPlayerByUsername(username);
                 GamePlayer gPlayer = new GamePlayer(player, int.Parse(money));
-                if (!room.Game.Join(int.Parse(money), int.Parse(chairNum), gPlayer))
+                if (!room.Game.Join(int.Parse(chairNum), gPlayer))
                     return "null";
                 SendCommandToPlayersInGame(CreateJson(new Command("UpdateChairs", new string[2] { roomId, CreateJson(room.Game.GetChairs()) })), roomId);
                 return "null";
@@ -167,6 +168,26 @@ namespace poker.ServiceLayer
                 return "null";
             }
             catch { return "null"; }
+        }
+
+        public string AddFoldToGame(string roomId, string moveJson)
+        {
+            return gameService.AddMoveToGame<Fold>(roomId, moveJson);
+        }
+
+        public string AddCallToGame(string roomId, string moveJson)
+        {
+            return gameService.AddMoveToGame<Call>(roomId, moveJson);
+        }
+
+        public string AddCheckToGame(string roomId, string moveJson)
+        {
+            return gameService.AddMoveToGame<Check>(roomId, moveJson);
+        }
+
+        public string AddRaiseToGame(string roomId, string moveJson)
+        {
+            return gameService.AddMoveToGame<Raise>(roomId, moveJson);
         }
     }
 }

@@ -41,9 +41,9 @@ namespace poker.PokerGame.Tests
             p1.NextMove= new Check(p1);
             p2.NextMove = new Check(p2);
             p3.NextMove = new Check(p3);
-            game1.Join(100, 0, p1);
-            game1.Join(100, 1, p2);
-            game1.Join(100, 2, p3);
+            game1.Join(0, p1);
+            game1.Join(1, p2);
+            game1.Join(2, p3);
             ((TexasGame)game1).debug = true;
             GamePlayer firstPlayer = game1.GetFirstPlayer();
             game1.StartGame();
@@ -64,9 +64,9 @@ namespace poker.PokerGame.Tests
             GamePlayer p1 = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             GamePlayer p2 = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
             GamePlayer p3 = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
-            game1.Join(100, 0, p1);
-            game1.Join(100, 1, p2);
-            game1.Join(100, 2, p3);
+            game1.Join(0, p1);
+            game1.Join(1, p2);
+            game1.Join(2, p3);
             ((TexasGame)game1).debug = true;
             game1.StartGame();
             GamePlayer currnetPlayer = game1.GetActivePlayer(); //p1
@@ -116,6 +116,54 @@ namespace poker.PokerGame.Tests
             game1.NextTurn();
             Assert.IsNull(game1.GetActivePlayer());
             Assert.AreEqual(970, currnetPlayer.Money);
+
+        }
+
+        [TestMethod()]
+        public void GameRoundTest()
+        {
+            Program.InitData();
+            ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
+            League league = leaguesData.GetDefalutLeague();
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 10);
+            IGame game1 = new TexasGame(prefAllow);
+            GamePlayer moshe = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
+            GamePlayer yakir = new GamePlayer(new Player(2, "yakir", "1234", "yakir@gmail.com", league), 1000);
+            GamePlayer hen = new GamePlayer(new Player(3, "hen", "1234", "hen@gmail.com", league), 1000);
+            game1.Join(0, moshe);
+            game1.Join(1, yakir);
+            game1.Join(2, hen);
+            game1.StartGame();
+            moshe.NextMove = new Call(5, moshe);
+            game1.NextTurn();
+            yakir.NextMove = new Check(yakir);
+            game1.NextTurn();
+            hen.NextMove = new Raise(20, hen);
+            game1.NextTurn();
+            moshe.NextMove = new Call(10, moshe);
+            game1.NextTurn();
+            yakir.NextMove = new Call(10, yakir);
+            game1.NextTurn();
+            hen.NextMove = new Check(hen);
+            game1.NextTurn();
+            moshe.NextMove = new Check(moshe);
+            game1.NextTurn();
+            yakir.NextMove = new Check(yakir);
+            game1.NextTurn();
+            hen.NextMove = new Raise(10, hen);
+            game1.NextTurn();
+            moshe.NextMove = new Fold(moshe);
+            game1.NextTurn();
+            yakir.NextMove = new Raise(20, yakir);
+            game1.NextTurn();
+            hen.NextMove = new Call(10, hen);
+            game1.NextTurn();
+            yakir.NextMove = new Check(yakir);
+            game1.NextTurn();
+            hen.NextMove = new Raise(10, hen);
+            game1.NextTurn();
+            yakir.NextMove = new Call(10, yakir);
+            game1.NextTurn();
 
         }
 

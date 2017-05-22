@@ -44,6 +44,15 @@ namespace poker.Server
             }
         }
 
+        public static void SendMessage(string msg, StreamWriter sWriter, object lock_)
+        {
+            lock (lock_)
+            {
+                sWriter.WriteLine(msg);
+                sWriter.Flush();
+            }
+        }
+
         public void HandleClient(object obj)
         {
             // retrieve client from parameter passed to thread
@@ -56,6 +65,7 @@ namespace poker.Server
             Boolean bClientConnected = true;
             String sData = null;
             String respond = null;
+            object lock_ = new object();
 
             while (bClientConnected)
             {
@@ -66,7 +76,7 @@ namespace poker.Server
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     
                     respond = Parser.Parse(command);
-                    Parser.RememberPlayer(command, respond, sWriter);
+                    Parser.RememberPlayer(command, respond, sWriter, lock_);
                     if (respond == null)
                     { // exit client
                         bClientConnected = false;
@@ -76,8 +86,7 @@ namespace poker.Server
                     // to write something back.
                     if (!respond.Equals("null"))
                     {
-                        sWriter.WriteLine(respond);
-                        sWriter.Flush();
+                        SendMessage(respond, sWriter, lock_);
                     }
                     
                 }

@@ -45,12 +45,25 @@ namespace PokerClient.GUI
             }       
         }
 
-        public void SetAsActivePlayer()
+        internal void SetAsActivePlayer(bool isActive)
         {
             Dispatcher.Invoke(() =>
             {
-                Grid.Background = new SolidColorBrush(Colors.Yellow);
+                if (isActive)
+                    Grid.Background = new SolidColorBrush(Colors.Yellow);
+                else
+                {
+                    var bc = new BrushConverter();
+                    Grid.Background = (Brush)bc.ConvertFrom("#FF1DF903");
+                }
             });
+            
+
+        }
+
+        public void SetAsActivePlayer()
+        {
+            
         }
 
         public void Update()

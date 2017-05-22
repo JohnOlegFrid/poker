@@ -9,6 +9,7 @@ using PokerClient.Center;
 using PokerClient.Communication;
 using PokerClient.GUI;
 using poker.PokerGame;
+using poker.PokerGame.Moves;
 
 namespace PokerClient.ServiceLayer
 {
@@ -153,6 +154,19 @@ namespace PokerClient.ServiceLayer
         public void SendChatMessage(string roomId, string username, string msg, string isActiveInGame)
         {
             Command command = new Command("AddChatMessage", new string[4] { roomId, username, msg, isActiveInGame });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void SendFoldToGame(string roomId, Move move)
+        {
+            Command command = new Command("AddFoldToGame", new string[2] { roomId, JsonConvert.SerializeObject(move) });
+            MainInfo.Instance.SendMessage(command);
+        }
+
+        public void SendMoveToGame(string roomId, Move move)
+        {
+            string commandName = "Add" + move.Name + "ToGame";
+            Command command = new Command(commandName, new string[2] { roomId, JsonConvert.SerializeObject(move) });
             MainInfo.Instance.SendMessage(command);
         }
 

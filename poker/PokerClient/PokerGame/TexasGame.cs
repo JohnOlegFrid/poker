@@ -23,10 +23,11 @@ namespace poker.PokerGame
         private GamePlayer smallBlind;
         private GamePlayer bigBlind;
         private Hand board;
+        private List<GamePlayer> winners;
 
         public TexasGame(GamePlayer[] chairsInGame, int currentPlayers, bool active, List<string> gameLog,
             GamePreferences gamePreferences, GamePlayer activePlayer, int pot, int highestBet, Move lastMove,
-            GamePlayer smallBlind, GamePlayer bigBlind, Hand hand)
+            GamePlayer smallBlind, GamePlayer bigBlind, Hand hand, List<GamePlayer> winners)
         {
             this.ChairsInGame = chairsInGame;
             this.currentPlayers = currentPlayers;
@@ -40,8 +41,10 @@ namespace poker.PokerGame
             this.smallBlind = smallBlind;
             this.bigBlind = bigBlind;
             this.Board = hand;
-
+            this.winners = winners;
         }
+
+        public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
 
         public override string ToString()
         {
@@ -76,23 +79,6 @@ namespace poker.PokerGame
             return ChairsInGame[this.activePlayer.ChairNum];
         }
 
-        private void ValidateMoveIsLeagal(Move currentMove)
-        {
-            //TODO 3 GAME MODE
-            if (currentMove == null)
-                throw new IllegalMoveException("Error!, you cant do this move");
-            if (currentMove.Name == "Fold")
-                return;
-            if (lastMove != null && lastMove.Name == "Raise" && currentMove.Amount < lastMove.Amount)
-                throw new IllegalMoveException("Error!, " + currentMove.Player + " cant do " + currentMove.Name + " you need at least " + lastMove.Amount);
-            if (currentMove.Player.CurrentBet < this.highestBet)
-                throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " + this.highestBet);
-            if (currentMove.Amount == 0)
-                return;
-            if (currentMove.Amount < GamePreferences.BigBlind)
-                throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + GamePreferences.BigBlind);
-            return;
-        }
 
 
         public List<GamePlayer> GetListActivePlayers()
@@ -140,6 +126,11 @@ namespace poker.PokerGame
         public Move GetLastMove()
         {
             return lastMove;
+        }
+
+        public int GetHigestBet()
+        {
+            return highestBet;
         }
     }
 }

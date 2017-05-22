@@ -20,5 +20,7 @@ namespace PokerClient.Center
         GamePlayer GetSmallBlind();
         GamePlayer GetBigBlind();
         Move GetLastMove();
+
+        int GetHigestBet();
     }
 }

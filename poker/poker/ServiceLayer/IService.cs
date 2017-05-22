@@ -20,6 +20,10 @@ namespace poker.ServiceLayer
         string StartGame(string roomId);
         string UpdateGame(string roomId);
         string AddChatMessage(string roomId, string username, string msg, string isActiveInGame);
+        string AddFoldToGame(string roomId, string moveJson);
+        string AddCallToGame(string roomId, string moveJson);
+        string AddCheckToGame(string roomId, string moveJson);
+        string AddRaiseToGame(string roomId, string moveJson);
 
         //server to client
         void SendCommandToPlayersInGame(string command, string roomId);
