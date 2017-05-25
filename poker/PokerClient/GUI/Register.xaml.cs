@@ -36,20 +36,20 @@ namespace PokerClient.GUI
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
+            //RegisterButton.IsEnabled = false;
             String pass = passwordBox.Password;
             String confPass = confirmPasswordBox.Password;
             if (pass.CompareTo(confPass) != 0)
             {              
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.", "Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
-                this.IsEnabled = true;
+               // RegisterButton.IsEnabled = true;
             }
             else
             {
                 if (!MainInfo.Instance.ConnectToServer(IPadress.Text))
                 {
-                    MessageBox.Show("Cannot Connect To Server...");
-                    this.IsEnabled = true;
+                    MessageBox.Show("Cannot connect to server.", "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error); ;
+                    //RegisterButton.IsEnabled = true;
                     return;
                 }
                 Service.Instance.DoRegister(usernameBox.Text, pass, emailBox.Text);
@@ -58,11 +58,13 @@ namespace PokerClient.GUI
 
         public void RegisterFaild(string msg)
         {
-            MessageBox.Show(msg);
+            
             this.Dispatcher.Invoke(() =>
             {
                 this.IsEnabled = true;
             });         
+
+            });
         }
     }
 }

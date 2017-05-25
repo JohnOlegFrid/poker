@@ -12,23 +12,28 @@ namespace poker.Cards.Tests
     public class DeckTests
     {
         [TestMethod()]
-        public void TakeTest()
+        public void CreateNumOfCardsBeforeTest()
         {
             Deck deck = Deck.CreateFullDeck();
             Assert.AreEqual(52, deck.Count());
-            deck.Shuffle();
+        }
+
+        [TestMethod()]
+        public void DeckTakeStandartTest()
+        {
+            Deck deck = Deck.CreateFullDeck();
             List<Card> cards = deck.Take(10);
-            deck.Shuffle();
             Assert.AreEqual(42, deck.Count());
             Assert.AreEqual(10, cards.Count());
-            cards = deck.Take(40);
-            deck.Shuffle();
-            Assert.AreEqual(2, deck.Count());
-            Assert.AreEqual(40, cards.Count());
-            cards = deck.Take(40);
-            deck.Shuffle();
+        }
+
+        [TestMethod()]
+        public void DeckTakeExtremeTest()
+        {
+            Deck deck = Deck.CreateFullDeck();
+            List<Card> cards = deck.Take(100);
             Assert.AreEqual(0, deck.Count());
-            Assert.AreEqual(2, cards.Count());
+            Assert.AreEqual(52, cards.Count());
         }
 
         [TestMethod()]

@@ -13,13 +13,15 @@
             <TextBlock x:Name="Title" Width="200" Height="50" Margin="0" Text="Register" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" TextAlignment="Center" />
             <TextBlock x:Name="UserNameTitle" Foreground="White" Width="102" Height="26" Margin="81,100,317,0" Text="Username :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
             <TextBlock x:Name="PasswordTitle" Foreground="White" Width="102" Height="26" Margin="86,143,312,0" Text="Password :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
+            <TextBox x:Name="emailBox" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Margin="188,64,0,0" VerticalContentAlignment="Center"/>
             <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Margin="188,100,0,0" VerticalContentAlignment="Center"/>
             <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="26" Margin="188,143,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
+            <PasswordBox x:Name="confirmPasswordBox" HorizontalAlignment="Left" Height="26" Margin="188,181,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
             <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Center" Margin="0,0,0,52" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.54,-1.299" Click="RegisterButton_Click"/>
             <TextBlock x:Name="confirmPasswordTitle" Foreground="White" Width="175" Height="26" Margin="8,181,317,0" Text="Confirm password :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
-            <PasswordBox x:Name="confirmPasswordBox" HorizontalAlignment="Left" Height="26" Margin="188,181,0,0" VerticalAlignment="Top" Width="206" VerticalContentAlignment="Center"/>
+            
             <TextBlock x:Name="emailTitle" Foreground="White" Width="63" Height="26" Margin="123,64,314,0" Text="Email :" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.284,1.771" />
-            <TextBox x:Name="emailBox" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Margin="188,64,0,0" VerticalContentAlignment="Center"/>
+           
             <Button x:Name="goBackButton" Content="Go Back" HorizontalAlignment="Center" Margin="304,0,120,52" VerticalAlignment="Bottom" Width="76" RenderTransformOrigin="0.54,-1.299" Click="goBackButton_Click" />
         </Grid>
         <TextBox x:Name="IPadress" HorizontalAlignment="Right" Height="26" Margin="0,562,601,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
