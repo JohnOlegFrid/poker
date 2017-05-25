@@ -63,8 +63,6 @@ namespace PokerClient.GUI
             {
                 this.IsEnabled = true;
             });         
-
-            });
         }
     }
 }
