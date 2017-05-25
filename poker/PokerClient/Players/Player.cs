@@ -13,17 +13,16 @@ namespace PokerClient.Players
         private string username;
         private String password;
         private String email;
+        private int money;
 
-        public Player(int id, String username, String password, String email)
+        public Player(int id, String username, String password, String email, int rank, int money)
         {
             this.id = id;
             this.username = username;
-            //this.league = league;
             this.password = password;
             SetEmail(email);
-            rank = 0;
-            //league.AddPlayerToLeague(this);
-            //currentlyWatching = new List<IGame>();
+            this.rank = rank;
+            this.money = money;
         }
 
         public int Id { get { return id; } }

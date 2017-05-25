@@ -30,6 +30,8 @@ namespace PokerClient.ServiceLayer
         void RequestUpdateGame(string roomId);
         void SendChatMessage(string roomId, string username, string msg, string isActiveInGame);
         void SendMoveToGame(string roomId, Move move);
+        void UpdateUserInfo(string username, string newEmail, string newPassword, string NewAvater);
+
         //
 
 

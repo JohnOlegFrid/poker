@@ -92,8 +92,9 @@ namespace PokerClient.ServiceLayer
             Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
             if (room.RoomWindow == null) return;
             Message msg = JsonConvert.DeserializeObject<Message>(msgJson);
-            bool currentIsActive = room.Game.GetListActivePlayers().Exists(gp => gp.Player.Equals(MainInfo.Instance.Player));
-            msg.IsSupposedToShow = msg.IsPlayerActiveInGame == currentIsActive;
+            bool currentPlayerIsActive = room.Game.GetListActivePlayers().Exists(gp => gp.Player.Equals(MainInfo.Instance.Player));
+            // Everyone can see player messages , Players cannot see spectator messages
+            msg.IsSupposedToShow = msg.IsPlayerActiveInGame || !currentPlayerIsActive;
             room.Chat.AddMessage(msg);
             room.RoomWindow.ScrollDownChat(msg);
         }
@@ -168,6 +169,11 @@ namespace PokerClient.ServiceLayer
             string commandName = "Add" + move.Name + "ToGame";
             Command command = new Command(commandName, new string[2] { roomId, JsonConvert.SerializeObject(move) });
             MainInfo.Instance.SendMessage(command);
+        }
+
+        public void UpdateUserInfo(string username, string newEmail, string newPassword, string NewAvater)
+        {
+            throw new NotImplementedException();
         }
 
         //end client to server

@@ -20,6 +20,8 @@ namespace poker.Players
         private String password;
         [JsonProperty]
         private String email;
+        [JsonProperty]
+        private int money;
         private League league;
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
@@ -36,11 +38,13 @@ namespace poker.Players
             if(league != null)
                 league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
+            this.money = 0;
         }
 
         public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
         public int Rank { get { return rank; } set { rank = value;  } }
+        public int Money { get { return money; } set { money = value; } }
         public List<IGame> CurrentlyWatching { get { return currentlyWatching; } }
         public StreamWriter SWriter { get { return sWriter; } set { sWriter = value; } }
 

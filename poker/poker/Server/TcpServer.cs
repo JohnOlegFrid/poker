@@ -73,6 +73,8 @@ namespace poker.Server
                 {
                     // reads from stream
                     sData = sReader.ReadLine();
+                    if (sData == null)
+                        continue;
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     
                     respond = Parser.Parse(command);
