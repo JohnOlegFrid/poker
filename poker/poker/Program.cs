@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using poker.Data;
 using poker.Players;
 using poker.Center;
@@ -11,22 +8,45 @@ using poker.PokerGame;
 using System.Net;
 using System.Net.Sockets;
 using static poker.PokerGame.GamePreferences;
+using poker.Data.DB;
+using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace poker
 {
     public class Program
     {
+        // use this to call function on exit console
+        static ConsoleEventDelegate handler;   // Keeps it from getting garbage collected
+        private delegate bool ConsoleEventDelegate(int eventType);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
+        //
+        private static DBConnection db;
+
         public static void Main(string[] args)
         {
+            handler = new ConsoleEventDelegate(ConsoleEventCallback);
+            SetConsoleCtrlHandler(handler, true);
             InitData();
             Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress());
             TcpServer server = new TcpServer(5555);
         }
 
+        static bool ConsoleEventCallback(int eventType)
+        {
+            if (eventType == 2) // console window closings
+            {
+                db.Close();
+            }
+            return false;
+        }
+
         public static void InitData()
         {
+            db = InitDB();
             ILeaguesData leaguesData = new LeaguesByList();
-            IPlayersData playersData = new PlayersByList();
+            IPlayersData playersData = new PlayersByDB(db);
             IRoomData roomsData = new RoomByList();
 
             // create Lagues
@@ -35,15 +55,15 @@ namespace poker
             leaguesData.AddLeague(league1);
             leaguesData.AddLeague(league2);
 
-            // create Users
-            Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
-            Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1);
-            Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1);
-            Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
-            playersData.AddPlayer(user1);
-            playersData.AddPlayer(user2);
-            playersData.AddPlayer(user3);
-            playersData.AddPlayer(user4);
+            // create Users - no nedded all in DB
+            //Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
+            //Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1);
+            //Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1);
+            //Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
+            //playersData.AddPlayer(user1);
+            //playersData.AddPlayer(user2);
+            //playersData.AddPlayer(user3);
+            //playersData.AddPlayer(user4);
 
             // create rooms
             GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
@@ -63,6 +83,13 @@ namespace poker
 
             //create service layer
             new Service(leaguesData, roomsData, playersData);
+        }
+
+        private static DBConnection InitDB()
+        {
+            DBConnection db = new DBConnection("sql8.freemysqlhosting.net", "sql8176777", "sql8176777", "k8uzaBcq64");
+            db.Connect();
+            return db;
         }
 
         public static string GetLocalIPAddress()

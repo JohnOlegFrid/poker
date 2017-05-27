@@ -90,5 +90,10 @@ namespace poker.Players
         {
             TcpServer.SendMessage(msg, sWriter, lock_);
         }
+
+        public override string ToString()
+        {
+            return "Player " + username + " id: " + id;
+        }
     }
 }
