@@ -320,7 +320,7 @@ namespace poker.PokerGame
 
         private bool IsGameFinish()
         {
-            if (roundNumber == 5)
+            if (roundNumber == 4)
                 return true;
             List<GamePlayer> gpList = GetListActivePlayers();
             if (gpList.FindAll(gp => !gp.IsFold()).Count == 1)

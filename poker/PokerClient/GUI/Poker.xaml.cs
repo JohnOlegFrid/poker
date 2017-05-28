@@ -92,13 +92,13 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
             {
-                if (((TexasGame)room.Game).Board.Count <= i)
+                if (((TexasGame)room.Game).Board.Count < i)
                 {
                     card.Visibility = Visibility.Hidden;
                     return;
                 }
                 card.Visibility = Visibility.Visible;
-                String stringPath = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + ((TexasGame)room.Game).Board[i].ToString() + ".png";
+                String stringPath = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + ((TexasGame)room.Game).Board[i-1].ToString() + ".png";
                 card.Source = new BitmapImage(new Uri(stringPath));
             });
         }
