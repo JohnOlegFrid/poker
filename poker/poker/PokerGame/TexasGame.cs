@@ -354,7 +354,7 @@ namespace poker.PokerGame
         {
             int chair;
             if (activePlayer == null)
-                if (lastMove == null && lastMove.Player != null)
+                if (lastMove == null || lastMove.Player != null)
                     chair = -1;
                 else
                     chair = lastMove.Player.ChairNum;
