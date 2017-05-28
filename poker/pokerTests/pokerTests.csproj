@@ -63,6 +63,7 @@
     <Compile Include="Center\LeagueTests.cs" />
     <Compile Include="Center\GameCenterTests.cs" />
     <Compile Include="Data\SearchCenterTests.cs" />
+    <Compile Include="Players\HandleStatisticsTests.cs" />
     <Compile Include="Players\PlayerActionTests.cs" />
     <Compile Include="Players\PlayerTests.cs" />
     <Compile Include="PokerGame\TexasGameTests.cs" />
