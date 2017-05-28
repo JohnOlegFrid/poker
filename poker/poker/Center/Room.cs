@@ -59,11 +59,21 @@ namespace poker.Center
         {
             if(!this.spectators.Contains(player))
                 this.Spectators.Add(player);
+            try
+            {
+                game.GetListActivePlayers().Find(gp => gp.Player.Equals(player)).WantToExit = false;
+            }
+            catch { }
         }
 
         public void RemovePlayerFromRoom(Player player)
         {
             this.Spectators.Remove(player);
+            try
+            {
+                game.LeaveGame(game.GetListActivePlayers().Find(gp => gp.Player.Equals(player)));
+            }
+            catch {  }         
         }
 
         public List<IGame> PastGames

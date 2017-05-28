@@ -15,15 +15,22 @@ namespace poker.PokerGame
         private Move nextMove;
         private int currentBet;
         private Hand hand;
+        private bool wantToExit = false;
 
         public GamePlayer(Player player, int money)
         {
             this.player = player;
             this.money = money;
+            InitPlayer();
+        }
+
+        public void InitPlayer()
+        {
             isFold = false;
             currentBet = 0;
             hand = new Hand();
-        
+            wantToExit = false;
+            nextMove = null;
         }
 
         public int Money { get { return money; } set { money = value; } }
@@ -37,6 +44,7 @@ namespace poker.PokerGame
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
 
         public Hand Hand { get { return hand; } set { hand = value; } }
+        public bool WantToExit { get { return wantToExit; } set { wantToExit = value; } }
 
         public String GetUsername()
         {
@@ -46,6 +54,11 @@ namespace poker.PokerGame
         public bool IsFold()
         {
             return isFold;
+        }
+
+        public void SetFold(bool isFold)
+        {
+            this.isFold = isFold;
         }
 
         public Move Play()

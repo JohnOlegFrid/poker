@@ -45,7 +45,6 @@ namespace poker.PokerGame
         [JsonProperty]
         private List<GamePlayer> winners;
 
-
         public TexasGame(GamePreferences gp)
         {
             this.gamePreferences = gp;
@@ -88,9 +87,24 @@ namespace poker.PokerGame
                 return false;
             ChairsInGame[chair] = p;
             p.ChairNum = chair;
+            p.SetFold(true);
             gameLog.Add(p.Player.Username + " joined the game.");
             currentPlayers++;
             return true;
+        }
+
+        public void LeaveGame(GamePlayer p)
+        {
+            if (active)
+            {
+                p.WantToExit = true;
+            }
+            else
+            {
+                ChairsInGame[p.ChairNum] = null;
+                gameLog.Add(p.GetUsername() + " leaved the game");
+            }
+            
         }
 
         public bool IsActive()
@@ -102,8 +116,18 @@ namespace poker.PokerGame
         {
             gameLog.Add("Game is finished.");
             Active = false;
+            activePlayer = null;
             FindWinners();
             GiveMoneyToWiners();
+            ThrowLeavedPlayers();
+        }
+
+        private void ThrowLeavedPlayers()
+        {
+            List<GamePlayer> gpList = GetListActivePlayers();
+            foreach (GamePlayer gp in gpList)
+                if (gp.WantToExit)
+                    LeaveGame(gp);
         }
 
         private void GiveMoneyToWiners()
@@ -164,6 +188,7 @@ namespace poker.PokerGame
             if (currentPlayers >= gamePreferences.GetMinPlayers())
             {
                 gameLog.Add("Starting game.");
+                InitPlayers();
                 deck = Deck.CreateFullDeck();
                 deck.Shuffle();
                 Active = true;
@@ -181,6 +206,13 @@ namespace poker.PokerGame
             }
             else
                 gameLog.Add("Not enough players to start");
+        }
+
+        private void InitPlayers()
+        {
+            List<GamePlayer> gpList = GetListActivePlayers();
+            foreach (GamePlayer gp in gpList)
+                gp.InitPlayer();
         }
 
         public List<string> ReplayGame()
@@ -203,7 +235,7 @@ namespace poker.PokerGame
 
         public void NextTurn()
         {
-            if (GetActivePlayer() == null)
+            if (GetActivePlayer() == null || !active)
                 return;
             Move currentMove = GetActivePlayer().Play();
             PlayMove(currentMove);
@@ -306,6 +338,11 @@ namespace poker.PokerGame
             activePlayer = GetNextPlayer();
             if (activePlayer == null)
                 NextRound();
+            else if (activePlayer.WantToExit)
+            {
+                activePlayer.NextMove = new Fold(activePlayer);
+                NextTurn();
+            }
         }
 
         private void AddMoveToLog(Move move)
@@ -315,7 +352,16 @@ namespace poker.PokerGame
 
         public GamePlayer GetNextPlayer()
         {
-            int chair = activePlayer.ChairNum;
+            int chair;
+            if (activePlayer == null)
+                if (lastMove == null && lastMove.Player != null)
+                    chair = -1;
+                else
+                    chair = lastMove.Player.ChairNum;
+            else
+                chair = activePlayer.ChairNum;
+            if (chair == ChairsInGame.Length - 1)
+                chair = -1;
             for (int i = chair + 1; i != chair; i = (i + 1) % ChairsInGame.Length)
             {
                 if (ChairsInGame[i] != null && !secondRunOnRound && firstPlayOnRound != null 
@@ -341,12 +387,7 @@ namespace poker.PokerGame
 
         public GamePlayer GetFirstPlayer()
         {
-            for(int i = 0; i < this.ChairsInGame.Length; i++)
-            {
-                if (ChairsInGame[i] != null && !ChairsInGame[i].IsFold())
-                    return ChairsInGame[i];
-            }
-            return null;
+            return GetNextPlayer();
         }
 
         public List<GamePlayer> GetListActivePlayers()

@@ -23,20 +23,11 @@ namespace PokerClient.GUI
     /// </summary>
     public partial class MainMenu : UserControl
     {
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
         public MainMenu()
         {
             InitializeComponent();
             this.topMainPanel.Content = new UserPanel();
             this.bottomMainPanel.Content = new MainPanel();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-            dispatcherTimer.Start();
-        }
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            Service.Instance.RequestAllRoomsToPlay();
         }
     }
 }

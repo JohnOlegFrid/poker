@@ -35,8 +35,11 @@ namespace PokerClient.GUI
         {
             this.Dispatcher.Invoke(() =>
             {
-                if (poker.room.Game.GetActivePlayer() == null)
+                if (poker.room.Game.GetActivePlayer() == null || !((TexasGame)poker.room.Game).Active)
+                {
+                    IsEnabled = false;
                     return;
+                }                 
                 IsEnabled = poker.room.Game.GetActivePlayer().Player.Equals(MainInfo.Instance.Player);
                 if (IsEnabled)
                 {
@@ -44,6 +47,7 @@ namespace PokerClient.GUI
                     int minimumToBet = poker.room.Game.GetHigestBet() - poker.room.Game.GetActivePlayer().CurrentBet;
 
                     Slider.Minimum = ((TexasGame)poker.room.Game).GamePreferences.BigBlind + minimumToBet;
+                    Slider.Value = Slider.Minimum;
                     //you cant Check if minimum is not 0
                     CheckButton.IsEnabled = minimumToBet == 0;
                     //you cant Call if minimum is 0
@@ -59,23 +63,27 @@ namespace PokerClient.GUI
 
         private void FoldButton_Click(object sender, RoutedEventArgs e)
         {
-            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Fold", 0));
+            if (poker.room.Game.GetActivePlayer().Player.Equals(MainInfo.Instance.Player))
+                Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Fold", 0));
 
         }
 
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
-            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Check", 0));
+            if (poker.room.Game.GetActivePlayer().Player.Equals(MainInfo.Instance.Player))
+                Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Check", 0));
         }
 
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Call", (int)poker.room.Game.GetHigestBet() - poker.room.Game.GetActivePlayer().CurrentBet));
+            if(poker.room.Game.GetActivePlayer().Player.Equals(MainInfo.Instance.Player))
+                Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Call", (int)poker.room.Game.GetHigestBet() - poker.room.Game.GetActivePlayer().CurrentBet));
         }
 
         private void RaiseButton_Click(object sender, RoutedEventArgs e)
         {
-            Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Raise", (int)Slider.Value));
+            if (poker.room.Game.GetActivePlayer().Player.Equals(MainInfo.Instance.Player))
+                Service.Instance.SendMoveToGame(poker.room.Id + "", new Move("Raise", (int)Slider.Value));
         }
     }
 }

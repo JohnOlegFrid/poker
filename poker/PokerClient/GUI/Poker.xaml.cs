@@ -61,7 +61,20 @@ namespace PokerClient.GUI
             {               
                 this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;
                 this.PotLabel.Content = ((TexasGame)room.Game).Pot + "$";
-            });       
+            });
+            if (!((TexasGame)room.Game).Active)
+                FinishGame();
+        }
+
+        private void FinishGame()
+        {
+            try
+            {
+                GamePlayer gameplayer = ((TexasGame)(room.Game)).Winners.Find(gp => gp.Player.Equals(MainInfo.Instance.Player));
+                if(gameplayer != null)
+                    MessageBox.Show("You win " + ((TexasGame)(room.Game)).Pot / ((TexasGame)(room.Game)).Winners.Count + "$!");
+            }
+            catch { }           
         }
 
         private void UpdateCardsOfBoard()
@@ -92,6 +105,8 @@ namespace PokerClient.GUI
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
+            if (((TexasGame)room.Game).Active)
+                return;
             if(((TexasGame)room.Game).GamePreferences.GetMinPlayers() > ((TexasGame)room.Game).GetListActivePlayers().Count)
             {
                 MessageBox.Show("Not enough players to start game!");

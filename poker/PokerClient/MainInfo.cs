@@ -111,5 +111,15 @@ namespace PokerClient
                 }
             }
         }
+
+        public void Logout()
+        {
+           RoomsToPlay.ForEach(r =>
+            {
+                if (r.RoomWindow != null)
+                    Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
+            });
+            MainWindow.mainContentControl.Content = new Login();
+        }
     }
 }

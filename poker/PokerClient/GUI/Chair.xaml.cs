@@ -50,7 +50,9 @@ namespace PokerClient.GUI
             Dispatcher.Invoke(() =>
             {
                 if (isActive)
+                {
                     Grid.Background = new SolidColorBrush(Colors.Yellow);
+                }
                 else
                 {
                     var bc = new BrushConverter();
@@ -68,16 +70,16 @@ namespace PokerClient.GUI
 
         public void Update()
         {
-            if(player != null)
+            if (player != null)
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    //if(player.)
                     Button.Visibility = Visibility.Hidden;
                     PlayerInfo.Visibility = Visibility.Visible;
-                    if(player.Hand.Count == 2)
+                    if (player.Hand.Count >= 2)
                     {
-                        if (player.GetUsername().Equals(MainInfo.Instance.Player.Username))
+                        if (player.GetUsername().Equals(MainInfo.Instance.Player.Username)
+                            || (!((TexasGame)(poker.room.Game)).Active && !player.IsFold()))
                         {
                             String stringPath1 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[0].ToString() + ".png";
                             String stringPath2 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[1].ToString() + ".png";
@@ -86,7 +88,7 @@ namespace PokerClient.GUI
                         }
                         Card1.Visibility = Visibility.Visible;
                         Card2.Visibility = Visibility.Visible;
-                        PlayerMoney.Content = player.CurrentBet + "$/"+ player.Money + "$";
+                        PlayerMoney.Content = player.CurrentBet + "$/" + player.Money + "$";
                     }
                     PlayerName.Content = player.GetUsername();
                     if (poker.room.Game.GetBigBlind() != null && poker.room.Game.GetBigBlind().Player.Equals(player.Player))
@@ -94,12 +96,24 @@ namespace PokerClient.GUI
                         Blind.Content = "BB";
                         Blind.Visibility = Visibility.Visible;
                     }
-                        
+
                     if (poker.room.Game.GetSmallBlind() != null && poker.room.Game.GetSmallBlind().Player.Equals(player.Player))
                     {
                         Blind.Content = "SB";
                         Blind.Visibility = Visibility.Visible;
                     }
+                    if (player != null && player.IsFold())
+                        Grid.Opacity = 0.5;
+                    else
+                        Grid.Opacity = 1;
+                });
+            }
+            else
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    Button.Visibility = Visibility.Visible;
+                    PlayerInfo.Visibility = Visibility.Hidden;
                 });
             }
         }

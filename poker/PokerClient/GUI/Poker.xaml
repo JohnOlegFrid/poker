@@ -9,12 +9,12 @@
     <Grid Background="#FF04662B">
         <Border BorderBrush="#FF90BF03" BorderThickness="2" HorizontalAlignment="Left" Height="100" Margin="162,205,0,0" VerticalAlignment="Top" Width="248">
             <Grid>
-                <Button x:Name="StartGameButton" Visibility="Visible" Content="Start Game!" HorizontalAlignment="Left" Height="71" Margin="34.222,13.222,0,0" VerticalAlignment="Top" Width="166" Click="StartGameButton_Click"/>
                 <Image x:Name="Card1"  HorizontalAlignment="Left" Height="65" Margin="196,13,-2,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
                 <Image x:Name="Card2"  HorizontalAlignment="Left" Height="65" Margin="146,13,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
                 <Image x:Name="Card3"  HorizontalAlignment="Left" Height="65" Margin="98,13,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
                 <Image x:Name="Card4"  HorizontalAlignment="Left" Height="65" Margin="50,13,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
                 <Image x:Name="Card5"  HorizontalAlignment="Left" Height="65" Margin="0,13,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
+                <Button x:Name="StartGameButton" Opacity="0.5" Visibility="Visible" Content="Start Game!" HorizontalAlignment="Left" Height="71" Margin="34.222,13.222,0,0" VerticalAlignment="Top" Width="166" Click="StartGameButton_Click"/>
             </Grid>
         </Border>
         <local:PokerOP x:Name="OP" HorizontalAlignment="Left" Height="46" Margin="0,454,0,0" VerticalAlignment="Top" Width="600"/>

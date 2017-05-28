@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PokerClient.GUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,13 +51,20 @@ namespace PokerClient.Communication
             Command command;
             while (true)
             {
-                string answer = sReader.ReadLine();
-                command = JsonConvert.DeserializeObject<Command>(answer);
-                if (command == null)
-                    continue;
-                var t = new Thread(() => Parser.Parse(command));
-                //t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                try
+                {
+                    string answer = sReader.ReadLine();
+                    command = JsonConvert.DeserializeObject<Command>(answer);
+                    if (command == null)
+                        continue;
+                    var t = new Thread(() => Parser.Parse(command));
+                    t.Start();
+                }
+                catch
+                {
+                    MainInfo.Instance.Logout();
+                }
+                
             }
         }
 

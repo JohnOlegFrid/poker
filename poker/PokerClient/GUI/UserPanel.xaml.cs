@@ -30,12 +30,7 @@ namespace PokerClient.GUI
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainInfo.Instance.RoomsToPlay.ForEach(r =>
-            {
-                if (r.RoomWindow != null)
-                    r.RoomWindow.Close();
-            });
-            MainInfo.Instance.MainWindow.mainContentControl.Content = new Login();
+            MainInfo.Instance.Logout();
         }
     }
 }

@@ -15,8 +15,9 @@ namespace poker.PokerGame
         private Move nextMove;
         private int currentBet;
         private Hand hand;
+        private bool wantToExit;
 
-        public GamePlayer(Player player, int chairNum, int money, bool isFold, Move nextMove, int currentBet, Hand hand)
+        public GamePlayer(Player player, int chairNum, int money, bool isFold, Move nextMove, int currentBet, Hand hand, bool wantToExit)
         {
             this.player = player;
             this.chairNum = chairNum;
@@ -25,6 +26,7 @@ namespace poker.PokerGame
             this.nextMove = nextMove;
             this.currentBet = currentBet;
             this.hand = hand;
+            this.wantToExit = wantToExit;
         }
 
         public int Money { get { return money; } set { money = value; } }
@@ -36,6 +38,7 @@ namespace poker.PokerGame
         public Move NextMove { get { return nextMove; } set { nextMove = value; } }
 
         public int ChairNum { get { return chairNum; } set { chairNum = value; } }
+        public bool WantToExit { get { return wantToExit; } set { wantToExit = value; } }
 
         public Hand Hand { get { return hand; } set { hand = value; } }
 
@@ -52,6 +55,12 @@ namespace poker.PokerGame
         public override string ToString()
         {
             return player.Username;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is GamePlayer)) return false;
+            return this.player.Equals(((GamePlayer)obj).player);
         }
     }
 }

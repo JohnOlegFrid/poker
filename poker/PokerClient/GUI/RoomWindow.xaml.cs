@@ -32,11 +32,12 @@ namespace PokerClient.GUI
             InitializeComponent();
             this.topMainPanel.Content = new UserPanel();
             this.InfoText.Content = room;
+            //PokerTable = new Poker();
             PokerTable.room = room;
+            PokerTable.UpdateChairs();
             this.gameLog = new ObservableCollection<string>();
             GameLog.DataContext = gameLog;
-            Chat.DataContext = room.Chat.GetMessages();
-            PokerTable.UpdateChairs();
+            Chat.DataContext = room.Chat.GetMessages();            
             Service.Instance.AddPlayerToRoom(room.Id+"", MainInfo.Instance.Player.Username);
             MsgBox.KeyDown += new KeyEventHandler(MsgBox_KeyDown);
         }

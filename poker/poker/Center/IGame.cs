@@ -23,6 +23,7 @@ namespace poker.Center
         void NextTurn();
         void NextRound();
         GamePlayer[] GetChairs();
+        void LeaveGame(GamePlayer p);
 
     }
 }
