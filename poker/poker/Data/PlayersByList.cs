@@ -45,5 +45,10 @@ namespace poker.Data
         {
             return players.Max(player => player.Id) + 1;
         }
+
+        public void UpdatePlayer(Player player)
+        {
+            return;
+        }
     }
 }

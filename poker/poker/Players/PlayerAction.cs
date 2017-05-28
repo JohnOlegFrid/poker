@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Data;
+using poker.Server;
+using poker.ServiceLayer;
 
 namespace poker.Players
 {
@@ -15,6 +17,24 @@ namespace poker.Players
             if (player == null || !player.GetPassword().Equals(password))
                 return null;
             return player;
+        }
+
+        public static bool AddMoneyToPlayer(int amount, Player player)
+        {
+            if (amount <= 0) return false;
+            player.Money += amount;
+            Program.playersData.UpdatePlayer(player);
+            Service.GetLastInstance().UpdatePlayer(player.Username);
+            return true;
+        }
+
+        public static bool TakeMoneyFromPlayer(int amount, Player player)
+        {
+            if (amount <= 0) return false;
+            if (player.Money < amount) return false;
+            player.Money -= amount;
+            Program.playersData.UpdatePlayer(player);
+            return true;
         }
 
         public static string Register(Player newPlayer, IPlayersData data)

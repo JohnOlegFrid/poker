@@ -23,14 +23,23 @@ namespace PokerClient.GUI
         public UserPanel()
         {
             InitializeComponent();
-            userNameTB.Text = "Username: " + MainInfo.Instance.Player.Username;
-            userRankTB.Text = "Rank: " + MainInfo.Instance.Player.Rank;
-            userMoneyTB.Text = MainInfo.Instance.Player.GetEmail();
+            Update();
         }
+
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
             MainInfo.Instance.Logout();
+        }
+
+        public void Update()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                userNameTB.Text = "Username: " + MainInfo.Instance.Player.Username;
+                userRankTB.Text = "Rank: " + MainInfo.Instance.Player.Rank;
+                userMoneyTB.Text = "Money: " + MainInfo.Instance.Player.Money;
+            });
         }
     }
 }

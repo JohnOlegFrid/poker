@@ -85,6 +85,12 @@ namespace PokerClient.GUI
                             Card1.Source = new BitmapImage(new Uri(stringPath1));
                             Card2.Source = new BitmapImage(new Uri(stringPath2));
                         }
+                        else
+                        {
+                            String stringPath = "pack://application:,,,/PokerClient;component/gui/Images/Cards/Card_Back_Vertical_Red.png";
+                            Card1.Source = new BitmapImage(new Uri(stringPath));
+                            Card2.Source = new BitmapImage(new Uri(stringPath));
+                        }
                         Card1.Visibility = Visibility.Visible;
                         Card2.Visibility = Visibility.Visible;
                         PlayerMoney.Content = player.CurrentBet + "$/" + player.Money + "$";

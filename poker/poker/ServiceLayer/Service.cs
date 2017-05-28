@@ -85,7 +85,7 @@ namespace poker.ServiceLayer
                 GamePlayer gPlayer = new GamePlayer(player, int.Parse(money));
                 if (!room.Game.Join(int.Parse(chairNum), gPlayer))
                     return "null";
-                SendCommandToPlayersInGame(CreateJson(new Command("UpdateChairs", new string[2] { roomId, CreateJson(room.Game.GetChairs()) })), roomId);
+                SendCommandToPlayersInGame(CreateJson(new Command("UpdateGame", new string[2] { roomId, CreateJson(room.Game) })), roomId);
                 return "null";
             }
             catch(Exception e)
@@ -188,6 +188,11 @@ namespace poker.ServiceLayer
         public string AddRaiseToGame(string roomId, string moveJson)
         {
             return gameService.AddMoveToGame<Raise>(roomId, moveJson);
+        }
+
+        public void UpdatePlayer(string username)
+        {
+            userService.UpdatePlayer(username);
         }
     }
 }

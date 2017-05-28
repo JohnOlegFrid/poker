@@ -28,6 +28,7 @@ namespace PokerClient.Players
         public int Id { get { return id; } }
         public string Username { get { return username; } set { username = value; } }
         public int Rank { get { return rank; } set { rank = value; } }
+        public int Money { get { return money; } set { money = value; } }
 
         public string GetEmail()
         {

@@ -23,11 +23,15 @@ namespace PokerClient.GUI
     /// </summary>
     public partial class MainMenu : UserControl
     {
+        public UserPanel userPanel;
+        public MainPanel mainPanel;
         public MainMenu()
         {
             InitializeComponent();
-            this.topMainPanel.Content = new UserPanel();
-            this.bottomMainPanel.Content = new MainPanel();
+            userPanel = new UserPanel();
+            this.topMainPanel.Content = userPanel;
+            mainPanel = new MainPanel();
+            this.bottomMainPanel.Content = mainPanel;
         }
     }
 }

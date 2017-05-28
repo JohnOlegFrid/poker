@@ -6,6 +6,7 @@ using poker.PokerGame.Exceptions;
 using poker.Cards;
 using Newtonsoft.Json;
 using System.Linq;
+using poker.Players;
 
 namespace poker.PokerGame
 {
@@ -85,6 +86,8 @@ namespace poker.PokerGame
                 return false;
             if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
                 return false;
+            if (!PlayerAction.TakeMoneyFromPlayer(p.Money, p.Player))
+                return false;
             ChairsInGame[chair] = p;
             p.ChairNum = chair;
             p.SetFold(true);
@@ -103,6 +106,7 @@ namespace poker.PokerGame
             {
                 ChairsInGame[p.ChairNum] = null;
                 gameLog.Add(p.GetUsername() + " leaved the game");
+                PlayerAction.AddMoneyToPlayer(p.Money, p.Player);
             }
             
         }
@@ -119,7 +123,15 @@ namespace poker.PokerGame
             activePlayer = null;
             FindWinners();
             GiveMoneyToWiners();
+            ResetPotOfPlayers();
             ThrowLeavedPlayers();
+        }
+
+        private void ResetPotOfPlayers()
+        {
+            List<GamePlayer> listGp = GetListActivePlayers();
+            foreach (GamePlayer gp in listGp)
+                gp.CurrentBet = 0;
         }
 
         private void ThrowLeavedPlayers()
@@ -148,7 +160,7 @@ namespace poker.PokerGame
             List<GamePlayer> playersInGame = GetListActivePlayers();
             List<GamePlayer> playersThatFinishGame = playersInGame.FindAll(gp => !gp.IsFold());
             Hand bestHand = FindBestHand(playersThatFinishGame);
-            Winners = playersThatFinishGame.FindAll(gp => gp.Hand == bestHand);
+            Winners = playersThatFinishGame.FindAll(gp => gp.Hand + board == bestHand);
         }
 
         private Hand FindBestHand(List<GamePlayer> playersThatFinishGame)
@@ -170,7 +182,10 @@ namespace poker.PokerGame
 
         public void PlaceBlinds()
         {
-            smallBlind = activePlayer;
+            if(smallBlind == null)
+                smallBlind = activePlayer;
+            activePlayer = smallBlind;
+            activePlayer = GetNextPlayer();
             bigBlind = GetNextPlayer();
             Move move;
             if (smallBlind != null)

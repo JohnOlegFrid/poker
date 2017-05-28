@@ -39,14 +39,6 @@ namespace PokerClient.GUI
             Service.Instance.DoLogin(usernameBox.Text, passwordBox.Password);       
         }
 
-        internal void OpenMainMenu()
-        {
-            this.Dispatcher.Invoke(() =>
-           {
-               MainInfo.Instance.MainWindow.mainContentControl.Content = new MainMenu();
-           });       
-        }
-
         public void LoginFaild()
         {
             this.Dispatcher.Invoke(() =>

@@ -26,11 +26,13 @@ namespace PokerClient.GUI
     {
         Room room;
         public ObservableCollection<string> gameLog;
+        public UserPanel userPanel;
         public RoomWindow(Room room)
         {
             this.room = room;
             InitializeComponent();
-            this.topMainPanel.Content = new UserPanel();
+            userPanel = new UserPanel();
+            this.topMainPanel.Content = userPanel;
             this.InfoText.Content = room;
             //PokerTable = new Poker();
             PokerTable.room = room;

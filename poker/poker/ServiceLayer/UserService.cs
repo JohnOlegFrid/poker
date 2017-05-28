@@ -51,7 +51,14 @@ namespace poker.ServiceLayer
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
             Command command = new Command("GetMessage", new string[2] { from, msg });
-            player.SWriter.WriteLine(JsonConvert.SerializeObject(command));
+            player.sendMessageToPlayer(JsonConvert.SerializeObject(command));
+        }
+
+        public void UpdatePlayer(string username)
+        {
+            Player player = service.PlayersData.FindPlayerByUsername(username);
+            Command command = new Command("UpdatePlayer", new string[1] { service.CreateJson(player) });
+            player.sendMessageToPlayer(JsonConvert.SerializeObject(command));
         }
     }
 }

@@ -24,6 +24,7 @@ namespace PokerClient.GUI
     {
         Login log;
         Register reg;
+        public MainMenu mainMenu;
 
         public MainWindow()
         {
@@ -55,7 +56,11 @@ namespace PokerClient.GUI
 
         public void OpenMainMenu()
         {
-            log.OpenMainMenu();
+            this.Dispatcher.Invoke(() =>
+            {
+                mainMenu = new MainMenu();
+                mainContentControl.Content = mainMenu;
+            });
         }
 
         public static void ShowMessage(string msg)

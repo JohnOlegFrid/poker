@@ -17,5 +17,6 @@ namespace poker.Data
 
         Player FindPlayerByUsername(String username);
         int getNextId();
+        void UpdatePlayer(Player player);
     }
 }

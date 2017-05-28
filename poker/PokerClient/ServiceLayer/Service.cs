@@ -70,14 +70,6 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.RoomsToPlay = roomsList;
         }
 
-        public void UpdateChairs(string roomId, string jsonChairs)
-        {
-            Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
-            if (room.RoomWindow == null) return;
-            room.Game.SetChairsInGame(JsonConvert.DeserializeObject<GamePlayer[]>(jsonChairs));
-            room.RoomWindow.PokerTable.UpdateChairs();
-        }
-
         public void UpdateGame(string roomId, string gameJson)
         {
             Room room = MainInfo.Instance.RoomsToPlay.Find(r => r.Id == int.Parse(roomId));
@@ -85,6 +77,14 @@ namespace PokerClient.ServiceLayer
             room.Game = JsonConvert.DeserializeObject<TexasGame>(gameJson);
             room.RoomWindow.SetLog(room.Game.GetGameLog());
             room.RoomWindow.PokerTable.UpdateGame();
+            GamePlayer updatePlayer = room.Game.GetListActivePlayers().Find(gp => gp.Player.Equals(MainInfo.Instance.Player));
+            if (updatePlayer != null)
+            {
+                MainInfo.Instance.Player = updatePlayer.Player;
+                MainInfo.Instance.MainWindow.mainMenu.userPanel.Update();
+                if(room.RoomWindow != null)
+                    room.RoomWindow.userPanel.Update();
+            }
         }
 
         public void AddChatMessage(string roomId, string msgJson)
@@ -99,6 +99,11 @@ namespace PokerClient.ServiceLayer
             room.RoomWindow.ScrollDownChat(msg);
         }
 
+        public void UpdatePlayer(string playerJson)
+        {
+            MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(playerJson);
+            MainInfo.Instance.MainWindow.mainMenu.userPanel.Update();
+        }
 
         // end server to client
 

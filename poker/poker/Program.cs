@@ -16,6 +16,9 @@ namespace poker
 {
     public class Program
     {
+        public static ILeaguesData leaguesData;
+        public static IPlayersData playersData;
+        public static IRoomData roomsData;
         public static void Main(string[] args)
         {
             InitData();
@@ -25,9 +28,9 @@ namespace poker
 
         public static void InitData()
         {
-            ILeaguesData leaguesData = new LeaguesByList();
-            IPlayersData playersData = new PlayersByList();
-            IRoomData roomsData = new RoomByList();
+            leaguesData = new LeaguesByList();
+            playersData = new PlayersByList();
+            roomsData = new RoomByList();
 
             // create Lagues
             League league1 = new League(100, "Level One");
@@ -37,9 +40,13 @@ namespace poker
 
             // create Users
             Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
+            user1.Money = 5000;
             Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1);
+            user2.Money = 5000;
             Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1);
+            user3.Money = 5000;
             Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
+            user4.Money = 5000;
             playersData.AddPlayer(user1);
             playersData.AddPlayer(user2);
             playersData.AddPlayer(user3);
