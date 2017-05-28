@@ -79,7 +79,7 @@ namespace PokerClient
         public MainWindow MainWindow { get { return mainWindow; } set { mainWindow = value; } }
 
 
-        public Login Login { get => login; set => login = value; }
+        public Login Login { get { return login; } set { login = value; } }
         public List<Room> RoomsToPlay {
             get { return roomsToPlay; }
             set {
