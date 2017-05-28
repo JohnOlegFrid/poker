@@ -147,19 +147,22 @@ namespace poker.PokerGame
         {
             List<GamePlayer> playersInGame = GetListActivePlayers();
             List<GamePlayer> playersThatFinishGame = playersInGame.FindAll(gp => !gp.IsFold());
-            playersThatFinishGame.ForEach(gp => gp.Hand += board); // add the board cards to finish players
             Hand bestHand = FindBestHand(playersThatFinishGame);
             Winners = playersThatFinishGame.FindAll(gp => gp.Hand == bestHand);
         }
 
-        private static Hand FindBestHand(List<GamePlayer> playersThatFinishGame)
+        private Hand FindBestHand(List<GamePlayer> playersThatFinishGame)
         {
             Hand BestHand = playersThatFinishGame[0].Hand;
+            Hand current;
+            BestHand += board;    
             foreach (GamePlayer gp in playersThatFinishGame)
             {
-                if (gp.Hand > BestHand)
+                current = gp.Hand;
+                current += board;
+                if (current > BestHand)
                 {
-                    BestHand = gp.Hand;
+                    BestHand = current;
                 }
             }
             return BestHand;
@@ -181,6 +184,8 @@ namespace poker.PokerGame
                 move = bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
                 lastMove = move;
             }
+            activePlayer = bigBlind;
+            activePlayer = GetNextPlayer();
         }
 
         public void StartGame()
@@ -415,6 +420,5 @@ namespace poker.PokerGame
                 p.Hand.Add(deck.Take(2));
             }
         }
-
     }
 }

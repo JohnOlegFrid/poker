@@ -59,8 +59,7 @@ namespace PokerClient.GUI
                     Grid.Background = (Brush)bc.ConvertFrom("#FF1DF903");
                 }
             });
-            
-
+           
         }
 
         public void SetAsActivePlayer()
@@ -79,7 +78,7 @@ namespace PokerClient.GUI
                     if (player.Hand.Count >= 2)
                     {
                         if (player.GetUsername().Equals(MainInfo.Instance.Player.Username)
-                            || (!((TexasGame)(poker.room.Game)).Active && !player.IsFold()))
+                            || (!((TexasGame)(poker.room.Game)).Active && ((TexasGame)(poker.room.Game)).Winners.Contains(player)))
                         {
                             String stringPath1 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[0].ToString() + ".png";
                             String stringPath2 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[1].ToString() + ".png";
