@@ -127,9 +127,9 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        public void SitOnChair(string roomId, string username, string chairNum)
+        public void SitOnChair(string roomId, string username, string chairNum, string amount)
         {
-            Command command = new Command("SitOnChair", new string[4] { roomId, username, "1000", chairNum });
+            Command command = new Command("SitOnChair", new string[4] { roomId, username, amount, chairNum });
             MainInfo.Instance.SendMessage(command);
         }
 

@@ -23,7 +23,7 @@ namespace PokerClient.ServiceLayer
         //client to server
         void DoLogin(string username, string passowrd);
         void DoRegister(string username, string password, string email);
-        void SitOnChair(string roomId, string username, string chairNum);
+        void SitOnChair(string roomId, string username, string chairNum, string amount);
         void AddPlayerToRoom(string roomId, string username);
         void RemovePlayerFromRoom(string roomId, string username);
         void StartGame(string roomId);

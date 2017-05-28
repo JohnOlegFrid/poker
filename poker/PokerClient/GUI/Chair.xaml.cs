@@ -40,8 +40,11 @@ namespace PokerClient.GUI
         {
             if (!poker.isSelectChair)
             {
-                    poker.isSelectChair = true;
-                    Service.Instance.SitOnChair(poker.room.Id + "", MainInfo.Instance.Player.Username, ChairNum + "");
+                poker.isSelectChair = true;
+                Button.Visibility = Visibility.Hidden;
+                Slider.Minimum = ((TexasGame)poker.room.Game).GamePreferences.MinBuyIn;
+                Slider.Maximum = Math.Min(((TexasGame)poker.room.Game).GamePreferences.MaxBuyIn, MainInfo.Instance.Player.Money);
+                Amount.Visibility = Visibility.Visible;   
             }       
         }
 
@@ -74,6 +77,7 @@ namespace PokerClient.GUI
                 this.Dispatcher.Invoke(() =>
                 {
                     Button.Visibility = Visibility.Hidden;
+                    Amount.Visibility = Visibility.Hidden;
                     PlayerInfo.Visibility = Visibility.Visible;
                     if (player.Hand.Count >= 2)
                     {
@@ -121,6 +125,11 @@ namespace PokerClient.GUI
                     PlayerInfo.Visibility = Visibility.Hidden;
                 });
             }
+        }
+
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Service.Instance.SitOnChair(poker.room.Id + "", MainInfo.Instance.Player.Username, ChairNum + "", Slider.Value + "");
         }
     }
 }

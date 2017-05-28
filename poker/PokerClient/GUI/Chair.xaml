@@ -8,6 +8,12 @@
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid Name="Grid" Background="#FF1DF903">
         <Button x:Name="Button" Visibility="Visible" Content="Sit HERE!" HorizontalAlignment="Left" Height="81" Margin="4,9,0,0" VerticalAlignment="Top" Width="91" Opacity="0.8" Click="Button_Click_1"/>
+        <Grid x:Name="Amount" Visibility="Hidden">
+            <Slider x:Name="Slider" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="5,37,0,0" TickFrequency="1"  VerticalAlignment="Top" Width="95" SmallChange="1" TickPlacement="TopLeft" Height="29"/>
+            <TextBox HorizontalAlignment="Left" Height="29" Margin="0,69,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="45"/>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Please Select&#xD;&#xA;Amount To Enter:" HorizontalAlignment="Left" Margin="0,-6,0,0" VerticalAlignment="Top" Height="39" FontWeight="Bold" FontSize="11"/>
+            <Button Name="EnterButton" Content="Enter!" HorizontalAlignment="Left" Margin="45,69,0,0" VerticalAlignment="Top" Width="55" Height="30" Click="EnterButton_Click"/>
+        </Grid>
         <Grid x:Name="PlayerInfo" Visibility="Hidden" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
             <Image x:Name="Card1"  HorizontalAlignment="Left" Height="65" Margin="8,3,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>
             <Image x:Name="Card2"  HorizontalAlignment="Left" Height="65" Margin="43,3,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="50" Source="Images/Cards/Card_Back_Vertical_Red.png"/>

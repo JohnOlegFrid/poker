@@ -50,7 +50,8 @@ namespace PokerClient.GUI
                 {
                     chairs[i].Visibility = Visibility.Hidden;
                 });           
-            }             
+            }
+            isSelectChair = room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player);
         }
         internal void UpdateGame()
         {
@@ -73,7 +74,6 @@ namespace PokerClient.GUI
                 GamePlayer gameplayer = ((TexasGame)(room.Game)).Winners.Find(gp => gp.Player.Equals(MainInfo.Instance.Player));
                 if(gameplayer != null)
                     MessageBox.Show("You win " + ((TexasGame)(room.Game)).Pot / ((TexasGame)(room.Game)).Winners.Count + "$!");
-                ((TexasGame)(room.Game)).Winners.Clear();
             }
             catch { }           
         }

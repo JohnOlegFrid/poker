@@ -182,10 +182,15 @@ namespace poker.PokerGame
 
         public void PlaceBlinds()
         {
-            if(smallBlind == null)
+            if (smallBlind == null)
                 smallBlind = activePlayer;
+            else
+            {
+                activePlayer = smallBlind;
+                smallBlind = GetNextPlayer();
+            }
+                
             activePlayer = smallBlind;
-            activePlayer = GetNextPlayer();
             bigBlind = GetNextPlayer();
             Move move;
             if (smallBlind != null)
