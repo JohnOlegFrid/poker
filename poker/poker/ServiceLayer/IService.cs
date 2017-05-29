@@ -28,5 +28,6 @@ namespace poker.ServiceLayer
         //server to client
         void SendCommandToPlayersInGame(string command, string roomId);
         void UpdatePlayer(string username);
+        void SendMessageOnGame(string roomId, string message, string username);
     }
 }

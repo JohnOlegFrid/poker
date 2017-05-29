@@ -45,12 +45,13 @@ namespace poker.PokerGame
         GamePlayer firstPlayOnRound = null;
         [JsonProperty]
         private List<GamePlayer> winners;
+        private Room room;
 
         public TexasGame(GamePreferences gp)
         {
             this.gamePreferences = gp;
             ChairsInGame = new GamePlayer[this.gamePreferences.MaxPlayers];
-            active = false;
+            Active = false;
             gameLog = new List<string>();
             errorLog = new List<string>();
             pot = 0;
@@ -58,36 +59,45 @@ namespace poker.PokerGame
             currentPlayers = 0;
         }
 
-        public bool Active
-        {
-            get
-            {
-                return active;
-            }
-
-            set
-            {
-                active = value;
-            }
-        }
-
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
 
         public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
+
+        public bool Active { get => active; set => active = value; }
+
+        public void SetRoom(Room room)
+        {
+            this.room = room;
+        }
 
         public bool Join(int chair, GamePlayer p)
         {
             for (int i = 0; i < gamePreferences.MaxPlayers; i++)
             {
                 if ((ChairsInGame[i] != null) && (ChairsInGame[i].Equals(p))) //a player can't join a game twice.
+                {
+                    PlayerAction.ShowMessageOnGame(room, "You Can't Join Game Twice", p.Player);
                     return false;
+                }
             }
             if (ChairsInGame[chair] != null)
+            {
+                PlayerAction.ShowMessageOnGame(room, "The Chair Is Already Taken", p.Player);
                 return false;
+            }
+
             if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
+            {
+                PlayerAction.ShowMessageOnGame(room, "The Buy In Must Be Between " + gamePreferences.MinBuyIn + "-" + gamePreferences.MaxBuyIn, p.Player);
                 return false;
+            }
+
             if (!PlayerAction.TakeMoneyFromPlayer(p.Money, p.Player))
+            {
+                PlayerAction.ShowMessageOnGame(room, "You Dont Have Enough Money", p.Player);
                 return false;
+            }
+
             ChairsInGame[chair] = p;
             p.ChairNum = chair;
             p.SetFold(true);
@@ -98,9 +108,14 @@ namespace poker.PokerGame
 
         public void LeaveGame(GamePlayer p)
         {
-            if (active)
+            if (Active)
             {
                 p.WantToExit = true;
+                if (activePlayer.Player.Equals(p.Player))
+                {
+                    p.NextMove = new Fold(p);
+                    NextTurn();
+                }
             }
             else
             {
@@ -125,6 +140,20 @@ namespace poker.PokerGame
             GiveMoneyToWiners();
             ResetPotOfPlayers();
             ThrowLeavedPlayers();
+            ThrowPlayersThatDontHaveEnuoghMoney();
+        }
+
+        private void ThrowPlayersThatDontHaveEnuoghMoney()
+        {
+            List<GamePlayer> listGp = GetListActivePlayers();
+            foreach(GamePlayer gp in listGp)
+            {
+                if(gp.Money < gamePreferences.BigBlind)
+                {
+                    PlayerAction.ShowMessageOnGame(room, "You Dont Have Enuogh Money To Start New Game",gp.Player);
+                    LeaveGame(gp);
+                }
+            }
         }
 
         private void ResetPotOfPlayers()
@@ -152,6 +181,8 @@ namespace poker.PokerGame
             {
                 gp.Money += this.pot / winners.Count;
                 gameLog.Add(gp.GetUsername() + "! Won " + this.pot / winners.Count + "$");
+                PlayerAction.ShowMessageOnGame(room, "You Won At " + this.pot / winners.Count + "$" , gp.Player);
+
             }
         }
 
@@ -260,14 +291,14 @@ namespace poker.PokerGame
 
         public void NextTurn()
         {
-            if (GetActivePlayer() == null || !active)
+            if (GetActivePlayer() == null || !Active)
                 return;
             Move currentMove = GetActivePlayer().Play();
-            PlayMove(currentMove);
-            MoveToNextPlayer();
+            if(PlayMove(currentMove))
+                MoveToNextPlayer();
         }
 
-        public void PlayMove(Move currentMove)
+        private bool PlayMove(Move currentMove)
         {
             try
             {
@@ -277,11 +308,13 @@ namespace poker.PokerGame
             {
                 CancelMove(currentMove);
                 errorLog.Add(pe.Message);
-                return;
+                PlayerAction.ShowMessageOnGame(room, pe.Message, activePlayer.Player);
+                return false;
             }
             AddMoveToPot(currentMove);
             AddMoveToLog(currentMove);
             lastMove = currentMove;
+            return true;
         }
 
         private void CancelMove(Move currentMove)

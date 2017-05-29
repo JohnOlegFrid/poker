@@ -61,21 +61,9 @@ namespace PokerClient.GUI
             this.Dispatcher.Invoke(() =>
             {               
                 this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;
+                this.StartGameButton.IsEnabled = !((TexasGame)room.Game).Active;
                 this.PotLabel.Content = ((TexasGame)room.Game).Pot + "$";
             });
-            if (!((TexasGame)room.Game).Active)
-                FinishGame();
-        }
-
-        private void FinishGame()
-        {
-            try
-            {
-                GamePlayer gameplayer = ((TexasGame)(room.Game)).Winners.Find(gp => gp.Player.Equals(MainInfo.Instance.Player));
-                if(gameplayer != null)
-                    MessageBox.Show("You win " + ((TexasGame)(room.Game)).Pot / ((TexasGame)(room.Game)).Winners.Count + "$!");
-            }
-            catch { }           
         }
 
         private void UpdateCardsOfBoard()

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using poker.Center;
+using poker.Players;
+using poker.PokerGame;
 using poker.PokerGame.Moves;
 using poker.Server;
 using System;
@@ -43,8 +45,11 @@ namespace poker.ServiceLayer
                 Room room = service.RoomsData.FindRoomById(int.Parse(roomId));
                 T move = JsonConvert.DeserializeObject<T>(moveJson);
                 move.Player = room.Game.GetActivePlayer();
+                GamePlayer activePlayer = room.Game.GetActivePlayer(); 
                 room.Game.GetActivePlayer().NextMove = move;
                 room.Game.NextTurn();
+                if (room.Game.GetActivePlayer() != null && activePlayer.Player.Equals(room.Game.GetActivePlayer().Player)) // if error with last move
+                    return "null";
                 Command command = new Command("UpdateGame", new string[2] { room.Id + "", service.CreateJson(room.Game) });
                 service.SendCommandToPlayersInGame(service.CreateJson(command), room.Id + "");
                 return "null";
@@ -55,5 +60,16 @@ namespace poker.ServiceLayer
             }
         }
 
+        internal void SendMessageOnGame(string roomId, string message, string username)
+        {
+            try
+            {
+                Room room = service.RoomsData.FindRoomById(int.Parse(roomId));
+                Player player = service.PlayersData.FindPlayerByUsername(username);
+                Command command = new Command("ShowMessageOnGame", new string[2] { room.Id + "", message });
+                player.sendMessageToPlayer(service.CreateJson(command));
+            }
+            catch { }
+        }
     }
 }

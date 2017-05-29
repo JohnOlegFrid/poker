@@ -27,6 +27,7 @@ namespace poker.Center
         public Room(IGame game)
         {
             this.game = game;
+            game.SetRoom(this);
             pastGames = new List<IGame>();
             this.chat = new Chat();
             spectators = new List<Player>();

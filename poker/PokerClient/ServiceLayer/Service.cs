@@ -81,7 +81,6 @@ namespace PokerClient.ServiceLayer
             if (updatePlayer != null)
             {
                 MainInfo.Instance.Player = updatePlayer.Player;
-                MainInfo.Instance.MainWindow.mainMenu.userPanel.Update();
                 if(room.RoomWindow != null)
                     room.RoomWindow.userPanel.Update();
             }
@@ -103,6 +102,13 @@ namespace PokerClient.ServiceLayer
         {
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(playerJson);
             MainInfo.Instance.MainWindow.mainMenu.userPanel.Update();
+        }
+
+        public void ShowMessageOnGame(string roomId, string mesasge)
+        {
+            Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
+            if (room.RoomWindow == null) return;
+            room.RoomWindow.ShowMessage(mesasge);
         }
 
         // end server to client

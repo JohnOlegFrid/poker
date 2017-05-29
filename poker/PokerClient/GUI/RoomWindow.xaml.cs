@@ -87,5 +87,10 @@ namespace PokerClient.GUI
                 Chat.ScrollIntoView(msg);
             });
         }
+
+        public void ShowMessage(string mesasge)
+        {
+                MessageBox.Show(mesasge);
+        }
     }
 }

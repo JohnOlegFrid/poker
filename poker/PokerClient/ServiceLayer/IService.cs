@@ -18,6 +18,7 @@ namespace PokerClient.ServiceLayer
         void UpdateGame(string roomId, string gameJson);
         void AddChatMessage(string roomId, string msgJson);
         void UpdatePlayer(string playerJson);
+        void ShowMessageOnGame(string roomId, string mesasge);
         //
 
         //client to server

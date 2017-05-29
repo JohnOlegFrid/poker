@@ -24,6 +24,7 @@ namespace poker.Center
         void NextRound();
         GamePlayer[] GetChairs();
         void LeaveGame(GamePlayer p);
+        void SetRoom(Room room);
 
     }
 }

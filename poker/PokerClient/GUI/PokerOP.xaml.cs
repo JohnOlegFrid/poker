@@ -52,6 +52,8 @@ namespace PokerClient.GUI
                     CheckButton.IsEnabled = minimumToBet == 0;
                     //you cant Call if minimum is 0
                     CallButton.IsEnabled = minimumToBet != 0;
+                    // you cant raise if you dont have enuogh money
+                    RaiseButton.IsEnabled = Slider.Minimum <= poker.room.Game.GetActivePlayer().Money;
                 }
             });       
         }

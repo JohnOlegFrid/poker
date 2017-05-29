@@ -119,7 +119,7 @@ namespace PokerClient
                 if (r.RoomWindow != null)
                     Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
             });
-            MainWindow.mainContentControl.Content = new Login();
+            Application.Current.Dispatcher.Invoke(() => { MainWindow.mainContentControl.Content = new Login(); });
         }
     }
 }

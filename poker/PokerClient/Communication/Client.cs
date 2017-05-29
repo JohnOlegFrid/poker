@@ -37,8 +37,13 @@ namespace PokerClient.Communication
 
         public void SendMessage(Command command)
         {
-            sWriter.WriteLine(JsonConvert.SerializeObject(command));
-            sWriter.Flush();
+            try
+            {
+                sWriter.WriteLine(JsonConvert.SerializeObject(command));
+                sWriter.Flush();
+            }
+            catch { }
+            
         }
 
         public Command GetMessage()

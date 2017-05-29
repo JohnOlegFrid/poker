@@ -42,6 +42,11 @@ namespace poker.ServiceLayer
         public IRoomData RoomsData { get { return roomsData; } set { roomsData = value; } }
         public IPlayersData PlayersData { get { return playersData; } set { playersData = value; } }
 
+        public void SendMessageOnGame(string roomId, string message, string username)
+        {
+            gameService.SendMessageOnGame(roomId, message, username);
+        }
+
         public string CreateJson(Object obj)
         {
             return JsonConvert.SerializeObject(obj);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using poker.Center;
 using poker.Data;
 using poker.Server;
 using poker.ServiceLayer;
@@ -34,7 +35,13 @@ namespace poker.Players
             if (player.Money < amount) return false;
             player.Money -= amount;
             Program.playersData.UpdatePlayer(player);
+            Service.GetLastInstance().UpdatePlayer(player.Username);
             return true;
+        }
+
+        public static void ShowMessageOnGame(Room room, string message, Player player)
+        {
+            Service.GetLastInstance().SendMessageOnGame(room.Id+"", message, player.Username);
         }
 
         public static string Register(Player newPlayer, IPlayersData data)
