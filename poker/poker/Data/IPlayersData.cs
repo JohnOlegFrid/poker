@@ -16,6 +16,6 @@ namespace poker.Data
         void DeletePlayer(Player player);
 
         Player FindPlayerByUsername(String username);
-        int getNextId();
+        int GetNextId();
     }
 }

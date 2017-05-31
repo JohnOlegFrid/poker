@@ -93,7 +93,7 @@ namespace poker.Data.DB
             return listPlayers;
         }
 
-        public int getNextId()
+        public int GetNextId()
         {
             int nextId = -1;
             string query = string.Format("SELECT MAX(id) FROM Players");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using poker.Center;
+using System.Linq;
 
 namespace poker.Data
 {
@@ -31,6 +32,16 @@ namespace poker.Data
         public League GetDefalutLeague()
         {
             return leagues[0];
+        }
+
+        public int GetNextId()
+        {
+            return leagues.Max(league => league.Id) + 1;
+        }
+
+        public void UpdateLeague(League league)
+        {
+            return;
         }
     }
 }
