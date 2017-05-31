@@ -136,6 +136,7 @@ namespace poker.ServiceLayer
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
                 Player player = playersData.FindPlayerByUsername(username);
                 room.RemovePlayerFromRoom(player);
+                SendCommandToPlayersInGame(CreateJson(new Command("UpdateGame", new string[2] { roomId, CreateJson(room.Game) })), roomId);
                 return "null";
             }
             catch (Exception e)

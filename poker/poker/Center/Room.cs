@@ -64,7 +64,9 @@ namespace poker.Center
             {
                 game.GetListActivePlayers().Find(gp => gp.Player.Equals(player)).WantToExit = false;
             }
-            catch { }
+            catch (Exception e)
+            {
+            }
         }
 
         public void RemovePlayerFromRoom(Player player)

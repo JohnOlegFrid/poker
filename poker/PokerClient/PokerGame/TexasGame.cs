@@ -12,7 +12,6 @@ namespace poker.PokerGame
     public class TexasGame : IGame
     {
         private GamePlayer[] chairsInGame;
-        private int currentPlayers;
         private bool active;
         private List<string> gameLog;
         private GamePreferences gamePreferences;
@@ -25,12 +24,11 @@ namespace poker.PokerGame
         private Hand board;
         private List<GamePlayer> winners;
 
-        public TexasGame(GamePlayer[] chairsInGame, int currentPlayers, bool active, List<string> gameLog,
+        public TexasGame(GamePlayer[] chairsInGame, bool active, List<string> gameLog,
             GamePreferences gamePreferences, GamePlayer activePlayer, int pot, int highestBet, Move lastMove,
             GamePlayer smallBlind, GamePlayer bigBlind, Hand hand, List<GamePlayer> winners)
         {
             this.ChairsInGame = chairsInGame;
-            this.currentPlayers = currentPlayers;
             this.Active = active;
             this.gameLog = gameLog;
             this.GamePreferences = gamePreferences;

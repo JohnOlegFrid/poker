@@ -16,8 +16,6 @@ namespace poker.PokerGame
         [JsonProperty]
         private GamePlayer[] chairsInGame;
         [JsonProperty]
-        private int currentPlayers;
-        [JsonProperty]
         private bool active;
         [JsonProperty]
         private List<string> gameLog;
@@ -56,7 +54,6 @@ namespace poker.PokerGame
             errorLog = new List<string>();
             pot = 0;
             highestBet = 0;
-            currentPlayers = 0;
         }
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
@@ -102,7 +99,6 @@ namespace poker.PokerGame
             p.ChairNum = chair;
             p.SetFold(true);
             gameLog.Add(p.Player.Username + " joined the game.");
-            currentPlayers++;
             return true;
         }
 
@@ -241,7 +237,7 @@ namespace poker.PokerGame
 
         public void StartGame()
         {
-            if (currentPlayers >= gamePreferences.GetMinPlayers())
+            if (GetListActivePlayers().Count >= gamePreferences.GetMinPlayers())
             {
                 gameLog.Add("Starting game.");
                 InitPlayers();
@@ -418,10 +414,10 @@ namespace poker.PokerGame
                     chair = lastMove.Player.ChairNum;
             else
                 chair = activePlayer.ChairNum;
-            if (chair == ChairsInGame.Length - 1)
-                chair = -1;
             for (int i = chair + 1; i != chair; i = (i + 1) % ChairsInGame.Length)
             {
+                if (i == ChairsInGame.Length)
+                    i = 0;
                 if (ChairsInGame[i] != null && !secondRunOnRound && firstPlayOnRound != null 
                     && ChairsInGame[i].Player.Equals(firstPlayOnRound.Player))
                     secondRunOnRound = true;
@@ -437,6 +433,8 @@ namespace poker.PokerGame
             int chair = activePlayer.ChairNum;
             for (int i = chair + 1; i != chair; i = (i + 1) % ChairsInGame.Length)
             {
+                if (i == ChairsInGame.Length)
+                    i = 0;
                 if (chairsInGame[i] != null &&  !chairsInGame[i].IsFold() && chairsInGame[i].CurrentBet < highestBet)
                     return chairsInGame[i];
             }

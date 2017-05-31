@@ -42,7 +42,10 @@ namespace PokerClient.Communication
                 sWriter.WriteLine(JsonConvert.SerializeObject(command));
                 sWriter.Flush();
             }
-            catch { }
+            catch (Exception E)
+            {
+
+            }
             
         }
 
