@@ -59,6 +59,9 @@ namespace poker.Players
                 league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
             this.money = 0;
+            this.num_of_games = 0;
+            this.total_gross_profit = 0;
+            this.best_win = 0;
         }
 
         public int Id { get { return id; } }

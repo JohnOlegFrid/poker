@@ -6,6 +6,7 @@ using poker.PokerGame.Exceptions;
 using poker.Cards;
 using Newtonsoft.Json;
 using System.Linq;
+using poker.Players;
 
 namespace poker.PokerGame
 {
@@ -119,6 +120,7 @@ namespace poker.PokerGame
             activePlayer = null;
             FindWinners();
             GiveMoneyToWiners();
+            HandleStatistics.updateStats(GetListActivePlayers());
             ThrowLeavedPlayers();
         }
 

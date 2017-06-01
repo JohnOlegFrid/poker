@@ -1,4 +1,5 @@
 ﻿using poker.Data;
+using poker.PokerGame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,23 @@ namespace poker.Players
                 }
             }
             return top;
+        }
+
+        public static void updateStats(List<GamePlayer> players)
+        {
+            foreach(GamePlayer gp in players)
+            {
+                gp.Player.Num_of_games++;
+                int profit = gp.Money - gp.StartingMoney;
+                gp.Player.Total_gross_profit += profit;
+                if (gp.Player.Best_win < profit)
+                    gp.Player.Best_win = profit;
+            }
+        }
+
+        public static double getAvgGrossProfit(Player p)
+        {
+            return p.Total_gross_profit / p.Num_of_games;
         }
     }
 }
