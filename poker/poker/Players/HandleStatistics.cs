@@ -40,7 +40,9 @@ namespace poker.Players
             {
                 gp.Player.Num_of_games++;
                 int profit = gp.Money - gp.StartingMoney;
-                gp.Player.Total_gross_profit += profit;
+                if (profit > 0)
+                    gp.Player.Total_gross_profit += profit;
+                gp.Player.Total_wins += profit;
                 if (gp.Player.Best_win < profit)
                     gp.Player.Best_win = profit;
             }
@@ -49,6 +51,11 @@ namespace poker.Players
         public static double getAvgGrossProfit(Player p)
         {
             return p.Total_gross_profit / p.Num_of_games;
+        }
+
+        public static double getAvgGain(Player p)
+        {
+            return p.Total_wins / p.Num_of_games;
         }
     }
 }

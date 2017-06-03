@@ -26,11 +26,12 @@ namespace poker.Players
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
         private int num_of_games;
-        private int total_gross_profit;
+        private int total_gross_profit;//bruto
+        private int total_wins;//neto
         private int best_win;
         public object lock_;
 
-        public Player(int id, String username, String password, String email, League league, int numOfGames,int totalGrossProfit, int bestWin)
+        public Player(int id, String username, String password, String email, League league, int numOfGames,int totalGrossProfit,int totalWins, int bestWin)
         {
             this.id = id;
             this.username = username;
@@ -44,6 +45,7 @@ namespace poker.Players
             this.money = 0;
             this.num_of_games = numOfGames;
             this.total_gross_profit = totalGrossProfit;
+            this.total_wins = totalWins;
             this.best_win = bestWin;
         }
 
@@ -61,6 +63,7 @@ namespace poker.Players
             this.money = 0;
             this.num_of_games = 0;
             this.total_gross_profit = 0;
+            this.total_wins = 0;
             this.best_win = 0;
         }
 
@@ -98,6 +101,7 @@ namespace poker.Players
         public int Num_of_games { get => num_of_games; set => num_of_games = value; }
         public int Total_gross_profit { get => total_gross_profit; set => total_gross_profit = value; }
         public int Best_win { get => best_win; set => best_win = value; }
+        public int Total_wins { get => total_wins; set => total_wins = value; }
 
         public override bool Equals(object obj)
         {

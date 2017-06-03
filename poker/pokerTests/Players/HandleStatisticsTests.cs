@@ -58,5 +58,11 @@ namespace poker.Players.Tests
         {
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void getAvgGainTest()
+        {
+            Assert.Fail();
+        }
     }
 }
