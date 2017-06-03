@@ -53,6 +53,7 @@ namespace poker.Players
                 return "Error! invalid email";
             if (!IsValidPassword(newPlayer.GetPassword()))
                 return "Error! invalid password";
+            newPlayer.Money = 5000;
             data.AddPlayer(newPlayer);
             return "ok";
         }
