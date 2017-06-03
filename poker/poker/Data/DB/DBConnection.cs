@@ -35,6 +35,17 @@ namespace poker.Data.DB
             }
         }
 
+        public MySqlConnection OpenMoreConnection()
+        {
+            MySqlConnection connection;
+            string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}", server, database, username, password);
+            connection = new MySqlConnection(connstring);
+            connection.Open();
+            return connection;
+        }
+
+            
+
         public void Close()
         {
             connection.Close();

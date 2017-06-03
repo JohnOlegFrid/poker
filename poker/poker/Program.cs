@@ -28,6 +28,7 @@ namespace poker
         {
             handler = new ConsoleEventDelegate(ConsoleEventCallback);
             SetConsoleCtrlHandler(handler, true);
+            Console.WriteLine("Loading Data Please Wait...");
             InitData();
             Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress());
             TcpServer server = new TcpServer(5555);
@@ -45,15 +46,16 @@ namespace poker
         public static void InitData()
         {
             db = InitDB();
-            ILeaguesData leaguesData = new LeaguesByList();
+            ILeaguesData leaguesData = new LeaguesByDB(db);
             IPlayersData playersData = new PlayersByDB(db);
-            IRoomData roomsData = new RoomByList();
+            IRoomData roomsData = new RoomsByDB(db);
 
-            // create Lagues
-            League league1 = new League(100, "Level One");
-            League league2 = new League(200, "Level Two");
-            leaguesData.AddLeague(league1);
-            leaguesData.AddLeague(league2);
+            // create Lagues - no nedded all in DB
+            //League league1 = new League(100, "Level One");
+            League league1 = leaguesData.FindLeagueById(100);
+            League league2 = leaguesData.FindLeagueById(200);
+            //leaguesData.AddLeague(league1);
+            //leaguesData.AddLeague(league2);
 
             // create Users - no nedded all in DB
             //Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
@@ -65,22 +67,28 @@ namespace poker
             //playersData.AddPlayer(user3);
             //playersData.AddPlayer(user4);
 
-            // create rooms
-            GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
-            GamePreferences gp2 = new GamePreferences(GameTypePolicy.NO_LIMIT, 6, 2, 300, 3000, true, 10);
-            Room room1 = new Room(new TexasGame(gp1));
-            Room room2 = new Room(new TexasGame(gp1));
-            Room room3 = new Room(new TexasGame(gp2));
-            Room room4 = new Room(new TexasGame(gp1));
-            roomsData.AddRoom(room1);
-            roomsData.AddRoom(room2);
-            roomsData.AddRoom(room3);
-            roomsData.AddRoom(room4);
-            league1.AddRoom(room1);
-            league1.AddRoom(room2);
-            league1.AddRoom(room3);
-            league2.AddRoom(room4);
+            Player player1 = playersData.FindPlayerByUsername("Eliran");
 
+            // create rooms
+            //GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
+            //GamePreferences gp2 = new GamePreferences(GameTypePolicy.NO_LIMIT, 6, 2, 300, 3000, true, 10);
+            //Room room1 = new Room(1, new TexasGame(gp1));
+            Room room1 = roomsData.FindRoomById(1);
+            //Room room2 = new Room(2, new TexasGame(gp1));
+            Room room2 = roomsData.FindRoomById(2);
+            //Room room3 = new Room(3, new TexasGame(gp2));
+            Room room3 = roomsData.FindRoomById(3);
+            //Room room4 = new Room(4, new TexasGame(gp1));
+            Room room4 = roomsData.FindRoomById(4);
+            //roomsData.AddRoom(room1);
+            //roomsData.AddRoom(room2);
+            //roomsData.AddRoom(room3);
+            //roomsData.AddRoom(room4);
+            //leaguesData.AddRoomToLeague(room1, league1);
+            //leaguesData.AddRoomToLeague(room2, league1);
+            //leaguesData.AddRoomToLeague(room3, league1);
+            //leaguesData.AddRoomToLeague(room4, league2);
+  
             //create service layer
             new Service(leaguesData, roomsData, playersData);
         }

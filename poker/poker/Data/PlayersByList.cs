@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using poker.Players;
 using System.Linq;
+using poker.Center;
 
 namespace poker.Data
 {
@@ -17,6 +18,11 @@ namespace poker.Data
         public void AddPlayer(Player player)
         {
             players.Add(player);
+        }
+
+        public void ChangePlayerLeauge(Player player, League league)
+        {
+            player.League = league;
         }
 
         public void DeletePlayer(Player player)

@@ -42,5 +42,10 @@ namespace poker.Data
         {
             return rooms;
         }
+
+        public void UpdateRoom(Room room)
+        {
+            return;
+        }
     }
 }

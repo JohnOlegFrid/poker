@@ -123,5 +123,7 @@ namespace poker.PokerGame
         }
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
+
+        public GameTypePolicy _GameTypePolicy { get => gameTypePolicy; set => gameTypePolicy = value; }
     }
 }

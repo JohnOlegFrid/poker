@@ -1,4 +1,5 @@
 ﻿using poker.Center;
+using poker.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,9 @@ namespace poker.Data
         int GetNextId();
 
         void UpdateLeague(League league);
+
+        League FindLeagueById(int id);
+
+        void AddRoomToLeague(Room room, League league);
     }
 }

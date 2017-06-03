@@ -75,6 +75,8 @@ namespace poker.PokerGame
 
         public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
 
+        public GamePreferences GamePreferences { get => gamePreferences; set => gamePreferences = value; }
+
         public bool Join(int chair, GamePlayer p)
         {
             for (int i = 0; i < gamePreferences.MaxPlayers; i++)

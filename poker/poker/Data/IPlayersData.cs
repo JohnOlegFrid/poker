@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
+using poker.Center;
 
 namespace poker.Data
 {
@@ -17,5 +18,7 @@ namespace poker.Data
 
         Player FindPlayerByUsername(String username);
         int GetNextId();
+
+        void ChangePlayerLeauge(Player player, League league);
     }
 }

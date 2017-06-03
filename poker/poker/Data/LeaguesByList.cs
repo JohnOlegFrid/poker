@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using poker.Center;
 using System.Linq;
+using poker.Players;
 
 namespace poker.Data
 {
@@ -19,9 +20,20 @@ namespace poker.Data
             leagues.Add(league);
         }
 
+
+        public void AddRoomToLeague(Room room, League league)
+        {
+            league.AddRoom(room);
+        }
+
         public void DeleteLeague(League league)
         {
             leagues.Remove(league);
+        }
+
+        public League FindLeagueById(int id)
+        {
+            return leagues.Find(league => league.Id == id);
         }
 
         public List<League> GetAllLeagues()

@@ -67,8 +67,9 @@
     <Compile Include="Cards\Deck.cs" />
     <Compile Include="Cards\Hand.cs" />
     <Compile Include="Data\DB\DBConnection.cs" />
-    <Compile Include="Data\DB\LeguesByDB.cs" />
+    <Compile Include="Data\DB\LeaguesByDB.cs" />
     <Compile Include="Data\DB\PlayersByDB.cs" />
+    <Compile Include="Data\DB\RoomsByDB.cs" />
     <Compile Include="Data\ILeaguesData.cs" />
     <Compile Include="Data\IRoomData.cs" />
     <Compile Include="Data\LeaguesByList.cs" />
