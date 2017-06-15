@@ -13,10 +13,12 @@ namespace poker.Data.DB
     class RoomsByDB :  IRoomData
     {
         private DBConnection db;
-
+        public static List<Room> listRooms;
         public RoomsByDB(DBConnection db)
         {
             this.db = db;
+            listRooms = new List<Room>();
+            InitData();
         }
 
         public void AddRoom(Room room)
@@ -29,6 +31,7 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
+                listRooms.Add(room);
             }
             catch
             { }
@@ -41,6 +44,7 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
+                listRooms.Remove(room);
             }
             catch
             { }
@@ -48,22 +52,7 @@ namespace poker.Data.DB
 
         public Room FindRoomById(int id)
         {
-            Room room = null;
-            string query = string.Format("SELECT * FROM Rooms WHERE id='{0}'", id);
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand(query, db.Connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    room = CreateRoomFromDataReader(dataReader);
-                }
-                //close Data Reader
-                dataReader.Close();
-            }
-            catch
-            { }
-            return room;
+            return listRooms.Find(room => room.Id == id);
         }
 
         public static Room CreateRoomFromDataReader(MySqlDataReader dataReader)
@@ -79,7 +68,11 @@ namespace poker.Data.DB
 
         public List<Room> GetAllRooms()
         {
-            List<Room> listRooms = new List<Room>();
+            return listRooms;
+        }
+
+        private void InitData()
+        {
             string query = string.Format("SELECT * FROM Rooms");
             try
             {
@@ -94,7 +87,6 @@ namespace poker.Data.DB
             }
             catch
             { }
-            return listRooms;
         }
 
         public void UpdateRoom(Room room)

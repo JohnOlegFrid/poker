@@ -12,10 +12,12 @@ namespace poker.Data.DB
     public class LeaguesByDB : ILeaguesData
     {
         private DBConnection db;
-        
+        public static List<League> listLeagues;
         public LeaguesByDB(DBConnection db)
         {
             this.db = db;
+            listLeagues = new List<League>();
+            InitData();
         }
 
         public void AddLeague(League league)
@@ -27,6 +29,7 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
+                listLeagues.Add(league);
             }
             catch
             { }
@@ -39,6 +42,7 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
+                listLeagues.Remove(league)
             }
             catch
             { }

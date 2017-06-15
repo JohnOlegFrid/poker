@@ -58,10 +58,10 @@ namespace poker
             //leaguesData.AddLeague(league2);
 
             // create Users - no nedded all in DB
-            //Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
-            //Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1);
-            //Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1);
-            //Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
+            //Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1.Id);
+            //Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1.Id);
+            //Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1.Id);
+            //Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2.Id);
             //playersData.AddPlayer(user1);
             //playersData.AddPlayer(user2);
             //playersData.AddPlayer(user3);
@@ -88,7 +88,11 @@ namespace poker
             //leaguesData.AddRoomToLeague(room2, league1);
             //leaguesData.AddRoomToLeague(room3, league1);
             //leaguesData.AddRoomToLeague(room4, league2);
-  
+
+            List<Player> p = playersData.GetAllPlayers();
+            List<League> l = leaguesData.GetAllLeagues();
+            List<Room> r = roomsData.GetAllRooms();
+
             //create service layer
             new Service(leaguesData, roomsData, playersData);
         }

@@ -37,19 +37,19 @@ namespace poker.Center.Tests
             leaguesData.AddLeague(league3);
 
             // create Users
-            user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1)
+            user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1.Id)
             {
                 Rank = 3
             };
-            user2 = new Player(2, "oleg", "1234", "oleg@gmail.com", league1)
+            user2 = new Player(2, "oleg", "1234", "oleg@gmail.com", league1.Id)
             {
                 Rank = 7
             };
-            user3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league2)
+            user3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league2.Id)
             {
                 Rank = 4
             };
-            user4 = new Player(3, "slava", "1234", "slave@gmail.com", league3);
+            user4 = new Player(3, "slava", "1234", "slave@gmail.com", league3.Id);
             usersData.AddPlayer(user1);
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
@@ -74,17 +74,6 @@ namespace poker.Center.Tests
             inActiveGames = gameCenter.GetAllFinishedGames();
         }
 
-        [TestMethod()]
-        public void MovePlayerToLeaugeTest()
-        {
-            Player higgestRankPlayer = gameCenter.GetHiggestRankPlayer();
-            Assert.IsTrue(higgestRankPlayer.Username.Equals("oleg"));
-            gameCenter.MovePlayerToLeauge(user3, league1); // not need to work ,oleg is not logged
-            Assert.IsFalse(user3.League.Equals(league1));
-            gameCenter.LoggedPlayer = higgestRankPlayer;
-            gameCenter.MovePlayerToLeauge(user3, league1); // need to work
-            Assert.IsTrue(user3.League.Equals(league1));
-        }
 
 
         [TestMethod()]

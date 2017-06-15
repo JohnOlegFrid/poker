@@ -22,21 +22,19 @@ namespace poker.Players
         private String email;
         [JsonProperty]
         private int money;
-        private League league;
+        private int leagueId;
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
         public object lock_;
 
-        public Player(int id, String username, String password, String email, League league)
+        public Player(int id, String username, String password, String email, int leagueId)
         {
             this.id = id;
             this.username = username;
-            this.league = league;
+            this.leagueId = leagueId;
             this.password = password;
             SetEmail(email);
             rank = 0;
-            if(league != null)
-                league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
             this.money = 0;
         }
@@ -70,7 +68,7 @@ namespace poker.Players
                 this.password = password;
         }
 
-        public League League { get { return league; } set { league = value; } }
+        public int LeagueId { get { return leagueId; } set { leagueId = value; } }
 
         public override bool Equals(object obj)
         {

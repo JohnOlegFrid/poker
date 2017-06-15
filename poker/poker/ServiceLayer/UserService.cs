@@ -21,7 +21,7 @@ namespace poker.ServiceLayer
         public string Register(string username, string password, string email)
         {
             Player newPlayer = new Player(service.PlayersData.GetNextId(), username, password,
-                email, service.LeaguesData.GetDefalutLeague());
+                email, service.LeaguesData.GetDefalutLeague().Id);
             return service.CreateJson(PlayerAction.Register(newPlayer, service.PlayersData));
         }
 

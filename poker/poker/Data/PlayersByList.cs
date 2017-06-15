@@ -22,7 +22,7 @@ namespace poker.Data
 
         public void ChangePlayerLeauge(Player player, League league)
         {
-            player.League = league;
+            player.LeagueId = league.Id;
         }
 
         public void DeletePlayer(Player player)

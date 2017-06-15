@@ -12,10 +12,13 @@ namespace poker.Data.DB
     public class PlayersByDB : IPlayersData
     {
         private DBConnection db;
+        public static List<Player> listPlayers;
 
         public PlayersByDB(DBConnection db)
         {
             this.db = db;
+            listPlayers = new List<Player>();
+            InitData();
         }
 
         public void AddPlayer(Player player)
@@ -28,12 +31,13 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
-                if (player.League == null) return;
+                if (player.LeagueId == 0) return;
                 string query2 = string.Format("INSERT INTO PlayerLeague(playerId ,leagueId) " +
                     "VALUES('{0}', '{1}')"
-                    , player.Id, player.League.Id);
+                    , player.Id, player.LeagueId);
                 cmd = new MySqlCommand(query2, db.Connection);
                 cmd.ExecuteNonQuery();
+                listPlayers.Add(player);
             }
             catch
             {}
@@ -47,6 +51,7 @@ namespace poker.Data.DB
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.Connection);
                 cmd.ExecuteNonQuery();
+                listPlayers.Remove(player);
             }
             catch
             { }
@@ -54,27 +59,13 @@ namespace poker.Data.DB
 
         public Player FindPlayerByUsername(string username)
         {
-            Player player = null;
-            string query = string.Format("SELECT * FROM Players WHERE username='{0}'", username);
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand(query, db.Connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    player = CreatePlayerFromDataReader(dataReader,db, true);               
-                }
-                dataReader.Close();
-            }
-            catch
-            { }
-            return player;
+            return listPlayers.Find(p => p.Username.Equals(username));
         }
 
         public static Player CreatePlayerFromDataReader(MySqlDataReader dataReader, DBConnection db, bool needToAddToLeague)
         {
             Player player;
-            player = new Player(int.Parse(dataReader["id"] + ""), dataReader["username"] + "", dataReader["password"] + "", dataReader["email"] + "", null);
+            player = new Player(int.Parse(dataReader["id"] + ""), dataReader["username"] + "", dataReader["password"] + "", dataReader["email"] + "", 0);
             player.Rank = int.Parse(dataReader["rank"] + "");
             player.Money = int.Parse(dataReader["money"] + "");
             if(needToAddToLeague)
@@ -85,7 +76,7 @@ namespace poker.Data.DB
         private static void SetPlayerLeague(Player player , DBConnection db)
         {
             MySqlConnection con = db.OpenMoreConnection();
-            League league = null;
+            int id = 0;
             string query = string.Format("SELECT * FROM PlayerLeague WHERE playerId='{0}'", player.Id);
             try
             {
@@ -93,17 +84,11 @@ namespace poker.Data.DB
                 MySqlDataReader dataReader1 = cmd.ExecuteReader();
                 if (dataReader1.Read())
                 {
-                    int id = int.Parse(dataReader1["leagueId"] + "");
+                    id = int.Parse(dataReader1["leagueId"] + "");
                     dataReader1.Close();
-                    query = string.Format("SELECT * FROM Leagues WHERE id='{0}'", id);
-                    cmd = new MySqlCommand(query, con);
-                    MySqlDataReader dataReader2 = cmd.ExecuteReader();
-                    if (dataReader2.Read())
-                        league = LeaguesByDB.CreateLeagueFromDataReader(dataReader2,db);
-                    dataReader2.Close();
                 }
 
-                player.League = league;
+                player.LeagueId = id;
             }
             catch (Exception e)
             {
@@ -113,7 +98,11 @@ namespace poker.Data.DB
 
         public List<Player> GetAllPlayers()
         {
-            List<Player> listPlayers = new List<Player>();
+            return listPlayers;
+        }
+
+        private void InitData()
+        {
             string query = string.Format("SELECT * FROM Players");
             try
             {
@@ -121,13 +110,12 @@ namespace poker.Data.DB
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    listPlayers.Add(CreatePlayerFromDataReader(dataReader,db,true));
+                    listPlayers.Add(CreatePlayerFromDataReader(dataReader, db, true));
                 }
                 dataReader.Close();
             }
             catch
             { }
-            return listPlayers;
         }
 
         public int GetNextId()
@@ -157,7 +145,7 @@ namespace poker.Data.DB
             }
             catch (Exception e)
             { }
-            player.League = league;
+            player.LeagueId = league.Id;
         }
     }
 }
