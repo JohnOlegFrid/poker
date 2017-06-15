@@ -15,6 +15,8 @@ namespace PokerClient.Players
         private String email;
         private int money;
 
+        public Player() { }
+
         public Player(int id, String username, String password, String email, int rank, int money)
         {
             this.id = id;
