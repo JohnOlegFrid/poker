@@ -31,6 +31,8 @@ namespace poker.Players
         private int best_win;
         public object lock_;
 
+        public Player() { }
+
         public Player(int id, String username, String password, String email, League league, int numOfGames,int totalGrossProfit,int totalWins, int bestWin)
         {
             this.id = id;
