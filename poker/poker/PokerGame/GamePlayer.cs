@@ -10,6 +10,7 @@ namespace poker.PokerGame
     {
         private Player player;
         private int chairNum;
+        private int startingMoney;
         private int money;
         private bool isFold;
         private Move nextMove;
@@ -21,6 +22,7 @@ namespace poker.PokerGame
         {
             this.player = player;
             this.money = money;
+            this.startingMoney = money;
             InitPlayer();
         }
 
@@ -45,6 +47,8 @@ namespace poker.PokerGame
 
         public Hand Hand { get { return hand; } set { hand = value; } }
         public bool WantToExit { get { return wantToExit; } set { wantToExit = value; } }
+
+        public int StartingMoney { get => startingMoney; set => startingMoney = value; }
 
         public String GetUsername()
         {

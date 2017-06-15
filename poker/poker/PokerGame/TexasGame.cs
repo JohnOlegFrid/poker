@@ -134,6 +134,7 @@ namespace poker.PokerGame
             activePlayer = null;
             FindWinners();
             GiveMoneyToWiners();
+            HandleStatistics.updateStats(GetListActivePlayers());
             ResetPotOfPlayers();
             ThrowLeavedPlayers();
             ThrowPlayersThatDontHaveEnuoghMoney();

@@ -25,9 +25,13 @@ namespace poker.Players
         private League league;
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
+        private int num_of_games;
+        private int total_gross_profit;//bruto
+        private int total_wins;//neto
+        private int best_win;
         public object lock_;
 
-        public Player(int id, String username, String password, String email, League league)
+        public Player(int id, String username, String password, String email, League league, int numOfGames,int totalGrossProfit,int totalWins, int bestWin)
         {
             this.id = id;
             this.username = username;
@@ -39,6 +43,28 @@ namespace poker.Players
                 league.AddPlayerToLeague(this);
             currentlyWatching = new List<IGame>();
             this.money = 0;
+            this.num_of_games = numOfGames;
+            this.total_gross_profit = totalGrossProfit;
+            this.total_wins = totalWins;
+            this.best_win = bestWin;
+        }
+
+        public Player(int id, String username, String password, String email, League league)
+        {
+            this.id = id;
+            this.username = username;
+            this.league = league;
+            this.password = password;
+            SetEmail(email);
+            rank = 0;
+            if (league != null)
+                league.AddPlayerToLeague(this);
+            currentlyWatching = new List<IGame>();
+            this.money = 0;
+            this.num_of_games = 0;
+            this.total_gross_profit = 0;
+            this.total_wins = 0;
+            this.best_win = 0;
         }
 
         public int Id { get { return id; } }
@@ -71,6 +97,11 @@ namespace poker.Players
         }
 
         public League League { get { return league; } set { league = value; } }
+
+        public int Num_of_games { get => num_of_games; set => num_of_games = value; }
+        public int Total_gross_profit { get => total_gross_profit; set => total_gross_profit = value; }
+        public int Best_win { get => best_win; set => best_win = value; }
+        public int Total_wins { get => total_wins; set => total_wins = value; }
 
         public override bool Equals(object obj)
         {
