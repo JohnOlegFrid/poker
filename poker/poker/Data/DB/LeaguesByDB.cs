@@ -17,7 +17,6 @@ namespace poker.Data.DB
         {
             this.db = db;
             listLeagues = new List<League>();
-            InitData();
         }
 
         public void AddLeague(League league)
