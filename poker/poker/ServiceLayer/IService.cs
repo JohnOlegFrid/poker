@@ -25,6 +25,9 @@ namespace poker.ServiceLayer
         string AddCheckToGame(string roomId, string moveJson);
         string AddRaiseToGame(string roomId, string moveJson);
 
+        //web to server
+        string LoginWeb(String username, String password);
+
         //server to client
         void SendCommandToPlayersInGame(string command, string roomId);
         void UpdatePlayer(string username);

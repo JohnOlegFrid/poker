@@ -65,6 +65,15 @@ namespace poker.ServiceLayer
             return CreateJson(command);
         }
 
+        public string LoginWeb(string username, string password)
+        {
+            Player player = PlayerAction.Login(username, password, PlayersData);
+            if (player == null)
+                return "Error";
+            var ans = HandleStatistics.GetTopForPrint(player, playersData);
+            return CreateJson(HandleStatistics.GetTopForPrint(player, playersData));
+        }
+
         public string EditPlayer(string username, string type, string newValue)
         {
             return userService.EditPlayer(username, type, newValue);
