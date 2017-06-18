@@ -122,6 +122,9 @@
     <Compile Include="PokerGame\GamePreferences.cs" />
     <Compile Include="PokerGame\Moves\Move.cs" />
     <Compile Include="PokerGame\TexasGame.cs" />
+    <Compile Include="Security\Decryption.cs" />
+    <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Security\Key.cs" />
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
     <Page Include="GUI\Chair.xaml">

@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using poker.Security;
 
 
 namespace poker.Server
@@ -46,6 +47,7 @@ namespace poker.Server
 
         public static void SendMessage(string msg, StreamWriter sWriter, object lock_)
         {
+            msg = Encryption.Encrypt(msg, Program.key, Program.iv);
             lock (lock_)
             {
                 sWriter.WriteLine(msg);
@@ -75,6 +77,7 @@ namespace poker.Server
                     sData = sReader.ReadLine();
                     if (sData == null)
                         continue;
+                    sData = Decryption.Decrypt(sData, Program.key, Program.iv);
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     
                     respond = Parser.Parse(command);

@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using poker.Security;
 
 namespace PokerClient.Communication
 {
@@ -39,7 +39,9 @@ namespace PokerClient.Communication
         {
             try
             {
-                sWriter.WriteLine(JsonConvert.SerializeObject(command));
+                string toSend = JsonConvert.SerializeObject(command);
+                toSend = Encryption.Encrypt(toSend, MainInfo.key, MainInfo.iv);
+                sWriter.WriteLine(toSend);               
                 sWriter.Flush();
             }
             catch (Exception E)
@@ -51,7 +53,9 @@ namespace PokerClient.Communication
 
         public Command GetMessage()
         {
-            return JsonConvert.DeserializeObject<Command>(sReader.ReadLine());
+            string answer = sReader.ReadLine();
+            answer = Decryption.Decrypt(answer, MainInfo.key, MainInfo.iv);
+            return JsonConvert.DeserializeObject<Command>(answer);
         }
 
         public void Listener()
@@ -61,8 +65,7 @@ namespace PokerClient.Communication
             {
                 try
                 {
-                    string answer = sReader.ReadLine();
-                    command = JsonConvert.DeserializeObject<Command>(answer);
+                    command = GetMessage();
                     if (command == null)
                         continue;
                     var t = new Thread(() => Parser.Parse(command));

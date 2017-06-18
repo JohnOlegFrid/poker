@@ -11,6 +11,7 @@ using poker.PokerGame;
 using System.Net;
 using System.Net.Sockets;
 using static poker.PokerGame.GamePreferences;
+using poker.Security;
 
 namespace poker
 {
@@ -19,9 +20,12 @@ namespace poker
         public static ILeaguesData leaguesData;
         public static IPlayersData playersData;
         public static IRoomData roomsData;
+        public static string key = "fvggtzYH675PiXpjK5fGuGhadAa5Sjb1G4hUQobzlls=";
+        public static string iv = "2EPvpwkqNxcc4qmKlPv80cpNWuVu6ypjwhGGE5dceMI=";
         public static void Main(string[] args)
         {
             InitData();
+            
             Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress());
             TcpServer server = new TcpServer(5555);
         }

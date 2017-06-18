@@ -21,6 +21,8 @@ namespace PokerClient
         private List<Room> roomsToPlay = null;
         ObservableCollection<Room> roomsToPlayObsever = null;
         private static readonly object syncRoot = new object();
+        public static string key = "fvggtzYH675PiXpjK5fGuGhadAa5Sjb1G4hUQobzlls=";
+        public static string iv = "2EPvpwkqNxcc4qmKlPv80cpNWuVu6ypjwhGGE5dceMI=";
 
         private static MainInfo instance;
 
