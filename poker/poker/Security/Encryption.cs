@@ -38,5 +38,12 @@ namespace poker.Security
 
             return (Convert.ToBase64String(encrypted));
         }
+
+        public static string EncryptPassword(string password)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            return System.Text.Encoding.ASCII.GetString(data);
+        }
     }
 }

@@ -7,6 +7,7 @@ using poker.Center;
 using poker.Data;
 using poker.Server;
 using poker.ServiceLayer;
+using poker.Security;
 
 namespace poker.Players
 {
@@ -14,6 +15,7 @@ namespace poker.Players
     {
         public static Player Login(String username , String password, IPlayersData date)
         {
+            password = Encryption.EncryptPassword(password);
             Player player = date.FindPlayerByUsername(username);
             if (player == null || !player.GetPassword().Equals(password))
                 return null;
@@ -54,7 +56,9 @@ namespace poker.Players
             if (!IsValidPassword(newPlayer.GetPassword()))
                 return "Error! invalid password";
             newPlayer.Money = 5000;
+            newPlayer.SetPassword(Encryption.EncryptPassword(newPlayer.GetPassword()));
             data.AddPlayer(newPlayer);
+            Console.WriteLine("pass: " + newPlayer.GetPassword());
             return "ok";
         }
 

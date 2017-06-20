@@ -51,10 +51,10 @@ namespace poker
             user3.Money = 5000;
             Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
             user4.Money = 5000;
-            playersData.AddPlayer(user1);
-            playersData.AddPlayer(user2);
-            playersData.AddPlayer(user3);
-            playersData.AddPlayer(user4);
+            PlayerAction.Register(user1, playersData);
+            PlayerAction.Register(user2, playersData);
+            PlayerAction.Register(user3, playersData);
+            PlayerAction.Register(user4, playersData);
 
             // create rooms
             GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
