@@ -58,7 +58,6 @@ namespace poker.Players
             newPlayer.Money = 5000;
             newPlayer.SetPassword(Encryption.EncryptPassword(newPlayer.GetPassword()));
             data.AddPlayer(newPlayer);
-            Console.WriteLine("pass: " + newPlayer.GetPassword());
             return "ok";
         }
 
