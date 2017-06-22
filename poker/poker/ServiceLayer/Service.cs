@@ -209,5 +209,7 @@ namespace poker.ServiceLayer
         {
             userService.UpdatePlayer(username);
         }
+
+       
     }
 }

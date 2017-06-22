@@ -120,6 +120,17 @@ namespace PokerClient
                     Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
             });
             Application.Current.Dispatcher.Invoke(() => { MainWindow.mainContentControl.Content = new Login(); });
+            
+        }
+
+        public String getPlayerUsername()
+        {
+            return player.Username;
+        }
+
+        public String getPlayerEmail()
+        {
+            return player.GetEmail();
         }
     }
 }

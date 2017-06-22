@@ -8,9 +8,13 @@
 
     <DockPanel LastChildFill="True" Background="Black">
         <TextBlock x:Name="userNameTB" DockPanel.Dock="Left" Width="300" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
-        <TextBlock x:Name="userRankTB" DockPanel.Dock="Left" Width="200" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
-        <TextBlock x:Name="userMoneyTB" DockPanel.Dock="Left" Width="200"  FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold" />
-        <Button x:Name="logoutButton" Background="#FF5F5D5D" Foreground="#FFF6F6F6" BorderBrush="#FFFAFAFA"  Content="Logout" IsCancel="True" FontWeight="Bold" Click="logoutButton_Click"/>
+        <TextBlock x:Name="userRankTB" DockPanel.Dock="Left" Width="150" FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold"/>
+        <TextBlock x:Name="userMoneyTB" DockPanel.Dock="Left" Width="150"  FontSize="16" Foreground="White" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-6" FontWeight="Bold" />
+        <DockPanel>
+           
+            <Button x:Name="EditButton"  Background="#FF08239E" Foreground="#FFF6F6F6" BorderBrush="#FFFAFAFA"  Content="Edit Info" FontWeight="Bold" Width="100" Click="EditButton_Click" />
+            <Button x:Name="logoutButton" Background="#FFC40404" Foreground="#FFF6F6F6" BorderBrush="#FFFAFAFA"  Content="Logout" FontWeight="Bold" Click="logoutButton_Click"/>
+        </DockPanel>
     </DockPanel>
 
 </UserControl>

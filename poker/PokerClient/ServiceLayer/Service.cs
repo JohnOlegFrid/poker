@@ -182,9 +182,10 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        public void UpdateUserInfo(string username, string newEmail, string newPassword, string NewAvater)
+        public void UpdateUserInfo(string username, string newEmail, string newPassword, string newAvatar)
         {
-            throw new NotImplementedException();
+            Command command = new Command("UpdatePlayerInfo", new String[4] { username, newEmail, newPassword, newAvatar });
+            MainInfo.Instance.SendMessage(command);
         }
 
         //end client to server
