@@ -116,11 +116,12 @@ namespace PokerClient
 
         public void Logout()
         {
-           RoomsToPlay.ForEach(r =>
-            {
-                if (r.RoomWindow != null)
-                    Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
-            });
+           if(RoomsToPlay != null)
+               RoomsToPlay.ForEach(r =>
+                {
+                    if (r.RoomWindow != null)
+                        Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
+                });
             Application.Current.Dispatcher.Invoke(() => { MainWindow.mainContentControl.Content = new Login(); });
         }
     }

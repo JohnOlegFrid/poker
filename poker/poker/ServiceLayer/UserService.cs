@@ -27,7 +27,12 @@ namespace poker.ServiceLayer
 
         public string Login(String username, String password)
         {
-            return JsonConvert.SerializeObject(PlayerAction.Login(username, password, service.PlayersData));
+            Player player = PlayerAction.Login(username, password, service.PlayersData);
+            if(player != null)
+            {
+                player.UniqueNum = TcpServer.GetRandomUnique();
+            }
+            return JsonConvert.SerializeObject(player);
         }
 
         public string EditPlayer(string username, string type, string newValue)

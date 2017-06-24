@@ -11,15 +11,15 @@ namespace poker.ServiceLayer
         //client to server
         string Register(string username, string password, string email);
         string Login(String username, String password);
-        string EditPlayer(string username, string type, string newValue);
-        string SendMessage(string username, string from, string msg);
-        string GetAllRoomsToPlay(string username);
-        string SitOnChair(string roomId, string username,string money,  string chairNum);
-        string AddPlayerToRoom(string roomId, string username);
-        string RemovePlayerFromRoom(string roomId, string username);
+        string EditPlayer(string username, string uniqueNum,  string type, string newValue);
+        string SendMessage(string username, string uniqueNum, string from, string msg);
+        string GetAllRoomsToPlay(string username, string uniqueNum);
+        string SitOnChair(string roomId, string username, string uniqueNum, string money,  string chairNum);
+        string AddPlayerToRoom(string roomId, string username, string uniqueNum);
+        string RemovePlayerFromRoom(string roomId, string username, string uniqueNum);
         string StartGame(string roomId);
         string UpdateGame(string roomId);
-        string AddChatMessage(string roomId, string username, string msg, string isActiveInGame);
+        string AddChatMessage(string roomId, string username, string uniqueNum, string msg, string isActiveInGame);
         string AddFoldToGame(string roomId, string moveJson);
         string AddCallToGame(string roomId, string moveJson);
         string AddCheckToGame(string roomId, string moveJson);

@@ -117,7 +117,7 @@ namespace PokerClient.ServiceLayer
         // client to server
         public void RequestAllRoomsToPlay()
         {
-            Command command = new Command("GetAllRoomsToPlay", new string[1] { MainInfo.Instance.Player.Username });
+            Command command = new Command("GetAllRoomsToPlay", new string[] { MainInfo.Instance.Player.Username, MainInfo.Instance.Player.UniqueNum+"" });
             MainInfo.Instance.SendMessage(command);
         }
 
@@ -135,19 +135,19 @@ namespace PokerClient.ServiceLayer
 
         public void SitOnChair(string roomId, string username, string chairNum, string amount)
         {
-            Command command = new Command("SitOnChair", new string[4] { roomId, username, amount, chairNum });
+            Command command = new Command("SitOnChair", new string[] { roomId, username, MainInfo.Instance.Player.UniqueNum + "", amount, chairNum });
             MainInfo.Instance.SendMessage(command);
         }
 
         public void AddPlayerToRoom(string roomId, string username)
         {
-            Command command = new Command("AddPlayerToRoom", new string[2] { roomId, username });
+            Command command = new Command("AddPlayerToRoom", new string[] { roomId, username, MainInfo.Instance.Player.UniqueNum + "" });
             MainInfo.Instance.SendMessage(command);
         }
 
         public void RemovePlayerFromRoom(string roomId, string username)
         {
-            Command command = new Command("RemovePlayerFromRoom", new string[2] { roomId, username });
+            Command command = new Command("RemovePlayerFromRoom", new string[] { roomId, username, MainInfo.Instance.Player.UniqueNum + "" });
             MainInfo.Instance.SendMessage(command);
         }
 
@@ -165,7 +165,7 @@ namespace PokerClient.ServiceLayer
 
         public void SendChatMessage(string roomId, string username, string msg, string isActiveInGame)
         {
-            Command command = new Command("AddChatMessage", new string[4] { roomId, username, msg, isActiveInGame });
+            Command command = new Command("AddChatMessage", new string[] { roomId, username, MainInfo.Instance.Player.UniqueNum + "", msg, isActiveInGame });
             MainInfo.Instance.SendMessage(command);
         }
 
