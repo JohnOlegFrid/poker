@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Leagues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerLeague">
+          <Key>
+            <PropertyRef Name="playerId" />
+            <PropertyRef Name="leagueId" />
+          </Key>
+          <Property Name="playerId" Type="int" Nullable="false" />
+          <Property Name="leagueId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="rank" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="money" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomLeague">
+          <Key>
+            <PropertyRef Name="roomId" />
+            <PropertyRef Name="leagueId" />
+          </Key>
+          <Property Name="roomId" Type="int" Nullable="false" />
+          <Property Name="leagueId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="gamePolicy" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="maxPlayers" Type="int" Nullable="false" />
+          <Property Name="minPlayers" Type="int" Nullable="false" />
+          <Property Name="minBuyIn" Type="int" Nullable="false" />
+          <Property Name="maxBuyIn" Type="int" Nullable="false" />
+          <Property Name="allowSpectating" Type="bool" Nullable="false" />
+          <Property Name="bigBlind" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="PlayerLeague_ibfk_1">
+          <End Role="Players" Type="Self.Players" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerLeague" Type="Self.PlayerLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlayerLeague">
+              <PropertyRef Name="playerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlayerLeague_ibfk_2">
+          <End Role="Leagues" Type="Self.Leagues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerLeague" Type="Self.PlayerLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leagues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlayerLeague">
+              <PropertyRef Name="leagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomLeague_ibfk_1">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoomLeague" Type="Self.RoomLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomLeague">
+              <PropertyRef Name="roomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomLeague_ibfk_2">
+          <End Role="Leagues" Type="Self.Leagues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoomLeague" Type="Self.RoomLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leagues">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomLeague">
+              <PropertyRef Name="leagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Leagues" EntityType="Self.Leagues" Schema="sql8176777" store:Type="Tables" />
+          <EntitySet Name="PlayerLeague" EntityType="Self.PlayerLeague" Schema="sql8176777" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="sql8176777" store:Type="Tables" />
+          <EntitySet Name="RoomLeague" EntityType="Self.RoomLeague" Schema="sql8176777" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="sql8176777" store:Type="Tables" />
+          <AssociationSet Name="PlayerLeague_ibfk_1" Association="Self.PlayerLeague_ibfk_1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerLeague" EntitySet="PlayerLeague" />
+          </AssociationSet>
+          <AssociationSet Name="PlayerLeague_ibfk_2" Association="Self.PlayerLeague_ibfk_2">
+            <End Role="Leagues" EntitySet="Leagues" />
+            <End Role="PlayerLeague" EntitySet="PlayerLeague" />
+          </AssociationSet>
+          <AssociationSet Name="RoomLeague_ibfk_1" Association="Self.RoomLeague_ibfk_1">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="RoomLeague" EntitySet="RoomLeague" />
+          </AssociationSet>
+          <AssociationSet Name="RoomLeague_ibfk_2" Association="Self.RoomLeague_ibfk_2">
+            <End Role="Leagues" EntitySet="Leagues" />
+            <End Role="RoomLeague" EntitySet="RoomLeague" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LeagueDB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Players" Relationship="Self.PlayerLeague" FromRole="Leagues" ToRole="Players" />
+          <NavigationProperty Name="Rooms" Relationship="Self.RoomLeague" FromRole="Leagues" ToRole="Rooms" />
+        </EntityType>
+        <EntityType Name="PlayerDB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="money" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leagues" Relationship="Self.PlayerLeague" FromRole="Players" ToRole="Leagues" />
+        </EntityType>
+        <EntityType Name="RoomDB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="gamePolicy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maxPlayers" Type="Int32" Nullable="false" />
+          <Property Name="minPlayers" Type="Int32" Nullable="false" />
+          <Property Name="minBuyIn" Type="Int32" Nullable="false" />
+          <Property Name="maxBuyIn" Type="Int32" Nullable="false" />
+          <Property Name="allowSpectating" Type="Boolean" Nullable="false" />
+          <Property Name="bigBlind" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leagues" Relationship="Self.RoomLeague" FromRole="Rooms" ToRole="Leagues" />
+        </EntityType>
+        <Association Name="PlayerLeague">
+          <End Role="Players" Type="DBModel.PlayerDB" Multiplicity="*" />
+          <End Role="Leagues" Type="DBModel.LeagueDB" Multiplicity="*" />
+        </Association>
+        <Association Name="RoomLeague">
+          <End Role="Rooms" Type="DBModel.RoomDB" Multiplicity="*" />
+          <End Role="Leagues" Type="DBModel.LeagueDB" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="myDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LeagueDBs" EntityType="DBModel.LeagueDB" />
+          <EntitySet Name="PlayerDBs" EntityType="DBModel.PlayerDB" />
+          <EntitySet Name="RoomDBs" EntityType="DBModel.RoomDB" />
+          <AssociationSet Name="PlayerLeague" Association="Self.PlayerLeague">
+            <End Role="Players" EntitySet="PlayerDBs" />
+            <End Role="Leagues" EntitySet="LeagueDBs" />
+          </AssociationSet>
+          <AssociationSet Name="RoomLeague" Association="Self.RoomLeague">
+            <End Role="Rooms" EntitySet="RoomDBs" />
+            <End Role="Leagues" EntitySet="LeagueDBs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="myDB">
+          <EntitySetMapping Name="LeagueDBs">
+            <EntityTypeMapping TypeName="DBModel.LeagueDB">
+              <MappingFragment StoreEntitySet="Leagues">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerDBs">
+            <EntityTypeMapping TypeName="DBModel.PlayerDB">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="money" ColumnName="money" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomDBs">
+            <EntityTypeMapping TypeName="DBModel.RoomDB">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gamePolicy" ColumnName="gamePolicy" />
+                <ScalarProperty Name="maxPlayers" ColumnName="maxPlayers" />
+                <ScalarProperty Name="minPlayers" ColumnName="minPlayers" />
+                <ScalarProperty Name="minBuyIn" ColumnName="minBuyIn" />
+                <ScalarProperty Name="maxBuyIn" ColumnName="maxBuyIn" />
+                <ScalarProperty Name="allowSpectating" ColumnName="allowSpectating" />
+                <ScalarProperty Name="bigBlind" ColumnName="bigBlind" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PlayerLeague" TypeName="DBModel.PlayerLeague" StoreEntitySet="PlayerLeague">
+            <EndProperty Name="Players">
+              <ScalarProperty Name="id" ColumnName="playerId" />
+            </EndProperty>
+            <EndProperty Name="Leagues">
+              <ScalarProperty Name="id" ColumnName="leagueId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RoomLeague" TypeName="DBModel.RoomLeague" StoreEntitySet="RoomLeague">
+            <EndProperty Name="Rooms">
+              <ScalarProperty Name="id" ColumnName="roomId" />
+            </EndProperty>
+            <EndProperty Name="Leagues">
+              <ScalarProperty Name="id" ColumnName="leagueId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
