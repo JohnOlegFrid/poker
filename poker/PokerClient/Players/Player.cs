@@ -14,6 +14,7 @@ namespace PokerClient.Players
         private String password;
         private String email;
         private int money;
+        private int uniqueNum;
 
         public Player() { }
 
@@ -31,6 +32,8 @@ namespace PokerClient.Players
         public string Username { get { return username; } set { username = value; } }
         public int Rank { get { return rank; } set { rank = value; } }
         public int Money { get { return money; } set { money = value; } }
+
+        public int UniqueNum { get => uniqueNum; set => uniqueNum = value; }
 
         public string GetEmail()
         {

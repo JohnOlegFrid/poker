@@ -42,11 +42,6 @@ namespace poker.ServiceLayer
         public IRoomData RoomsData { get { return roomsData; } set { roomsData = value; } }
         public IPlayersData PlayersData { get { return playersData; } set { playersData = value; } }
 
-        public void SendMessageOnGame(string roomId, string message, string username)
-        {
-            gameService.SendMessageOnGame(roomId, message, username);
-        }
-
         public string CreateJson(Object obj)
         {
             return JsonConvert.SerializeObject(obj);
@@ -74,25 +69,33 @@ namespace poker.ServiceLayer
             return CreateJson(HandleStatistics.GetTopForPrint(player, playersData));
         }
 
-        public string EditPlayer(string username, string type, string newValue)
+        public string EditPlayer(string username, string uniqueNum, string type, string newValue)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             return userService.EditPlayer(username, type, newValue);
         }
 
-        public string SendMessage(string username, string from, string msg)
+        public string SendMessage(string username, string uniqueNum, string from, string msg)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             userService.SendMessge(username, from, msg);
             return "null";
         }
 
-        public string GetAllRoomsToPlay(string username)
+        public string GetAllRoomsToPlay(string username, string uniqueNum)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             Command command = new Command("TakeAllRoomsToPlay", new string[1] { this.centerService.GetAllRoomsToPlay(username) });
             return CreateJson(command);
         }
 
-        public string SitOnChair(string roomId, string username, string money, string chairNum)
+        public string SitOnChair(string roomId, string username, string uniqueNum, string money, string chairNum)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             try {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
                 Player player = playersData.FindPlayerByUsername(username);
@@ -109,22 +112,11 @@ namespace poker.ServiceLayer
             
         }
 
-        public void SendCommandToPlayersInGame(string command, string roomId)
-        {
-            try
-            {
-                Room room = roomsData.FindRoomById(int.Parse(roomId));
-                List<Player> players = room.Spectators;
-                foreach (Player player in players)
-                {
-                    player.sendMessageToPlayer(command);
-                }
-            }
-            catch {  }                   
-        }
 
-        public string AddPlayerToRoom(string roomId, string username)
+        public string AddPlayerToRoom(string roomId, string username, string uniqueNum)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             try
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
@@ -138,8 +130,10 @@ namespace poker.ServiceLayer
             }
         }
 
-        public string RemovePlayerFromRoom(string roomId, string username)
+        public string RemovePlayerFromRoom(string roomId, string username, string uniqueNum)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             try
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
@@ -171,8 +165,10 @@ namespace poker.ServiceLayer
             
         }
 
-        public string AddChatMessage(string roomId, string username, string msg, string isActiveInGame)
+        public string AddChatMessage(string roomId, string username, string uniqueNum, string msg, string isActiveInGame)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             try
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
@@ -208,6 +204,41 @@ namespace poker.ServiceLayer
         public void UpdatePlayer(string username)
         {
             userService.UpdatePlayer(username);
+        }
+
+        public void SendCommandToPlayersInGame(string command, string roomId)
+        {
+            try
+            {
+                Room room = roomsData.FindRoomById(int.Parse(roomId));
+                List<Player> players = room.Spectators;
+                foreach (Player player in players)
+                {
+                    player.sendMessageToPlayer(command);
+                }
+            }
+            catch { }
+        }
+
+        public void SendMessageOnGame(string roomId, string message, string username)
+        {
+            gameService.SendMessageOnGame(roomId, message, username);
+        }
+
+        private bool IsUsernameAuthorize(string username, string uniqueNum)
+        {
+            Player player = PlayersData.FindPlayerByUsername(username);
+            if (player == null)
+                return false;
+            try
+            {
+                return int.Parse(uniqueNum) == player.UniqueNum;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }

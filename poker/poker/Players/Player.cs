@@ -22,6 +22,8 @@ namespace poker.Players
         private String email;
         [JsonProperty]
         private int money;
+        [JsonProperty]
+        private int uniqueNum;
         private League league;
         private List<IGame> currentlyWatching;
         private StreamWriter sWriter;
@@ -104,6 +106,7 @@ namespace poker.Players
         public int Total_gross_profit { get => total_gross_profit; set => total_gross_profit = value; }
         public int Best_win { get => best_win; set => best_win = value; }
         public int Total_wins { get => total_wins; set => total_wins = value; }
+        public int UniqueNum { get => uniqueNum; set => uniqueNum = value; }
 
         public override bool Equals(object obj)
         {

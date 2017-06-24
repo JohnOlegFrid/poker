@@ -21,6 +21,8 @@ namespace PokerClient
         private List<Room> roomsToPlay = null;
         ObservableCollection<Room> roomsToPlayObsever = null;
         private static readonly object syncRoot = new object();
+        public static string key = "fvggtzYH675PiXpjK5fGuGhadAa5Sjb1G4hUQobzlls=";
+        public static string iv = "2EPvpwkqNxcc4qmKlPv80cpNWuVu6ypjwhGGE5dceMI=";
 
         private static MainInfo instance;
 
@@ -114,11 +116,12 @@ namespace PokerClient
 
         public void Logout()
         {
-           RoomsToPlay.ForEach(r =>
-            {
-                if (r.RoomWindow != null)
-                    Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
-            });
+           if(RoomsToPlay != null)
+               RoomsToPlay.ForEach(r =>
+                {
+                    if (r.RoomWindow != null)
+                        Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
+                });
             Application.Current.Dispatcher.Invoke(() => { MainWindow.mainContentControl.Content = new Login(); });
         }
     }

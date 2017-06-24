@@ -93,6 +93,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Players\Player.cs" />
+    <Compile Include="Security\Decryption.cs" />
+    <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Security\Key.cs" />
     <Compile Include="Server\Command.cs" />
     <Compile Include="Server\Parser.cs" />
     <Compile Include="ServiceLayer\CenterService.cs" />

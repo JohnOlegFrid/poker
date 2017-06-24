@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using poker.Security;
 
 
 namespace poker.Server
@@ -16,6 +17,7 @@ namespace poker.Server
         private TcpListener server;
         private Boolean isRunning;
         private int numberClient;
+        private static List<int> randomList = new List<int>();
 
         public TcpServer(int port)
         {
@@ -46,6 +48,7 @@ namespace poker.Server
 
         public static void SendMessage(string msg, StreamWriter sWriter, object lock_)
         {
+            msg = Encryption.Encrypt(msg, Program.key, Program.iv);
             lock (lock_)
             {
                 sWriter.WriteLine(msg);
@@ -75,6 +78,7 @@ namespace poker.Server
                     sData = sReader.ReadLine();
                     if (sData == null)
                         continue;
+                    sData = Decryption.Decrypt(sData, Program.key, Program.iv);
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     
                     respond = Parser.Parse(command);
@@ -94,11 +98,23 @@ namespace poker.Server
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error with client, disconect...");
+                    Console.WriteLine("Client disconect...");
                     return;
                 }
                
             }
+        }
+
+        public static int GetRandomUnique()
+        {
+            Random a = new Random(DateTime.Now.Ticks.GetHashCode());
+            int num = a.Next();
+            if (!randomList.Contains(num))
+            {
+                randomList.Add(num);
+                return num;
+            }
+            return GetRandomUnique();
         }
 
     }
