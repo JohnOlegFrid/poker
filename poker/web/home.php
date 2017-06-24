@@ -6,8 +6,17 @@ session_start();
 <head>
 
 <title>Poker Homey</title>
+<link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
 
-
+<script>
+        $(function(){
+		  $("#table1").tablesorter({sortList: [[5,1]], widgets: ['zebra']});
+		  $("#table2").tablesorter({sortList: [[4,1]], widgets: ['zebra']});
+          $("#table3").tablesorter({sortList: [[1,1]], widgets: ['zebra']});
+        });
+    </script>
 <style>
 body{
 	background-image: url("images/homeBack4.jpg");
@@ -67,34 +76,39 @@ button:hover {
 		
 		echo "<table width='100%'>";
 		echo "<tr>";
-		$columns = array("Username","number of games","Best win","Total gross","average gain","average gross profit");
+		$columns = array("Username","Number of games","Best win","Total gross","average gain","Average gross profit");
 		
 		$tablesName= array("Player Info","Top by Gross Profit","Top by Highest Gain","Top By Number Of Games");
 		$tableSize=count($tablesName);
 		for ($i=0 ; $i <$tableSize; $i++){
 			echo "<h2> $tablesName[$i] </br> </h2>";
-			echo "<table width='100%'>";
+			echo "<table id=\"table$i\" ellspacing=\"1\" class=\"tablesorter\" width='100%'>";
+			echo "<thead>";
 			
 			foreach ($columns as $col){
 				echo "<th> $col </th>";
 			}
-				
+			
+			echo "</thead>";
+			echo "<tbody>";
+			
 			foreach ($result[$i] as $username => $item){
 				echo "<tr>";
-				echo "<td align='center'> $username </td>";
-					
+				echo "<td align='center'> $username </td>";	
 				foreach ($item as $it){
 					echo "<td align='center'> $it </td>";
 				}
 				echo "<tr>";
 			}
+			echo "</tbody>";
 			echo "</table>";
 		}
 	}
 
+
+
+
 ?>
-
-
 
 
 

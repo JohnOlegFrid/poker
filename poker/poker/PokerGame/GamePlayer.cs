@@ -33,6 +33,7 @@ namespace poker.PokerGame
             hand = new Hand();
             wantToExit = false;
             nextMove = null;
+            startingMoney = money;
         }
 
         public int Money { get { return money; } set { money = value; } }
