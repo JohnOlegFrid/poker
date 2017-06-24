@@ -48,9 +48,6 @@ include "Command.php";
 				return false;
 			}
 			$in = json_decode($in); //in[0] myPlayer info , in[1] top by Gross profit, in[2] top by Highest gain , in[3] top by Number of games
-			 foreach($in[1] as $key => $item){
-				 echo " $key: numOfGame $item[0], Best_win $item[1], TotalGross $item[2], AvgGain $item[3], AvgGrossProfit $item[4]</br>";
-			 }
 			$_SESSION["username"] = $username;
 			$_SESSION["info"] = $in;
 			
