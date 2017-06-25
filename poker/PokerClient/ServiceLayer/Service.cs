@@ -35,7 +35,7 @@ namespace PokerClient.ServiceLayer
 
         public void GetMessage(string from, string msg)
         {
-            GUI.MainWindow.ShowMessage("Message: " + msg + ". From: " + from);
+            GUI.MainWindow.ShowMessage("Private Message From: " + from + Environment.NewLine + "Message: " + msg);
         }
 
         public void Login(string player)
