@@ -17,6 +17,7 @@ namespace PokerClient
         private Client client = null;
         private Player player = null;
         private MainWindow mainWindow = null;
+        private EditWindow editWindow = null;
         private Login login = null;
         private List<Room> roomsToPlay = null;
         ObservableCollection<Room> roomsToPlayObsever = null;
@@ -91,6 +92,10 @@ namespace PokerClient
 
         public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
 
+        public EditWindow EditWindow { get => editWindow; set => editWindow = value; }
+
+
+
         public Room FindRoomById(int roomId)
         {
             return roomsToPlay.Find(r => r.Id == roomId);
@@ -130,7 +135,7 @@ namespace PokerClient
 
         public String getPlayerEmail()
         {
-            return player.GetEmail();
+            return player.Email;
         }
     }
 }

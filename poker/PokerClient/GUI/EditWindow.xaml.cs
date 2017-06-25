@@ -24,27 +24,41 @@ namespace PokerClient.GUI
         public EditWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             emailBox.Text = MainInfo.Instance.getPlayerEmail();
             usernameBox.Text = MainInfo.Instance.getPlayerUsername();
             IPadress.Text = Client.GetLocalIPAddress();
+
         }
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             String pass = passwordBox.Password;
             String confPass = confirmPasswordBox.Password;
+
+            if (MainInfo.Instance.EditWindow == null)
+            {
+                MainInfo.Instance.EditWindow = this;
+            }
+            else
+            {
+                MessageBox.Show("there is an Edit window open allready.", "Dual Edit Window", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             if (pass.CompareTo(confPass) != 0)
             {
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.", "Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MainInfo.Instance.EditWindow = null;
                 // RegisterButton.IsEnabled = true;
             }
             else
             {
                 if (emailBox.Text != "" && pass.CompareTo("") != 0)
-                    Service.Instance.UpdateUserInfo(usernameBox.Text, emailBox.Text, pass, null);
+                    Service.Instance.UpdatePlayerInfo(usernameBox.Text,pass, emailBox.Text);
                 else
                 {
                     MessageBox.Show("You need to fill all text boxes.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MainInfo.Instance.EditWindow = null;
                 }
             }
         }

@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PokerClient.Communication
 {
@@ -30,7 +31,6 @@ namespace PokerClient.Communication
 
             sReader = new StreamReader(client.GetStream(), Encoding.UTF8);
             sWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
-
             Thread listener = new Thread(new ThreadStart(this.Listener));
             listener.Start();
         }

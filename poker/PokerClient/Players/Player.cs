@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PokerClient.Players
 {
@@ -22,7 +23,7 @@ namespace PokerClient.Players
             this.id = id;
             this.username = username;
             this.password = password;
-            SetEmail(email);
+            this.email=email;
             this.rank = rank;
             this.money = money;
         }
@@ -32,15 +33,8 @@ namespace PokerClient.Players
         public int Rank { get { return rank; } set { rank = value; } }
         public int Money { get { return money; } set { money = value; } }
 
-        public string GetEmail()
-        {
-            return email;
-        }
+        public string Email { get => email; set => email = value; }
 
-        public void SetEmail(string email)
-        {
-            this.email = email;
-        }
 
         public string GetPassword()
         {

@@ -10,6 +10,8 @@ using PokerClient.Communication;
 using PokerClient.GUI;
 using poker.PokerGame;
 using poker.PokerGame.Moves;
+using System.Windows;
+using System.Diagnostics;
 
 namespace PokerClient.ServiceLayer
 {
@@ -40,7 +42,7 @@ namespace PokerClient.ServiceLayer
 
         public void Login(string player)
         {
-            if(player == "null")
+            if (player == "null")
             {
                 MainInfo.Instance.Login.LoginFaild();
                 return;
@@ -111,6 +113,14 @@ namespace PokerClient.ServiceLayer
             room.RoomWindow.ShowMessage(mesasge);
         }
 
+        public void UpdatePlayerInfoSuccess(string playerJson)
+        {
+            MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(playerJson);
+            MainInfo.Instance.MainWindow.mainMenu.userPanel.Update();
+            MessageBox.Show("your Info updated succesfully !", "update success", MessageBoxButton.OK, MessageBoxImage.Information);
+            Application.Current.Dispatcher.Invoke(() => { MainInfo.Instance.EditWindow.Close(); });
+            MainInfo.Instance.EditWindow = null;
+        }
         // end server to client
 
 
@@ -182,11 +192,13 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        public void UpdateUserInfo(string username, string newEmail, string newPassword, string newAvatar)
+        public void UpdatePlayerInfo(string username, string newPassword, string newEmail)
         {
-            Command command = new Command("UpdatePlayerInfo", new String[4] { username, newEmail, newPassword, newAvatar });
+            Command command = new Command("UpdatePlayerInfo", new String[3] { username, newPassword, newEmail });
             MainInfo.Instance.SendMessage(command);
         }
+
+        
 
         //end client to server
     }
