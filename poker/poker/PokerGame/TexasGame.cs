@@ -61,6 +61,7 @@ namespace poker.PokerGame
         public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
 
         public bool Active { get => active; set => active = value; }
+        public GamePlayer ActivePlayer { get => activePlayer; set => activePlayer = value; } //New feature 23.06.17
 
         public void SetRoom(Room room)
         {

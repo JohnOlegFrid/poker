@@ -100,6 +100,58 @@ namespace poker.PokerGame.Tests
         }
 
         [TestMethod()]
+        public void LeaveGameActiveTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+            game1.Active = true;
+            game1.ActivePlayer = Dude1;
+            try
+            {
+                game1.LeaveGame(Dude1);
+                
+            }
+            catch (NullReferenceException )
+            {
+                Assert.IsTrue(Dude1.WantToExit);
+                Assert.IsTrue((Dude1.NextMove.Name).Equals("Fold"));
+            }
+        }
+
+        [TestMethod()]
+        public void LeaveGameInActiveTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+            game1.Active = false;
+            game1.ActivePlayer = Dude1;
+            try
+            {
+                game1.LeaveGame(Dude1);
+                Assert.IsTrue(game1.ChairsInGame[1] == null);
+
+            }
+            catch (NullReferenceException)
+            {
+                Assert.IsTrue(game1.ChairsInGame[1] == null);
+            }
+        }
+
+        [TestMethod()]
         public void BlindTest()
         {
             Program.InitData();
