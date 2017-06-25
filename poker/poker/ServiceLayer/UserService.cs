@@ -60,5 +60,14 @@ namespace poker.ServiceLayer
             Command command = new Command("UpdatePlayer", new string[1] { service.CreateJson(player) });
             player.sendMessageToPlayer(JsonConvert.SerializeObject(command));
         }
+        
+        public String UpdatePlayerInfo(string username, string password, string email)
+        {
+            Player player = service.PlayersData.FindPlayerByUsername(username);
+            player.UpdatePlayerInfo(username, password, email);
+            Command command = new Command("UpdatePlayerInfoSuccess", new string[1] { service.CreateJson(player) });
+            return (JsonConvert.SerializeObject(command));
+
+        }
     }
 }

@@ -61,6 +61,7 @@ namespace poker.ServiceLayer
 
         public string Login(string username, string password)
         {
+            Console.WriteLine("got message login : " + username + " " + "password");
             Command command = new Command("Login", new string[1] { userService.Login(username, password) });
             return CreateJson(command);
         }
@@ -210,6 +211,10 @@ namespace poker.ServiceLayer
             userService.UpdatePlayer(username);
         }
 
+        public String UpdatePlayerInfo(string username,string password,string email)
+        {
+            return userService.UpdatePlayerInfo(username,password,email);
+        }
        
     }
 }

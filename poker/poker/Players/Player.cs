@@ -85,6 +85,10 @@ namespace poker.Players
         {
             if (PlayerAction.IsValidEmail(email))
                 this.email = email;
+            else
+            {
+                Console.WriteLine("error with email in Player.SetEmail");
+            }
         }
 
         public string GetPassword()
@@ -96,6 +100,8 @@ namespace poker.Players
         {
             if (PlayerAction.IsValidPassword(password))
                 this.password = password;
+            else
+                Console.WriteLine("error with password in Player.SetPassword");
         }
 
         public League League { get { return league; } set { league = value; } }
@@ -122,6 +128,12 @@ namespace poker.Players
         public void sendMessageToPlayer(string msg)
         {
             TcpServer.SendMessage(msg, sWriter, lock_);
+        }
+
+        public void UpdatePlayerInfo(string username, string password, string email)
+        {
+            SetEmail(email);
+            SetPassword(password);
         }
     }
 }

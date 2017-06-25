@@ -76,7 +76,6 @@ namespace poker.Server
                     if (sData == null)
                         continue;
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
-                    Console.WriteLine(command.args);
                     respond = Parser.Parse(command);
                     Parser.RememberPlayer(command, respond, sWriter, lock_);
                     if (respond == null)
