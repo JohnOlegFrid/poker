@@ -105,11 +105,15 @@ namespace PokerClient.GUI
                         Blind.Content = "BB";
                         Blind.Visibility = Visibility.Visible;
                     }
-
-                    if (poker.room.Game.GetSmallBlind() != null && poker.room.Game.GetSmallBlind().Player.Equals(player.Player))
+                    else if (poker.room.Game.GetSmallBlind() != null && poker.room.Game.GetSmallBlind().Player.Equals(player.Player))
                     {
                         Blind.Content = "SB";
                         Blind.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        Blind.Content = "";
+                        Blind.Visibility = Visibility.Hidden;
                     }
                     if (player != null && player.IsFold())
                         Grid.Opacity = 0.5;
