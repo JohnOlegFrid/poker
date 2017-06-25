@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace PokerClient.GUI
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
             MainInfo.Instance.Logout();
+
         }
 
         public void Update()
@@ -40,6 +42,12 @@ namespace PokerClient.GUI
                 userRankTB.Text = "Rank: " + MainInfo.Instance.Player.Rank;
                 userMoneyTB.Text = "Money: " + MainInfo.Instance.Player.Money;
             });
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditWindow ew = new EditWindow();
+            ew.Show();
         }
     }
 }

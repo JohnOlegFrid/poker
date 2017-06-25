@@ -80,7 +80,6 @@ namespace poker.Server
                         continue;
                     sData = Decryption.Decrypt(sData, Program.key, Program.iv);
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
-                    
                     respond = Parser.Parse(command);
                     Parser.RememberPlayer(command, respond, sWriter, lock_);
                     if (respond == null)

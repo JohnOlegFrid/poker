@@ -262,5 +262,11 @@ namespace poker.ServiceLayer
             }
             
         }
+
+        public String UpdatePlayerInfo(string username,string password,string email)
+        {
+            return userService.UpdatePlayerInfo(username,password,email);
+        }
+       
     }
 }

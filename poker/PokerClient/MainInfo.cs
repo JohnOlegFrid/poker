@@ -17,6 +17,7 @@ namespace PokerClient
         private Client client = null;
         private Player player = null;
         private MainWindow mainWindow = null;
+        private EditWindow editWindow = null;
         private Login login = null;
         private List<Room> roomsToPlay = null;
         ObservableCollection<Room> roomsToPlayObsever = null;
@@ -93,6 +94,10 @@ namespace PokerClient
 
         public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
 
+        public EditWindow EditWindow { get => editWindow; set => editWindow = value; }
+
+
+
         public Room FindRoomById(int roomId)
         {
             return roomsToPlay.Find(r => r.Id == roomId);
@@ -123,6 +128,17 @@ namespace PokerClient
                         Application.Current.Dispatcher.Invoke(() => { r.RoomWindow.Close(); });
                 });
             Application.Current.Dispatcher.Invoke(() => { MainWindow.mainContentControl.Content = new Login(); });
+            
+        }
+
+        public String getPlayerUsername()
+        {
+            return player.Username;
+        }
+
+        public String getPlayerEmail()
+        {
+            return player.Email;
         }
     }
 }
