@@ -40,12 +40,15 @@ namespace poker.Server
 
         public static void RememberPlayer(Command command, string respond, StreamWriter sWriter, object lock_)
         {
-            if (!command.commandName.Equals("Login"))
+            if (!command.commandName.Equals("Login") && !command.commandName.Equals("Register"))
                 return;
+            int index = 0;
+            if (command.commandName.Equals("Register"))
+                index++;
             Command desRespond = JsonConvert.DeserializeObject<Command>(respond);
-            if(desRespond.args[0] != "null")
+            if(desRespond.args[index] != "null")
             {
-                string username = JsonConvert.DeserializeObject<Player>(desRespond.args[0]).Username;
+                string username = JsonConvert.DeserializeObject<Player>(desRespond.args[index]).Username;
                 Player player = Service.GetLastInstance().PlayersData.FindPlayerByUsername(username);
                 player.SWriter = sWriter;
                 player.lock_ = lock_;

@@ -27,7 +27,8 @@ namespace poker.Data
             if (searchedPlayer == default(Player)) return null; // the player we search doesn't exist.
             else
             {
-                listOfRoomsWithActiveGames = searchedPlayer.League.GetAllActiveGames();
+                League l = leaguesData.FindLeagueById(searchedPlayer.LeagueId);
+                listOfRoomsWithActiveGames = l.GetAllActiveGames();
                 foreach(Room r in listOfRoomsWithActiveGames)
                 {
                     if (r.IsPlayerActiveInRoom(searchedPlayer))

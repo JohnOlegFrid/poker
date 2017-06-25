@@ -17,6 +17,11 @@ namespace poker.PokerGame
         private int bigBlind;
         private GameTypePolicy gameTypePolicy;
         public enum GameTypePolicy { LIMIT, NO_LIMIT, POT_LIMIT};
+
+        public GameTypePolicy GetGameType()
+        {
+            return gameTypePolicy;
+        }
         public int MaxPlayers
         {
             get

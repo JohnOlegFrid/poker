@@ -1,4 +1,5 @@
-﻿using poker.Players;
+﻿using poker.Center;
+using poker.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace poker.ServiceLayer
         public string GetAllRoomsToPlay(string username)
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
-            return service.CreateJson(player.League.Rooms);
+            League l = service.LeaguesData.FindLeagueById(player.LeagueId);
+            return service.CreateJson(l.Rooms);
         }
 
     }

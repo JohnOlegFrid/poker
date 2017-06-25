@@ -24,12 +24,7 @@ namespace poker.Center
             set { loggedPlayer = value; }
         }
 
-        public List<Room> DisplayAvailablePokerGames(Player loggedPlayer = null)
-        {
-            if (loggedPlayer == null) //optional argument
-                loggedPlayer = this.loggedPlayer;
-            return loggedPlayer.League.GetAllActiveGames();
-        }
+
         public List<IGame> GetAllFinishedGames()
         {
             List<IGame> games = new List<IGame>();
@@ -57,38 +52,7 @@ namespace poker.Center
             return ans;
         }
 
-        public void MovePlayerToLeauge(Player player, League league, Player loggedPlayer = null)
-        {
-            if (!IsLoggedPlayerHiggestRanked(loggedPlayer))
-                return;
-            LeagueManager.MovePlayerToLeauge(player, league);
-        }
 
-        public Player GetHiggestRankPlayer()
-        {
-            Player bestPlayer = null, currentPlayer;
-            int bestPlayerRank = -1;
-            foreach(League league in leagues)
-            {
-                currentPlayer = league.getHiggestRankPlayer();
-                if(currentPlayer.Rank > bestPlayerRank)
-                {
-                    bestPlayer = currentPlayer;
-                    bestPlayerRank = bestPlayer.Rank;
-                }
-            }
-            return bestPlayer;
-        }
-
-        public bool IsLoggedPlayerHiggestRanked(Player loggedPlayer)
-        {
-            if (loggedPlayer == null) //optional argument
-                loggedPlayer = this.loggedPlayer;
-            if (loggedPlayer != GetHiggestRankPlayer())
-                return false;
-            return true;
-
-        }
 
         public League GetDefaultLeagues()
         {
@@ -97,12 +61,7 @@ namespace poker.Center
             return leagues[0];
         }
 
-        public void SetDefaultLeagues(League leauge, Player loggedPlayer = null)
-        {
-            if (!IsLoggedPlayerHiggestRanked(loggedPlayer))
-                return;
-            this.defaultLeagues = leauge;
-        }
+
 
         public List<IGame> GetGamesAvailableToSpectate()
         {
