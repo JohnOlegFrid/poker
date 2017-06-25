@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Sockets;
 using static poker.PokerGame.GamePreferences;
 using poker.Security;
+using poker.Data.DB;
 
 namespace poker
 {
@@ -22,6 +23,8 @@ namespace poker
         public static IRoomData roomsData;
         public static string key = "fvggtzYH675PiXpjK5fGuGhadAa5Sjb1G4hUQobzlls=";
         public static string iv = "2EPvpwkqNxcc4qmKlPv80cpNWuVu6ypjwhGGE5dceMI=";
+        public static myDB db = new myDB();
+
         public static void Main(string[] args)
         {
             InitData();
@@ -32,48 +35,10 @@ namespace poker
 
         public static void InitData()
         {
-            leaguesData = new LeaguesByList();
-            playersData = new PlayersByList();
-            roomsData = new RoomByList();
-
-            // create Lagues
-            League league1 = new League(100, "Level One");
-            League league2 = new League(200, "Level Two");
-            leaguesData.AddLeague(league1);
-            leaguesData.AddLeague(league2);
-
-            // create Users
-            Player user1 = new Player(100, "Eliran", "1234", "eliran@gmail.com", league1);
-            user1.Money = 5000;
-            Player user2 = new Player(200, "Oleg", "1234", "oleg@gmail.com", league1);
-            user2.Money = 5000;
-            Player user3 = new Player(300, "Moshe", "1234", "moshe@gmail.com", league1);
-            user3.Money = 5000;
-            Player user4 = new Player(400, "Slava", "1234", "slave@gmail.com", league2);
-            user4.Money = 5000;
-            PlayerAction.Register(user1, playersData);
-            PlayerAction.Register(user2, playersData);
-            PlayerAction.Register(user3, playersData);
-            PlayerAction.Register(user4, playersData);
-
-            // create rooms
-            GamePreferences gp1 = new GamePreferences(GameTypePolicy.NO_LIMIT, 8, 2, 100, 1000, true, 10);
-            GamePreferences gp2 = new GamePreferences(GameTypePolicy.NO_LIMIT, 6, 2, 300, 3000, true, 10);
-            Room room1 = new Room(new TexasGame(gp1));
-            Room room2 = new Room(new TexasGame(gp1));
-            Room room3 = new Room(new TexasGame(gp2));
-            Room room4 = new Room(new TexasGame(gp1));
-            roomsData.AddRoom(room1);
-            roomsData.AddRoom(room2);
-            roomsData.AddRoom(room3);
-            roomsData.AddRoom(room4);
-            league1.AddRoom(room1);
-            league1.AddRoom(room2);
-            league1.AddRoom(room3);
-            league2.AddRoom(room4);
-
-            //create service layer
-            new Service(leaguesData, roomsData, playersData);
+            leaguesData = new LeaguesByDB();
+            playersData = new PlayersByDB();
+            roomsData = new RoomsByDB();
+            Service service = new Service(leaguesData, roomsData, playersData);
         }
 
         public static string GetLocalIPAddress()

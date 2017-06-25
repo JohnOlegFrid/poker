@@ -9,12 +9,6 @@ namespace poker.Center
 {
     class LeagueManager
     {
-        public static void MovePlayerToLeauge(Player player, League league)
-        {
-            player.League.RemovePlayerFromLeague(player);
-            player.League = league;
-            league.AddPlayerToLeague(player);
-        }
 
     }
 }

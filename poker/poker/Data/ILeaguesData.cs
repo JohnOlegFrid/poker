@@ -16,5 +16,13 @@ namespace poker.Data
         void DeleteLeague(League league);
 
         League GetDefalutLeague();
+
+        void AddRoomToLeague(League league, Room room);
+        void RemoveRoomFromLeague(League league, Room room);
+
+        League FindLeagueById(int id);
+
+        int GetNextId();
+
     }
 }

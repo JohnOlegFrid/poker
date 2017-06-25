@@ -21,21 +21,15 @@ namespace poker.Center
         [JsonProperty]
         private List<Player> spectators;
         private List<IGame> pastGames;
-        private static int nextId = 0;
-        private readonly object syncLock = new object();
 
-        public Room(IGame game)
+        public Room(int id, IGame game)
         {
             this.game = game;
             game.SetRoom(this);
             pastGames = new List<IGame>();
             this.chat = new Chat();
             spectators = new List<Player>();
-            lock (syncLock)
-            {
-                nextId++;
-                this.Id = nextId;
-            }          
+            this.id = id;
         }
 
         public IGame Game

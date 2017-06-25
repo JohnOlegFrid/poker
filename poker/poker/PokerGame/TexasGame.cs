@@ -44,6 +44,7 @@ namespace poker.PokerGame
         [JsonProperty]
         private List<GamePlayer> winners;
         private Room room;
+        private object lock_ = new object();
 
         public TexasGame(GamePreferences gp)
         {
@@ -61,6 +62,7 @@ namespace poker.PokerGame
         public List<GamePlayer> Winners { get { return winners; } set { winners = value; } }
 
         public bool Active { get => active; set => active = value; }
+        public GamePreferences GamePreferences { get => gamePreferences; set => gamePreferences = value; }
 
         public void SetRoom(Room room)
         {
@@ -69,37 +71,41 @@ namespace poker.PokerGame
 
         public bool Join(int chair, GamePlayer p)
         {
-            for (int i = 0; i < gamePreferences.MaxPlayers; i++)
+            lock (lock_)
             {
-                if ((ChairsInGame[i] != null) && (ChairsInGame[i].Equals(p))) //a player can't join a game twice.
+
+                for (int i = 0; i < gamePreferences.MaxPlayers; i++)
                 {
-                    PlayerAction.ShowMessageOnGame(room, "You Can't Join Game Twice", p.Player);
+                    if ((ChairsInGame[i] != null) && (ChairsInGame[i].Equals(p))) //a player can't join a game twice.
+                    {
+                        PlayerAction.ShowMessageOnGame(room, "You Can't Join Game Twice", p.Player);
+                        return false;
+                    }
+                }
+                if (ChairsInGame[chair] != null)
+                {
+                    PlayerAction.ShowMessageOnGame(room, "The Chair Is Already Taken", p.Player);
                     return false;
                 }
-            }
-            if (ChairsInGame[chair] != null)
-            {
-                PlayerAction.ShowMessageOnGame(room, "The Chair Is Already Taken", p.Player);
-                return false;
-            }
 
-            if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
-            {
-                PlayerAction.ShowMessageOnGame(room, "The Buy In Must Be Between " + gamePreferences.MinBuyIn + "-" + gamePreferences.MaxBuyIn, p.Player);
-                return false;
-            }
+                if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
+                {
+                    PlayerAction.ShowMessageOnGame(room, "The Buy In Must Be Between " + gamePreferences.MinBuyIn + "-" + gamePreferences.MaxBuyIn, p.Player);
+                    return false;
+                }
 
-            if (!PlayerAction.TakeMoneyFromPlayer(p.Money, p.Player))
-            {
-                PlayerAction.ShowMessageOnGame(room, "You Dont Have Enough Money", p.Player);
-                return false;
-            }
+                if (!PlayerAction.TakeMoneyFromPlayer(p.Money, p.Player))
+                {
+                    PlayerAction.ShowMessageOnGame(room, "You Dont Have Enough Money", p.Player);
+                    return false;
+                }
 
-            ChairsInGame[chair] = p;
-            p.ChairNum = chair;
-            p.SetFold(true);
-            gameLog.Add(p.Player.Username + " joined the game.");
-            return true;
+                ChairsInGame[chair] = p;
+                p.ChairNum = chair;
+                p.SetFold(true);
+                gameLog.Add(p.Player.Username + " joined the game.");
+                return true;
+            }
         }
 
         public void LeaveGame(GamePlayer p)

@@ -25,6 +25,10 @@ namespace poker.Data.DB
         public string password { get; set; }
         public string email { get; set; }
         public int money { get; set; }
+        public int num_of_games { get; set; }
+        public int total_gross_profit { get; set; }
+        public int total_wins { get; set; }
+        public int best_win { get; set; }
     
         public virtual ICollection<LeagueDB> Leagues { get; set; }
     }
