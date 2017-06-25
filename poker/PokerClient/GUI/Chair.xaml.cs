@@ -115,10 +115,10 @@ namespace PokerClient.GUI
                         Blind.Content = "";
                         Blind.Visibility = Visibility.Hidden;
                     }
-                    if (player != null && player.IsFold())
-                        Grid.Opacity = 0.5;
+                    if (player != null && player.IsFold)
+                        this.Dispatcher.Invoke(() => { Grid.Opacity = 0.5; });
                     else
-                        Grid.Opacity = 1;
+                        this.Dispatcher.Invoke(() => { Grid.Opacity = 1; });
                 });
             }
             else

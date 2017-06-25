@@ -28,7 +28,7 @@ namespace poker.PokerGame
 
         public void InitPlayer()
         {
-            isFold = false;
+            IsFold = false;
             currentBet = 0;
             hand = new Hand();
             wantToExit = false;
@@ -50,20 +50,17 @@ namespace poker.PokerGame
         public bool WantToExit { get { return wantToExit; } set { wantToExit = value; } }
 
         public int StartingMoney { get => startingMoney; set => startingMoney = value; }
+        public bool IsFold { get => isFold; set => isFold = value; }
 
         public String GetUsername()
         {
             return player.Username;
         }
 
-        public bool IsFold()
-        {
-            return isFold;
-        }
 
         public void SetFold(bool isFold)
         {
-            this.isFold = isFold;
+            this.IsFold = isFold;
         }
 
         public Move Play()
@@ -96,7 +93,7 @@ namespace poker.PokerGame
 
         public Move Fold(Fold fold)
         {
-            this.isFold = true;
+            this.IsFold = true;
             return fold;
         }
 

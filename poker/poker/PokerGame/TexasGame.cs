@@ -192,7 +192,7 @@ namespace poker.PokerGame
         private void FindWinners()
         {
             List<GamePlayer> playersInGame = GetListActivePlayers();
-            List<GamePlayer> playersThatFinishGame = playersInGame.FindAll(gp => !gp.IsFold());
+            List<GamePlayer> playersThatFinishGame = playersInGame.FindAll(gp => !gp.IsFold);
             Hand bestHand = FindBestHand(playersThatFinishGame);
             Winners = playersThatFinishGame.FindAll(gp => gp.Hand + board == bestHand);
         }
@@ -384,7 +384,7 @@ namespace poker.PokerGame
             if (roundNumber == 4)
                 return true;
             List<GamePlayer> gpList = GetListActivePlayers();
-            if (gpList.FindAll(gp => !gp.IsFold()).Count == 1)
+            if (gpList.FindAll(gp => !gp.IsFold).Count == 1)
                 return true;
             return false;
         }
@@ -428,7 +428,7 @@ namespace poker.PokerGame
                 if (ChairsInGame[i] != null && !secondRunOnRound && firstPlayOnRound != null 
                     && ChairsInGame[i].Player.Equals(firstPlayOnRound.Player))
                     secondRunOnRound = true;
-                if (ChairsInGame[i] != null && !ChairsInGame[i].IsFold() 
+                if (ChairsInGame[i] != null && !ChairsInGame[i].IsFold 
                     && (!(secondRunOnRound  && ChairsInGame[i].CurrentBet == highestBet)))
                     return ChairsInGame[i];
             }
@@ -442,7 +442,7 @@ namespace poker.PokerGame
             {
                 if (i == ChairsInGame.Length)
                     i = 0;
-                if (chairsInGame[i] != null &&  !chairsInGame[i].IsFold() && chairsInGame[i].CurrentBet < highestBet)
+                if (chairsInGame[i] != null &&  !chairsInGame[i].IsFold && chairsInGame[i].CurrentBet < highestBet)
                     return chairsInGame[i];
             }
             return null;

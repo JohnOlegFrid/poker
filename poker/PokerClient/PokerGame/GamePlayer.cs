@@ -22,7 +22,7 @@ namespace poker.PokerGame
             this.player = player;
             this.chairNum = chairNum;
             this.money = money;
-            this.isFold = isFold;
+            this.IsFold = isFold;
             this.nextMove = nextMove;
             this.currentBet = currentBet;
             this.hand = hand;
@@ -42,15 +42,13 @@ namespace poker.PokerGame
 
         public Hand Hand { get { return hand; } set { hand = value; } }
 
+        public bool IsFold { get => isFold; set => isFold = value; }
+
         public String GetUsername()
         {
             return player.Username;
         }
 
-        public bool IsFold()
-        {
-            return isFold;
-        }
 
         public override string ToString()
         {
