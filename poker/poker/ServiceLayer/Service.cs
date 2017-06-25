@@ -112,7 +112,6 @@ namespace poker.ServiceLayer
             
         }
 
-
         public string AddPlayerToRoom(string roomId, string username, string uniqueNum)
         {
             if (!IsUsernameAuthorize(username, uniqueNum))
@@ -172,6 +171,11 @@ namespace poker.ServiceLayer
             try
             {
                 Room room = roomsData.FindRoomById(int.Parse(roomId));
+                if (IsPrivateMsg(msg, room))
+                {
+                    SendPrivateMsg(msg, room, username, bool.Parse(isActiveInGame));
+                    return "null";
+                }
                 Message message = new Message(username, msg, bool.Parse(isActiveInGame));
                 room.Chat.AddMessage(message);
                 Command command = new Command("AddChatMessage", new string[2] { room.Id + "", CreateJson(message) });
@@ -179,6 +183,24 @@ namespace poker.ServiceLayer
                 return "null";
             }
             catch { return "null"; }
+        }
+
+        private void SendPrivateMsg(string msg, Room room, string username, bool isActiveInGame)
+        {
+            string[] arr = msg.Split(':');
+            if (!isActiveInGame && room.Game.GetListActivePlayers().Exists(gp => gp.Player.Username.Equals(arr[0])))
+                return; //Spectators cannot send private msg to active player!
+            Player toSend = room.Spectators.Find(s => s.Username.Equals(arr[0]));          
+            Command command = new Command("GetMessage", new string[] { username, arr[1] });
+            toSend.sendMessageToPlayer(CreateJson(command));
+        }
+
+        private bool IsPrivateMsg(string msg, Room room)
+        {
+            string[] arr = msg.Split(':');
+            if (arr.Length < 2)
+                return false;
+            return room.Spectators.Exists(s => s.Username.Equals(arr[0]));
         }
 
         public string AddFoldToGame(string roomId, string moveJson)
