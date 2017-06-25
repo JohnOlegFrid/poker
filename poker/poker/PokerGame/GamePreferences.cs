@@ -43,6 +43,10 @@ namespace poker.PokerGame
             }
         }
 
+        public GameTypePolicy getGameTypePolicy()
+        {
+            return gameTypePolicy;
+        }
 
         public int MinBuyIn
         {

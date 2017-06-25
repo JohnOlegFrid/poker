@@ -43,6 +43,8 @@ namespace poker.Players
 
         public static void ShowMessageOnGame(Room room, string message, Player player)
         {
+            if (player == null  || room == null) //patch
+                return;
             Service.GetLastInstance().SendMessageOnGame(room.Id+"", message, player.Username);
         }
 
