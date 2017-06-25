@@ -39,6 +39,7 @@ namespace poker
             playersData = new PlayersByDB();
             roomsData = new RoomsByDB();
             Service service = new Service(leaguesData, roomsData, playersData);
+            leaguesData.AddRoomToLeague(leaguesData.GetDefalutLeague(), roomsData.FindRoomById(1));
         }
 
         public static string GetLocalIPAddress()
