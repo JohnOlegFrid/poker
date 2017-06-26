@@ -3,6 +3,7 @@ using poker.Center;
 using poker.Players;
 using poker.PokerGame;
 using poker.ServiceLayer;
+using pokerTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace poker.Data.Tests
 
         public SearchCenterTests()
         {
-            Program.InitData();
+            ProgramList.InitData();
             leaguesData = Service.GetLastInstance().LeaguesData;
             playersData = Service.GetLastInstance().PlayersData;
             League league = new League(1, "first league");
             leaguesData.AddLeague(league);
 
-            Player playerLogged = new Player(0, "logged", "1234", "logged@gmail.com", league);
+            Player playerLogged = new Player(0, "logged", "1234", "logged@gmail.com", league.Id);
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), playerLogged);
             searchCenter = new SearchCenter(playersData, leaguesData);
         }
@@ -59,11 +60,11 @@ namespace poker.Data.Tests
             game2.StartGame();
             game3.StartGame();
 
-            Player p1 = new Player(1, "oleg", "1234", "oleg@gmail.com", league);
-            Player p2 = new Player(2, "hen", "1234", "hen@gmail.com", league);
-            Player p3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league);
-            Player p4 = new Player(4, "eliran", "1234", "eliran@gmail.com", league);
-            Player p5 = new Player(55, "yakir", "1234", "yakir@gmail.com", league);
+            Player p1 = new Player(1, "oleg", "1234", "oleg@gmail.com", league.Id);
+            Player p2 = new Player(2, "hen", "1234", "hen@gmail.com", league.Id);
+            Player p3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league.Id);
+            Player p4 = new Player(4, "eliran", "1234", "eliran@gmail.com", league.Id);
+            Player p5 = new Player(55, "yakir", "1234", "yakir@gmail.com", league.Id);
 
             GamePlayer gp1 = new GamePlayer(p1, 1000);
             GamePlayer gp2 = new GamePlayer(p2, 1000);
@@ -89,9 +90,9 @@ namespace poker.Data.Tests
             game3.StartGame();
 
 
-            league.AddRoom(new Room(game1));
-            league.AddRoom(new Room(game2));
-            league.AddRoom(new Room(game3));
+            league.AddRoom(new Room(1, game1));
+            league.AddRoom(new Room(2, game2));
+            league.AddRoom(new Room(3, game3));
 
 
             usersData.AddPlayer(p1);

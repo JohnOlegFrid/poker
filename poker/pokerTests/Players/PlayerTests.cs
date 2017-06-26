@@ -16,13 +16,13 @@ namespace poker.Players.Tests
         [TestInitialize()]
         public void Initialize()
         {
-            player = new Player(1, "yakir", "1234", "yakir@gmail.com", new Center.League(1, "level one"));
+            player = new Player(1, "yakir", "1234", "yakir@gmail.com", new Center.League(1, "level one").Id);
         }
 
         [TestCleanup()]
         public void Cleanup()
         {
-            player = new Player(1, "yakir", "1234", "yakir@gmail.com", new Center.League(1, "level one"));
+            player = new Player(1, "yakir", "1234", "yakir@gmail.com", new Center.League(1, "level one").Id);
         }
 
 
