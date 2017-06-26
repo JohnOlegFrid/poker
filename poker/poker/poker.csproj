@@ -119,6 +119,7 @@
     <Compile Include="Center\Message.cs" />
     <Compile Include="Data\RoomByList.cs" />
     <Compile Include="Data\SearchCenter.cs" />
+    <Compile Include="Logs\Log.cs" />
     <Compile Include="Players\HandleStatistics.cs" />
     <Compile Include="Players\PlayerAction.cs" />
     <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
