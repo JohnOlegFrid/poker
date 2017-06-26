@@ -62,6 +62,7 @@ namespace poker.PokerGame
 
         public bool Active { get => active; set => active = value; }
         public GamePlayer ActivePlayer { get => activePlayer; set => activePlayer = value; } //New feature 23.06.17
+        public Hand Board { get => board; set => board = value; }
 
         public void SetRoom(Room room)
         {
