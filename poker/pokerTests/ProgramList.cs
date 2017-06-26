@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using poker.Data;
 using poker;
+using poker.Center;
 using poker.ServiceLayer;
 
 namespace pokerTests
@@ -18,6 +19,7 @@ namespace pokerTests
             Program.roomsData = new RoomByList();
             Program.playersData = new PlayersByList();
             new Service(Program.leaguesData, Program.roomsData, Program.playersData);
+            Program.leaguesData.AddLeague(new League(1, "Leauge1"));
         }
     }
 }

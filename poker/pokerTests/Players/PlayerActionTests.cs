@@ -29,7 +29,7 @@ namespace poker.Players.Tests
         public void LoginNullWrongUserNameTest()
         {
             Player player = new Player(10, "ronen", "1234", "rons@gmail.com", (leaguesData.GetDefalutLeague()).Id);
-            playersData.AddPlayer(player);
+            PlayerAction.Register(player, playersData);
             Player ans = PlayerAction.Login("rohama", "1234", playersData);
             Assert.IsNull(ans);
         }
@@ -38,7 +38,7 @@ namespace poker.Players.Tests
         public void LoginNullWrongPasswordTest()
         {
             Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague().Id);
-            playersData.AddPlayer(player);
+            PlayerAction.Register(player, playersData);
             Player ans = PlayerAction.Login("ronen", "12345", playersData);
             Assert.IsNull(ans);
             ans = PlayerAction.Login("ronen", "1234", playersData);
@@ -48,8 +48,8 @@ namespace poker.Players.Tests
         [TestMethod()]
         public void LoginGoodTest()
         {
-            Player player = new Player(10, "ronen", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague().Id);
-            playersData.AddPlayer(player);
+            Player player = new Player(1, "ronen", "1234", "ronen@butirev.com", 1, 30, 100, 15, 30);
+            PlayerAction.Register(player, playersData);
             Player ans = PlayerAction.Login("ronen", "1234", playersData);
             Assert.AreEqual(ans, player);
         }

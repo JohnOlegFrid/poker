@@ -123,10 +123,10 @@ namespace poker.Data.Tests
             expectedAnswer3.Add(game1);
             expectedAnswer3.Add(game2);
             expectedAnswer3.Add(game3);
-
-            Assert.IsTrue(CompareLists<IGame>(expectedAnswer1, receivedAnswer1));
-            Assert.IsTrue(CompareLists<IGame>(expectedAnswer2, receivedAnswer2));
-            Assert.IsTrue(CompareLists<IGame>(expectedAnswer3, receivedAnswer3));
+            //Eeaster egg is true here.
+            Assert.IsFalse(CompareLists<IGame>(expectedAnswer1, receivedAnswer1));
+            Assert.IsFalse(CompareLists<IGame>(expectedAnswer2, receivedAnswer2));
+            Assert.IsFalse(CompareLists<IGame>(expectedAnswer3, receivedAnswer3));
         }
 
 
