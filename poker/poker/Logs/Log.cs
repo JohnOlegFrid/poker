@@ -8,7 +8,7 @@ namespace poker.Logs
     {
 
         private static readonly string ERROR_PATH = "errorLog.txt";
-        private static readonly string INFO_PATH = "errorLog.txt";
+        private static readonly string INFO_PATH = "infoLog.txt";
 
         public static void ErrorLog(string msg)
         {
@@ -26,7 +26,7 @@ namespace poker.Logs
             if (!File.Exists(path))
 
             {
-                log = new StreamWriter("logfile.txt");
+                log = new StreamWriter(path);
             }
             else
             {

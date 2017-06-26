@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using poker.Logs;
 using System.Threading.Tasks;
 using poker.Center;
 
@@ -44,6 +44,7 @@ namespace poker.Data.DB
                 return;
             db.LeagueDBs.Add(CreateLeagueDB(league));
             db.SaveChanges();
+            Log.InfoLog("DB:Add new League with id: " + league.Id);
         }
 
         public void AddRoomToLeague(League league, Room room)
@@ -55,12 +56,14 @@ namespace poker.Data.DB
             ldb.Rooms.Add(rdb);
             league.Rooms.Add(room);
             db.SaveChanges();
+            Log.InfoLog("DB:Add Room " + room.Id + " to a League " + league.Id);
         }
 
         public void DeleteLeague(League league)
         {
             db.LeagueDBs.Remove(CreateLeagueDB(league));
             db.SaveChanges();
+            Log.InfoLog("DB:Delete League with id: " + league.Id);
         }
 
         public League FindLeagueById(int id)
@@ -101,6 +104,7 @@ namespace poker.Data.DB
             l.Rooms.Remove(RoomsByDB.CreateRoomDB(room));
             league.Rooms.Remove(room);
             db.SaveChanges();
+            Log.InfoLog("DB:Remove Room " + room.Id + " From League " + league.Id);
         }
     }
 }

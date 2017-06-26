@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poker.Players;
-using poker.Center;
+using poker.Logs;
 
 namespace poker.Data.DB
 {
@@ -18,6 +18,7 @@ namespace poker.Data.DB
             db.PlayerDBs.Add(p);
             db.SaveChanges();
             listPlayers.Add(player);
+            Log.InfoLog("DB:Add new player with id: " + player.Id);
         }
 
         public static PlayerDB CreatePlayerDB(Player player)
@@ -71,6 +72,7 @@ namespace poker.Data.DB
             db.PlayerDBs.Remove(CreatePlayerDB(player));
             db.SaveChanges();
             listPlayers.Remove(player);
+            Log.InfoLog("DB:Delete player with id: " + player.Id);
         }
 
         public Player FindPlayerByUsername(string username)
@@ -119,7 +121,8 @@ namespace poker.Data.DB
             pdOld.total_gross_profit = player.Total_gross_profit;
             pdOld.total_wins = player.Total_wins;
             pdOld.username = player.Username;
-            db.SaveChanges();        
+            db.SaveChanges();
+            Log.InfoLog("DB:Update player with id: " + player.Id);
         }
     }
 }
