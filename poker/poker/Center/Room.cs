@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using poker.Logs;
 
 namespace poker.Center
 {
@@ -58,7 +59,7 @@ namespace poker.Center
             {
                 game.GetListActivePlayers().Find(gp => gp.Player.Equals(player)).WantToExit = false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }

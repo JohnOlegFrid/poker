@@ -8,6 +8,7 @@ using System.Reflection;
 using System.IO;
 using Newtonsoft.Json;
 using poker.Players;
+using poker.Logs;
 
 namespace poker.Server
 {
@@ -33,6 +34,7 @@ namespace poker.Server
             }
             catch(Exception e)
             {
+                Log.ErrorLog("Exception on Parse" + e.Message);
                 Console.WriteLine("Error with run command " + command.commandName);
             }              
             return result;

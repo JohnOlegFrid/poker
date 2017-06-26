@@ -40,7 +40,7 @@ namespace PokerClient
             {
                 client = new Client(ip, port);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

@@ -69,7 +69,7 @@ namespace poker.PokerGame
             {
                 return nextMove.DoAction();
             }
-            catch (PokerExceptions pe)
+            catch (PokerExceptions)
             {
                 return null;
             }

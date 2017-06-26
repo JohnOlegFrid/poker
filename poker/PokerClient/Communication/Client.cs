@@ -46,7 +46,7 @@ namespace PokerClient.Communication
                 sWriter.WriteLine(toSend);               
                 sWriter.Flush();
             }
-            catch (Exception E)
+            catch (Exception)
             {
 
             }

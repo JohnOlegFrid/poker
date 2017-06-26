@@ -22,7 +22,7 @@ namespace PokerClient.Communication
             {
                 result = (string)method.Invoke(service, command.args);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Console.WriteLine("Error with run command " + command.commandName);
             }
