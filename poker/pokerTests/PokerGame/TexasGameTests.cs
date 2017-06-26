@@ -9,6 +9,7 @@ using poker.Center;
 using poker.Players;
 using poker.PokerGame.Moves;
 using poker.Data;
+using poker.Cards;
 
 namespace poker.PokerGame.Tests
 {
@@ -24,6 +25,214 @@ namespace poker.PokerGame.Tests
             Assert.IsTrue(game1.IsAllowSpectating());
             IGame game2 = new TexasGame(prefDisallow);
             Assert.IsFalse(game2.IsAllowSpectating());
+        }
+
+        [TestMethod()]
+        public void JoinGameOnceTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 5000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+        }
+
+        [TestMethod()]
+        public void JoinGameTwiceTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 5000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsFalse(game1.Join(0, Dude));
+        }
+
+        [TestMethod()]
+        public void JoinGameSitTakenTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 5000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsFalse(game1.Join(0, Dude1));
+        }
+
+        [TestMethod()]
+        public void JoinGameLessThanMinBuyInTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 5000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 50);
+            Dude.Player.Money = 4000;
+            Assert.IsFalse(game1.Join(0, Dude));
+        }
+
+        [TestMethod()]
+        public void JoinGameAobveMaxBuyInTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 3000);
+            Dude.Player.Money = 4000;
+            Assert.IsFalse(game1.Join(0, Dude));
+        }
+
+        [TestMethod()]
+        public void JoinGameNotEnoughMoneyTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            IGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 3000);
+            Dude.Player.Money = 1000;
+            Assert.IsFalse(game1.Join(0, Dude));
+        }
+
+        [TestMethod()]
+        public void LeaveGameActiveTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+            game1.Active = true;
+            game1.ActivePlayer = Dude1;
+            try
+            {
+                game1.LeaveGame(Dude1);
+                
+            }
+            catch (NullReferenceException )
+            {
+                Assert.IsTrue(Dude1.WantToExit);
+                Assert.IsTrue((Dude1.NextMove.Name).Equals("Fold"));
+            }
+        }
+
+        [TestMethod()]
+        public void LeaveGameInActiveTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+            game1.Active = false;
+            game1.ActivePlayer = Dude1;
+            try
+            {
+                game1.LeaveGame(Dude1);
+                Assert.IsTrue(game1.ChairsInGame[1] == null);
+
+            }
+            catch (NullReferenceException)
+            {
+                Assert.IsTrue(game1.ChairsInGame[1] == null);
+            }
+        }
+
+        [TestMethod()]
+        public void TestFinishGameActiveTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            Assert.IsTrue(game1.Join(0, Dude));
+            Assert.IsTrue(game1.Join(1, Dude1));
+            game1.Active = true;
+            game1.ActivePlayer = Dude1;
+            try
+            {
+                game1.FinishGame();
+                Assert.IsFalse(game1.IsActive());
+                Assert.IsNull(game1.GetActivePlayer());
+            }
+            catch (Exception)
+            {
+                Assert.IsFalse(game1.IsActive());
+                Assert.IsNull(game1.GetActivePlayer());
+            }
+        }
+
+        [TestMethod()]
+        public void FinishGameFindWinnwrTest()
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            SetUpFinishGameData(game1, Dude, Dude1);
+            try
+            {
+                game1.FinishGame();
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
+            catch (Exception)
+            {
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
+        }
+
+        private static void SetUpFinishGameData(TexasGame game1, GamePlayer Dude, GamePlayer Dude1)
+        {
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            game1.Join(0, Dude);
+            game1.Join(1, Dude1);
+            Hand hand1 = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+            Hand hand2 = new Hand(new Card("jh"), new Card("ah"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+            Dude.Hand = hand1;
+            Dude1.Hand = hand2;
+            Dude.SetFold(false);
+            Dude1.SetFold(false);
+            game1.Board = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+        }
+
+        [TestMethod()]
+        public void FinishGameGiveMoneytoWinnerTest() // Change the Assert at the end of the test.
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            SetUpFinishGameData(game1, Dude, Dude1);
+            
+            try
+            {
+                game1.FinishGame();
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
+            catch (Exception)
+            {
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
         }
 
         [TestMethod()]
@@ -74,13 +283,15 @@ namespace poker.PokerGame.Tests
             Assert.IsTrue(game1.GetActivePlayer().Player.Equals(yakir.Player));
         }
 
+        
+
         [TestMethod()]
         public void GameRoundTest()
         {
             Program.InitData();
             ILeaguesData leaguesData = Service.GetLastInstance().LeaguesData;
             League league = leaguesData.GetDefalutLeague();
-            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 1000, true, 10);
+            GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT, 4, 2, 100, 1000, true, 10);
             IGame game1 = new TexasGame(prefAllow);
             GamePlayer moshe = new GamePlayer(new Player(1, "moshe", "1234", "moshe@gmail.com", league), 1000);
             moshe.Player.Money = 5000;
