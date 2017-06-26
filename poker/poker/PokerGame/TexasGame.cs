@@ -63,6 +63,8 @@ namespace poker.PokerGame
 
         public bool Active { get => active; set => active = value; }
         public GamePreferences GamePreferences { get => gamePreferences; set => gamePreferences = value; }
+        public int Pot { get => pot; set => pot = value; }
+        public int HighestBet { get => highestBet; set => highestBet = value; }
 
         public void SetRoom(Room room)
         {

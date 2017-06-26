@@ -19,9 +19,9 @@ namespace acceptanceTest
         {
             service = new Service();
             admin = service.Register("admin", "admin", "admin@gmail.com");
-            gp1 = new GamePreferences(9, 2, 100, 10000, true, 20);
+            gp1 = new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 100, 10000, true, 20);
             g1 = service.CreateGame(gp1);
-            gp2 = new GamePreferences(5, 3, 200, 20000, false, 40);
+            gp2 = new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,5, 3, 200, 20000, false, 40);
             g2 = service.CreateGame(gp2);
         }
         [TestCleanup()]
@@ -29,9 +29,9 @@ namespace acceptanceTest
         {
             service = new Service();
             admin = service.Register("admin", "admin", "admin@gmail.com");
-            gp1 = new GamePreferences(9, 2, 100, 10000, true, 20);
+            gp1 = new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 100, 10000, true, 20);
             g1 = service.CreateGame(gp1);
-            gp2 = new GamePreferences(5, 3, 200, 20000, false, 40);
+            gp2 = new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,5, 3, 200, 20000, false, 40);
             g2 = service.CreateGame(gp2);
         }
         [TestMethod]
@@ -119,13 +119,13 @@ namespace acceptanceTest
         {
             try
             {
-                Assert.IsNotNull(service.CreateGame(new GamePreferences(9, 2, 100, 10000, true, 20)));//happy scenario- all fields are correct.
-                Assert.IsNull(service.CreateGame(new GamePreferences(9, 1, 100, 10000, true, 20)));//sad scenario- invalid minimum players (needs to be greater-equal to 2).
-                Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, -100, 10000, true, 20)));//bad scenario- minimum buy in can't be negative
-                Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, 100, -10000, true, 20)));//bad scenario- maximum buy in can't be negative
-                Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, 100, 10000, true, -20)));//bad scenario- blind can't be negative
-                Assert.IsNull(service.CreateGame(new GamePreferences(3, 5, 100, 10000, true, 20)));//sad scenario- minimum players can't be greater than maximum players.
-                Assert.IsNull(service.CreateGame(new GamePreferences(9, 2, 1000, 100, true, 20)));//sad scenario- minimum buy in can't be greater than maximum buy in.
+                Assert.IsNotNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 100, 10000, true, 20)));//happy scenario- all fields are correct.
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 1, 100, 10000, true, 20)));//sad scenario- invalid minimum players (needs to be greater-equal to 2).
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, -100, 10000, true, 20)));//bad scenario- minimum buy in can't be negative
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 100, -10000, true, 20)));//bad scenario- maximum buy in can't be negative
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 100, 10000, true, -20)));//bad scenario- blind can't be negative
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,3, 5, 100, 10000, true, 20)));//sad scenario- minimum players can't be greater than maximum players.
+                Assert.IsNull(service.CreateGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 2, 1000, 100, true, 20)));//sad scenario- minimum buy in can't be greater than maximum buy in.
                 Assert.IsNull(service.CreateGame(null));//bad scenario- can't create a game without prefrences.
                 CleanUp();
             }
@@ -143,7 +143,7 @@ namespace acceptanceTest
                 Assert.IsNotNull(service.JoinGame(g1, "admin", 200));//happy scenario- all fields are correct.
                 Assert.IsNull(service.JoinGame(g1, "admin", 200));//sad scenario- can't join twice.
                 Assert.IsNull(service.JoinGame(g1, "moshe", 200));//bad scenario- user doesn't exist
-                Assert.IsNull(service.JoinGame(new TexasGame(new GamePreferences(9, 3, 100, 10000, true, 20)), "admin", 200));//bad scenario- fictive game (not added to the system properly)
+                Assert.IsNull(service.JoinGame(new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.NO_LIMIT,9, 3, 100, 10000, true, 20)), "admin", 200));//bad scenario- fictive game (not added to the system properly)
                 Assert.IsNull(service.JoinGame(g2, "admin", 50));//bad scenario- amount of buy in is too low.
                 Assert.IsNull(service.JoinGame(g2, "admin", 50000));//bad scenario- amount of buy in is too high.
                 g2.StartGame();
@@ -253,17 +253,17 @@ namespace acceptanceTest
             {
                 g1.StartGame();
                 GamePlayer admin12 = service.JoinGame(g1, "admin", 200);
-                g1.setHighestBet(100);
+                ((TexasGame)g1).HighestBet=100;
                 int pot;
-                pot = g1.getPot();
+                pot = ((TexasGame)g1).Pot;
                 Assert.IsFalse(service.call(g1, admin12));//bad scenario- can't call not in turn.
-                Assert.IsTrue(g1.highestBet() == 100);//check state
+                Assert.IsTrue(((TexasGame)g1).HighestBet == 100);//check state
                 Assert.IsTrue(admin12.Money == 200);//check state.
-                Assert.IsTrue(g1.getPot() == pot);//check state.
+                Assert.IsTrue(((TexasGame)g1).Pot == pot);//check state.
                 CleanUp();
                 g1.StartGame();
                 GamePlayer admin1 = service.JoinGame(g1, "admin", 200);
-                g1.setHighestBet(100);
+                ((TexasGame)g1).HighestBet=100;
                 g1.SetActivePlayer(admin1);
                 pot = g1.getPot();
                 Assert.IsTrue(service.call(g1, admin1));//happy scenario- all fields are correct.
