@@ -132,10 +132,5 @@ namespace poker.Players
             TcpServer.SendMessage(msg, sWriter, lock_);
         }
 
-        public void UpdatePlayerInfo(string username, string password, string email)
-        {
-            SetEmail(email);
-            SetPassword(password);
-        }
     }
 }

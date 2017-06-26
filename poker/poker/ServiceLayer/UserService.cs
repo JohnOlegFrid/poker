@@ -69,7 +69,7 @@ namespace poker.ServiceLayer
         public String UpdatePlayerInfo(string username, string password, string email)
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
-            player.UpdatePlayerInfo(username, password, email);
+            PlayerAction.UpdatePlayerInfo(player,username, password, email,service.PlayersData);
             Command command = new Command("UpdatePlayerInfoSuccess", new string[1] { service.CreateJson(player) });
             return (JsonConvert.SerializeObject(command));
 

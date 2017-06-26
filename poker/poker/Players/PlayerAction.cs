@@ -78,5 +78,12 @@ namespace poker.Players
         {
             return (!password.Trim().ToString().Equals(""));
         }
+
+        internal static void UpdatePlayerInfo(Player player, string username, string password, string email,IPlayersData date)
+        {
+            player.SetEmail(email);
+            player.SetPassword(Encryption.EncryptPassword(password));
+            date.UpdatePlayer(player);
+        }
     }
 }
