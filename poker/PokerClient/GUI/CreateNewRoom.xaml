@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="PokerClient.GUI.CreateNewRoom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokerClient.GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="620" d:DesignWidth="800">
+    <Grid>
+        <Image Source="Images/MainMenuBack.jpg" Height="620" Stretch="Fill"/>
+        <Label Content="Create New Room" HorizontalAlignment="Center" Height="52" Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center"/>
+        <StackPanel Height="431" Margin="71,106,45,0" VerticalAlignment="Top">
+            <StackPanel Margin="0" Height="49" Orientation="Horizontal">
+                <Label x:Name="maxNumOfPlayers" Content="Maximum number of players " HorizontalAlignment="Left" Height="43" Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <DockPanel VerticalAlignment="Center" Margin="0" HorizontalAlignment="Right" Width="350">
+                    <TextBox Text="{Binding ElementName=maxNumOfPlayersSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" IsReadOnly = "True" Margin="5,0,0,0" FontSize="18" FontWeight="Bold" />
+                    <Slider Value="8" Maximum="8" Minimum="2" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Name="maxNumOfPlayersSlider" />
+                </DockPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0,10,0,0" Height="49" Orientation="Horizontal">
+
+                <Label x:Name="minNumOfPlayers" Content="Minimum number of players " HorizontalAlignment="Left" Height="43"  Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <DockPanel VerticalAlignment="Center" Margin="0" Width="350" HorizontalAlignment="Right">
+                    <TextBox Text="{Binding ElementName=minNumOfPlayersSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" IsReadOnly = "True" Margin="5,0,0,0" FontSize="18" FontWeight="Bold"  />
+                    <Slider Value="2" Maximum="8" Minimum="2" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Name="minNumOfPlayersSlider" />
+                </DockPanel>
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0" Height="49" Orientation="Horizontal">
+
+                <Label x:Name="maxBuyIn" Content="Maximum buy in" HorizontalAlignment="Left" Height="43" Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <TextBox x:Name="maxBuyInTextBox" Height="28" TextWrapping="Wrap" Text="10000" Margin="0" FontSize="18" VerticalContentAlignment="Center" Width="350"/>
+
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0" Height="49" Orientation="Horizontal">
+                <Label x:Name="minBuyIn" Content="Minimum buy in" HorizontalAlignment="Left" Height="43"  Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <TextBox x:Name="minBuyInTextBox" Height="28" TextWrapping="Wrap" Text="1000" Margin="0" VerticalContentAlignment="Center" FontSize="18" Width="350"/>
+
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0" Height="49" Orientation="Horizontal">
+                <Label x:Name="allowSpectating" Content="Allow spectating" HorizontalAlignment="Left" Height="43"  Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <CheckBox x:Name="allowSpectCheckBox" Content="" Margin="0" Height="16" FontSize="22" HorizontalAlignment="Left" Width="12" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0">
+                    <CheckBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="2" ScaleX="2"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </CheckBox.RenderTransform>
+                </CheckBox>
+            </StackPanel>
+
+            <StackPanel Margin="0,10,0,0" Height="49" Orientation="Horizontal">
+                <Label x:Name="bigBlind" Content="Big blind" HorizontalAlignment="Left" Height="43" Margin="0" VerticalAlignment="Top" Width="323" Foreground="White" FontSize="22" FontStyle="Italic" FontWeight="Bold"/>
+                <TextBox x:Name="bigBlindTextBox" Height="28" TextWrapping="Wrap" Text="100" Margin="0" FontSize="18" VerticalContentAlignment="Center" Width="350"/>
+
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Height="431" Margin="426,106,45,0" VerticalAlignment="Top">
+
+
+
+
+        </StackPanel>
+        <Button x:Name="createButton" Content="Create" HorizontalAlignment="Center" Margin="238,0,434,109" Width="128" FontSize="22" FontWeight="Bold" Height="37" VerticalAlignment="Bottom" Background="#FF08239E" Foreground="White" BorderBrush="#FFECECEC" Click="createButton_Click"/>
+        <Button x:Name="goBackButton" Content="Go Back" HorizontalAlignment="Center" Margin="412,0,260,109" Width="128" FontSize="22" FontWeight="Bold" Height="37" VerticalAlignment="Bottom" Background="#FF979CB4" Foreground="White" BorderBrush="#FFECECEC" Click="goBackButton_Click" />
+    </Grid>
+</UserControl>

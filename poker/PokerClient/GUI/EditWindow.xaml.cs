@@ -36,15 +36,7 @@ namespace PokerClient.GUI
             String pass = passwordBox.Password;
             String confPass = confirmPasswordBox.Password;
 
-            if (MainInfo.Instance.EditWindow == null)
-            {
-                MainInfo.Instance.EditWindow = this;
-            }
-            else
-            {
-                MessageBox.Show("there is an Edit window open allready.", "Dual Edit Window", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            
             if (pass.CompareTo(confPass) != 0)
             {
                 MessageBox.Show("The Passwords aren't the same.\nRe-enter Please.", "Wrong Password", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -58,9 +50,15 @@ namespace PokerClient.GUI
                 else
                 {
                     MessageBox.Show("You need to fill all text boxes.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    MainInfo.Instance.EditWindow = null;
+                    
                 }
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            MainInfo.Instance.EditWindow = null;
         }
     }
 }
