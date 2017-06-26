@@ -20,7 +20,7 @@ namespace poker.Data.DB
             RoomDB r;
             if (db.RoomDBs.Count() != 0)
             {
-                r = db.RoomDBs.First(ro => ro.id == room.Id);
+                r = db.RoomDBs.Find(room.Id);
                 if (r != null)
                     return r;
             }
@@ -47,7 +47,7 @@ namespace poker.Data.DB
 
         public void AddRoom(Room room)
         {
-            if (db.RoomDBs.Count() != 0 && db.RoomDBs.First(r => r.id == room.Id) != null)
+            if (db.RoomDBs.Count() != 0 && db.RoomDBs.Find(room.Id) != null)
                 return;
             db.RoomDBs.Add(CreateRoomDB(room));
             db.SaveChanges();

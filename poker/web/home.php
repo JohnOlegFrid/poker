@@ -104,7 +104,7 @@ button:hover {
 			echo "</table>";
 		}
 	}
-
+session_unset ();
 
 
 

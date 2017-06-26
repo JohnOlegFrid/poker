@@ -53,8 +53,9 @@ namespace PokerClient.GUI
             }
             isSelectChair = room.Game.IsPlayerActiveInGame(MainInfo.Instance.Player);
         }
-        internal void UpdateGame()
+        public void UpdateGame()
         {
+            ValidateAllThePlayersCanBeInRoom();
             UpdateChairs();
             OP.Update();
             UpdateCardsOfBoard();
@@ -63,6 +64,19 @@ namespace PokerClient.GUI
                 this.StartGameButton.Visibility = ((TexasGame)room.Game).Active ? Visibility.Hidden : Visibility.Visible;
                 this.StartGameButton.IsEnabled = !((TexasGame)room.Game).Active;
                 this.PotLabel.Content = ((TexasGame)room.Game).Pot + "$";
+            });
+        }
+
+        private void ValidateAllThePlayersCanBeInRoom()
+        {
+            if (!((TexasGame)room.Game).Active || ((TexasGame)room.Game).GamePreferences.AllowSpectating)
+                return;
+            if (room.Game.GetListActivePlayers().Exists(p => p.GetUsername().Equals(MainInfo.Instance.Player.Username)))
+                return;
+            MessageBox.Show("this room doesn't allow spectating!");
+            this.Dispatcher.Invoke(() =>
+            {
+                room.RoomWindow.Close();
             });
         }
 

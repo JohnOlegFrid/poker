@@ -81,7 +81,8 @@ namespace PokerClient.GUI
                     PlayerInfo.Visibility = Visibility.Visible;
                     if (player.Hand.Count >= 2)
                     {
-                        if (player.GetUsername().Equals(MainInfo.Instance.Player.Username)
+                        if (!poker.room.Game.GetListActivePlayers().Any(p => p.GetUsername().Equals(MainInfo.Instance.Player.Username))
+                            || player.GetUsername().Equals(MainInfo.Instance.Player.Username)
                             || (!((TexasGame)(poker.room.Game)).Active && ((TexasGame)(poker.room.Game)).Winners.Contains(player)))
                         {
                             String stringPath1 = "pack://application:,,,/PokerClient;component/gui/Images/Cards/" + player.Hand[0].ToString() + ".png";
