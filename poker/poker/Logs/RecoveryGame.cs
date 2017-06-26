@@ -1,4 +1,5 @@
-﻿using System;
+﻿using poker.PokerGame;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,9 @@ namespace poker.Logs
 {
     class RecoveryGame
     {
+        public static void CreateBackupForGame(int roomId, TexasGame game)
+        {
+            
+        }
     }
 }

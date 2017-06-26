@@ -111,7 +111,6 @@
     <Compile Include="Data\PlayersByList.cs" />
     <Compile Include="Data\IPlayersData.cs" />
     <Compile Include="Center\Chat.cs" />
-    <Compile Include="Center\GameCenter.cs" />
     <Compile Include="Center\IGame.cs" />
     <Compile Include="Center\League.cs" />
     <Compile Include="Center\LeagueManager.cs" />
