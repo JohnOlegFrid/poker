@@ -30,6 +30,8 @@ namespace poker.ServiceLayer
             Player player = PlayerAction.Login(username, password, service.PlayersData);
             if(player != null)
             {
+                if(player.SWriter != null && player.SWriter.BaseStream != null)
+                    return JsonConvert.SerializeObject(null);
                 player.UniqueNum = TcpServer.GetRandomUnique();
             }
             return JsonConvert.SerializeObject(player);

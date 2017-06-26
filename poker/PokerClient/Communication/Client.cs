@@ -67,6 +67,8 @@ namespace PokerClient.Communication
             {
                 try
                 {
+                    if (!isConnected)
+                        return;
                     command = GetMessage();
                     if (command == null)
                         continue;
@@ -83,6 +85,8 @@ namespace PokerClient.Communication
 
         public void CloseConnection()
         {
+            if (!isConnected)
+                return;
             isConnected = false;
             sReader.Close();
             sWriter.Close();

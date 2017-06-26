@@ -75,9 +75,11 @@ namespace poker.Server
                 try
                 {
                     // reads from stream
+                    if (!client.Connected)
+                        throw new Exception("Connection Close!");
                     sData = sReader.ReadLine();
                     if (sData == null)
-                        continue;
+                        throw new Exception("Connection Close!");
                     sData = Decryption.Decrypt(sData, Program.key, Program.iv);
                     Command command = JsonConvert.DeserializeObject<Command>(sData);
                     respond = Parser.Parse(command);
@@ -85,7 +87,7 @@ namespace poker.Server
                     if (respond == null)
                     { // exit client
                         bClientConnected = false;
-                        return;
+                        throw new Exception("Connection Close!");
                     }
 
                     // to write something back.
@@ -97,6 +99,8 @@ namespace poker.Server
                 }
                 catch (Exception e)
                 {
+                    sWriter.Close();
+                    client.Close();
                     Console.WriteLine("Client disconect...");
                     return;
                 }

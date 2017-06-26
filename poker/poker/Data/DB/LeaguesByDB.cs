@@ -49,7 +49,7 @@ namespace poker.Data.DB
         public void AddRoomToLeague(League league, Room room)
         {
             LeagueDB ldb = CreateLeagueDB(league);
-            if (ldb.Rooms.Count != 0 && ldb.Rooms.First(l=> l.id == room.Id) != null)
+            if (ldb.Rooms.Count != 0 && ldb.Rooms.Any(l=> l.id == room.Id))
                 return;
             RoomDB rdb = RoomsByDB.CreateRoomDB(room);
             ldb.Rooms.Add(rdb);

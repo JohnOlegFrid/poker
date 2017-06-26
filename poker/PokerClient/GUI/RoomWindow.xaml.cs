@@ -34,7 +34,6 @@ namespace PokerClient.GUI
             userPanel = new UserPanel();
             this.topMainPanel.Content = userPanel;
             this.InfoText.Content = room;
-            //PokerTable = new Poker();
             PokerTable.room = room;
             PokerTable.UpdateChairs();
             this.gameLog = new ObservableCollection<string>();
