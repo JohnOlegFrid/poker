@@ -375,8 +375,10 @@ namespace poker.PokerGame
                         throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise only double the big blind at this turn: " + 2*gamePreferences.BigBlind);
                     break;
                 case GamePreferences.GameTypePolicy.POT_LIMIT:
-                    if (currentMove.Name == "Raise"  && currentMove.Amount < gamePreferences.BigBlind && pot > 0 && currentMove.Amount > pot)
-                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind +"or maximum current pot size");
+                    if (currentMove.Name == "Raise"  && pot > 0 && currentMove.Amount > pot)
+                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise as maximum current pot size");
+                    if (currentMove.Name == "Raise" && currentMove.Amount < gamePreferences.BigBlind)
+                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind );
                     break;
             }
         }
