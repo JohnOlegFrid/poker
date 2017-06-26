@@ -37,7 +37,11 @@ namespace poker
                 return;
             }   
             
-            InitData();       
+            InitData();
+
+            //try to restore backup if there are a crash
+            RecoveryGame.RestoreBackupGames();
+
             Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress() + "...");
             Log.InfoLog("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress() + "...");
             TcpServer server = new TcpServer(5555);

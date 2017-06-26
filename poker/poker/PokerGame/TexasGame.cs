@@ -156,6 +156,7 @@ namespace poker.PokerGame
             ResetPotOfPlayers();
             ThrowLeavedPlayers();
             ThrowPlayersThatDontHaveEnuoghMoney();
+            RecoveryGame.RemoveBackupGame(room.Id);
         }
 
         private void ThrowPlayersThatDontHaveEnuoghMoney()
@@ -260,6 +261,7 @@ namespace poker.PokerGame
             {
                 gameLog.Add("Starting game.");
                 InitPlayers();
+                RecoveryGame.CreateBackupForGame(room.Id, this);
                 deck = Deck.CreateFullDeck();
                 deck.Shuffle();
                 Active = true;

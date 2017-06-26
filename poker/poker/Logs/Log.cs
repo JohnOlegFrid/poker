@@ -24,7 +24,6 @@ namespace poker.Logs
         {
             StreamWriter log;
             if (!File.Exists(path))
-
             {
                 log = new StreamWriter(path);
             }
@@ -32,7 +31,6 @@ namespace poker.Logs
             {
                 log = File.AppendText(path);
             }
-
             log.WriteLine("Data Time:" + DateTime.Now);
             log.WriteLine("MSG:" + msg);
 
