@@ -180,24 +180,14 @@ namespace poker.PokerGame.Tests
         }
 
         [TestMethod()]
-        public void TestFinishGameFindWinnwrTest()
+        public void FinishGameFindWinnwrTest()
         {
             Program.InitData();
             GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
             TexasGame game1 = new TexasGame(prefs);
             GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
             GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
-            Dude.Player.Money = 4000;
-            Dude1.Player.Money = 4000;
-            Assert.IsTrue(game1.Join(0, Dude));
-            Assert.IsTrue(game1.Join(1, Dude1));
-            Hand hand1 = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
-            Hand hand2 = new Hand(new Card("jh"), new Card("ah"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
-            Dude.Hand = hand1;
-            Dude1.Hand = hand2;
-            Dude.SetFold(false);
-            Dude1.SetFold(false);
-            game1.Board = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+            SetUpFinishGameData(game1, Dude, Dude1);
             try
             {
                 game1.FinishGame();
@@ -205,7 +195,43 @@ namespace poker.PokerGame.Tests
             }
             catch (Exception)
             {
-                Assert.AreSame(Dude, game1.Winners[0]); 
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
+        }
+
+        private static void SetUpFinishGameData(TexasGame game1, GamePlayer Dude, GamePlayer Dude1)
+        {
+            Dude.Player.Money = 4000;
+            Dude1.Player.Money = 4000;
+            game1.Join(0, Dude);
+            game1.Join(1, Dude1);
+            Hand hand1 = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+            Hand hand2 = new Hand(new Card("jh"), new Card("ah"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+            Dude.Hand = hand1;
+            Dude1.Hand = hand2;
+            Dude.SetFold(false);
+            Dude1.SetFold(false);
+            game1.Board = new Hand(new Card("5c"), new Card("ac"), new Card("5h"), new Card("1c"), new Card("9c"), new Card("4d"), new Card("4c"));
+        }
+
+        [TestMethod()]
+        public void FinishGameGiveMoneytoWinnerTest() // Change the Assert at the end of the test.
+        {
+            Program.InitData();
+            GamePreferences prefs = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 4, 2, 100, 2000, true, 100);
+            TexasGame game1 = new TexasGame(prefs);
+            GamePlayer Dude = new GamePlayer(new Player(1, "Dude", "1234", "Dude@gmail.com", null), 400);
+            GamePlayer Dude1 = new GamePlayer(new Player(2, "Dude1", "1234", "Dude1@gmail.com", null), 400);
+            SetUpFinishGameData(game1, Dude, Dude1);
+            
+            try
+            {
+                game1.FinishGame();
+                Assert.AreSame(Dude, game1.Winners[0]);
+            }
+            catch (Exception)
+            {
+                Assert.AreSame(Dude, game1.Winners[0]);
             }
         }
 
