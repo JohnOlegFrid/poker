@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using poker.Logs;
 
 namespace poker.ServiceLayer
 {
@@ -33,6 +34,7 @@ namespace poker.ServiceLayer
             }
             catch (Exception e)
             {
+                Log.ErrorLog("Exception on StartGame " + e.Message);
                 return "null"; //null mean that sever done need to send back message
             }
         }
@@ -56,6 +58,7 @@ namespace poker.ServiceLayer
             }
             catch (Exception e)
             {
+                Log.ErrorLog("Exception on AddMoveToGame " + e.Message);
                 return "null"; //null mean that sever done need to send back message
             }
         }
@@ -69,7 +72,10 @@ namespace poker.ServiceLayer
                 Command command = new Command("ShowMessageOnGame", new string[2] { room.Id + "", message });
                 player.sendMessageToPlayer(service.CreateJson(command));
             }
-            catch { }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on SendMessageOnGame " + e.Message);
+            }
         }
     }
 }

@@ -49,7 +49,6 @@ namespace poker.Data.Tests
             int maxBuyIn = 1000;
             bool allowSpectating = true;
             int bigBlind = 100;
-            int playerAmount = 500;
             GamePreferences prefAllow = new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpectating, bigBlind);
             game1 = new TexasGame(prefAllow);
             game2 = new TexasGame(prefAllow);

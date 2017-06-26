@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using poker.Players;
 using Newtonsoft.Json;
 using poker.Server;
+using poker.Logs;
 
 namespace poker.ServiceLayer
 {
@@ -22,7 +23,10 @@ namespace poker.ServiceLayer
         {
             Player newPlayer = new Player(service.PlayersData.GetNextId(), username, password,
                 email, service.LeaguesData.GetDefalutLeague().Id);
-            return service.CreateJson(PlayerAction.Register(newPlayer, service.PlayersData));
+            string ans = PlayerAction.Register(newPlayer, service.PlayersData);
+            if (ans.Equals("ok"))
+                Log.InfoLog("new register username: " + username);
+            return service.CreateJson(ans);
         }
 
         public string Login(String username, String password)
@@ -30,8 +34,12 @@ namespace poker.ServiceLayer
             Player player = PlayerAction.Login(username, password, service.PlayersData);
             if(player != null)
             {
-                if(player.SWriter != null && player.SWriter.BaseStream != null)
+                Log.InfoLog(username + " Is coonected");
+                if (player.SWriter != null && player.SWriter.BaseStream != null)
+                {
+                    Log.ErrorLog(username + " try to login twice!");
                     return JsonConvert.SerializeObject(null);
+                }
                 player.UniqueNum = TcpServer.GetRandomUnique();
             }
             return JsonConvert.SerializeObject(player);

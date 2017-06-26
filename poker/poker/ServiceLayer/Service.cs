@@ -7,6 +7,7 @@ using poker.Center;
 using poker.Players;
 using poker.PokerGame;
 using poker.PokerGame.Moves;
+using poker.Logs;
 
 namespace poker.ServiceLayer
 {
@@ -65,6 +66,7 @@ namespace poker.ServiceLayer
             Player player = PlayerAction.Login(username, password, PlayersData);
             if (player == null)
                 return "Error";
+            Log.InfoLog("new login from ClientWeb, username: " + username);
             var ans = HandleStatistics.GetTopForPrint(player, playersData);
             return CreateJson(HandleStatistics.GetTopForPrint(player, playersData));
         }
@@ -107,6 +109,7 @@ namespace poker.ServiceLayer
             }
             catch(Exception e)
             {
+                Log.ErrorLog("Exception on SitOnChair " + e.Message);
                 return "null"; //null mean that sever done need to send back message
             }
             
@@ -125,6 +128,7 @@ namespace poker.ServiceLayer
             }
             catch (Exception e)
             {
+                Log.ErrorLog("Exception on AddPlayerToRoom " + e.Message);
                 return "null"; //null mean that sever done need to send back message
             }
         }
@@ -143,6 +147,7 @@ namespace poker.ServiceLayer
             }
             catch (Exception e)
             {
+                Log.ErrorLog("Exception on RemovePlayerFromRoom " + e.Message);
                 return "null"; //null mean that sever done need to send back message
             }
         }
@@ -160,7 +165,11 @@ namespace poker.ServiceLayer
                 Command command = new Command("UpdateGame", new string[2] { room.Id + "", CreateJson(room.Game) });
                 return CreateJson(command);
             }
-            catch { return "null"; }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on UpdateGame " + e.Message);
+                return "null";
+            }
             
         }
 
@@ -182,7 +191,11 @@ namespace poker.ServiceLayer
                 SendCommandToPlayersInGame(CreateJson(command), room.Id + "");
                 return "null";
             }
-            catch { return "null"; }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on AddChatMessage " + e.Message);
+                return "null";
+            }
         }
 
         private void SendPrivateMsg(string msg, Room room, string username, bool isActiveInGame)

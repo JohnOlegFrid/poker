@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using poker.Security;
+using poker.Logs;
 
 
 namespace poker.Server
@@ -39,6 +40,7 @@ namespace poker.Server
 
                 // client found.
                 // create a thread to handle communication
+                Log.InfoLog("Connected to client" + numberClient);
                 Console.WriteLine("Connected to client" + numberClient);
                 numberClient++;
                 Thread t = new Thread(new ParameterizedThreadStart(HandleClient));
@@ -48,6 +50,7 @@ namespace poker.Server
 
         public static void SendMessage(string msg, StreamWriter sWriter, object lock_)
         {
+            if (sWriter == null) return;
             msg = Encryption.Encrypt(msg, Program.key, Program.iv);
             lock (lock_)
             {
@@ -101,6 +104,9 @@ namespace poker.Server
                 {
                     sWriter.Close();
                     client.Close();
+                    if (!e.Message.Equals("Connection Close!"))
+                        Log.ErrorLog("Connection Error: " + e.Message);
+                    Log.InfoLog("Client disconect...");
                     Console.WriteLine("Client disconect...");
                     return;
                 }

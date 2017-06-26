@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using static poker.PokerGame.GamePreferences;
 using poker.Security;
 using poker.Data.DB;
+using poker.Logs;
 
 namespace poker
 {
@@ -27,18 +28,37 @@ namespace poker
 
         public static void Main(string[] args)
         {
-            InitData();
+            if (!ValidateConnectioToSqlServer())
+            {
+                Log.ErrorLog("Error on conneting to sql server");
+                Console.WriteLine("Error on conneting to sql server, please try again!");
+                Console.WriteLine("Prees any key to exit.");
+                Console.ReadKey();
+                return;
+            }   
             
-            Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress());
+            InitData();
+
+            //try to restore backup if there are a crash
+            RecoveryGame.RestoreBackupGames();
+
+            Console.WriteLine("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress() + "...");
+            Log.InfoLog("Multi-Threaded TCP Server Starting On IP:" + GetLocalIPAddress() + "...");
             TcpServer server = new TcpServer(5555);
         }
 
-        public static void InitData()
+        private static bool ValidateConnectioToSqlServer()
         {
+            return db.Database.Exists();
+        }
+
+        public static void InitData()
+        {            
             leaguesData = new LeaguesByDB();
             playersData = new PlayersByDB();
             roomsData = new RoomsByDB();
             Service service = new Service(leaguesData, roomsData, playersData);
+            Log.InfoLog("Service Layer initiated");
         }
 
         public static string GetLocalIPAddress()

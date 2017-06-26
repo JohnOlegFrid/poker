@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using poker.Center;
 using poker.PokerGame;
 using static poker.PokerGame.GamePreferences;
+using poker.Logs;
 
 namespace poker.Data.DB
 {
@@ -52,6 +53,7 @@ namespace poker.Data.DB
             db.RoomDBs.Add(CreateRoomDB(room));
             db.SaveChanges();
             roomList.Add(room);
+            Log.InfoLog("DB:Add new room with id: " + room.Id);
         }
 
         public void DeleteRoom(Room room)
@@ -59,6 +61,7 @@ namespace poker.Data.DB
             db.RoomDBs.Remove(CreateRoomDB(room));
             db.SaveChanges();
             roomList.Remove(room);
+            Log.InfoLog("DB:Delete room with id: " + room.Id);
         }
 
         public Room FindRoomById(int id)

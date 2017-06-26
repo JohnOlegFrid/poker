@@ -32,7 +32,7 @@ namespace poker.Data
             {
                 return rooms.Find(x => x.Id.Equals(id));
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
                 return null;
             }

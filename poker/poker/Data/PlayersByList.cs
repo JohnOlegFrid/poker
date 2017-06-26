@@ -30,7 +30,7 @@ namespace poker.Data
             {
                 return players.Find(x => x.Username.Equals(username));
             }
-            catch(ArgumentNullException e)
+            catch(ArgumentNullException)
             {
                 return null;
             }

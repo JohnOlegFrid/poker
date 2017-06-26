@@ -7,6 +7,7 @@ using poker.Cards;
 using Newtonsoft.Json;
 using System.Linq;
 using poker.Players;
+using poker.Logs;
 
 namespace poker.PokerGame
 {
@@ -82,24 +83,28 @@ namespace poker.PokerGame
                 {
                     if ((ChairsInGame[i] != null) && (ChairsInGame[i].Equals(p))) //a player can't join a game twice.
                     {
+                        Log.ErrorLog(p.Player.Username + " try to join game twice");
                         PlayerAction.ShowMessageOnGame(room, "You Can't Join Game Twice", p.Player);
                         return false;
                     }
                 }
                 if (ChairsInGame[chair] != null)
                 {
+                    Log.ErrorLog(p.Player.Username + " try to take chair that alreadt taken");
                     PlayerAction.ShowMessageOnGame(room, "The Chair Is Already Taken", p.Player);
                     return false;
                 }
 
                 if (p.Money < gamePreferences.MinBuyIn || p.Money > gamePreferences.MaxBuyIn)
                 {
+                    Log.ErrorLog(p.Player.Username + " try to select buy in not in range");
                     PlayerAction.ShowMessageOnGame(room, "The Buy In Must Be Between " + gamePreferences.MinBuyIn + "-" + gamePreferences.MaxBuyIn, p.Player);
                     return false;
                 }
 
                 if (!PlayerAction.TakeMoneyFromPlayer(p.Money, p.Player))
                 {
+                    Log.ErrorLog(p.Player.Username + " try to join game with not enough money");
                     PlayerAction.ShowMessageOnGame(room, "You Dont Have Enough Money", p.Player);
                     return false;
                 }
@@ -107,6 +112,7 @@ namespace poker.PokerGame
                 ChairsInGame[chair] = p;
                 p.ChairNum = chair;
                 p.SetFold(true);
+                Log.InfoLog(p.Player.Username + " joined the game " + room.Id);
                 gameLog.Add(p.Player.Username + " joined the game.");
                 return true;
             }
@@ -126,6 +132,7 @@ namespace poker.PokerGame
             else
             {
                 ChairsInGame[p.ChairNum] = null;
+                Log.InfoLog(p.Player.Username + " leaved the game " + room.Id);
                 gameLog.Add(p.GetUsername() + " leaved the game");
                 PlayerAction.AddMoneyToPlayer(p.Money, p.Player);
             }
@@ -139,6 +146,7 @@ namespace poker.PokerGame
 
         public void FinishGame()
         {
+            Log.InfoLog("Game " + room.Id + " is finished.");
             gameLog.Add("Game is finished.");
             Active = false;
             activePlayer = null;
@@ -148,6 +156,7 @@ namespace poker.PokerGame
             ResetPotOfPlayers();
             ThrowLeavedPlayers();
             ThrowPlayersThatDontHaveEnuoghMoney();
+            RecoveryGame.RemoveBackupGame(room.Id);
         }
 
         private void ThrowPlayersThatDontHaveEnuoghMoney()
@@ -252,6 +261,7 @@ namespace poker.PokerGame
             {
                 gameLog.Add("Starting game.");
                 InitPlayers();
+                RecoveryGame.CreateBackupForGame(room.Id, this);
                 deck = Deck.CreateFullDeck();
                 deck.Shuffle();
                 Active = true;

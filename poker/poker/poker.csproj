@@ -111,7 +111,6 @@
     <Compile Include="Data\PlayersByList.cs" />
     <Compile Include="Data\IPlayersData.cs" />
     <Compile Include="Center\Chat.cs" />
-    <Compile Include="Center\GameCenter.cs" />
     <Compile Include="Center\IGame.cs" />
     <Compile Include="Center\League.cs" />
     <Compile Include="Center\LeagueManager.cs" />
@@ -119,6 +118,8 @@
     <Compile Include="Center\Message.cs" />
     <Compile Include="Data\RoomByList.cs" />
     <Compile Include="Data\SearchCenter.cs" />
+    <Compile Include="Logs\Log.cs" />
+    <Compile Include="Logs\RecoveryGame.cs" />
     <Compile Include="Players\HandleStatistics.cs" />
     <Compile Include="Players\PlayerAction.cs" />
     <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
