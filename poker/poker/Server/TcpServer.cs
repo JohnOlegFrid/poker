@@ -50,7 +50,7 @@ namespace poker.Server
 
         public static void SendMessage(string msg, StreamWriter sWriter, object lock_)
         {
-            //if (sWriter == null) return;
+            if (sWriter == null) return;
             msg = Encryption.Encrypt(msg, Program.key, Program.iv);
             lock (lock_)
             {
