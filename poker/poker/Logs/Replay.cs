@@ -12,6 +12,8 @@ namespace poker.Logs
 {
     public class Replay
     {
+        private static readonly string SEPARATOR = "________________________________";
+
         public static void AddReplay(int roomId, string msg)
         {
             ReplayToFile("Replay-"+roomId , msg);
@@ -44,7 +46,15 @@ namespace poker.Logs
         public static string GetReplay(int roomId)
         {
             string path = "Replay-" + roomId;
-            return File.ReadAllText(path);
+            string replay = "";
+            if (File.Exists(path))
+                replay = File.ReadAllText(path);
+            string[] arr = replay.Split(new string[] { SEPARATOR }, StringSplitOptions.None);
+            Array.Resize(ref arr, arr.Length - 1); // remove the game that is not finish
+            replay = string.Join("", arr);
+            if (replay.Equals(""))
+                return "No Replay To Show!";
+            return replay;
         }
 
         private static void ReplayToFile(string path, string msg)
@@ -64,5 +74,9 @@ namespace poker.Logs
             file.Close();
         }
 
+        public static void FinishGame(int id)
+        {
+            AddReplay(id, SEPARATOR);
+        }
     }
 }

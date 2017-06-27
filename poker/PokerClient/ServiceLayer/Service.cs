@@ -121,6 +121,13 @@ namespace PokerClient.ServiceLayer
             Application.Current.Dispatcher.Invoke(() => { MainInfo.Instance.EditWindow.Close(); });
             MainInfo.Instance.EditWindow = null;
         }
+
+        public void ShowReplay(string roomId, string replay)
+        {
+            Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
+            if (room.RoomWindow == null) return;
+            room.RoomWindow.ShowReplay(replay);
+        }
         // end server to client
 
 
@@ -198,7 +205,11 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        
+        public void RequestReplay(string roomId)
+        {
+            Command command = new Command("GetReplay", new String[] { roomId });
+            MainInfo.Instance.SendMessage(command);
+        }
 
         //end client to server
     }

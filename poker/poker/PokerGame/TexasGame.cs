@@ -158,6 +158,7 @@ namespace poker.PokerGame
             ThrowLeavedPlayers();
             ThrowPlayersThatDontHaveEnuoghMoney();
             RecoveryGame.RemoveBackupGame(room.Id);
+            Replay.FinishGame(room.Id);
         }
 
         private void ThrowPlayersThatDontHaveEnuoghMoney()
@@ -258,7 +259,7 @@ namespace poker.PokerGame
             if (bigBlind != null)
             {
                 move = bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
-                Replay.AddReplay(room.Id, bigBlind.GetUsername() + " is Big Blind with " + gamePreferences.bigBlind + "$");
+                Replay.AddReplay(room.Id, bigBlind.GetUsername() + " is Big Blind with " + gamePreferences.BigBlind + "$");
                 lastMove = move;
             }
             activePlayer = bigBlind;

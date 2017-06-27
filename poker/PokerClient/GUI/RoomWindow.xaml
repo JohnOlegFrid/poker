@@ -19,7 +19,7 @@
                 <SolidColorBrush Color="#FF780303" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <ListBox Name="GameLog" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="216" Margin="608,147,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
+        <ListBox Name="GameLog" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="172" Margin="608,147,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5"/>
         <Label Content="Game Log" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="37" Margin="610,107,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
         <Label Content="Chat" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="608,363,0,0" VerticalAlignment="Top" Width="166" FontSize="20" Background="#FF010000" Opacity="0.7" Foreground="White"/>
         <ListBox Name="Chat" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="165" Margin="608,398,0,0" VerticalAlignment="Top" Width="166" Background="#FFDAE78D" Opacity="0.5">
@@ -48,6 +48,24 @@
                 <Button Name="SendButton" Content="Send" Margin="108,0,-0.222,9.222" RenderTransformOrigin="0.502,0.5" Click="SendButton_Click"/>
             </Grid>
         </Border>
-
+        <Button x:Name="Replay" Content="Replay Game" HorizontalAlignment="Left" Margin="608,319,0,0" VerticalAlignment="Top" Width="166" Height="44" Background="#FF24B8D8" FontSize="16" Click="Replay_Click"/>
+        <Popup AllowsTransparency="True" Height="200" HorizontalOffset="1cm" Name="myPopup" 
+                   Placement="Center" StaysOpen="True" Width="300" >
+            <Border BorderBrush="Black" BorderThickness="2">
+                <DockPanel Background="White" LastChildFill="True">
+                    <TextBlock Background="AliceBlue" DockPanel.Dock="Top" 
+                                   FontSize="16" HorizontalAlignment="Stretch" 
+                                   Margin="5" Text="Replay Game" />
+                    
+                    <Button Click="btnClosePopup_Click" Content="Close"
+                                DockPanel.Dock="Bottom" Margin="5" 
+                                HorizontalAlignment="Center" MaxHeight="23" VerticalAlignment="Bottom"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                        HorizontalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="replayText"  TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Popup>
     </Grid>
 </Window>

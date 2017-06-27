@@ -280,6 +280,21 @@ namespace poker.ServiceLayer
         {
             return userService.UpdatePlayerInfo(username,password,email);
         }
-       
+
+        public string GetReplay(string roomId)
+        {
+            try
+            {
+                string replay = Replay.GetReplay(int.Parse(roomId));
+                Command command = new Command("ShowReplay", new string[] { roomId, replay });
+                return CreateJson(command);
+            }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on GetReplay " + e.Message);
+                return "null";
+            }
+            
+        }
     }
 }
