@@ -20,7 +20,7 @@ namespace poker.ServiceLayer
         public string GetAllRoomsToPlay(string username)
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
-            if(player.Num_of_games > 10)
+            if(player.Num_of_games < 10)
                 return service.CreateJson(service.RoomsData.GetAllRooms());
             League l = service.LeaguesData.FindLeagueById(player.LeagueId);
             return service.CreateJson(l.Rooms);
