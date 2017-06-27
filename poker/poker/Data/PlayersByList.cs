@@ -46,6 +46,11 @@ namespace poker.Data
             return players.Max(player => player.Id) + 1;
         }
 
+        public bool isEmailFree(string email)
+        {
+            return !players.Any(p => p.GetEmail().Equals(email));
+        }
+
         public void UpdatePlayer(Player player)
         {
             return;

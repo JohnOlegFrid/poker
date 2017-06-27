@@ -61,6 +61,7 @@ namespace PokerClient.GUI
             
             this.Dispatcher.Invoke(() =>
             {
+                MessageBox.Show(msg);
                 this.IsEnabled = true;
             });         
         }

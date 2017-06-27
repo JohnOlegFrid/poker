@@ -124,5 +124,10 @@ namespace poker.Data.DB
             db.SaveChanges();
             Log.InfoLog("DB:Update player with id: " + player.Id);
         }
+
+        public bool isEmailFree(string email)
+        {
+            return !db.PlayerDBs.Any(p => p.email.Equals(email));
+        }
     }
 }
