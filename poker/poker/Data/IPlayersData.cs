@@ -18,5 +18,6 @@ namespace poker.Data
         Player FindPlayerByUsername(String username);
         int GetNextId();
         void UpdatePlayer(Player player);
+        bool isEmailFree(string v);
     }
 }

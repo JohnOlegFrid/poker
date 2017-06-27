@@ -57,6 +57,8 @@ namespace poker.Players
                 return "Error! invalid email";
             if (!IsValidPassword(newPlayer.GetPassword()))
                 return "Error! invalid password";
+            if(!data.isEmailFree(newPlayer.GetEmail()))
+                return "Error! email is not free";
             newPlayer.Money = 5000;
             newPlayer.SetPassword(Encryption.EncryptPassword(newPlayer.GetPassword()));
             data.AddPlayer(newPlayer);

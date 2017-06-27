@@ -113,7 +113,8 @@ namespace poker.PokerGame
                 ChairsInGame[chair] = p;
                 p.ChairNum = chair;
                 p.SetFold(true);
-                Log.InfoLog(p.Player.Username + " joined the game " + room.Id);
+                if(room != null)
+                    Log.InfoLog(p.Player.Username + " joined the game " + room.Id);
                 gameLog.Add(p.Player.Username + " joined the game.");
                 return true;
             }
@@ -133,7 +134,8 @@ namespace poker.PokerGame
             else
             {
                 ChairsInGame[p.ChairNum] = null;
-                Log.InfoLog(p.Player.Username + " leaved the game " + room.Id);
+                if (room != null)
+                    Log.InfoLog(p.Player.Username + " leaved the game " + room.Id);
                 gameLog.Add(p.GetUsername() + " leaved the game");
                 PlayerAction.AddMoneyToPlayer(p.Money, p.Player);
             }
@@ -147,9 +149,11 @@ namespace poker.PokerGame
 
         public void FinishGame()
         {
-            Log.InfoLog("Game " + room.Id + " is finished.");
+            if (room != null)
+                Log.InfoLog("Game " + room.Id + " is finished.");
             gameLog.Add("Game is finished.");
-            Replay.AddReplay(room.Id, "Game is finished.");
+            if (room != null)
+                Replay.AddReplay(room.Id, "Game is finished.");
             Active = false;
             activePlayer = null;
             FindWinners();
@@ -158,8 +162,10 @@ namespace poker.PokerGame
             ResetPotOfPlayers();
             ThrowLeavedPlayers();
             ThrowPlayersThatDontHaveEnuoghMoney();
-            RecoveryGame.RemoveBackupGame(room.Id);
-            Replay.FinishGame(room.Id);
+            if (room != null)
+                RecoveryGame.RemoveBackupGame(room.Id);
+            if (room != null)
+                Replay.FinishGame(room.Id);
         }
 
         private void ThrowPlayersThatDontHaveEnuoghMoney()
@@ -195,19 +201,22 @@ namespace poker.PokerGame
             if (winners.Count == 1)
             {
                 gameLog.Add("And The Winner Is:");
-                Replay.AddReplay(room.Id, "And The Winner Is:");
+                if (room != null)
+                    Replay.AddReplay(room.Id, "And The Winner Is:");
             }
             else
             {
                 gameLog.Add("And The Winners Are:");
-                Replay.AddReplay(room.Id, "And The Winners Are:");
+                if (room != null)
+                    Replay.AddReplay(room.Id, "And The Winners Are:");
             }
 
             foreach (GamePlayer gp in winners)
             {
                 gp.Money += this.pot / winners.Count;
                 gameLog.Add(gp.GetUsername() + "! Won " + this.pot / winners.Count + "$");
-                Replay.AddReplay(room.Id, gp.GetUsername() + "! Won " + this.pot / winners.Count + "$");
+                if (room != null)
+                    Replay.AddReplay(room.Id, gp.GetUsername() + "! Won " + this.pot / winners.Count + "$");
                 PlayerAction.ShowMessageOnGame(room, "You Won At " + this.pot / winners.Count + "$" , gp.Player);
 
             }
@@ -253,19 +262,22 @@ namespace poker.PokerGame
             if (smallBlind != null)
             {
                 move = smallBlind.Raise(new Raise(gamePreferences.SmallBlind, smallBlind));
-                Replay.AddReplay(room.Id, smallBlind.GetUsername() + " is Small Blind with " + gamePreferences.SmallBlind + "$");
+                if (room != null)
+                    Replay.AddReplay(room.Id, smallBlind.GetUsername() + " is Small Blind with " + gamePreferences.SmallBlind + "$");
                 lastMove = move;
             }
 
             if (bigBlind != null)
             {
                 move = bigBlind.Raise(new Raise(gamePreferences.BigBlind, bigBlind));
-                Replay.AddReplay(room.Id, bigBlind.GetUsername() + " is Big Blind with " + gamePreferences.BigBlind + "$");
+                if (room != null)
+                    Replay.AddReplay(room.Id, bigBlind.GetUsername() + " is Big Blind with " + gamePreferences.BigBlind + "$");
                 lastMove = move;
             }
             activePlayer = bigBlind;
             activePlayer = GetNextPlayer();
-            Replay.AddReplay(room.Id, activePlayer.GetUsername() + " is the active player");
+            if (room != null)
+                Replay.AddReplay(room.Id, activePlayer.GetUsername() + " is the active player");
         }
 
         public void StartGame()
@@ -274,7 +286,8 @@ namespace poker.PokerGame
             {
                 gameLog.Add("Starting game.");
                 InitPlayers();
-                RecoveryGame.CreateBackupForGame(room.Id, this);
+                if (room != null)
+                    RecoveryGame.CreateBackupForGame(room.Id, this);
                 deck = Deck.CreateFullDeck();
                 deck.Shuffle();
                 Active = true;
@@ -289,7 +302,8 @@ namespace poker.PokerGame
                 secondRunOnRound = false;
                 firstPlayOnRound = activePlayer;
                 this.Winners = null;
-                Replay.StartGame(room.Id, this);
+                if (room != null)
+                    Replay.StartGame(room.Id, this);
             }
             else
                 gameLog.Add("Not enough players to start");
@@ -344,7 +358,8 @@ namespace poker.PokerGame
             }
             AddMoveToPot(currentMove);
             AddMoveToLog(currentMove);
-            Replay.AddMove(room.Id, currentMove);
+            if (room != null)
+                Replay.AddMove(room.Id, currentMove);
             lastMove = currentMove;
             return true;
         }
@@ -416,21 +431,24 @@ namespace poker.PokerGame
                 return;
             }
             gameLog.Add("Starting round " + roundNumber);
-            Replay.AddReplay(room.Id, "Starting round " + roundNumber);
+            if (room != null)
+                Replay.AddReplay(room.Id, "Starting round " + roundNumber);
             secondRunOnRound = false;
             if (roundNumber == 1)
             {
                 //burn card + deal 3 card to board
                 deck.Take(1); // burn card
                 board.Add(deck.Take(3));
-                Replay.AddBoardCards(room.Id, board);
+                if (room != null)
+                    Replay.AddBoardCards(room.Id, board);
             }
             else
             {
                 //burn card + deal more one card to board
                 deck.Take(1); // burn card
                 board.Add(deck.Take(1));
-                Replay.AddBoardCards(room.Id, board);
+                if (room != null)
+                    Replay.AddBoardCards(room.Id, board);
             }
             activePlayer = lastMove.Player; // move the active for the last player that play
             firstPlayOnRound = null; // this is new round
