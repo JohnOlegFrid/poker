@@ -16,5 +16,8 @@ namespace poker.Data
         void DeleteRoom(Room room);
 
         Room FindRoomById(int id);
+
+        int GetNextId();
+
     }
 }

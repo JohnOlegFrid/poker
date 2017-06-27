@@ -42,5 +42,10 @@ namespace poker.Data
         {
             return rooms;
         }
+
+        public int GetNextId()
+        {
+            return rooms.Max(room => room.Id) + 1;
+        }
     }
 }

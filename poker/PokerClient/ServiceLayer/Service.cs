@@ -49,9 +49,10 @@ namespace PokerClient.ServiceLayer
             }
             MainInfo.CleanInfo();
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
+            RequestAllRoomsToPlay();
             MainInfo.Instance.MainWindow.OpenMainMenu();
 
-            RequestAllRoomsToPlay();
+            
         }
 
         
@@ -70,6 +71,7 @@ namespace PokerClient.ServiceLayer
 
         public void TakeAllRoomsToPlay(string rooms)
         {
+           
             List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
             MainInfo.Instance.RoomsToPlay = roomsList;
         }
@@ -126,6 +128,8 @@ namespace PokerClient.ServiceLayer
         public void CreateNewRoomSuccess(string newRoomId)
         {
             MessageBox.Show("Room created successfully !\n New Room Id : " + newRoomId,"Room Created",MessageBoxButton.OK,MessageBoxImage.Information);
+            RequestAllRoomsToPlay();
+
         }
         // end server to client
 

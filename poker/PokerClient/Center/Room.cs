@@ -19,22 +19,23 @@ namespace PokerClient.Center
 
         public Room(int id, Chat chat, TexasGame game, List<Player> spectators)
         {
-            this.id = id;
+            this.Id = id;
             this.chat = chat;
-            this.game = game;
+            this.Game = game;
             this.spectators = spectators;
             roomWindow = null;
         }
 
         public override string ToString()
         {
-            return "Room id:" + id + " Texas Poker Game";
+            return "Room id:" + Id + " Texas Poker Game";
         }
 
-        public int Id { get { return id; } set { id = value; } }
         public Chat Chat { get { return chat; } set { chat = value; } }
-        public IGame Game { get { return game; } set { game = value; } }
         public RoomWindow RoomWindow { get { return roomWindow; } set { roomWindow = value; } }
         public List<Player> Spectators { get { return spectators; } }
+
+        public int Id { get => id; set => id = value; }
+        public IGame Game { get => game; set => game = value; }
     }
 }
