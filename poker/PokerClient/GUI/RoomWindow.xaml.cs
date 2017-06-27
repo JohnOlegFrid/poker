@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -91,5 +92,24 @@ namespace PokerClient.GUI
         {
                 MessageBox.Show(mesasge);
         }
+
+        public void ShowReplay(string replay)
+        {
+            Application.Current.Dispatcher.Invoke(() => {
+                replayText.Text = replay;
+                myPopup.IsOpen = true;
+            });
+        }
+
+        private void Replay_Click(object sender, RoutedEventArgs e)
+        {
+            Service.Instance.RequestReplay(room.Id + "");
+        }
+
+        private void btnClosePopup_Click(object sender, RoutedEventArgs e)
+        {
+            myPopup.IsOpen = false;
+        }
+
     }
 }
