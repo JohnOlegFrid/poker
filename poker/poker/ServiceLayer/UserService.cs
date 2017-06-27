@@ -21,6 +21,8 @@ namespace poker.ServiceLayer
 
         public string Register(string username, string password, string email)
         {
+            if (username == null || password == null || email == null)
+                return "null";
             Player newPlayer = new Player(service.PlayersData.GetNextId(), username, password,
                 email, service.LeaguesData.GetDefalutLeague().Id);
             string ans = PlayerAction.Register(newPlayer, service.PlayersData);
@@ -31,6 +33,8 @@ namespace poker.ServiceLayer
 
         public string Login(String username, String password)
         {
+            if (username == null || password == null )
+                return "null";
             Player player = PlayerAction.Login(username, password, service.PlayersData);
             if(player != null)
             {
@@ -81,6 +85,8 @@ namespace poker.ServiceLayer
         public String UpdatePlayerInfo(string username, string password, string email)
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
+            if (player == null)
+                return "null";
             PlayerAction.UpdatePlayerInfo(player,username, password, email,service.PlayersData);
             Command command = new Command("UpdatePlayerInfoSuccess", new string[1] { service.CreateJson(player) });
             return (JsonConvert.SerializeObject(command));

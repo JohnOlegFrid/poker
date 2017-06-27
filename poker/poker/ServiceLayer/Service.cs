@@ -63,6 +63,8 @@ namespace poker.ServiceLayer
 
         public string LoginWeb(string username, string password)
         {
+            if (username == null || password == null)
+                return "Error";
             Player player = PlayerAction.Login(username, password, PlayersData);
             if (player == null)
                 return "Error";
@@ -276,8 +278,10 @@ namespace poker.ServiceLayer
             
         }
 
-        public String UpdatePlayerInfo(string username,string password,string email)
+        public String UpdatePlayerInfo(string username,string uniqueNum, string password,string email)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             return userService.UpdatePlayerInfo(username,password,email);
         }
        

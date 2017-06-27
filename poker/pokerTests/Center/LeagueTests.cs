@@ -30,6 +30,26 @@ namespace poker.Center.Tests
             Assert.IsNull(Program.leaguesData.FindLeagueById(100));
         }
 
+        [TestMethod()]
+        public void AddRoomToLeagueTest()
+        {
+            ProgramList.InitData();
+            League leauge = new League(100, "leauge");
+            Room room = new Room(100, new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 5, 2, 1, 2, true, 10)));
+            Program.leaguesData.AddRoomToLeague(leauge, room);
+            Assert.AreEqual(1, leauge.Rooms.Count);
+        }
+
+        [TestMethod()]
+        public void RemoveRoomFromLeagueTest()
+        {
+            ProgramList.InitData();
+            League leauge = new League(100, "leauge");
+            Room room = new Room(100, new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 5, 2, 1, 2, true, 10)));
+            Program.leaguesData.AddRoomToLeague(leauge, room);
+            Program.leaguesData.RemoveRoomFromLeague(leauge, room);
+            Assert.AreEqual(0, leauge.Rooms.Count);
+        }
 
     }
 }
