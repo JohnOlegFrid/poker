@@ -21,7 +21,6 @@ namespace poker.ServiceLayer
         {
             Player player = service.PlayersData.FindPlayerByUsername(username);
             League l = service.LeaguesData.FindLeagueById(player.LeagueId);
-            Console.WriteLine(service.CreateJson(l.Rooms));
             return service.CreateJson(l.Rooms);
         }
 

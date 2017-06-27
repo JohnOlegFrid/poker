@@ -52,6 +52,10 @@ namespace poker.PokerGame
             return MinPlayers;
         }
 
+        public string print()
+        {
+            return "{AllowSpectating : " + AllowSpectating + ", GameTypePolicy : " + GameTypePolicy1 + "}";
+        }
         //public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
     }
 }

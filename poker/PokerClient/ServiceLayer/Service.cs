@@ -74,6 +74,7 @@ namespace PokerClient.ServiceLayer
            
             List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
             MainInfo.Instance.RoomsToPlay = roomsList;
+            
         }
 
         public void UpdateGame(string roomId, string gameJson)
@@ -221,11 +222,15 @@ namespace PokerClient.ServiceLayer
             Command command = new Command("CreateNewRoom", new string[8] { MainInfo.Instance.getPlayerUsername(),type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
             MainInfo.Instance.SendMessage(command);
         }
-	public void RequestReplay(string roomId)
+	    public void RequestReplay(string roomId)
         {
             Command command = new Command("GetReplay", new String[] { roomId });
             MainInfo.Instance.SendMessage(command);
         }
         //end client to server
+
+        
+
+
     }
 }
