@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace poker.ServiceLayer
 {
-    class CenterService
+    public class CenterService
     {
         private Service service;
 

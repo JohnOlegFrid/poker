@@ -32,7 +32,7 @@ namespace poker.Logs
 
         public static void AddBoardCards(int roomId, Hand board)
         {
-            AddReplay(roomId, "The Board now conatin " + board);
+            AddReplay(roomId, "The Board now contains " + board);
         }
 
         public static void AddMove(int roomId, Move move)

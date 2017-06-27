@@ -96,5 +96,17 @@ namespace poker.Players.Tests
             Assert.IsFalse(ans.Equals("ok"));
             Assert.IsTrue(users == playersData.GetAllPlayers().Count - 1);
         }
+
+        [TestMethod()]
+        public void RegisterAlreadyExistingEmailTest()
+        {
+            Player player1 = new Player(10, "ronen1", "1234", "rons@gmail.com", leaguesData.GetDefalutLeague().Id);
+            Player player2 = new Player(11, "ronen", "12345", "rons@gmail.com", leaguesData.GetDefalutLeague().Id);
+            int users = playersData.GetAllPlayers().Count;
+            string ans = PlayerAction.Register(player1, playersData);
+            ans = PlayerAction.Register(player2, playersData);
+            Assert.IsFalse(ans.Equals("ok"));
+            Assert.IsTrue(users == playersData.GetAllPlayers().Count - 1);
+        }
     }
 }

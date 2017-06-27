@@ -63,6 +63,8 @@ namespace poker.ServiceLayer
 
         public string LoginWeb(string username, string password)
         {
+            if (username == null || password == null)
+                return "Error";
             Player player = PlayerAction.Login(username, password, PlayersData);
             if (player == null)
                 return "Error";
