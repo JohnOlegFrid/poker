@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using poker.Data;
 using poker.Players;
+using poker.PokerGame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,25 +43,40 @@ namespace poker.Players.Tests
         }
 
         [TestMethod()]
-        public void GetTopTest()
+        public void GetTopByGrossTest()
+        {
+            Assert.IsTrue(HandleStatistics.GetTop("Gross profit",20,data).Count == 3);
+        }
+
+        [TestMethod()]
+        public void GetTopByGamesTest()
+        {
+            Assert.IsTrue(HandleStatistics.GetTop("Number of games", 20, data).Count == 3);
+        }
+
+        [TestMethod()]
+        public void GetTopByGainTest()
+        {
+            Assert.IsTrue(HandleStatistics.GetTop("Highest gain", 20, data).Count == 3);
+        }
+
+        [TestMethod()]
+        public void UpdateStatsTest()
+        {
+            List<GamePlayer> list = new List<GamePlayer>();
+            GamePlayer gp = new GamePlayer(player1, 1000);
+            //HandleStatistics.updateStats
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public void GetAvgGrossProfitTest()
         {
             Assert.IsTrue(true);
         }
 
         [TestMethod()]
-        public void updateStatsTest()
-        {
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void getAvgGrossProfitTest()
-        {
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void getAvgGainTest()
+        public void GetAvgGainTest()
         {
             Assert.IsTrue(true);
         }

@@ -19,7 +19,6 @@ namespace poker.Data.Tests
         IGame game3;
         ILeaguesData leaguesData;
         IPlayersData playersData;
-        GameCenter gameCenter;
 
         public SearchCenterTests()
         {
@@ -30,7 +29,6 @@ namespace poker.Data.Tests
             leaguesData.AddLeague(league);
 
             Player playerLogged = new Player(0, "logged", "1234", "logged@gmail.com", league.Id);
-            gameCenter = new GameCenter(leaguesData.GetAllLeagues(), playerLogged);
             searchCenter = new SearchCenter(playersData, leaguesData);
         }
 
