@@ -68,6 +68,7 @@ namespace poker.PokerGame
         public GamePlayer ActivePlayer { get => activePlayer; set => activePlayer = value; } //New feature 23.06.17
         public Hand Board { get => board; set => board = value; }
         public int HighestBet { get => highestBet; set => highestBet = value; }
+        public int RoundNumber { get => roundNumber; set => roundNumber = value; }
 
         public void SetRoom(Room room)
         {
@@ -374,7 +375,7 @@ namespace poker.PokerGame
                 throw new IllegalMoveException("Error!, " + currentMove.Player + " cant " + currentMove.Name + " you need to bet at least " + this.highestBet);
             if (currentMove.Amount == 0)
                 return;
-            ValidateByGmeType(gamePreferences.getGameTypePolicy(), currentMove);
+            ValidateByGameType(gamePreferences.getGameTypePolicy(), currentMove);
             return;
         }
 
@@ -383,7 +384,7 @@ namespace poker.PokerGame
         /// </summary>
         /// <param name="gameTypePolicy"> The Game Policy</param>
         /// <param name="currentMove"> The move type</param>
-        private void ValidateByGmeType(GamePreferences.GameTypePolicy gameTypePolicy, Move currentMove)
+        private void ValidateByGameType(GamePreferences.GameTypePolicy gameTypePolicy, Move currentMove)
         {
             switch (gameTypePolicy)
             {
@@ -398,8 +399,10 @@ namespace poker.PokerGame
                         throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise only double the big blind at this turn: " + 2*gamePreferences.BigBlind);
                     break;
                 case GamePreferences.GameTypePolicy.POT_LIMIT:
-                    if (currentMove.Name == "Raise"  && currentMove.Amount < gamePreferences.BigBlind && currentMove.Amount > pot)
-                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind +"or maximum current pot size");
+                    if (currentMove.Name == "Raise"  && pot > 0 && currentMove.Amount > pot)
+                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise as maximum current pot size");
+                    if (currentMove.Name == "Raise" && currentMove.Amount < gamePreferences.BigBlind)
+                        throw new IllegalMoveException("Error!, " + currentMove.Player + " can raise at least " + gamePreferences.BigBlind );
                     break;
             }
         }
