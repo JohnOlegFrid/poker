@@ -72,7 +72,7 @@ namespace poker.ServiceLayer
             catch { }
         }
 
-        public string CreateNewRoom(string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        public string CreateNewRoom(string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
         {
             GamePreferences.GameTypePolicy gtp = 0;
             switch (type)
@@ -90,9 +90,16 @@ namespace poker.ServiceLayer
             bool allow= (allowSpec.CompareTo("true") == 0) ? true : false;
 
             GamePreferences gp = new GamePreferences(gtp,int.Parse(maxPlayers),int.Parse(minPlayers),int.Parse(minBuyIn),int.Parse(maxBuyIn),allow,int.Parse(bigBlind));
+
             IGame newGame = new TexasGame(gp);
             int newRoomId = service.PlayersData.GetNextId();
             Room newRoom = new Room(newRoomId, newGame);
+            service.RoomsData.AddRoom(newRoom);
+
+            Player currentPlayer = service.PlayersData.FindPlayerByUsername(playerUserName);
+            League league= service.LeaguesData.FindLeagueById(currentPlayer.LeagueId);
+            service.LeaguesData.AddRoomToLeague(league,newRoom);
+
             Command command = new Command("CreateNewRoomSuccess", new String[1] { newRoomId + "" });
             return service.CreateJson(command);
         }

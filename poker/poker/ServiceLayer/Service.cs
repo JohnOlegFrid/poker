@@ -268,10 +268,10 @@ namespace poker.ServiceLayer
             return userService.UpdatePlayerInfo(username,password,email);
         }
        
-        public string CreateNewRoom (string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        public string CreateNewRoom (string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
         {
 
-            return gameService.CreateNewRoom(type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind);
+            return gameService.CreateNewRoom(playerUserName,type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind);
         }
     }
 }

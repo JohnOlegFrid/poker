@@ -206,7 +206,7 @@ namespace PokerClient.ServiceLayer
 
         public void SendCreateRoom(string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
         {
-            Command command = new Command("CreateNewRoom", new string[7] { type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
+            Command command = new Command("CreateNewRoom", new string[8] { MainInfo.Instance.getPlayerUsername(),type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
             MainInfo.Instance.SendMessage(command);
         }
 
