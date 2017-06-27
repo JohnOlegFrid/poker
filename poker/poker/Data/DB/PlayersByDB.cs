@@ -12,6 +12,7 @@ namespace poker.Data.DB
     {
         private static myDB db = Program.db;
         private List<Player> listPlayers = new List<Player>();
+
         public void AddPlayer(Player player)
         {
             PlayerDB p = CreatePlayerDB(player);

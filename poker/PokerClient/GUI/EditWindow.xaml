@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PokerClient.GUI"
         mc:Ignorable="d"
-        Title="EditWindow" Height="640" Width="800">
-    <Grid Width="800" Height="640">
+        Title="EditWindow" Height="480" Width="600">
+    <Grid Width="600" Height="480">
         <Grid.Background>
             <ImageBrush ImageSource="Images\MainMenuBack.jpg" Stretch="UniformToFill"/>
         </Grid.Background>

@@ -280,7 +280,12 @@ namespace poker.ServiceLayer
         {
             return userService.UpdatePlayerInfo(username,password,email);
         }
-
+       
+        public string CreateNewRoom (string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        {
+            return gameService.CreateNewRoom(playerUserName,type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind);
+        }
+            
         public string GetReplay(string roomId)
         {
             try
@@ -295,6 +300,6 @@ namespace poker.ServiceLayer
                 return "null";
             }
             
-        }
+        }            
     }
 }

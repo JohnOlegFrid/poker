@@ -20,7 +20,7 @@ namespace poker.PokerGame
 
         public GameTypePolicy GetGameType()
         {
-            return gameTypePolicy;
+            return GameTypePolicy1;
         }
         public int MaxPlayers
         {
@@ -50,7 +50,7 @@ namespace poker.PokerGame
 
         public GameTypePolicy getGameTypePolicy()
         {
-            return gameTypePolicy;
+            return GameTypePolicy1;
         }
 
         public int MinBuyIn
@@ -107,7 +107,7 @@ namespace poker.PokerGame
 
         public GamePreferences(GameTypePolicy gamePolicy ,int maxPlayers,int minPlayers, int minBuyIn, int maxBuyIn, bool allowSpectating, int bigBlind)
         {
-            gameTypePolicy = gamePolicy;
+            GameTypePolicy1 = gamePolicy;
             this.maxPlayers = maxPlayers;
             SetMinPlayers(minPlayers);
             this.minBuyIn = minBuyIn;
@@ -132,5 +132,7 @@ namespace poker.PokerGame
         }
 
         public bool AllowSpectating { get { return allowSpectating; } set { allowSpectating = value; } }
+
+        public GameTypePolicy GameTypePolicy1 { get => gameTypePolicy; set => gameTypePolicy = value; }
     }
 }

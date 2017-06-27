@@ -49,10 +49,13 @@ namespace PokerClient.ServiceLayer
             }
             MainInfo.CleanInfo();
             MainInfo.Instance.Player = JsonConvert.DeserializeObject<Player>(player);
+            RequestAllRoomsToPlay();
             MainInfo.Instance.MainWindow.OpenMainMenu();
 
-            RequestAllRoomsToPlay();
+            
         }
+
+        
 
         public void Register(string registerMsg, string player)
         {
@@ -68,6 +71,7 @@ namespace PokerClient.ServiceLayer
 
         public void TakeAllRoomsToPlay(string rooms)
         {
+           
             List<Room> roomsList = JsonConvert.DeserializeObject<List<Room>>(rooms);
             MainInfo.Instance.RoomsToPlay = roomsList;
         }
@@ -122,6 +126,13 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.EditWindow = null;
         }
 
+        public void CreateNewRoomSuccess(string newRoomId)
+        {
+            MessageBox.Show("Room created successfully !\n New Room Id : " + newRoomId,"Room Created",MessageBoxButton.OK,MessageBoxImage.Information);
+            RequestAllRoomsToPlay();
+
+        }
+        
         public void ShowReplay(string roomId, string replay)
         {
             Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
@@ -205,12 +216,16 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        public void RequestReplay(string roomId)
+        public void SendCreateRoom(string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        {
+            Command command = new Command("CreateNewRoom", new string[8] { MainInfo.Instance.getPlayerUsername(),type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
+            MainInfo.Instance.SendMessage(command);
+        }
+	public void RequestReplay(string roomId)
         {
             Command command = new Command("GetReplay", new String[] { roomId });
             MainInfo.Instance.SendMessage(command);
         }
-
         //end client to server
     }
 }

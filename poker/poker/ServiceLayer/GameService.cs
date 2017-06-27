@@ -77,5 +77,41 @@ namespace poker.ServiceLayer
                 Log.ErrorLog("Exception on SendMessageOnGame " + e.Message);
             }
         }
+
+        public string CreateNewRoom(string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        {
+
+            GamePreferences.GameTypePolicy gtp = 0;
+            switch (type)
+            {
+                case "LIMIT":
+                    gtp = GamePreferences.GameTypePolicy.LIMIT;
+                    break;
+                case "NO_LIMIT":
+                    gtp = GamePreferences.GameTypePolicy.NO_LIMIT;
+                    break;
+                case "POT_LIMIT":
+                    gtp = GamePreferences.GameTypePolicy.POT_LIMIT;
+                    break;
+            }
+            
+            bool allow= (allowSpec.CompareTo("True") == 0) ? true : false;
+            GamePreferences gp = new GamePreferences(gtp,int.Parse(maxPlayers),int.Parse(minPlayers),int.Parse(minBuyIn),int.Parse(maxBuyIn),allow,int.Parse(bigBlind));
+            
+
+            IGame newGame = new TexasGame(gp);
+            int newRoomId = service.RoomsData.GetNextId();
+            Room newRoom = new Room(newRoomId, newGame);
+            service.RoomsData.AddRoom(newRoom);
+
+            Player currentPlayer = service.PlayersData.FindPlayerByUsername(playerUserName);
+            League league= service.LeaguesData.FindLeagueById(currentPlayer.LeagueId);
+            service.LeaguesData.AddRoomToLeague(league,newRoom);
+
+
+            Command command = new Command("CreateNewRoomSuccess", new String[1] { newRoomId + "" });
+            return service.CreateJson(command);
+        }
+
     }
 }

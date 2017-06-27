@@ -34,7 +34,6 @@ namespace PokerClient.GUI
             log = new Login();
             reg = new Register();
             MainInfo.Instance.Login = log;
-
             mainContentControl.Content = new Login();
         }
 

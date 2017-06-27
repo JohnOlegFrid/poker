@@ -46,8 +46,20 @@ namespace PokerClient.GUI
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            EditWindow ew = new EditWindow();
-            ew.Show();
+            if (MainInfo.Instance.EditWindow == null)
+            {
+                EditWindow ew = new EditWindow();
+                MainInfo.Instance.EditWindow = ew;
+                ew.Show();
+            }
+            else
+            {
+                MessageBox.Show("there is an Edit window open allready.", "Dual Edit Window", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+            }
+
         }
+
+    
     }
 }

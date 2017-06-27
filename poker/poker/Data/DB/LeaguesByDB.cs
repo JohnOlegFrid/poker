@@ -16,9 +16,11 @@ namespace poker.Data.DB
             LeagueDB l;
             if(db.LeagueDBs.Count() != 0)
             {
-                l = db.LeagueDBs.First(lea => lea.id == league.Id);
-                if (l != null)
-                    return l;
+                try
+                {
+                    return db.LeagueDBs.First(lea => lea.id == league.Id);
+                }
+                catch { }
             }
             l = new LeagueDB
             {
@@ -40,7 +42,7 @@ namespace poker.Data.DB
 
         public void AddLeague(League league)
         {
-            if (db.LeagueDBs.Count() != 0 && db.LeagueDBs.First(l => l.id == league.Id) != null)
+            if (db.LeagueDBs.Count() != 0 && db.LeagueDBs.Any(l => l.id == league.Id))
                 return;
             db.LeagueDBs.Add(CreateLeagueDB(league));
             db.SaveChanges();

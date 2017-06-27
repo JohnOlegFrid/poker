@@ -25,7 +25,12 @@ namespace PokerClient.GUI
         public MainPanel()
         {
             InitializeComponent();
-            RoomsList.DataContext = MainInfo.Instance.RoomsToPlayObsever;
+          
+            string rooms = "";
+            foreach (Room room in MainInfo.Instance.RoomsToPlayObsever)
+                rooms = " " + rooms + room.Id;
+            //RoomsList.DataContext = MainInfo.Instance.RoomsToPlayObsever;
+            RoomsList.ItemsSource = MainInfo.Instance.RoomsToPlayObsever;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -42,5 +47,20 @@ namespace PokerClient.GUI
             roomWindow.Show();
             Service.Instance.RequestUpdateGame(selcted.Id + "");
         }
+
+        private void newRoomButtton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new CreateNewRoom();
+            
+        }
+    }
+
+    public class User
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+
+        public string Mail { get; set; }
     }
 }
