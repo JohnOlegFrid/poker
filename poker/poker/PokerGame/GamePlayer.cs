@@ -6,7 +6,9 @@ using poker.Cards;
 
 namespace poker.PokerGame
 {
+#pragma warning disable CS0659 // 'GamePlayer' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class GamePlayer
+#pragma warning restore CS0659 // 'GamePlayer' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         private Player player;
         private int chairNum;
