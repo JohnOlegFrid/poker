@@ -123,9 +123,17 @@ namespace PokerClient.ServiceLayer
             Application.Current.Dispatcher.Invoke(() => { MainInfo.Instance.EditWindow.Close(); });
             MainInfo.Instance.EditWindow = null;
         }
+
         public void CreateNewRoomSuccess(string newRoomId)
         {
             MessageBox.Show("Room created successfully !\n New Room Id : " + newRoomId,"Room Created",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+        
+        public void ShowReplay(string roomId, string replay)
+        {
+            Room room = MainInfo.Instance.FindRoomById(int.Parse(roomId));
+            if (room.RoomWindow == null) return;
+            room.RoomWindow.ShowReplay(replay);
         }
         // end server to client
 
@@ -209,8 +217,11 @@ namespace PokerClient.ServiceLayer
             Command command = new Command("CreateNewRoom", new string[8] { MainInfo.Instance.getPlayerUsername(),type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
             MainInfo.Instance.SendMessage(command);
         }
-
-
+	public void RequestReplay(string roomId)
+        {
+            Command command = new Command("GetReplay", new String[] { roomId });
+            MainInfo.Instance.SendMessage(command);
+        }
         //end client to server
     }
 }

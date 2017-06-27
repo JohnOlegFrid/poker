@@ -37,26 +37,26 @@ namespace poker.Center.Tests
             leaguesData.AddLeague(league3);
 
             // create Users
-            user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1)
+            user1 = new Player(1, "eliran", "1234", "eliran@gmail.com", league1.Id)
             {
                 Rank = 3
             };
-            user2 = new Player(2, "oleg", "1234", "oleg@gmail.com", league1)
+            user2 = new Player(2, "oleg", "1234", "oleg@gmail.com", league1.Id)
             {
                 Rank = 7
             };
-            user3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league2)
+            user3 = new Player(3, "moshe", "1234", "moshe@gmail.com", league2.Id)
             {
                 Rank = 4
             };
-            user4 = new Player(3, "slava", "1234", "slave@gmail.com", league3);
+            user4 = new Player(3, "slava", "1234", "slave@gmail.com", league3.Id);
             usersData.AddPlayer(user1);
             usersData.AddPlayer(user2);
             usersData.AddPlayer(user3);
             usersData.AddPlayer(user4);
-            Room r = new Room(new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT,4, 2, 100, 1000, true, 100)));
+            Room r = new Room(1,new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT,4, 2, 100, 1000, true, 100)));
             league1.Rooms.Add(r);
-            r = new Room(new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 5, 2, 200, 1000, true, 100)));
+            r = new Room(2, new TexasGame(new GamePreferences(GamePreferences.GameTypePolicy.LIMIT, 5, 2, 200, 1000, true, 100)));
             league1.Rooms.Add(r);
             gameCenter = new GameCenter(leaguesData.GetAllLeagues(), user1);
         }

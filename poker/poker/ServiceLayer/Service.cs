@@ -283,8 +283,23 @@ namespace poker.ServiceLayer
        
         public string CreateNewRoom (string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
         {
-
             return gameService.CreateNewRoom(playerUserName,type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind);
         }
+            
+        public string GetReplay(string roomId)
+        {
+            try
+            {
+                string replay = Replay.GetReplay(int.Parse(roomId));
+                Command command = new Command("ShowReplay", new string[] { roomId, replay });
+                return CreateJson(command);
+            }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on GetReplay " + e.Message);
+                return "null";
+            }
+            
+        }            
     }
 }

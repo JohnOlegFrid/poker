@@ -20,6 +20,7 @@ namespace PokerClient.ServiceLayer
         void UpdatePlayer(string playerJson);
         void ShowMessageOnGame(string roomId, string mesasge);
         void UpdatePlayerInfoSuccess(string playerJson);
+        void ShowReplay(string roomId, string replay);
         //
 
         //client to server
@@ -33,7 +34,7 @@ namespace PokerClient.ServiceLayer
         void SendChatMessage(string roomId, string username, string msg, string isActiveInGame);
         void SendMoveToGame(string roomId, Move move);
         void UpdatePlayerInfo(string username, string newPassword, string newEmail);
-
+        void RequestReplay(string roomId);
         //
 
 

@@ -120,6 +120,7 @@
     <Compile Include="Data\SearchCenter.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\RecoveryGame.cs" />
+    <Compile Include="Logs\Replay.cs" />
     <Compile Include="Players\HandleStatistics.cs" />
     <Compile Include="Players\PlayerAction.cs" />
     <Compile Include="PokerGame\Exceptions\IllegalMoveException.cs" />
