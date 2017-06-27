@@ -278,8 +278,10 @@ namespace poker.ServiceLayer
             
         }
 
-        public String UpdatePlayerInfo(string username,string password,string email)
+        public String UpdatePlayerInfo(string username,string uniqueNum, string password,string email)
         {
+            if (!IsUsernameAuthorize(username, uniqueNum))
+                return "null";
             return userService.UpdatePlayerInfo(username,password,email);
         }
        

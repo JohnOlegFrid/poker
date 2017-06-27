@@ -142,7 +142,7 @@ namespace poker.ServiceLayer.Tests
         public void UpdatePlayerInfoTestNotCrush()
         {
             ProgramList.InitData();
-            String ans = Service.GetLastInstance().UpdatePlayerInfo("sadas", "sadsa", "asdsa");
+            String ans = Service.GetLastInstance().UpdatePlayerInfo("sadas","sd", "sadsa", "asdsa");
             Assert.AreEqual(ans, "null");
         }
 

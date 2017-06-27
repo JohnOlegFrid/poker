@@ -212,7 +212,7 @@ namespace PokerClient.ServiceLayer
 
         public void UpdatePlayerInfo(string username, string newPassword, string newEmail)
         {
-            Command command = new Command("UpdatePlayerInfo", new String[3] { username, newPassword, newEmail });
+            Command command = new Command("UpdatePlayerInfo", new String[] { username, MainInfo.Instance.Player.UniqueNum + "", newPassword, newEmail });
             MainInfo.Instance.SendMessage(command);
         }
 

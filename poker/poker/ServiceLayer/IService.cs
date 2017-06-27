@@ -25,7 +25,7 @@ namespace poker.ServiceLayer
         string AddCallToGame(string roomId, string moveJson);
         string AddCheckToGame(string roomId, string moveJson);
         string AddRaiseToGame(string roomId, string moveJson);
-        string UpdatePlayerInfo(string username, string password, string email);
+        string UpdatePlayerInfo(string username, string uniqueNum, string password, string email);
         string CreateNewRoom(string playerUserName,string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind);
         string GetReplay(string roomId);
 
