@@ -17,6 +17,7 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <Button Content="Open Room!" HorizontalAlignment="Left" Height="224" Margin="463,195,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF3A49AF" Click="Button_Click"/>
+        <Button Content="Open Room!" HorizontalAlignment="Left" Height="96" Margin="466,108,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF3A49AF" Click="Button_Click" Foreground="White"/>
+        <Button x:Name="newRoomButtton" Content="New Room" HorizontalAlignment="Left" Height="96" Margin="466,242,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF1DD411" IsCancel="True" Foreground="White" Click="newRoomButtton_Click"/>
     </Grid>
 </UserControl>

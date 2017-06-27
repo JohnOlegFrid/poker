@@ -54,6 +54,8 @@ namespace PokerClient.ServiceLayer
             RequestAllRoomsToPlay();
         }
 
+        
+
         public void Register(string registerMsg, string player)
         {
             string regMsg = JsonConvert.DeserializeObject<string>(registerMsg);
@@ -120,6 +122,10 @@ namespace PokerClient.ServiceLayer
             MessageBox.Show("your Info updated succesfully !", "update success", MessageBoxButton.OK, MessageBoxImage.Information);
             Application.Current.Dispatcher.Invoke(() => { MainInfo.Instance.EditWindow.Close(); });
             MainInfo.Instance.EditWindow = null;
+        }
+        public void CreateNewRoomSuccess(string newRoomId)
+        {
+            MessageBox.Show("Room created successfully !\n New Room Id : " + newRoomId,"Room Created",MessageBoxButton.OK,MessageBoxImage.Information);
         }
         // end server to client
 
@@ -198,7 +204,12 @@ namespace PokerClient.ServiceLayer
             MainInfo.Instance.SendMessage(command);
         }
 
-        
+        public void SendCreateRoom(string type, string maxPlayers, string minPlayers, string minBuyIn, string maxBuyIn, string allowSpec, string bigBlind)
+        {
+            Command command = new Command("CreateNewRoom", new string[8] { MainInfo.Instance.getPlayerUsername(),type, maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind });
+            MainInfo.Instance.SendMessage(command);
+        }
+
 
         //end client to server
     }

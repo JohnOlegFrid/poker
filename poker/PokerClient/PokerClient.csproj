@@ -85,6 +85,9 @@
     <Compile Include="GUI\Chair.xaml.cs">
       <DependentUpon>Chair.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\CreateNewRoom.xaml.cs">
+      <DependentUpon>CreateNewRoom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
     <Compile Include="ServiceLayer\IService.cs" />
     <Compile Include="ServiceLayer\Service.cs" />
     <Page Include="GUI\Chair.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\CreateNewRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

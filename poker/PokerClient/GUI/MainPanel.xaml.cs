@@ -42,5 +42,10 @@ namespace PokerClient.GUI
             roomWindow.Show();
             Service.Instance.RequestUpdateGame(selcted.Id + "");
         }
+
+        private void newRoomButtton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new CreateNewRoom();
+        }
     }
 }
