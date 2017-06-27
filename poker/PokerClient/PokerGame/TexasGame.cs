@@ -50,7 +50,7 @@ namespace poker.PokerGame
         }
 
 
-        public GamePreferences GamePreferences { get { return gamePreferences; } set { gamePreferences = value; } }
+        //public GamePreferences GamePreferences { get { return gamePreferences; } set { gamePreferences = value; } }
 
         public GamePlayer[] ChairsInGame { get { return chairsInGame; } set { chairsInGame = value; } }
 
@@ -59,6 +59,8 @@ namespace poker.PokerGame
         public bool Active { get { return active; } set { active = value; } }
 
         public int Pot { get { return pot; } set { pot = value; } }
+
+        public GamePreferences GamePreferences { get => gamePreferences; set => gamePreferences = value; }
 
         public bool IsActive()
         {

@@ -37,15 +37,19 @@ namespace PokerClient.GUI
             string allowSpec=allowSpectCheckBox.IsChecked.Value.ToString() ;
             string bigBlind = bigBlindTextBox.Text;
             string type = "LIMIT";
+            if (typeNoLimit.IsChecked.Value)
+                type = "NO_LIMIT";
+            if (typePotLimit.IsChecked.Value)
+                type = "POT_LIMIT";
+
+            
             Service.Instance.SendCreateRoom(type , maxPlayers, minPlayers, minBuyIn, maxBuyIn, allowSpec, bigBlind);
         }
 
         private void goBackButton_Click(object sender, RoutedEventArgs e)
         {
-            // MainInfo.Instance.MainWindow.OpenMainMenu();
             this.Content = new MainPanel();
-            Service.Instance.RequestAllRoomsToPlay();
-            
+
         }
     }
 }

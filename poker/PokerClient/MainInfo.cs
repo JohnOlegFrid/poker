@@ -87,9 +87,17 @@ namespace PokerClient
             get { return roomsToPlay; }
             set {
                 UpdateRooms(value);
-                Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Clear(); });
+                Application.Current.Dispatcher.Invoke(() => {
+                    roomsToPlayObsever.Clear();
                     foreach (Room room in roomsToPlay)
-                        Application.Current.Dispatcher.Invoke(() => { roomsToPlayObsever.Add(room); });                  
+                        roomsToPlayObsever.Add(room);
+                    string rooms = "";
+                    foreach (Room room in roomsToPlayObsever)
+                        rooms = " " + rooms + room.Id;
+                
+                });
+                
+                
             } }
 
         public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
@@ -106,17 +114,16 @@ namespace PokerClient
         private void UpdateRooms(List<Room> rooms)
         {
             if (roomsToPlay == null) roomsToPlay = rooms;
-            Room findRoom;
+            Room findRoom = null;
             foreach(Room room in rooms)
             {
-                try
-                {
-                    findRoom = FindRoomById(room.Id);
-                }
-                catch {
-                    roomsToPlay.Add(room);
-                }
+                findRoom = FindRoomById(room.Id);
+                    if (findRoom == null)
+                        roomsToPlay.Add(room);
+                    else
+                        findRoom = null;  
             }
+
         }
 
         public void Logout()

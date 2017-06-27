@@ -80,5 +80,12 @@ namespace poker.Data.DB
                 l.Add(CreateRoomFromDB(r));
             return l;
         }
+
+        public int GetNextId()
+        {
+            if (db.RoomDBs.Count() == 0)
+                return 1;
+            return db.RoomDBs.Max(room => room.id) + 1;
+        }
     }
 }

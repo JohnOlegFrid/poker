@@ -8,8 +8,26 @@
              d:DesignHeight="620" d:DesignWidth="800">
     <Grid>
         <Image Source="Images/MainMenuBack.jpg" Height="620" Stretch="Fill"/>
-        <ListBox x:Name="RoomsList" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="446" Margin="42,108,0,0" VerticalAlignment="Top" Width="357"/>
-        <Label Content=" Rooms available to play :" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top" Height="40" Width="357" FontSize="20" Foreground="#FF060000" FontWeight="Bold">
+
+        <Grid >
+            <ListView Name="RoomsList" Height="446" Margin="42,108,0,0" VerticalAlignment="Top" Width="400" HorizontalAlignment="Left" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Room ID"  DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Header="Max players"  DisplayMemberBinding="{Binding Game.GamePreferences.MaxPlayers}" />
+                        <GridViewColumn Header="Max Buy in" DisplayMemberBinding="{Binding Game.GamePreferences.MaxBuyIn}" />
+                        <GridViewColumn Header="Big blind" DisplayMemberBinding="{Binding Game.GamePreferences.BigBlind}" />
+                        <GridViewColumn Header="Allow Spectating" DisplayMemberBinding="{Binding Game.GamePreferences.AllowSpectating}" />
+                        <GridViewColumn Header="Policy type" DisplayMemberBinding="{Binding Game.GamePreferences.GameTypePolicy1}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+
+
+
+        <Label Content=" Rooms available to play :" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top" Height="40" Width="400" FontSize="20" Foreground="#FF060000" FontWeight="Bold">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFEEEAEA" Offset="0"/>
