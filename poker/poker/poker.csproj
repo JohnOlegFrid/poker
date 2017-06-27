@@ -118,6 +118,7 @@
     <Compile Include="Center\Message.cs" />
     <Compile Include="Data\RoomByList.cs" />
     <Compile Include="Data\SearchCenter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\RecoveryGame.cs" />
     <Compile Include="Logs\Replay.cs" />

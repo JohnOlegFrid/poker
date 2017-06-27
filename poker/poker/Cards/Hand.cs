@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace poker.Cards
 {
+#pragma warning disable CS0660 // 'Hand' defines operator == or operator != but does not override Object.Equals(object o)
+#pragma warning disable CS0661 // 'Hand' defines operator == or operator != but does not override Object.GetHashCode()
     public class Hand : List<Card>, IEnumerable<Card>
+#pragma warning restore CS0661 // 'Hand' defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0660 // 'Hand' defines operator == or operator != but does not override Object.Equals(object o)
     {
         private bool DidChange = true;
         private long OldCombinationValue = 0;
