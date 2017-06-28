@@ -75,10 +75,19 @@ namespace poker.Data.DB
 
         public List<Room> GetAllRooms()
         {
-            List<Room> l = new List<Room>();
-            foreach (RoomDB r in db.RoomDBs)
-                l.Add(CreateRoomFromDB(r));
-            return l;
+            try
+            {
+                List<Room> l = new List<Room>();
+                foreach (RoomDB r in db.RoomDBs)
+                    l.Add(CreateRoomFromDB(r));
+                return l;
+            }
+            catch (Exception e)
+            {
+                Log.ErrorLog("Exception on GetAllRooms " + e.Message);
+                return new List<Room>();
+            }
+            
         }
 
         public int GetNextId()
