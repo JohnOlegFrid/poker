@@ -58,7 +58,7 @@ namespace PokerClient.GUI
 
         public void RegisterFaild(string msg)
         {
-            
+            MessageBox.Show("Invalid email or username.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
             this.Dispatcher.Invoke(() =>
             {
                 this.IsEnabled = true;
