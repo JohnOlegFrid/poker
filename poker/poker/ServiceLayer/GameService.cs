@@ -25,18 +25,23 @@ namespace poker.ServiceLayer
 
         public string StartGame(string roomId)
         {
-            try
+            lock (_lock)
             {
-                Room room = service.RoomsData.FindRoomById(int.Parse(roomId));
-                room.Game.StartGame();
-                Command command = new Command("UpdateGame", new string[2] { room.Id + "", service.CreateJson(room.Game) });
-                service.SendCommandToPlayersInGame(service.CreateJson(command), room.Id + "");
-                return "null";
-            }
-            catch (Exception e)
-            {
-                Log.ErrorLog("Exception on StartGame " + e.Message);
-                return "null"; //null mean that sever done need to send back message
+                try
+                {
+                    Room room = service.RoomsData.FindRoomById(int.Parse(roomId));
+                    if (room.Game.IsActive())
+                        return "null";
+                    room.Game.StartGame();
+                    Command command = new Command("UpdateGame", new string[2] { room.Id + "", service.CreateJson(room.Game) });
+                    service.SendCommandToPlayersInGame(service.CreateJson(command), room.Id + "");
+                    return "null";
+                }
+                catch (Exception e)
+                {
+                    Log.ErrorLog("Exception on StartGame " + e.Message);
+                    return "null"; //null mean that sever done need to send back message
+                }
             }
         }
 
