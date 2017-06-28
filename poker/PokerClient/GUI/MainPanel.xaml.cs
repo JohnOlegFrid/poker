@@ -31,9 +31,9 @@ namespace PokerClient.GUI
             string rooms = "";
             foreach (Room room in MainInfo.Instance.RoomsToPlayObsever)
                 rooms = " " + rooms + room.Id;
-            //RoomsList.DataContext = MainInfo.Instance.RoomsToPlayObsever;
-            MainInfo.Instance.RoomsToPlayObsever = filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
+            
             RoomsList.ItemsSource = MainInfo.Instance.RoomsToPlayObsever;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -83,6 +83,7 @@ namespace PokerClient.GUI
               
                 MainInfo.Instance.displayRoomsByMaxNumOfPlayers(maxNumOfPlayers);
             }
+            filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
         }
 
         private void filterByMaxBuyInButton_Click(object sender, RoutedEventArgs e)
@@ -92,8 +93,15 @@ namespace PokerClient.GUI
                 MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
-                maxBuyIn = int.Parse(MaxBuyInTextBox.Text);
-             
+                try
+                {
+                    maxBuyIn = int.Parse(MaxBuyInTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 MainInfo.Instance.displayRoomsByMaxBuyIn(maxBuyIn);
             }
             filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
@@ -106,19 +114,68 @@ namespace PokerClient.GUI
                 MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
-                bigBlind = int.Parse(BigBlindTextBox.Text);
-
+                try
+                {
+                    bigBlind = int.Parse(BigBlindTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 MainInfo.Instance.displayRoomsByBigBlind(bigBlind);
             }
+            filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
         }
+
+        private void filterByMinNumOfPlayersButton_Click(object sender, RoutedEventArgs e)
+        {
+            int minNumOfPlayers = 0;
+            if (minNumOfPlayersTextBox.Text.CompareTo("") == 0 || !MainInfo.Instance.isNumber(minNumOfPlayersTextBox.Text))
+                MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+            {
+                try
+                {
+                    minNumOfPlayers = int.Parse(minNumOfPlayersTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                MainInfo.Instance.displayRoomsByMinNumOfPlayers(minNumOfPlayers);
+            }
+            filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
+        }
+
+        private void filterByMinBuyInButton_Click(object sender, RoutedEventArgs e)
+        {
+            int minBuyIn = 0;
+            if (MinBuyInTextBox.Text.CompareTo("") == 0 || !MainInfo.Instance.isNumber(MinBuyInTextBox.Text))
+                MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+            {
+                try
+                {
+                    minBuyIn = int.Parse(MinBuyInTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Wrong input, Please Enter some value again.", "wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                MainInfo.Instance.displayRoomsByMinBuyIn(minBuyIn);
+            }
+            filterByTypeAndSpect(MainInfo.Instance.RoomsToPlayObsever);
+        }
+
+
 
         public ObservableCollection<Room> filterByTypeAndSpect(ObservableCollection<Room> roomsList)
         {
-            string roomsNoSpec = "";
-            string roomsYesSpec = "";
-            string roomsLimit = "";
-            string roomsNoLimit = "";
-            string roomsPotLimit = "";
+           
             if (!noSpectatingCheckBox.IsChecked.Value)
             {
                 
@@ -126,8 +183,8 @@ namespace PokerClient.GUI
                 {
                     if (roomsList.ElementAt(i).Game.GamePreferences.AllowSpectating == false)
                     {
-                        roomsNoSpec = roomsNoSpec + roomsList.ElementAt(i).print() + "\n";
                         roomsList.RemoveAt(i);
+                        i = i - 1;
                         
                     }
                         
@@ -140,8 +197,8 @@ namespace PokerClient.GUI
                 {
                     if (roomsList.ElementAt(i).Game.GamePreferences.AllowSpectating == true)
                     {
-                        roomsYesSpec = roomsYesSpec + roomsList.ElementAt(i).print() + "\n";
                         roomsList.RemoveAt(i);
+                        i = i - 1;
                     }
                         
                 }
@@ -152,7 +209,12 @@ namespace PokerClient.GUI
                 for (int i=0; i < roomsList.Count; i++)
                 {
                     if (roomsList.ElementAt(i).Game.GamePreferences.GameTypePolicy1 == GamePreferences.GameTypePolicy.LIMIT)
+                    {
                         roomsList.RemoveAt(i);
+                        i = i - 1;
+                    }
+                       
+
                 }
                 
             }
@@ -163,7 +225,11 @@ namespace PokerClient.GUI
                 for (int i=0; i < roomsList.Count; i++)
                 {
                     if (roomsList.ElementAt(i).Game.GamePreferences.GameTypePolicy1 == GamePreferences.GameTypePolicy.NO_LIMIT)
+                    {
                         roomsList.RemoveAt(i);
+                        i = i - 1;
+                    }
+                        
                 }
             }
             if (!potLimitCheckBox.IsChecked.Value)
@@ -172,13 +238,18 @@ namespace PokerClient.GUI
                 for (int i = 0; i < roomsList.Count; i++)
                 {
                     if (roomsList.ElementAt(i).Game.GamePreferences.GameTypePolicy1 == GamePreferences.GameTypePolicy.POT_LIMIT)
+                    {
                         roomsList.RemoveAt(i);
+                        i = i - 1;
+                    }
+                        
                 }
             }
-            MessageBox.Show("no Spec :\n " + roomsNoSpec+ "\n yes spec: \n"+roomsYesSpec);
+           
             return roomsList;
 
         }
-       
+
+        
     }
 }

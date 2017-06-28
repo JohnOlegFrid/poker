@@ -163,11 +163,31 @@ namespace PokerClient
 
         }
 
+        public void displayRoomsByMinNumOfPlayers(int minNumOfPlayers)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MinPlayers == minNumOfPlayers)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
         public void displayRoomsByMaxBuyIn(int maxBuyIn)
         {
             RoomsToPlayObsever.Clear();
             foreach (Room room in roomsToPlay)
                 if (room.Game.GamePreferences.MaxBuyIn == maxBuyIn)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+        public void displayRoomsByMinBuyIn(int minBuyIn)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MinBuyIn == minBuyIn)
                     RoomsToPlayObsever.Add(room);
 
 
@@ -183,10 +203,12 @@ namespace PokerClient
 
         }
 
+
+
         public bool isNumber(string input)
         {
             int num;
-            return int.TryParse("123", out num);
+            return int.TryParse(input, out num);
         }
     }
 }
