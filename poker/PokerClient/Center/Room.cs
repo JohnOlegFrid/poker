@@ -37,5 +37,9 @@ namespace PokerClient.Center
 
         public int Id { get => id; set => id = value; }
         public IGame Game { get => game; set => game = value; }
+        public string print()
+        {
+            return "id:" + Id + " " + Game.GamePreferences.print();
+        }
     }
 }

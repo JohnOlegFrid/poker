@@ -23,7 +23,6 @@ namespace poker.ServiceLayer
             if(player.Num_of_games < 10)
                 return service.CreateJson(service.RoomsData.GetAllRooms());
             League l = service.LeaguesData.FindLeagueById(player.LeagueId);
-            Console.WriteLine(service.CreateJson(l.Rooms));
             return service.CreateJson(l.Rooms);
         }
 

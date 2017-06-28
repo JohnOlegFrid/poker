@@ -20,7 +20,8 @@ namespace PokerClient
         private EditWindow editWindow = null;
         private Login login = null;
         private List<Room> roomsToPlay = null;
-        ObservableCollection<Room> roomsToPlayObsever = null;
+        private ObservableCollection<Room> roomsToPlayObsever = null;
+        private MainPanel mainPanel = null;
         private static readonly object syncRoot = new object();
         public static string key = "fvggtzYH675PiXpjK5fGuGhadAa5Sjb1G4hUQobzlls=";
         public static string iv = "2EPvpwkqNxcc4qmKlPv80cpNWuVu6ypjwhGGE5dceMI=";
@@ -28,7 +29,7 @@ namespace PokerClient
         private static MainInfo instance;
 
         private MainInfo() {
-            this.roomsToPlayObsever = new ObservableCollection<Room>();
+            this.RoomsToPlayObsever = new ObservableCollection<Room>();
         }
 
         public bool ConnectToServer(String ip)
@@ -49,7 +50,7 @@ namespace PokerClient
 
         public static void CleanInfo()
         {
-            instance.roomsToPlayObsever = new ObservableCollection<Room>();
+            instance.RoomsToPlayObsever = new ObservableCollection<Room>();
             instance.roomsToPlay = null;
             instance.player = null;
         }
@@ -88,23 +89,24 @@ namespace PokerClient
             set {
                 UpdateRooms(value);
                 Application.Current.Dispatcher.Invoke(() => {
-                    roomsToPlayObsever.Clear();
+                    RoomsToPlayObsever.Clear();
                     foreach (Room room in roomsToPlay)
-                        roomsToPlayObsever.Add(room);
-                    string rooms = "";
-                    foreach (Room room in roomsToPlayObsever)
-                        rooms = " " + rooms + room.Id;
+                        RoomsToPlayObsever.Add(room);
+                    if (MainInfo.Instance.MainPanel != null)
+                    {
+                        MainInfo.Instance.MainPanel.filterByTypeAndSpect(RoomsToPlayObsever);
+                    }
                 
                 });
                 
                 
             } }
 
-        public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
+        //public ObservableCollection<Room> RoomsToPlayObsever { get { return roomsToPlayObsever; } }
 
         public EditWindow EditWindow { get => editWindow; set => editWindow = value; }
-
-
+        public ObservableCollection<Room> RoomsToPlayObsever { get => roomsToPlayObsever; set => roomsToPlayObsever = value; }
+        public MainPanel MainPanel { get => mainPanel; set => mainPanel = value; }
 
         public Room FindRoomById(int roomId)
         {
@@ -149,6 +151,64 @@ namespace PokerClient
         public String getPlayerEmail()
         {
             return player.Email;
+        }
+
+        public void displayRoomsByMaxNumOfPlayers (int maxNumOfPlayers)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MaxPlayers==maxNumOfPlayers)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+        public void displayRoomsByMinNumOfPlayers(int minNumOfPlayers)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MinPlayers == minNumOfPlayers)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+        public void displayRoomsByMaxBuyIn(int maxBuyIn)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MaxBuyIn == maxBuyIn)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+        public void displayRoomsByMinBuyIn(int minBuyIn)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.MinBuyIn == minBuyIn)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+        public void displayRoomsByBigBlind(int bigBlind)
+        {
+            RoomsToPlayObsever.Clear();
+            foreach (Room room in roomsToPlay)
+                if (room.Game.GamePreferences.BigBlind == bigBlind)
+                    RoomsToPlayObsever.Add(room);
+
+
+        }
+
+
+
+        public bool isNumber(string input)
+        {
+            int num;
+            return int.TryParse(input, out num);
         }
     }
 }

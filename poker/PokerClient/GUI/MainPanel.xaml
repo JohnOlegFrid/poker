@@ -10,11 +10,12 @@
         <Image Source="Images/MainMenuBack.jpg" Height="620" Stretch="Fill"/>
 
         <Grid >
-            <ListView Name="RoomsList" Height="446" Margin="42,108,0,0" VerticalAlignment="Top" Width="400" HorizontalAlignment="Left" >
+            <ListView Name="RoomsList" Height="389" Margin="33,108,0,0" VerticalAlignment="Top" Width="469" HorizontalAlignment="Left" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Room ID"  DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Header="ID"  DisplayMemberBinding="{Binding Id}" />
                         <GridViewColumn Header="Max players"  DisplayMemberBinding="{Binding Game.GamePreferences.MaxPlayers}" />
+                        <GridViewColumn Header="Min players"  DisplayMemberBinding="{Binding Game.GamePreferences.MinPlayers}" />
                         <GridViewColumn Header="Max Buy in" DisplayMemberBinding="{Binding Game.GamePreferences.MaxBuyIn}" />
                         <GridViewColumn Header="Big blind" DisplayMemberBinding="{Binding Game.GamePreferences.BigBlind}" />
                         <GridViewColumn Header="Allow Spectating" DisplayMemberBinding="{Binding Game.GamePreferences.AllowSpectating}" />
@@ -24,10 +25,7 @@
             </ListView>
         </Grid>
 
-
-
-
-        <Label Content=" Rooms available to play :" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top" Height="40" Width="400" FontSize="20" Foreground="#FF060000" FontWeight="Bold">
+        <Label Content=" Rooms available to play :" HorizontalAlignment="Left" Margin="33,33,0,0" VerticalAlignment="Top" Height="40" Width="450" FontSize="20" Foreground="#FF060000" FontWeight="Bold">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFEEEAEA" Offset="0"/>
@@ -35,7 +33,34 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <Button Content="Open Room!" HorizontalAlignment="Left" Height="96" Margin="466,108,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF3A49AF" Click="Button_Click" Foreground="White"/>
-        <Button x:Name="newRoomButtton" Content="New Room" HorizontalAlignment="Left" Height="96" Margin="466,242,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF1DD411" IsCancel="True" Foreground="White" Click="newRoomButtton_Click"/>
+        <Button Content="Open Room!" HorizontalAlignment="Left" Height="96" Margin="516,108,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF3A49AF" Click="Button_Click" Foreground="White"/>
+        <Button x:Name="newRoomButtton" Content="New Room" HorizontalAlignment="Left" Height="96" Margin="516,214,0,0" VerticalAlignment="Top" Width="240" FontSize="30" Background="#FF1DD411" IsCancel="True" Foreground="White" Click="newRoomButtton_Click"/>
+        <Button x:Name="refreshButton" Content="Refresh List" HorizontalAlignment="Left" Margin="33,84,0,0" VerticalAlignment="Top" Width="75" Click="refreshButton_Click" />
+
+        <Button x:Name="filterByMaxNumOfPlayersButton" Content="Filter By Max Players" HorizontalAlignment="Left" Margin="516,347,0,0" VerticalAlignment="Top" Width="120" Click="filterByMaxNumOfPlayersButton_Click" />
+        <TextBox x:Name="maxNumOfPlayersTextBox" HorizontalAlignment="Left" Height="20" Margin="655,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Button x:Name="filterByMaxBuyInButton" Content="Filter By Max Buy In" HorizontalAlignment="Left" Margin="516,413,0,0" VerticalAlignment="Top" Width="120" Click="filterByMaxBuyInButton_Click" />
+        <TextBox x:Name="MaxBuyInTextBox" HorizontalAlignment="Left" Height="20" Margin="655,413,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Button x:Name="filterByMinNumOfPlayersButton" Content="Filter By Min Players" HorizontalAlignment="Left" Margin="516,379,0,0" VerticalAlignment="Top" Width="120" Click="filterByMinNumOfPlayersButton_Click" />
+        <TextBox x:Name="minNumOfPlayersTextBox" HorizontalAlignment="Left" Height="20" Margin="655,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Button x:Name="filterByMinBuyInButton" Content="Filter By Min Buy In" HorizontalAlignment="Left" Margin="516,445,0,0" VerticalAlignment="Top" Width="120" Click="filterByMinBuyInButton_Click" />
+        <TextBox x:Name="MinBuyInTextBox" HorizontalAlignment="Left" Height="20" Margin="655,445,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Button x:Name="filterByBigBlindButton" Content="Filter By Big Blind" HorizontalAlignment="Left" Margin="516,477,0,0" VerticalAlignment="Top" Width="120" Click="filterByBigBlindButton_Click" />
+        <TextBox x:Name="BigBlindTextBox" HorizontalAlignment="Left" Height="20" Margin="655,477,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+
+        <CheckBox x:Name="noSpectatingCheckBox" Content="Don't Allow Spectating" HorizontalAlignment="Left" Margin="148,503,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+        <CheckBox x:Name="yesSpectatingCheckBox" Content="Allow Spectating" HorizontalAlignment="Left" Margin="333,503,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="33,501,0,0" TextWrapping="Wrap" Text="Spectating :" VerticalAlignment="Top" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="33,521,0,0" TextWrapping="Wrap" Text="Policy type :" VerticalAlignment="Top" Foreground="White"/>
+        <CheckBox x:Name="limitCheckBox" Content="Limit" HorizontalAlignment="Left" Margin="148,523,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+        <CheckBox x:Name="noLimitCheckBox" Content="No Limit" HorizontalAlignment="Left" Margin="227,523,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+        <CheckBox x:Name="potLimitCheckBox" Content="Pot Limit" HorizontalAlignment="Left" Margin="334,523,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+
+
     </Grid>
 </UserControl>
